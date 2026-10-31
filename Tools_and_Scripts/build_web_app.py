@@ -33,709 +33,1178 @@ html = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RE:DOJO — Awwwards-Inspired Reverse Engineering, Binary Auditing & Offline Game Hacking RPG Progression Engine (F- to SSS++)" />
+  <meta name="theme-color" content="#14171c" />
   <title>🛡️ RE:DOJO — Reverse Engineering & Offline Game Hacking RPG</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
   <style>
-    /* Eye-Friendly Low-Glare Matte Dark Themes (No Harsh Neon Glare) */
+    /* =========================================================================
+       1. AWWWARDS CYBER-TACTICAL DESIGN SYSTEM & OKLCH/MATTE COLOR TOKENS
+       ========================================================================= */
     :root, [data-theme="dimmed"] {{
-      --bg-dark: #16191e;
-      --bg-card: #1d2128;
-      --bg-input: #13161a;
-      --bg-hover: #242932;
-      --border: #2c323c;
-      --accent: #5389c6;
-      --accent-soft: rgba(83, 137, 198, 0.14);
-      --gold: #b58d3d;
-      --green: #489456;
-      --green-soft: rgba(72, 148, 86, 0.13);
-      --purple: #7d66ad;
-      --text: #adbac7;
-      --heading: #cdd9e5;
-      --muted: #768390;
+      --bg-dark: #12151a;
+      --bg-elevated: #171b22;
+      --bg-card: #1b2028;
+      --bg-input: #101318;
+      --bg-hover: #222833;
+      --border: #2a313d;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-glow: rgba(91, 155, 213, 0.42);
+      --accent: #5b9bd5;
+      --accent-bright: #79b8ff;
+      --accent-soft: rgba(91, 155, 213, 0.14);
+      --gold: #d4a74a;
+      --gold-soft: rgba(212, 167, 74, 0.14);
+      --green: #4ca960;
+      --green-bright: #85e89d;
+      --green-soft: rgba(76, 169, 96, 0.14);
+      --purple: #9378c9;
+      --text: #b4c0ce;
+      --heading: #e4ecf4;
+      --muted: #7f8c9b;
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.55), 0 1px 0 0 rgba(255, 255, 255, 0.04) inset;
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
     }}
     [data-theme="carbon"] {{
-      --bg-dark: #0e1013;
-      --bg-card: #15181c;
-      --bg-input: #0b0c0e;
-      --bg-hover: #1b1f24;
-      --border: #252930;
-      --accent: #497db8;
-      --accent-soft: rgba(73, 125, 184, 0.14);
-      --gold: #a68034;
-      --green: #3f854d;
-      --green-soft: rgba(63, 133, 77, 0.12);
-      --purple: #6f599c;
-      --text: #9ca8b4;
-      --heading: #bfc9d4;
-      --muted: #68737e;
+      --bg-dark: #090b0e;
+      --bg-elevated: #0f1217;
+      --bg-card: #13171d;
+      --bg-input: #07090b;
+      --bg-hover: #1a2028;
+      --border: #222832;
+      --border-subtle: rgba(255, 255, 255, 0.05);
+      --border-glow: rgba(88, 166, 255, 0.45);
+      --accent: #4c8fd1;
+      --accent-bright: #79c0ff;
+      --accent-soft: rgba(76, 143, 209, 0.14);
+      --gold: #c69739;
+      --gold-soft: rgba(198, 151, 57, 0.14);
+      --green: #429954;
+      --green-bright: #7ee787;
+      --green-soft: rgba(66, 153, 84, 0.13);
+      --purple: #8468ba;
+      --text: #a5b2c0;
+      --heading: #dbe4ee;
+      --muted: #727f8e;
+      --shadow-card: 0 12px 34px -10px rgba(0, 0, 0, 0.78), 0 1px 0 0 rgba(255, 255, 255, 0.04) inset;
     }}
     [data-theme="sepia"] {{
-      --bg-dark: #191714;
-      --bg-card: #221f1b;
-      --bg-input: #141210;
-      --bg-hover: #2a2621;
-      --border: #36312a;
-      --accent: #688ea8;
-      --accent-soft: rgba(104, 142, 168, 0.15);
-      --gold: #b88c42;
-      --green: #588f5a;
-      --green-soft: rgba(88, 143, 90, 0.13);
-      --purple: #876c99;
-      --text: #b8b0a4;
-      --heading: #d4ccc0;
-      --muted: #857d72;
+      --bg-dark: #171512;
+      --bg-elevated: #1e1b17;
+      --bg-card: #221f1a;
+      --bg-input: #12100e;
+      --bg-hover: #2b2721;
+      --border: #363028;
+      --border-subtle: rgba(255, 245, 230, 0.05);
+      --border-glow: rgba(114, 156, 184, 0.4);
+      --accent: #729cb8;
+      --accent-bright: #97bed8;
+      --accent-soft: rgba(114, 156, 184, 0.15);
+      --gold: #c79848;
+      --gold-soft: rgba(199, 152, 72, 0.15);
+      --green: #619c64;
+      --green-bright: #94d297;
+      --green-soft: rgba(97, 156, 100, 0.14);
+      --purple: #9679a8;
+      --text: #bfb6a9;
+      --heading: #e2d9cc;
+      --muted: #8c8377;
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 1px 0 0 rgba(255, 245, 230, 0.04) inset;
     }}
-    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+
+    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    html {{ scroll-behavior: smooth; color-scheme: dark; }}
+
     body {{
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: var(--font-sans);
       background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -15%, var(--accent-soft), transparent),
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 36px 36px, 36px 36px;
       color: var(--text);
       min-height: 100vh;
-      line-height: 1.55;
-      padding-bottom: 60px;
+      line-height: 1.58;
+      padding-bottom: 80px;
       transition: background-color 0.2s, color 0.2s;
     }}
-    .container {{ max-width: 1280px; margin: 0 auto; padding: 20px 16px; }}
-    header {{
-      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
-      gap: 14px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border);
+
+    /* Skip link & WCAG 2.2 AA Focus States */
+    .skip-link {{
+      position: absolute; top: -100px; left: 16px; z-index: 9999;
+      background: var(--accent); color: #fff; padding: 8px 14px; border-radius: var(--radius-sm);
+      font-weight: 700; text-decoration: none;
     }}
-    header h1 {{ font-size: 1.35rem; color: var(--heading); font-weight: 700; display: flex; align-items: center; gap: 8px; }}
-    .header-controls {{ display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }}
+    .skip-link:focus {{ top: 12px; }}
+    :focus-visible {{
+      outline: 2px solid var(--accent-bright);
+      outline-offset: 2px;
+    }}
+
+    .container {{ max-width: 1320px; margin: 0 auto; padding: 18px 20px; }}
+
+    /* =========================================================================
+       2. STICKY CYBER-HUD TOPBAR & COMMAND PALETTE TRIGGER
+       ========================================================================= */
+    header.hud-bar {{
+      position: sticky; top: 0; z-index: 50;
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 12px; margin-bottom: 22px; padding: 12px 16px;
+      background: color-mix(in srgb, var(--bg-elevated) 86%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+    }}
+    .brand-cluster {{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }}
+    .brand-emblem {{
+      width: 38px; height: 38px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent-soft), rgba(212, 167, 74, 0.12));
+      border: 1px solid var(--border-glow);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }}
+    header h1 {{
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+      color: var(--heading);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }}
+    .brand-sub {{
+      font-size: 0.74rem; color: var(--muted); font-family: var(--font-mono);
+      display: block; margin-top: 1px;
+    }}
+    .header-controls {{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }}
+    .cmd-trigger {{
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--bg-input); color: var(--text);
+      border: 1px solid var(--border); padding: 6px 11px; border-radius: var(--radius-sm);
+      font-size: 0.78rem; cursor: pointer; font-family: inherit;
+      transition: border-color 0.15s, background 0.15s;
+    }}
+    .cmd-trigger:hover {{ border-color: var(--accent); background: var(--bg-hover); color: var(--heading); }}
+    .cmd-trigger kbd {{
+      font-family: var(--font-mono); font-size: 0.7rem; padding: 1px 5px;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; color: var(--accent-bright);
+    }}
     .privacy-pill {{
-      font-size: 0.76rem; background: var(--green-soft); color: #7bc287;
-      border: 1px solid rgba(72, 148, 86, 0.35); padding: 5px 10px; border-radius: 6px;
+      font-size: 0.74rem; background: var(--green-soft); color: var(--green-bright);
+      border: 1px solid rgba(76, 169, 96, 0.38); padding: 5px 10px; border-radius: var(--radius-sm);
+      font-weight: 600;
     }}
     .theme-ctrl {{
-      display: flex; align-items: center; gap: 8px; background: var(--bg-card);
-      border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; font-size: 0.78rem; color: var(--muted);
+      display: flex; align-items: center; gap: 7px; background: var(--bg-input);
+      border: 1px solid var(--border); padding: 4px 10px; border-radius: var(--radius-sm);
+      font-size: 0.76rem; color: var(--muted);
     }}
     .theme-ctrl select {{
-      background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
-      padding: 3px 6px; border-radius: 4px; font-size: 0.78rem;
+      background: var(--bg-card); color: var(--heading); border: 1px solid var(--border);
+      padding: 3px 6px; border-radius: 4px; font-size: 0.76rem; cursor: pointer;
     }}
-    .theme-ctrl input[type="range"] {{ width: 75px; accent-color: var(--accent); cursor: pointer; }}
+    .theme-ctrl input[type="range"] {{ width: 68px; accent-color: var(--accent); cursor: pointer; }}
 
-    /* RPG Character Sheet — Matte Low-Glare Card */
-    .char-sheet {{
+    /* =========================================================================
+       3. BENTO TELEMETRY CHARACTER SHEET & 8-AXIS RADAR HUD
+       ========================================================================= */
+    .bento-hero {{
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 0.85fr;
+      gap: 16px;
+      margin-bottom: 22px;
+    }}
+    @media (max-width: 1080px) {{ .bento-hero {{ grid-template-columns: 1fr 1fr; }} }}
+    @media (max-width: 740px) {{ .bento-hero {{ grid-template-columns: 1fr; }} }}
+
+    .bento-card {{
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 10px; padding: 18px 20px; margin-bottom: 20px;
-      display: grid; grid-template-columns: 1.25fr 1fr; gap: 22px;
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
     }}
-    @media (max-width: 860px) {{ .char-sheet {{ grid-template-columns: 1fr; }} }}
-    .char-header {{ display: flex; align-items: center; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }}
+    .bento-card::after {{
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--gold), transparent);
+      opacity: 0.55;
+    }}
+    .char-header {{ display: flex; align-items: center; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }}
     .rank-orb {{
-      width: 60px; height: 60px; border-radius: 10px;
-      background: var(--bg-input);
+      width: 66px; height: 66px; border-radius: 14px;
+      background: radial-gradient(circle at 30% 30%, var(--accent-soft), var(--bg-input));
       border: 2px solid var(--accent);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.25rem; font-weight: 800; color: var(--heading);
+      box-shadow: 0 0 20px rgba(91, 155, 213, 0.22);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
     }}
+    .rank-orb-label {{ font-size: 0.58rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }}
+    .rank-orb-code {{ font-size: 1.3rem; font-weight: 800; color: var(--heading); line-height: 1.1; }}
     .name-input {{
       background: var(--bg-input); border: 1px solid var(--border); color: var(--heading);
-      font-size: 1.05rem; font-weight: 700; padding: 5px 10px; border-radius: 6px; width: 220px;
+      font-size: 1.05rem; font-weight: 700; padding: 5px 10px; border-radius: var(--radius-sm);
+      width: 230px; transition: border-color 0.15s;
     }}
-    .stat-row {{ display: flex; justify-content: space-between; font-size: 0.86rem; margin: 5px 0; color: var(--muted); }}
-    .stat-row strong {{ color: var(--heading); }}
+    .name-input:focus {{ border-color: var(--accent); }}
+    .stat-row {{ display: flex; justify-content: space-between; font-size: 0.84rem; margin: 5px 0; color: var(--muted); }}
+    .stat-row strong {{ color: var(--heading); font-family: var(--font-mono); }}
     .progress-track {{
-      width: 100%; height: 10px; background: var(--bg-input); border-radius: 6px;
-      overflow: hidden; border: 1px solid var(--border); margin: 6px 0 10px;
+      width: 100%; height: 11px; background: var(--bg-input); border-radius: 999px;
+      overflow: hidden; border: 1px solid var(--border); margin: 8px 0 12px;
     }}
     .progress-fill {{
-      height: 100%; background: var(--accent);
-      width: 0%; transition: width 0.3s ease;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      width: 0%;
+      transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }}
+    .telemetry-pills {{
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px;
+    }}
+    .tele-pill {{
+      background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 7px 9px; text-align: center;
+    }}
+    .tele-pill .val {{ font-family: var(--font-mono); font-size: 0.96rem; font-weight: 800; color: var(--heading); display: block; }}
+    .tele-pill .lbl {{ font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }}
+
     .skill-grid {{
-      display: grid; grid-template-columns: 1fr 1fr; gap: 7px; align-content: center;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 7px; align-content: start;
     }}
     .skill-chip {{
-      font-size: 0.76rem; padding: 6px 9px; border-radius: 6px;
+      font-size: 0.75rem; padding: 7px 10px; border-radius: var(--radius-sm);
       background: var(--bg-input); border: 1px solid var(--border); color: var(--muted);
+      display: flex; align-items: center; gap: 6px; transition: transform 0.15s, border-color 0.15s;
     }}
     .skill-chip.unlocked {{
-      border-color: rgba(72, 148, 86, 0.5); color: #8fd19a; background: var(--green-soft);
+      border-color: rgba(76, 169, 96, 0.5); color: var(--green-bright); background: var(--green-soft);
+      font-weight: 600;
+    }}
+    .radar-wrap {{
+      display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;
+    }}
+    .radar-title {{
+      font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.07em;
+      color: var(--muted); margin-bottom: 6px; font-weight: 700;
     }}
 
-    /* Navigation Tabs */
-    .tabs {{ display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }}
+    /* =========================================================================
+       4. CSS ANCHOR POSITIONING TABS + SAME-DOCUMENT VIEW TRANSITIONS
+          (Modern Web Guidance: anchor-positioning-tab-underline & same-document-transitions)
+       ========================================================================= */
+    nav.tabs-nav {{ margin-bottom: 18px; }}
+    ul.tabs-list {{
+      list-style: none;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      position: relative;
+      background: var(--bg-card);
+      padding: 7px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+    }}
+    ul.tabs-list::before {{
+      content: '';
+      position: absolute;
+      position-anchor: --active-tab;
+      inset-block-start: calc(anchor(bottom) - 3px);
+      inset-inline-start: anchor(left);
+      inset-inline-end: anchor(right);
+      block-size: 3px;
+      background-color: var(--accent-bright);
+      border-radius: 99px;
+      z-index: 2;
+      pointer-events: none;
+    }}
+    @media (prefers-reduced-motion: no-preference) {{
+      ul.tabs-list::before {{
+        transition: inset .2s cubic-bezier(0.22, 1, 0.36, 1);
+      }}
+    }}
     .tab-btn {{
-      background: var(--bg-card); color: var(--text); border: 1px solid var(--border);
-      padding: 8px 14px; border-radius: 7px; cursor: pointer; font-weight: 600; font-size: 0.85rem;
-      transition: background 0.15s, border-color 0.15s;
+      background: transparent; color: var(--text); border: 1px solid transparent;
+      padding: 8px 13px; border-radius: var(--radius-sm); cursor: pointer;
+      font-weight: 600; font-size: 0.83rem; font-family: inherit;
+      transition: background 0.15s, color 0.15s;
     }}
-    .tab-btn:hover {{ background: var(--bg-hover); }}
-    .tab-btn.active {{
-      background: var(--accent-soft); color: var(--heading); border-color: var(--accent);
+    .tab-btn:hover {{ background: var(--bg-hover); color: var(--heading); }}
+    .tab-btn[aria-selected="true"], .tab-btn.active {{
+      anchor-name: --active-tab;
+      background: var(--accent-soft);
+      color: var(--heading);
+      border-color: rgba(91, 155, 213, 0.35);
     }}
-    .tab-panel {{ display: none; }}
-    .tab-panel.active {{ display: block; }}
+    @supports not (position-anchor: auto) {{
+      ul.tabs-list::before {{ display: none; }}
+      .tab-btn[aria-selected="true"], .tab-btn.active {{
+        border-bottom: 3px solid var(--accent-bright);
+      }}
+    }}
 
-    /* Filter Bar */
+    /* View Transitions for Tab Switching */
+    .tab-panel {{ display: none; view-transition-name: active-dojo-panel; }}
+    .tab-panel.active {{ display: block; }}
+    @media (prefers-reduced-motion: reduce) {{
+      ::view-transition-group(*),
+      ::view-transition-old(*),
+      ::view-transition-new(*) {{
+        animation-duration: 0.01ms !important;
+      }}
+    }}
+
+    /* =========================================================================
+       5. FILTER BARS, ENGINE CHIPS & OFF-SCREEN DEFERRED TIER CARDS
+          (Modern Web Guidance: defer-rendering-heavy-content & interactions-in-complex-layouts)
+       ========================================================================= */
     .filter-bar {{
-      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;
-      background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border);
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;
+      background: var(--bg-card); padding: 12px 14px; border-radius: var(--radius-md);
+      border: 1px solid var(--border); align-items: center;
     }}
     .filter-bar input, .filter-bar select {{
-      background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
-      padding: 7px 11px; border-radius: 6px; font-size: 0.86rem;
+      background: var(--bg-input); color: var(--heading); border: 1px solid var(--border);
+      padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.85rem; font-family: inherit;
     }}
     .filter-bar input {{ flex: 1; min-width: 220px; }}
+    .chip-bar {{
+      display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; align-items: center;
+    }}
+    .chip-btn {{
+      background: var(--bg-input); color: var(--muted); border: 1px solid var(--border);
+      padding: 5px 11px; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; transition: all 0.15s; font-family: inherit;
+    }}
+    .chip-btn:hover {{ color: var(--heading); border-color: var(--accent); }}
+    .chip-btn.active {{
+      background: var(--accent-soft); color: var(--accent-bright); border-color: var(--accent);
+    }}
 
-    /* Tier Cards */
+    /* Tier Cards + Off-screen content-visibility: auto with mandatory contain-intrinsic-size */
     .tier-card {{
       background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 8px; padding: 15px; margin-bottom: 12px;
+      border-radius: var(--radius-md); padding: 16px 18px; margin-bottom: 12px;
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.2s;
     }}
-    .tier-card.cleared {{ border-color: rgba(72, 148, 86, 0.55); }}
+    .tier-card.deferred-tier {{
+      content-visibility: auto;
+      contain-intrinsic-size: auto none auto 220px;
+    }}
+    @supports not (content-visibility: auto) {{
+      .tier-card.deferred-tier {{
+        contain: layout style paint;
+      }}
+    }}
+    .tier-card.cleared {{ border-color: rgba(76, 169, 96, 0.55); }}
     .tier-top {{
       display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 8px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+      flex-wrap: wrap; gap: 8px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
     }}
     .tier-badge {{
       display: inline-block; padding: 3px 9px; border-radius: 5px;
-      font-weight: 700; font-size: 0.8rem; background: var(--bg-input); color: var(--accent); border: 1px solid var(--border);
+      font-weight: 800; font-size: 0.78rem; font-family: var(--font-mono);
+      background: var(--bg-input); color: var(--accent-bright); border: 1px solid var(--border);
     }}
-    .tier-card.cleared .tier-badge {{ background: var(--green-soft); color: #8fd19a; border-color: rgba(72, 148, 86, 0.4); }}
+    .tier-card.cleared .tier-badge {{
+      background: var(--green-soft); color: var(--green-bright); border-color: rgba(76, 169, 96, 0.45);
+    }}
     .tp-pill {{
-      font-size: 0.78rem; font-weight: 600; padding: 3px 9px; border-radius: 5px;
+      font-size: 0.76rem; font-weight: 700; font-family: var(--font-mono);
+      padding: 4px 10px; border-radius: 999px;
       background: var(--bg-input); border: 1px solid var(--border);
     }}
-    .quest-list {{ list-style: none; display: grid; gap: 6px; }}
+    .quest-list {{ list-style: none; display: grid; gap: 7px; }}
     .quest-item {{
-      display: flex; align-items: flex-start; gap: 9px; padding: 8px 11px;
-      background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; cursor: pointer;
+      display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px;
+      background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      cursor: pointer; transition: background 0.14s, border-color 0.14s, transform 0.1s;
     }}
-    .quest-item:hover {{ background: var(--bg-hover); }}
-    .quest-item.done {{ background: var(--green-soft); border-color: rgba(72, 148, 86, 0.38); }}
-    .quest-item input[type="checkbox"] {{ margin-top: 3px; transform: scale(1.1); accent-color: var(--green); }}
+    .quest-item:hover {{ background: var(--bg-hover); border-color: rgba(91, 155, 213, 0.4); }}
+    .quest-item.done {{ background: var(--green-soft); border-color: rgba(76, 169, 96, 0.42); }}
+    .quest-item input[type="checkbox"] {{
+      margin-top: 3px; width: 16px; height: 16px; accent-color: var(--green); cursor: pointer;
+    }}
     .q-tag {{
-      font-size: 0.7rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;
+      font-size: 0.69rem; font-weight: 700; padding: 2px 7px; border-radius: 4px;
       text-transform: uppercase; white-space: nowrap; border: 1px solid transparent;
+      font-family: var(--font-mono);
     }}
-    .tag-dojo {{ background: rgba(125, 102, 173, 0.16); color: #b9a6dc; border-color: rgba(125, 102, 173, 0.3); }}
-    .tag-game {{ background: rgba(83, 137, 198, 0.15); color: #90b8e4; border-color: rgba(83, 137, 198, 0.3); }}
-    .tag-soft {{ background: rgba(181, 141, 61, 0.15); color: #d4b475; border-color: rgba(181, 141, 61, 0.3); }}
-    .tag-tool {{ background: rgba(72, 148, 86, 0.15); color: #8fd19a; border-color: rgba(72, 148, 86, 0.3); }}
+    .tag-dojo {{ background: rgba(147, 120, 201, 0.16); color: #c8b5ed; border-color: rgba(147, 120, 201, 0.35); }}
+    .tag-game {{ background: rgba(91, 155, 213, 0.15); color: #9ac8f5; border-color: rgba(91, 155, 213, 0.35); }}
+    .tag-soft {{ background: rgba(212, 167, 74, 0.15); color: #e6c373; border-color: rgba(212, 167, 74, 0.35); }}
+    .tag-tool {{ background: rgba(76, 169, 96, 0.15); color: #95e0a3; border-color: rgba(76, 169, 96, 0.35); }}
 
-    /* Boxes, Forms, Tables */
+    /* =========================================================================
+       6. RESPONSIVE CONTAINER-QUERY TABLES WITH STICKY HEADERS & STACKED FALLBACK
+          (Modern Web Guidance: responsive-table)
+       ========================================================================= */
+    .table-wrapper {{
+      container-type: inline-size;
+      overflow: auto;
+      max-inline-size: 100%;
+      max-block-size: 680px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+    }}
+    .table-wrapper table {{
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }}
+    .table-wrapper th,
+    .table-wrapper td {{
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: start;
+      vertical-align: top;
+    }}
+    .table-wrapper thead {{
+      position: sticky;
+      inset-block-start: 0;
+      background: var(--bg-elevated);
+      z-index: 2;
+    }}
+    .table-wrapper thead th {{
+      color: var(--heading);
+      font-weight: 700;
+      border-bottom: 2px solid var(--border);
+    }}
+    .table-wrapper tbody th {{
+      position: sticky;
+      inset-inline-start: 0;
+      background: var(--bg-card);
+      color: var(--heading);
+      z-index: 1;
+    }}
+    .table-wrapper tbody tr:hover {{
+      background: var(--bg-hover);
+    }}
+    @container (width < 600px) {{
+      .table-wrapper thead {{
+        display: none;
+      }}
+      .table-wrapper tr {{
+        display: grid;
+        padding: 0.75rem 1rem;
+        border-block-end: 1px solid var(--border);
+        gap: 4px;
+      }}
+      .table-wrapper td,
+      .table-wrapper tbody th {{
+        display: block;
+        padding: 0.2rem 0;
+        border: none;
+        position: static;
+        background: transparent;
+      }}
+      .table-wrapper td::before {{
+        font-weight: 700;
+        color: var(--accent-bright);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+      }}
+      .table-wrapper.top200-wrapper {{
+        --label-1: "Status";
+        --label-2: "Rank";
+        --label-3: "Game Title";
+        --label-4: "Engine";
+        --label-5: "Tier";
+        --label-6: "Diff";
+        --label-7: "RE Targets";
+      }}
+      .table-wrapper.top200-wrapper td:nth-child(1)::before {{ content: var(--label-1) ": "; }}
+      .table-wrapper.top200-wrapper td:nth-child(2)::before {{ content: var(--label-2) ": "; }}
+      .table-wrapper.top200-wrapper td:nth-child(4)::before {{ content: var(--label-4) ": "; }}
+      .table-wrapper.top200-wrapper td:nth-child(5)::before {{ content: var(--label-5) ": "; }}
+      .table-wrapper.top200-wrapper td:nth-child(6)::before {{ content: var(--label-6) ": "; }}
+      .table-wrapper.top200-wrapper td:nth-child(7)::before {{ content: var(--label-7) ": "; }}
+    }}
+
+    /* =========================================================================
+       7. BOXES, DRAG-AND-DROP AUTO-GRADER, COMMAND PALETTE & TOASTS
+       ========================================================================= */
     .card-box {{
       background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 8px; padding: 18px; margin-bottom: 16px;
+      border-radius: var(--radius-lg); padding: 20px 22px; margin-bottom: 18px;
+      box-shadow: var(--shadow-card);
     }}
-    .card-box h2 {{ font-size: 1.15rem; color: var(--heading); margin-bottom: 6px; }}
-    .card-box h3 {{ font-size: 0.96rem; color: var(--heading); margin: 14px 0 6px; }}
-    .form-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }}
-    @media (max-width: 720px) {{ .form-grid {{ grid-template-columns: 1fr; }} }}
-    .form-group label {{ display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 4px; }}
+    .card-box h2 {{ font-size: 1.18rem; color: var(--heading); margin-bottom: 6px; letter-spacing: -0.01em; }}
+    .card-box h3 {{ font-size: 0.98rem; color: var(--heading); margin: 18px 0 8px; }}
+    .form-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }}
+    @media (max-width: 760px) {{ .form-grid {{ grid-template-columns: 1fr; }} }}
+    .form-group label {{ display: block; font-size: 0.81rem; color: var(--muted); margin-bottom: 5px; font-weight: 600; }}
     .form-group input, .form-group select, textarea {{
-      width: 100%; background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
-      padding: 8px 10px; border-radius: 6px; font-family: inherit; font-size: 0.86rem;
+      width: 100%; background: var(--bg-input); color: var(--heading); border: 1px solid var(--border);
+      padding: 9px 11px; border-radius: var(--radius-sm); font-family: inherit; font-size: 0.86rem;
     }}
-    textarea {{ font-family: 'Consolas', 'Courier New', monospace; font-size: 0.8rem; min-height: 220px; resize: vertical; }}
+    textarea {{
+      font-family: var(--font-mono); font-size: 0.79rem; min-height: 250px; resize: vertical; line-height: 1.5;
+    }}
+    .drop-zone {{
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      background: var(--bg-input);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+      transition: border-color 0.15s, background 0.15s;
+    }}
+    .drop-zone.dragover {{
+      border-color: var(--accent-bright);
+      background: var(--accent-soft);
+    }}
     .btn {{
       background: var(--accent); color: #fff; border: 1px solid var(--accent); padding: 8px 14px;
-      border-radius: 6px; font-weight: 600; font-size: 0.84rem; cursor: pointer; display: inline-block;
+      border-radius: var(--radius-sm); font-weight: 600; font-size: 0.83rem; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; font-family: inherit;
+      transition: filter 0.15s, transform 0.1s;
     }}
-    .btn:hover {{ opacity: 0.92; }}
+    .btn:hover {{ filter: brightness(1.1); }}
+    .btn:active {{ transform: translateY(1px); }}
     .btn-outline {{
       background: var(--bg-input); color: var(--text); border: 1px solid var(--border);
     }}
-    .btn-outline:hover {{ background: var(--bg-hover); border-color: var(--accent); }}
-    table {{ width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }}
-    th, td {{ padding: 9px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }}
-    th {{ color: var(--heading); background: var(--bg-input); position: sticky; top: 0; }}
+    .btn-outline:hover {{ background: var(--bg-hover); border-color: var(--accent); color: var(--heading); filter: none; }}
     pre {{
-      background: var(--bg-input); border: 1px solid var(--border); padding: 12px;
-      border-radius: 6px; overflow-x: auto; font-size: 0.8rem; color: #8fd19a; margin-top: 8px;
+      background: var(--bg-input); border: 1px solid var(--border); padding: 14px;
+      border-radius: var(--radius-sm); overflow-x: auto; font-size: 0.8rem;
+      font-family: var(--font-mono); color: var(--green-bright); margin-top: 10px; position: relative;
     }}
     code {{
-      font-family: 'Consolas', 'Courier New', monospace; font-size: 0.82rem;
-      background: var(--bg-input); padding: 2px 5px; border-radius: 4px; color: #90b8e4;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      background: var(--bg-input); padding: 2px 6px; border-radius: 4px; color: var(--accent-bright);
+      border: 1px solid var(--border-subtle);
     }}
     .axis-bar-row {{
       display: grid; grid-template-columns: 195px 95px 1fr; gap: 10px; align-items: center;
-      padding: 7px 10px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 6px;
-      font-size: 0.82rem;
+      padding: 8px 11px; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); margin-bottom: 7px; font-size: 0.81rem;
     }}
     @media (max-width: 720px) {{ .axis-bar-row {{ grid-template-columns: 1fr; }} }}
+
+    /* Command Palette Modal (<dialog>) */
+    dialog.cmd-dialog {{
+      margin: auto;
+      width: min(640px, 92vw);
+      background: var(--bg-elevated);
+      color: var(--text);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
+      padding: 0;
+      overflow: hidden;
+    }}
+    dialog.cmd-dialog::backdrop {{
+      background: rgba(5, 7, 10, 0.72);
+      backdrop-filter: blur(6px);
+    }}
+    .cmd-header {{
+      display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+      border-bottom: 1px solid var(--border); background: var(--bg-input);
+    }}
+    .cmd-header input {{
+      flex: 1; background: transparent; border: none; color: var(--heading);
+      font-size: 0.95rem; font-family: inherit; outline: none;
+    }}
+    .cmd-results {{
+      max-height: 360px; overflow-y: auto; padding: 8px; list-style: none;
+    }}
+    .cmd-item {{
+      display: flex; justify-content: space-between; align-items: center; gap: 10px;
+      padding: 9px 12px; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.84rem;
+    }}
+    .cmd-item:hover, .cmd-item:focus {{
+      background: var(--accent-soft); color: var(--heading); outline: none;
+    }}
+
+    /* Toast Notification */
+    .toast-region {{
+      position: fixed; bottom: 20px; right: 20px; z-index: 9000;
+      display: flex; flex-direction: column; gap: 8px; pointer-events: none;
+    }}
+    .toast-msg {{
+      background: var(--bg-elevated); color: var(--heading);
+      border: 1px solid var(--accent); border-left: 4px solid var(--green);
+      padding: 10px 14px; border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-card); font-size: 0.82rem; font-weight: 600;
+      pointer-events: auto;
+    }}
   </style>
 </head>
 <body>
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
+
   <div class="container" id="appRoot">
-    <header>
-      <h1>🛡️ RE:DOJO &mdash; Reverse Engineering & Offline Game Hacking RPG</h1>
+    <!-- TOP STICKY HUD BAR -->
+    <header class="hud-bar" role="banner">
+      <div class="brand-cluster">
+        <div class="brand-emblem" aria-hidden="true">🛡️</div>
+        <div>
+          <h1>RE:DOJO &mdash; Reverse Engineering &amp; Offline Game Hacking RPG</h1>
+          <span class="brand-sub">28-Tier Curriculum (F- to SSS++) • 5-Axis Artifact Evaluator • Top 200 Target Encyclopedia</span>
+        </div>
+      </div>
       <div class="header-controls">
-        <span class="privacy-pill" id="saveStatusPill">💾 Auto-Saved in Browser (localStorage)</span>
+        <button type="button" class="cmd-trigger" onclick="openCmdPalette()" aria-label="Open Quick Command Palette">
+          <span>⚡ Quick Jump</span>
+          <kbd>Ctrl+K</kbd>
+        </button>
+        <span class="privacy-pill" id="saveStatusPill" role="status" aria-live="polite">💾 Auto-Saved Locally</span>
         <div class="theme-ctrl">
-          <span>Theme:</span>
+          <label for="themeSelect">Theme:</label>
           <select id="themeSelect" onchange="changeTheme(this.value)">
             <option value="dimmed">🌙 Matte Dimmed</option>
             <option value="carbon">🌑 OLED Carbon</option>
             <option value="sepia">☕ Warm Sepia</option>
           </select>
-          <span>Dimmer:</span>
+          <label for="brightnessRange">Dimmer:</label>
           <input type="range" id="brightnessRange" min="65" max="100" value="95" oninput="changeBrightness(this.value)" title="Adjust screen brightness" />
         </div>
       </div>
     </header>
 
-    <!-- RPG CHARACTER SHEET -->
-    <section class="char-sheet">
-      <div>
-        <div class="char-header">
-          <div class="rank-orb" id="uiRankOrb">F-</div>
-          <div>
-            <div style="font-size:0.74rem; color:var(--muted);">ADVENTURER HANDLE (AUTO-SAVES ON EDIT)</div>
-            <input type="text" id="uiPlayerName" class="name-input" value="New Challenger" />
-            <div id="uiClassTitle" style="font-size:0.88rem; color:var(--accent); font-weight:600; margin-top:3px;">
-              Class: White-Box Novice
+    <main id="mainContent">
+      <!-- BENTO TELEMETRY CHARACTER SHEET -->
+      <section class="bento-hero" aria-label="Adventurer Progression Telemetry">
+        <!-- Card 1: Rank & Campaign Progress -->
+        <div class="bento-card">
+          <div class="char-header">
+            <div class="rank-orb" aria-live="polite">
+              <span class="rank-orb-label">RANK</span>
+              <span class="rank-orb-code" id="uiRankOrb">F-</span>
+            </div>
+            <div>
+              <label for="uiPlayerName" style="font-size:0.7rem; color:var(--muted); display:block; letter-spacing:0.05em;">ADVENTURER HANDLE (LOCAL STORAGE)</label>
+              <input type="text" id="uiPlayerName" class="name-input" value="New Challenger" />
+              <div id="uiClassTitle" style="font-size:0.86rem; color:var(--accent-bright); font-weight:700; margin-top:4px;">
+                Rank: Tier F- &mdash; White-Box Novice
+              </div>
+            </div>
+          </div>
+          <div class="stat-row">
+            <span>Campaign Tiers Cleared (<strong id="uiTiersCleared">0 / 29</strong>)</span>
+            <span>Total EXP: <strong id="uiTotalExp" style="color:var(--gold);">0 EXP</strong> (<span id="uiQuestsDone">0</span> Quests)</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-label="Campaign Tier Completion" aria-valuemin="0" aria-valuemax="100" id="uiProgressTrack">
+            <div class="progress-fill" id="uiCampaignBar"></div>
+          </div>
+          <div class="stat-row">
+            <span id="uiTrialLabel">Current Tier Trial (3 Same-Tier OR 1 Higher-Tier Breakthrough):</span>
+            <strong id="uiTpStatus" style="color:var(--green-bright);">0 / 3 TP</strong>
+          </div>
+          <div class="telemetry-pills">
+            <div class="tele-pill">
+              <span class="val" id="teleDojoDone">0 / 18</span>
+              <span class="lbl">🧪 Dojo Labs</span>
+            </div>
+            <div class="tele-pill">
+              <span class="val" id="teleTop200Done">0 / 200</span>
+              <span class="lbl">🎮 Top 200 Targets</span>
+            </div>
+            <div class="tele-pill">
+              <span class="val" id="teleNextRank">F</span>
+              <span class="lbl">🚀 Next Breakthrough</span>
             </div>
           </div>
         </div>
-        <div class="stat-row">
-          <span>Campaign Tiers Cleared (<strong id="uiTiersCleared">0 / 29</strong>)</span>
-          <span>Total EXP: <strong id="uiTotalExp" style="color:var(--gold);">0 EXP</strong> (<span id="uiQuestsDone">0</span> Quests)</span>
+
+        <!-- Card 2: 8-Stage Mastery Matrix -->
+        <div class="bento-card">
+          <div class="radar-title">🔓 8-Stage Reverse Engineering Mastery Matrix</div>
+          <div class="skill-grid" id="uiSkillGrid"></div>
         </div>
-        <div class="progress-track"><div class="progress-fill" id="uiCampaignBar"></div></div>
-        <div class="stat-row">
-          <span id="uiTrialLabel">Current Tier Trial (3 Same-Tier OR 1 Higher-Tier Breakthrough):</span>
-          <strong id="uiTpStatus" style="color:#8fd19a;">0 / 3 TP</strong>
+
+        <!-- Card 3: Live SVG Skill Radar Telemetry -->
+        <div class="bento-card radar-wrap">
+          <div class="radar-title">📡 Live 5-Axis Capability Radar</div>
+          <svg id="skillRadarSvg" viewBox="0 0 220 190" width="210" height="175" role="img" aria-label="5-Axis Reverse Engineering Capability Radar">
+            <polygon points="110,20 190,75 160,162 60,162 30,75" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+            <polygon points="110,48 162,84 142,142 78,142 58,84" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="3,3" />
+            <line x1="110" y1="95" x2="110" y2="20" stroke="rgba(255,255,255,0.08)" />
+            <line x1="110" y1="95" x2="190" y2="75" stroke="rgba(255,255,255,0.08)" />
+            <line x1="110" y1="95" x2="160" y2="162" stroke="rgba(255,255,255,0.08)" />
+            <line x1="110" y1="95" x2="60" y2="162" stroke="rgba(255,255,255,0.08)" />
+            <line x1="110" y1="95" x2="30" y2="75" stroke="rgba(255,255,255,0.08)" />
+            <polygon id="radarDataPoly" points="110,70 135,88 125,118 95,118 85,88" fill="rgba(91, 155, 213, 0.28)" stroke="#79b8ff" stroke-width="2" />
+            <text x="110" y="13" text-anchor="middle" fill="#b4c0ce" font-size="9" font-family="monospace">ARCH/ABI</text>
+            <text x="196" y="77" text-anchor="start" fill="#b4c0ce" font-size="9" font-family="monospace">PTR</text>
+            <text x="166" y="176" text-anchor="middle" fill="#b4c0ce" font-size="9" font-family="monospace">HOOKS</text>
+            <text x="54" y="176" text-anchor="middle" fill="#b4c0ce" font-size="9" font-family="monospace">OBFUS</text>
+            <text x="24" y="77" text-anchor="end" fill="#b4c0ce" font-size="9" font-family="monospace">RING0</text>
+          </svg>
         </div>
-      </div>
-      <div class="skill-grid" id="uiSkillGrid"></div>
-    </section>
+      </section>
 
-    <!-- NAVIGATION TABS -->
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('quests', this)">⚔️ 28-Tier Campaign Quests</button>
-      <button class="tab-btn" onclick="switchTab('top200', this)">🔥 Top 200 Popular Games (#001–#200)</button>
-      <button class="tab-btn" onclick="switchTab('autograde', this)">🔬 Auto-Grade Script / .CT / Trainer</button>
-      <button class="tab-btn" onclick="switchTab('cheatsheet', this)">📖 RE & Assembly Cheat Sheet</button>
-      <button class="tab-btn" onclick="switchTab('adder', this)">⚖️ 5-Axis Target Calculator</button>
-      <button class="tab-btn" onclick="switchTab('scoreboard', this)">🏅 Hall of Fame</button>
-      <button class="tab-btn" onclick="switchTab('sync', this)">💾 Save & README Sync</button>
-    </div>
+      <!-- NAVIGATION TABS (CSS Anchor Positioning + Accessible ARIA Tablist) -->
+      <nav class="tabs-nav" aria-label="Primary Workspace Sections">
+        <ul class="tabs-list" role="tablist">
+          <li role="presentation"><button type="button" role="tab" id="tabbtn-quests" aria-selected="true" aria-controls="tab-quests" class="tab-btn active" onclick="switchTab('quests', this)">⚔️ 28-Tier Campaign Quests</button></li>
+          <li role="presentation"><button type="button" role="tab" id="tabbtn-top200" aria-selected="false" aria-controls="tab-top200" class="tab-btn" onclick="switchTab('top200', this)">🔥 Top 200 Popular Games (#001–#200)</button></li>
+          <li role="presentation"><button type="button" role="tab" id="tabbtn-autograde" aria-selected="false" aria-controls="tab-autograde" class="tab-btn" onclick="switchTab('autograde', this)">🔬 Auto-Grade Script / .CT / Trainer</button></li>
+          <li role="presentation"><button type="button" role="tab" id="tabbtn-cheatsheet" aria-selected="false" aria-controls="tab-cheatsheet" class="tab-btn" onclick="switchTab('cheatsheet', this)">📖 RE &amp; Assembly Cheat Sheet</button></li>
+          <li role="presentation"><button type="button" role="tab" id="tabbtn-adder" aria-selected="false" aria-controls="tab-adder" class="tab-btn" onclick="switchTab('adder', this)">⚖️ 5-Axis Target Calculator</button></li>
+          <li role="presentation"><button type="button" role="tab" id="tabbtn-scoreboard" aria-selected="false" aria-controls="tab-scoreboard" class="tab-btn" onclick="switchTab('scoreboard', this)">🏅 Hall of Fame</button></li>
+          <li role="presentation"><button type="button" role="tab" id="tabbtn-sync" aria-selected="false" aria-controls="tab-sync" class="tab-btn" onclick="switchTab('sync', this)">💾 Save &amp; README Sync</button></li>
+        </ul>
+      </nav>
 
-    <!-- TAB 1: QUEST LOG -->
-    <div id="tab-quests" class="tab-panel active">
-      <div class="filter-bar">
-        <input type="text" id="searchBox" placeholder="🔍 Search quests, C++ labs, crackmes, games, engines..." oninput="renderTiers()" />
-        <select id="catFilter" onchange="renderTiers()">
-          <option value="ALL">All Categories (Games + Software + Dojo Labs)</option>
-          <option value="DOJO">🧪 In-Repo C++ Labs & Crackmes (18)</option>
-          <option value="GAME">🎮 Offline Games</option>
-          <option value="SOFT">💻 Software & Binary Auditing</option>
-          <option value="TOOL">🛠️ Toolcraft & Scripting</option>
-        </select>
-        <select id="statusFilter" onchange="renderTiers()">
-          <option value="ALL">All 29 Tiers (F- to SSS++)</option>
-          <option value="LOCKED">Incomplete Tiers Only</option>
-          <option value="CLEARED">Cleared Tiers Only</option>
-        </select>
-      </div>
-      <div id="tiersContainer"></div>
-    </div>
-
-    <!-- TAB 2: TOP 200 POPULAR GAMES -->
-    <div id="tab-top200" class="tab-panel">
-      <div class="card-box">
-        <h2>🔥 Top 200 Most Popular & Iconic Games for Reverse Engineering (#001 – #200)</h2>
-        <p style="color:var(--muted); font-size:0.86rem; margin-top:4px; margin-bottom:12px;">
-          Check off any game from the Top 200 as you reverse engineer it! Every checked game automatically awards EXP for its Tier and counts toward your <strong>Breakthrough Rank-Up Trial (3 TP)</strong>.
-        </p>
-        <div class="filter-bar" style="margin-bottom:12px;">
-          <input type="text" id="top200Search" placeholder="🔍 Filter by game title, engine (Unity, Unreal, Source, C++, IL2CPP), or target struct..." oninput="renderTop200()" />
-          <select id="top200TierFilter" onchange="renderTop200()">
-            <option value="ALL">All Tiers (F+ to SSS+)</option>
-            <option value="NOVICE">F+ / E-- / E- / E / E+ (Novice: 0.5 – 2.4)</option>
-            <option value="FRONTIER">D- / D / D+ (32-Bit Frontier: 2.5 – 3.6)</option>
-            <option value="MANAGED">C- / C / C+ (Managed / Mono: 3.7 – 4.9)</option>
-            <option value="AAA">B- / B / B+ (AAA Engines: 5.0 – 6.1)</option>
-            <option value="MODERN">A- / A / A+ (UE4/5 & IL2CPP: 6.2 – 7.3)</option>
-            <option value="ELITE">S- to SSS+ (Elite & Symbolic: 7.4 – 9.8)</option>
+      <!-- TAB 1: QUEST LOG -->
+      <section id="tab-quests" role="tabpanel" aria-labelledby="tabbtn-quests" class="tab-panel active">
+        <h2 id="heading-quests" tabindex="-1" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">28-Tier Campaign Quests</h2>
+        <div class="filter-bar">
+          <input type="text" id="searchBox" aria-label="Search campaign quests" placeholder="🔍 Search quests, C++ labs, crackmes, games, engines..." oninput="renderTiers()" />
+          <select id="catFilter" aria-label="Filter by quest category" onchange="renderTiers()">
+            <option value="ALL">All Categories (Games + Software + Dojo Labs)</option>
+            <option value="DOJO">🧪 In-Repo C++ Labs &amp; Crackmes (18)</option>
+            <option value="GAME">🎮 Offline Games</option>
+            <option value="SOFT">💻 Software &amp; Binary Auditing</option>
+            <option value="TOOL">🛠️ Toolcraft &amp; Scripting</option>
+          </select>
+          <select id="statusFilter" aria-label="Filter by tier completion status" onchange="renderTiers()">
+            <option value="ALL">All 29 Tiers (F- to SSS++)</option>
+            <option value="LOCKED">Incomplete Tiers Only</option>
+            <option value="CLEARED">Cleared Tiers Only</option>
           </select>
         </div>
-        <div style="overflow-x:auto; max-height:680px; overflow-y:auto; border:1px solid var(--border); border-radius:6px;">
-          <table>
-            <thead>
-              <tr>
-                <th style="width:45px;">Done</th>
-                <th style="width:55px;">#</th>
-                <th style="width:220px;">Game Title</th>
-                <th style="width:190px;">Engine & Architecture</th>
-                <th style="width:70px;">Tier</th>
-                <th style="width:85px;">Difficulty</th>
-                <th>🎯 What to Search & Reverse (Structs, Offsets, Classes & Hooks)</th>
-              </tr>
-            </thead>
-            <tbody id="top200Body"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+        <div id="tiersContainer"></div>
+      </section>
 
-    <!-- TAB 3: AUTO-GRADER FOR .CT / SCRIPTS / TRAINERS -->
-    <div id="tab-autograde" class="tab-panel">
-      <div class="card-box">
-        <h2>🔬 Automated Artifact Tier & Difficulty Grader (`.CT` / Trainers / DLLs / Scripts)</h2>
-        <p style="color:var(--muted); font-size:0.86rem; margin-top:4px; margin-bottom:12px;">
-          Upload any file (<code>.CT</code>, <code>.CEA</code>, <code>.cpp</code>, <code>.hpp</code>, <code>.cs</code>, <code>.py</code>) or click one of the repository artifacts below. The analyzer automatically scans Cheat Engine XML trees, pointer chain depths, struct displacements, assembly instructions (<code>aobscanmodule</code>, <code>alloc</code>, <code>movsxd</code>, shared-code <code>cmp</code> filters), Win32/VMT/Z3 calls, and computes the exact <strong>5-Axis Score (<code>0.5 – 10.0</code>)</strong> and <strong>RPG Tier</strong>!
-        </p>
-        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
-          <label class="btn" style="cursor:pointer;">
-            📂 Upload Your File (.CT / .cpp / .py / .cs)
-            <input type="file" id="artifactFileInput" accept=".ct,.cea,.asm,.cpp,.c,.hpp,.h,.cs,.py,.txt" style="display:none;" onchange="handleArtifactUpload(this)" />
-          </label>
-          <span style="color:var(--muted); font-size:0.8rem;">Or test on in-repo artifacts:</span>
-          <button class="btn btn-outline" onclick="loadSampleArtifact('Dojo_Labs_Reference.CT')">📄 Dojo_Labs.CT</button>
-          <button class="btn btn-outline" onclick="loadSampleArtifact('PvZ.CT')">📄 PvZ.CT (E+)</button>
-          <button class="btn btn-outline" onclick="loadSampleArtifact('UnrealTournament_UT99.CT')">📄 UT99.CT (D)</button>
-          <button class="btn btn-outline" onclick="loadSampleArtifact('isaac-ng.CT')">📄 isaac-ng.CT (C-)</button>
-          <button class="btn btn-outline" onclick="loadSampleArtifact('StreetsOfRogue_v98.CT')">📄 StreetsOfRogue.CT (C)</button>
-          <button class="btn btn-outline" onclick="loadSampleArtifact('dllmain_internal_hook.cpp')">📄 Internal DLL (B+)</button>
-          <button class="btn btn-outline" onclick="loadSampleArtifact('crackme_solvers_and_z3_lab.py')">📄 Z3 & VM Solver (A)</button>
-        </div>
-
-        <div class="form-grid" style="grid-template-columns: 1fr 1.15fr;">
-          <div>
-            <label style="font-size:0.8rem; color:var(--muted); display:block; margin-bottom:4px;">
-              Artifact Source / XML Content (<span id="gradedFileName">PvZ.CT</span>):
-            </label>
-            <textarea id="artifactCodeBox" oninput="runAutoGrader()" placeholder="Paste your .CT XML table, Auto Assembler script, C++ trainer/DLL, or Python solver here..."></textarea>
+      <!-- TAB 2: TOP 200 POPULAR GAMES -->
+      <section id="tab-top200" role="tabpanel" aria-labelledby="tabbtn-top200" class="tab-panel">
+        <div class="card-box">
+          <h2 id="heading-top200" tabindex="-1">🔥 Top 200 Most Popular &amp; Iconic Games for Reverse Engineering (#001 – #200)</h2>
+          <p style="color:var(--muted); font-size:0.86rem; margin-top:4px; margin-bottom:12px;">
+            Check off any game from the Top 200 as you reverse engineer it! Every checked game automatically awards EXP for its Tier and counts toward your <strong>Breakthrough Rank-Up Trial (3 TP)</strong>.
+          </p>
+          <div class="filter-bar" style="margin-bottom:10px;">
+            <input type="text" id="top200Search" aria-label="Filter Top 200 games" placeholder="🔍 Filter by game title, engine (Unity, Unreal, Source, C++, IL2CPP), or target struct..." oninput="renderTop200()" />
+            <select id="top200TierFilter" aria-label="Filter Top 200 by tier bracket" onchange="renderTop200()">
+              <option value="ALL">All Tiers (F+ to SSS+)</option>
+              <option value="NOVICE">F+ / E-- / E- / E / E+ (Novice: 0.5 – 2.4)</option>
+              <option value="FRONTIER">D- / D / D+ (32-Bit Frontier: 2.5 – 3.6)</option>
+              <option value="MANAGED">C- / C / C+ (Managed / Mono: 3.7 – 4.9)</option>
+              <option value="AAA">B- / B / B+ (AAA Engines: 5.0 – 6.1)</option>
+              <option value="MODERN">A- / A / A+ (UE4/5 &amp; IL2CPP: 6.2 – 7.3)</option>
+              <option value="ELITE">S- to SSS+ (Elite &amp; Symbolic: 7.4 – 9.8)</option>
+            </select>
           </div>
-          <div>
-            <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:8px; padding:14px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid var(--border);">
-                <div>
-                  <div style="font-size:0.75rem; color:var(--muted);">AUTOMATED ARTIFACT EVALUATION</div>
-                  <div id="gradeTierHeadline" style="font-size:1.25rem; font-weight:800; color:var(--heading);">Tier E+ (Codecave Weaver)</div>
+          <!-- Quick Engine Filter Chips -->
+          <div class="chip-bar" role="group" aria-label="Quick Engine Filter Chips">
+            <span style="font-size:0.75rem; color:var(--muted); margin-right:4px;">Engine Filter:</span>
+            <button type="button" class="chip-btn active" onclick="setEngineChip('', this)">All Engines (200)</button>
+            <button type="button" class="chip-btn" onclick="setEngineChip('Unity', this)">Unity / Mono</button>
+            <button type="button" class="chip-btn" onclick="setEngineChip('IL2CPP', this)">IL2CPP</button>
+            <button type="button" class="chip-btn" onclick="setEngineChip('Unreal', this)">Unreal Engine</button>
+            <button type="button" class="chip-btn" onclick="setEngineChip('Source', this)">Source Engine</button>
+            <button type="button" class="chip-btn" onclick="setEngineChip('Creation', this)">Creation / Bethesda</button>
+            <button type="button" class="chip-btn" onclick="setEngineChip('REDengine', this)">REDengine / CDPR</button>
+            <button type="button" class="chip-btn" onclick="setEngineChip('FromSoftware', this)">FromSoftware</button>
+            <button type="button" class="chip-btn" onclick="setEngineChip('GameMaker', this)">GameMaker / XNA</button>
+          </div>
+
+          <div tabindex="0" role="region" aria-labelledby="heading-top200" class="table-wrapper top200-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col" style="width:48px;">Done</th>
+                  <th scope="col" style="width:58px;">#</th>
+                  <th scope="col" style="width:210px;">Game Title</th>
+                  <th scope="col" style="width:190px;">Engine &amp; Architecture</th>
+                  <th scope="col" style="width:72px;">Tier</th>
+                  <th scope="col" style="width:85px;">Difficulty</th>
+                  <th scope="col">🎯 What to Search &amp; Reverse (Structs, Offsets, Classes &amp; Hooks)</th>
+                </tr>
+              </thead>
+              <tbody id="top200Body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: AUTO-GRADER FOR .CT / SCRIPTS / TRAINERS -->
+      <section id="tab-autograde" role="tabpanel" aria-labelledby="tabbtn-autograde" class="tab-panel">
+        <div class="card-box">
+          <h2 id="heading-autograde" tabindex="-1">🔬 Automated Artifact Tier &amp; Difficulty Grader (<code>.CT</code> / Trainers / DLLs / Scripts)</h2>
+          <p style="color:var(--muted); font-size:0.86rem; margin-top:4px; margin-bottom:12px;">
+            Drag &amp; drop or upload any file (<code>.CT</code>, <code>.CEA</code>, <code>.cpp</code>, <code>.hpp</code>, <code>.cs</code>, <code>.py</code>) or click one of the verified repository artifacts below. The static AST/regex analyzer inspects Cheat Engine XML pointer trees, struct displacements, assembly instructions (<code>aobscanmodule</code>, <code>alloc</code>, <code>movsxd</code>, shared-code <code>cmp</code> filters), Win32/VMT/Z3 calls, and computes the exact <strong>5-Axis Score (<code>0.5 – 10.0</code>)</strong> and <strong>RPG Tier</strong>!
+          </p>
+
+          <div class="drop-zone" id="artifactDropzone">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <label class="btn" style="cursor:pointer;">
+                📂 Upload or Drop Artifact (.CT / .cpp / .py / .cs)
+                <input type="file" id="artifactFileInput" accept=".ct,.cea,.asm,.cpp,.c,.hpp,.h,.cs,.py,.txt" style="display:none;" onchange="handleArtifactUpload(this)" />
+              </label>
+              <span style="color:var(--muted); font-size:0.8rem;">Or inspect verified in-repo artifacts:</span>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <button type="button" class="btn btn-outline" onclick="loadSampleArtifact('Dojo_Labs_Reference.CT')">📄 Dojo_Labs.CT</button>
+              <button type="button" class="btn btn-outline" onclick="loadSampleArtifact('PvZ.CT')">📄 PvZ.CT (E+)</button>
+              <button type="button" class="btn btn-outline" onclick="loadSampleArtifact('UnrealTournament_UT99.CT')">📄 UT99.CT (D)</button>
+              <button type="button" class="btn btn-outline" onclick="loadSampleArtifact('isaac-ng.CT')">📄 isaac-ng.CT (C-)</button>
+              <button type="button" class="btn btn-outline" onclick="loadSampleArtifact('StreetsOfRogue_v98.CT')">📄 StreetsOfRogue.CT (C)</button>
+              <button type="button" class="btn btn-outline" onclick="loadSampleArtifact('dllmain_internal_hook.cpp')">📄 Internal DLL (B+)</button>
+              <button type="button" class="btn btn-outline" onclick="loadSampleArtifact('crackme_solvers_and_z3_lab.py')">📄 Z3 &amp; VM Solver (A)</button>
+            </div>
+          </div>
+
+          <div class="form-grid" style="grid-template-columns: 1fr 1.15fr;">
+            <div>
+              <label for="artifactCodeBox" style="font-size:0.8rem; color:var(--muted); display:block; margin-bottom:4px;">
+                Artifact Source / XML Content (<span id="gradedFileName" style="color:var(--accent-bright); font-family:var(--font-mono);">PvZ.CT</span>):
+              </label>
+              <textarea id="artifactCodeBox" oninput="runAutoGrader()" placeholder="Paste your .CT XML table, Auto Assembler script, C++ trainer/DLL, or Python solver here..."></textarea>
+            </div>
+            <div>
+              <div style="background:var(--bg-input); border:1px solid var(--border); border-radius:var(--radius-md); padding:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border);">
+                  <div>
+                    <div style="font-size:0.72rem; color:var(--muted); letter-spacing:0.05em;">AUTOMATED ARTIFACT EVALUATION</div>
+                    <div id="gradeTierHeadline" style="font-size:1.22rem; font-weight:800; color:var(--heading);">Tier E+ (Codecave Weaver)</div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:0.72rem; color:var(--muted); letter-spacing:0.05em;">DIFFICULTY SCORE</div>
+                    <div id="gradeScoreHeadline" style="font-size:1.3rem; font-weight:800; color:var(--gold); font-family:var(--font-mono);">2.1 / 10.0</div>
+                  </div>
                 </div>
-                <div style="text-align:right;">
-                  <div style="font-size:0.75rem; color:var(--muted);">DIFFICULTY SCORE</div>
-                  <div id="gradeScoreHeadline" style="font-size:1.3rem; font-weight:800; color:var(--gold);">2.1 / 10.0</div>
+                <div id="gradeAxesBreakdown"></div>
+                <div id="gradeMetricsBox" style="font-size:0.79rem; font-family:var(--font-mono); color:var(--muted); margin-top:10px; padding-top:10px; border-top:1px solid var(--border);"></div>
+                <div style="margin-top:14px; display:flex; justify-content:flex-end;">
+                  <button type="button" class="btn" onclick="addGradedArtifactAsQuest()">➕ Claim &amp; Add Graded Artifact to My Progress</button>
                 </div>
-              </div>
-              <div id="gradeAxesBreakdown"></div>
-              <div id="gradeMetricsBox" style="font-size:0.8rem; color:var(--muted); margin-top:10px; padding-top:8px; border-top:1px solid var(--border);"></div>
-              <div style="margin-top:12px; display:flex; justify-content:flex-end;">
-                <button class="btn" onclick="addGradedArtifactAsQuest()">➕ Claim & Add Graded Artifact to My Progress</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <!-- TAB 4: RE & ASSEMBLY CHEAT SHEET -->
-    <div id="tab-cheatsheet" class="tab-panel">
-      <div class="card-box">
-        <h2>📖 Reverse Engineering, x86/x64 Calling Conventions & Engine Cheat Sheet</h2>
-        <p style="color:var(--muted); font-size:0.86rem; margin-top:4px;">
-          Quick reference for ABI registers, opcode byte patches, Cheat Engine Auto Assembler templates, and game engine memory landmarks.
-        </p>
+      <!-- TAB 4: RE & ASSEMBLY CHEAT SHEET -->
+      <section id="tab-cheatsheet" role="tabpanel" aria-labelledby="tabbtn-cheatsheet" class="tab-panel">
+        <div class="card-box">
+          <h2 id="heading-cheatsheet" tabindex="-1">📖 Reverse Engineering, x86/x64 Calling Conventions &amp; Engine Cheat Sheet</h2>
+          <p style="color:var(--muted); font-size:0.86rem; margin-top:4px;">
+            Quick reference for ABI registers, opcode byte patches, Cheat Engine Auto Assembler templates, and game engine memory landmarks.
+          </p>
 
-        <h3>1. x86 & x64 Calling Conventions (Where Function Arguments Live)</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>ABI / Convention</th>
-              <th>Architecture</th>
-              <th>Integer / Pointer Args</th>
-              <th>Float / Vector Args</th>
-              <th>Return Value</th>
-              <th>Stack Cleanup & Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>__cdecl</code></td>
-              <td>x86 (32-bit)</td>
-              <td>Stack <code>[esp+4]</code>, <code>[esp+8]</code>...</td>
-              <td>Stack</td>
-              <td><code>EAX</code> / <code>ST(0)</code></td>
-              <td><strong>Caller</strong> cleans stack (<code>add esp, X</code>). Standard C default.</td>
-            </tr>
-            <tr>
-              <td><code>__stdcall</code></td>
-              <td>x86 (32-bit)</td>
-              <td>Stack <code>[esp+4]</code>, <code>[esp+8]</code>...</td>
-              <td>Stack</td>
-              <td><code>EAX</code></td>
-              <td><strong>Callee</strong> cleans stack (<code>ret 0x0C</code>). Standard Win32 API.</td>
-            </tr>
-            <tr>
-              <td><code>__thiscall</code></td>
-              <td>x86 (32-bit MSVC)</td>
-              <td><code>ECX</code> = <code>this</code> ptr; rest on Stack</td>
-              <td>Stack</td>
-              <td><code>EAX</code></td>
-              <td><strong>Callee</strong> cleans stack. Default for 32-bit C++ class member functions!</td>
-            </tr>
-            <tr>
-              <td><strong>Microsoft x64 ABI</strong></td>
-              <td>x64 (Windows)</td>
-              <td><code>RCX</code>, <code>RDX</code>, <code>R8</code>, <code>R9</code> (<code>RCX</code> = <code>this</code>)</td>
-              <td><code>XMM0</code>, <code>XMM1</code>, <code>XMM2</code>, <code>XMM3</code></td>
-              <td><code>RAX</code> / <code>XMM0</code></td>
-              <td>Caller reserves 32-byte <strong>Shadow Space</strong> on stack before <code>call</code>.</td>
-            </tr>
-            <tr>
-              <td><strong>System V AMD64 ABI</strong></td>
-              <td>x64 (Linux / PS4 / macOS)</td>
-              <td><code>RDI</code>, <code>RSI</code>, <code>RDX</code>, <code>RCX</code>, <code>R8</code>, <code>R9</code> (<code>RDI</code> = <code>this</code>)</td>
-              <td><code>XMM0</code> – <code>XMM7</code></td>
-              <td><code>RAX</code> / <code>XMM0</code></td>
-              <td>128-byte Red Zone below <code>RSP</code>; no shadow space required.</td>
-            </tr>
-          </tbody>
-        </table>
+          <h3 id="table-abi-heading">1. x86 &amp; x64 Calling Conventions (Where Function Arguments Live)</h3>
+          <div tabindex="0" role="region" aria-labelledby="table-abi-heading" class="table-wrapper" style="margin-bottom:16px;">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">ABI / Convention</th>
+                  <th scope="col">Architecture</th>
+                  <th scope="col">Integer / Pointer Args</th>
+                  <th scope="col">Float / Vector Args</th>
+                  <th scope="col">Return Value</th>
+                  <th scope="col">Stack Cleanup &amp; Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><code>__cdecl</code></th>
+                  <td>x86 (32-bit)</td>
+                  <td>Stack <code>[esp+4]</code>, <code>[esp+8]</code>...</td>
+                  <td>Stack</td>
+                  <td><code>EAX</code> / <code>ST(0)</code></td>
+                  <td><strong>Caller</strong> cleans stack (<code>add esp, X</code>). Standard C default.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>__stdcall</code></th>
+                  <td>x86 (32-bit)</td>
+                  <td>Stack <code>[esp+4]</code>, <code>[esp+8]</code>...</td>
+                  <td>Stack</td>
+                  <td><code>EAX</code></td>
+                  <td><strong>Callee</strong> cleans stack (<code>ret 0x0C</code>). Standard Win32 API.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>__thiscall</code></th>
+                  <td>x86 (32-bit MSVC)</td>
+                  <td><code>ECX</code> = <code>this</code> ptr; rest on Stack</td>
+                  <td>Stack</td>
+                  <td><code>EAX</code></td>
+                  <td><strong>Callee</strong> cleans stack. Default for 32-bit C++ class member functions!</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>Microsoft x64 ABI</strong></th>
+                  <td>x64 (Windows)</td>
+                  <td><code>RCX</code>, <code>RDX</code>, <code>R8</code>, <code>R9</code> (<code>RCX</code> = <code>this</code>)</td>
+                  <td><code>XMM0</code>, <code>XMM1</code>, <code>XMM2</code>, <code>XMM3</code></td>
+                  <td><code>RAX</code> / <code>XMM0</code></td>
+                  <td>Caller reserves 32-byte <strong>Shadow Space</strong> on stack before <code>call</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>System V AMD64 ABI</strong></th>
+                  <td>x64 (Linux / PS4 / macOS)</td>
+                  <td><code>RDI</code>, <code>RSI</code>, <code>RDX</code>, <code>RCX</code>, <code>R8</code>, <code>R9</code> (<code>RDI</code> = <code>this</code>)</td>
+                  <td><code>XMM0</code> – <code>XMM7</code></td>
+                  <td><code>RAX</code> / <code>XMM0</code></td>
+                  <td>128-byte Red Zone below <code>RSP</code>; no shadow space required.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-        <h3>2. Essential Opcode Byte Patches (Hex Patching Quick Reference)</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Patch Goal</th>
-              <th>Assembly Instruction</th>
-              <th>Hex Bytes</th>
-              <th>Typical Use Case</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>No Operation (NOP)</strong></td>
-              <td><code>nop</code> / 2-byte <code>66 90</code></td>
-              <td><code>90</code></td>
-              <td>Erase ammo/stamina subtraction or unwanted function call</td>
-            </tr>
-            <tr>
-              <td><strong>Unconditional Short Jump</strong></td>
-              <td><code>jmp short +offset</code></td>
-              <td><code>EB &lt;rel8&gt;</code></td>
-              <td>Replace conditional branch <code>74</code> (<code>je</code>) or <code>75</code> (<code>jne</code>) with <code>EB</code> (always jump)</td>
-            </tr>
-            <tr>
-              <td><strong>Unconditional Near Jump</strong></td>
-              <td><code>jmp near +offset</code></td>
-              <td><code>E9 &lt;rel32&gt;</code></td>
-              <td>5-byte relative detour used by Cheat Engine codecaves &amp; MinHook</td>
-            </tr>
-            <tr>
-              <td><strong>Invert Conditional Near Jump</strong></td>
-              <td><code>je</code> &harr; <code>jne</code></td>
-              <td><code>0F 84</code> &harr; <code>0F 85</code></td>
-              <td>Flip license check or damage check condition (6-byte instruction)</td>
-            </tr>
-            <tr>
-              <td><strong>Force Function Return False (0)</strong></td>
-              <td><code>xor eax, eax; ret</code></td>
-              <td><code>31 C0 C3</code></td>
-              <td>Instantly return <code>0</code> / <code>false</code> at function prologue (e.g. <code>IsDebuggerPresent</code> / <code>destroyPlayer</code>)</td>
-            </tr>
-            <tr>
-              <td><strong>Force Function Return True (1)</strong></td>
-              <td><code>mov al, 1; ret</code></td>
-              <td><code>B0 01 C3</code></td>
-              <td>Instantly return <code>1</code> / <code>true</code> at validation function prologue (e.g. <code>HasDLC</code> / <code>CheckKey</code>)</td>
-            </tr>
-            <tr>
-              <td><strong>64-Bit Absolute 14-Byte Jump</strong></td>
-              <td><code>jmp qword ptr [rip+0]; dq addr</code></td>
-              <td><code>FF 25 00 00 00 00 &lt;8-byte addr&gt;</code></td>
-              <td>Full 64-bit trampoline jump when target codecave is &gt;2 GB away</td>
-            </tr>
-          </tbody>
-        </table>
+          <h3 id="table-opcode-heading">2. Essential Opcode Byte Patches (Hex Patching Quick Reference)</h3>
+          <div tabindex="0" role="region" aria-labelledby="table-opcode-heading" class="table-wrapper" style="margin-bottom:16px;">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Patch Goal</th>
+                  <th scope="col">Assembly Instruction</th>
+                  <th scope="col">Hex Bytes</th>
+                  <th scope="col">Typical Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><strong>No Operation (NOP)</strong></th>
+                  <td><code>nop</code> / 2-byte <code>66 90</code></td>
+                  <td><code>90</code></td>
+                  <td>Erase ammo/stamina subtraction or unwanted function call</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>Unconditional Short Jump</strong></th>
+                  <td><code>jmp short +offset</code></td>
+                  <td><code>EB &lt;rel8&gt;</code></td>
+                  <td>Replace conditional branch <code>74</code> (<code>je</code>) or <code>75</code> (<code>jne</code>) with <code>EB</code> (always jump)</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>Unconditional Near Jump</strong></th>
+                  <td><code>jmp near +offset</code></td>
+                  <td><code>E9 &lt;rel32&gt;</code></td>
+                  <td>5-byte relative detour used by Cheat Engine codecaves &amp; MinHook</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>Invert Conditional Near Jump</strong></th>
+                  <td><code>je</code> &harr; <code>jne</code></td>
+                  <td><code>0F 84</code> &harr; <code>0F 85</code></td>
+                  <td>Flip license check or damage check condition (6-byte instruction)</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>Force Function Return False (0)</strong></th>
+                  <td><code>xor eax, eax; ret</code></td>
+                  <td><code>31 C0 C3</code></td>
+                  <td>Instantly return <code>0</code> / <code>false</code> at function prologue (e.g. <code>IsDebuggerPresent</code> / <code>destroyPlayer</code>)</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>Force Function Return True (1)</strong></th>
+                  <td><code>mov al, 1; ret</code></td>
+                  <td><code>B0 01 C3</code></td>
+                  <td>Instantly return <code>1</code> / <code>true</code> at validation function prologue (e.g. <code>HasDLC</code> / <code>CheckKey</code>)</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>64-Bit Absolute 14-Byte Jump</strong></th>
+                  <td><code>jmp qword ptr [rip+0]; dq addr</code></td>
+                  <td><code>FF 25 00 00 00 00 &lt;8-byte addr&gt;</code></td>
+                  <td>Full 64-bit trampoline jump when target codecave is &gt;2 GB away</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-        <h3>3. Game Engine Memory Landmarks (What to Look For First)</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Game Engine</th>
-              <th>Signature Binaries / Files</th>
-              <th>Primary RE Tooling</th>
-              <th>Key Globals, Structures &amp; Entry Points</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Unity (Mono JIT)</strong></td>
-              <td><code>MonoBleedingEdge\\</code>, <code>Assembly-CSharp.dll</code></td>
-              <td>dnSpyEx, ILSpy, CE Mono Dissector, BepInEx + Harmony</td>
-              <td>Decompile C# directly in <code>dnSpyEx</code>; enable <em>Mono &rarr; Activate Mono Features</em> in Cheat Engine.</td>
-            </tr>
-            <tr>
-              <td><strong>Unity (IL2CPP AOT)</strong></td>
-              <td><code>GameAssembly.dll</code>, <code>global-metadata.dat</code></td>
-              <td>Il2CppDumper, Cpp2IL, Ghidra, MinHook</td>
-              <td>Run <code>Il2CppDumper</code> to generate <code>script.json</code> + dummy DLLs; hook native methods via RVA in <code>GameAssembly.dll</code>.</td>
-            </tr>
-            <tr>
-              <td><strong>Unreal Engine 4 &amp; 5</strong></td>
-              <td><code>&lt;Game&gt;-Win64-Shipping.exe</code>, <code>.pak</code> / <code>.utoc</code></td>
-              <td>Dumper-7, UESDK, FModel, ReClass.NET</td>
-              <td>Locate <code>GWorld</code> (<code>UWorld*</code>), <code>GObjects</code> (<code>TUObjectArray</code>), <code>GNames</code> (<code>FNamePool</code>), and VMT index of <code>UObject::ProcessEvent</code>.</td>
-            </tr>
-            <tr>
-              <td><strong>Source Engine (Valve)</strong></td>
-              <td><code>client.dll</code>, <code>engine.dll</code>, <code>tier0.dll</code></td>
-              <td>Source SDK, Netvar Dumper, ReClass.NET</td>
-              <td>Call exported <code>CreateInterface</code>, walk <code>IBaseClientDLL::GetAllClasses()</code> linked list for Netvars, hook <code>CreateMove</code>.</td>
-            </tr>
-            <tr>
-              <td><strong>Creation Engine (Bethesda)</strong></td>
-              <td><code>SkyrimSE.exe</code>, <code>Fallout4.exe</code>, <code>.esm</code></td>
-              <td>xEdit, SKSE64 / CommonLibSSE, Ghidra</td>
-              <td><code>PlayerCharacter</code> singleton, <code>ActorValueOwner</code> VMT, RTTI class descriptors, and Papyrus native function table.</td>
-            </tr>
-            <tr>
-              <td><strong>GameMaker Studio</strong></td>
-              <td><code>data.win</code>, <code>audiogroup*.dat</code></td>
-              <td>UndertaleModTool (UTMT), Cheat Engine</td>
-              <td>Open <code>data.win</code> in UndertaleModTool to decompile GML scripts; scan dynamic <code>Double</code> values in RAM.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- TAB 5: 5-AXIS RUBRIC CALCULATOR & ADDER -->
-    <div id="tab-adder" class="tab-panel">
-      <div class="card-box">
-        <h2>⚖️ Autonomous Target Builder (5-Axis Anti-Inflation Calculator)</h2>
-        <p style="color:var(--muted); font-size:0.86rem; margin-top:4px;">
-          To prevent anyone from assigning a fake <code>SSS++</code> rating to a trivial program, every custom game or application is evaluated across <strong>5 objective architectural axes</strong>:
-        </p>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Target Title (Game or Program)</label>
-            <input type="text" id="addTitle" placeholder="e.g. Celeste / 7-Zip / Factorio" />
-          </div>
-          <div class="form-group">
-            <label>Category</label>
-            <select id="addCat">
-              <option value="GAME">🎮 Offline Game</option>
-              <option value="SOFT">💻 Desktop Software / Binary Format</option>
-              <option value="DOJO">🔐 Custom Crackme / CTF</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Axis 1: Architecture & Symbols (0.2 – 2.0)</label>
-            <select id="axArch" onchange="updateRubricPreview()">
-              <option value="0.2">+0.2 — Open Source / Plaintext Config / Full PDB Symbols</option>
-              <option value="0.5">+0.5 — Standard Win32/x64 or .NET with Symbols</option>
-              <option value="0.9" selected>+0.9 — Unity Mono / XNA / GameMaker / Lua VM</option>
-              <option value="1.4">+1.4 — Stripped Native x86/x64 C++ Binary</option>
-              <option value="1.7">+1.7 — Unity IL2CPP / Embedded LuaJIT / JNI</option>
-              <option value="2.0">+2.0 — Console Emulator (Big-Endian PowerPC / ARM64)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Axis 2: Memory & Pointer Indirection (0.1 – 2.0)</label>
-            <select id="axMem" onchange="updateRubricPreview()">
-              <option value="0.1">+0.1 — Static Globals or Fixed 2D Array</option>
-              <option value="0.4" selected>+0.4 — 1-to-3 Level Heap Pointer Chain</option>
-              <option value="0.8">+0.8 — Dynamic Linked Lists / Scene Node Trees</option>
-              <option value="1.2">+1.2 — Deep C++ VMTs / UE GWorld / Source Netvars</option>
-              <option value="1.7">+1.7 — Data-Oriented SoA Slabs / ECS / 64-bit Coords</option>
-              <option value="2.0">+2.0 — XOR/Encrypted Runtime RAM or VM Stack</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Axis 3: Code & Hook Complexity (0.1 – 2.0)</label>
-            <select id="axEng" onchange="updateRubricPreview()">
-              <option value="0.1">+0.1 — Basic Scalar Freeze / NOP Patch</option>
-              <option value="0.5" selected>+0.5 — Codecave Injection / 2D Physics / Keygen Math</option>
-              <option value="0.8">+0.8 — Shared Code Disambiguation Filter (Player vs Enemy)</option>
-              <option value="1.2">+1.2 — 3D Vectors, Euler Angles & 4x4 WorldToScreen</option>
-              <option value="1.6">+1.6 — Internal C++ DLL, MinHook & ImGui Overlay</option>
-              <option value="2.0">+2.0 — Matching Decompilation / LLVM IR Binary Lifter</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Axis 4: Binary Protection & Obfuscation (0.0 – 2.5)</label>
-            <select id="axProt" onchange="updateRubricPreview()">
-              <option value="0.0" selected>+0.0 — Unprotected Offline Binary</option>
-              <option value="0.5">+0.5 — Basic Anti-Debug (IsDebuggerPresent / PEB)</option>
-              <option value="1.2">+1.2 — Executable Packer (UPX) or .text CRC32 Guard</option>
-              <option value="1.8">+1.8 — Custom Stack VM / O-LLVM Flattening / MBA</option>
-              <option value="2.5">+2.5 — Commercial Virtualizer (VMProtect / Themida)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Axis 5: Privilege Boundary (0.0 – 1.5)</label>
-            <select id="axPriv" onchange="updateRubricPreview()">
-              <option value="0.0" selected>+0.0 — User-Mode Process (Ring-3)</option>
-              <option value="0.7">+0.7 — Encrypted Network Protocol Emulation (Blowfish/RSA)</option>
-              <option value="1.5">+1.5 — Ring-0 Kernel Driver / KVM Hypervisor VMI / Silicon</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Quest Objective Description</label>
-            <input type="text" id="addQuest" placeholder="e.g. Reverse Player struct, hook stamina, and build AOB script" />
+          <h3 id="table-engine-heading">3. Game Engine Memory Landmarks (What to Look For First)</h3>
+          <div tabindex="0" role="region" aria-labelledby="table-engine-heading" class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Game Engine</th>
+                  <th scope="col">Signature Binaries / Files</th>
+                  <th scope="col">Primary RE Tooling</th>
+                  <th scope="col">Key Globals, Structures &amp; Entry Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><strong>Unity (Mono JIT)</strong></th>
+                  <td><code>MonoBleedingEdge\</code>, <code>Assembly-CSharp.dll</code></td>
+                  <td>dnSpyEx, ILSpy, CE Mono Dissector, BepInEx + Harmony</td>
+                  <td>Decompile C# directly in <code>dnSpyEx</code>; enable <em>Mono &rarr; Activate Mono Features</em> in Cheat Engine.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>Unity (IL2CPP AOT)</strong></th>
+                  <td><code>GameAssembly.dll</code>, <code>global-metadata.dat</code></td>
+                  <td>Il2CppDumper, Cpp2IL, Ghidra, MinHook</td>
+                  <td>Run <code>Il2CppDumper</code> to generate <code>script.json</code> + dummy DLLs; hook native methods via RVA in <code>GameAssembly.dll</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>Unreal Engine 4 &amp; 5</strong></th>
+                  <td><code>&lt;Game&gt;-Win64-Shipping.exe</code>, <code>.pak</code> / <code>.utoc</code></td>
+                  <td>Dumper-7, UESDK, FModel, ReClass.NET</td>
+                  <td>Locate <code>GWorld</code> (<code>UWorld*</code>), <code>GObjects</code> (<code>TUObjectArray</code>), <code>GNames</code> (<code>FNamePool</code>), and VMT index of <code>UObject::ProcessEvent</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>Source Engine (Valve)</strong></th>
+                  <td><code>client.dll</code>, <code>engine.dll</code>, <code>tier0.dll</code></td>
+                  <td>Source SDK, Netvar Dumper, ReClass.NET</td>
+                  <td>Call exported <code>CreateInterface</code>, walk <code>IBaseClientDLL::GetAllClasses()</code> linked list for Netvars, hook <code>CreateMove</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>Creation Engine (Bethesda)</strong></th>
+                  <td><code>SkyrimSE.exe</code>, <code>Fallout4.exe</code>, <code>.esm</code></td>
+                  <td>xEdit, SKSE64 / CommonLibSSE, Ghidra</td>
+                  <td><code>PlayerCharacter</code> singleton, <code>ActorValueOwner</code> VMT, RTTI class descriptors, and Papyrus native function table.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><strong>GameMaker Studio</strong></th>
+                  <td><code>data.win</code>, <code>audiogroup*.dat</code></td>
+                  <td>UndertaleModTool (UTMT), Cheat Engine</td>
+                  <td>Open <code>data.win</code> in UndertaleModTool to decompile GML scripts; scan dynamic <code>Double</code> values in RAM.</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div style="margin-top:16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-          <div id="rubricPreview" style="font-size:1.05rem; font-weight:700; color:var(--gold);">
-            Computed Score: 1.8 / 10.0  ➔  Assigned Tier: [Tier E]
-          </div>
-          <button class="btn" onclick="addCustomTargetToLog()">➕ Add Target to My Quest Log & Generate JSON</button>
-        </div>
-        <pre id="jsonOutput">// Generated JSON entry for data/custom_targets.json will appear here...</pre>
-      </div>
-    </div>
+      </section>
 
-    <!-- TAB 6: SCOREBOARD -->
-    <div id="tab-scoreboard" class="tab-panel">
-      <div class="card-box">
-        <h2>🏅 Global Artifact-Verified Hall of Fame</h2>
-        <p style="color:var(--muted); font-size:0.86rem; margin-top:4px;">
-          In your browser you see your personal progress privately. To rank on the <strong>Global Hall of Fame</strong>, quests must be backed by a verifiable artifact in the repository (<code>.CT</code> table, solver script, or technical writeup) evaluated by the automated 5-Axis Rubric.
-        </p>
-        <table>
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Adventurer</th>
-              <th>Class Title</th>
-              <th>Verified Tier</th>
-              <th>Verified EXP</th>
-              <th>Proof Artifacts in Repository</th>
-            </tr>
-          </thead>
-          <tbody id="scoreboardBody"></tbody>
-        </table>
-      </div>
-    </div>
+      <!-- TAB 5: 5-AXIS RUBRIC CALCULATOR & ADDER -->
+      <section id="tab-adder" role="tabpanel" aria-labelledby="tabbtn-adder" class="tab-panel">
+        <div class="card-box">
+          <h2 id="heading-adder" tabindex="-1">⚖️ Autonomous Target Builder (5-Axis Anti-Inflation Calculator)</h2>
+          <p style="color:var(--muted); font-size:0.86rem; margin-top:4px;">
+            To prevent anyone from assigning a fake <code>SSS++</code> rating to a trivial program, every custom game or application is evaluated across <strong>5 objective architectural axes</strong>:
+          </p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="addTitle">Target Title (Game or Program)</label>
+              <input type="text" id="addTitle" placeholder="e.g. Celeste / 7-Zip / Factorio" />
+            </div>
+            <div class="form-group">
+              <label for="addCat">Category</label>
+              <select id="addCat">
+                <option value="GAME">🎮 Offline Game</option>
+                <option value="SOFT">💻 Desktop Software / Binary Format</option>
+                <option value="DOJO">🔐 Custom Crackme / CTF</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="axArch">Axis 1: Architecture &amp; Symbols (0.2 – 2.0)</label>
+              <select id="axArch" onchange="updateRubricPreview()">
+                <option value="0.2">+0.2 — Open Source / Plaintext Config / Full PDB Symbols</option>
+                <option value="0.5">+0.5 — Standard Win32/x64 or .NET with Symbols</option>
+                <option value="0.9" selected>+0.9 — Unity Mono / XNA / GameMaker / Lua VM</option>
+                <option value="1.4">+1.4 — Stripped Native x86/x64 C++ Binary</option>
+                <option value="1.7">+1.7 — Unity IL2CPP / Embedded LuaJIT / JNI</option>
+                <option value="2.0">+2.0 — Console Emulator (Big-Endian PowerPC / ARM64)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="axMem">Axis 2: Memory &amp; Pointer Indirection (0.1 – 2.0)</label>
+              <select id="axMem" onchange="updateRubricPreview()">
+                <option value="0.1">+0.1 — Static Globals or Fixed 2D Array</option>
+                <option value="0.4" selected>+0.4 — 1-to-3 Level Heap Pointer Chain</option>
+                <option value="0.8">+0.8 — Dynamic Linked Lists / Scene Node Trees</option>
+                <option value="1.2">+1.2 — Deep C++ VMTs / UE GWorld / Source Netvars</option>
+                <option value="1.7">+1.7 — Data-Oriented SoA Slabs / ECS / 64-bit Coords</option>
+                <option value="2.0">+2.0 — XOR/Encrypted Runtime RAM or VM Stack</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="axEng">Axis 3: Code &amp; Hook Complexity (0.1 – 2.0)</label>
+              <select id="axEng" onchange="updateRubricPreview()">
+                <option value="0.1">+0.1 — Basic Scalar Freeze / NOP Patch</option>
+                <option value="0.5" selected>+0.5 — Codecave Injection / 2D Physics / Keygen Math</option>
+                <option value="0.8">+0.8 — Shared Code Disambiguation Filter (Player vs Enemy)</option>
+                <option value="1.2">+1.2 — 3D Vectors, Euler Angles &amp; 4x4 WorldToScreen</option>
+                <option value="1.6">+1.6 — Internal C++ DLL, MinHook &amp; ImGui Overlay</option>
+                <option value="2.0">+2.0 — Matching Decompilation / LLVM IR Binary Lifter</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="axProt">Axis 4: Binary Protection &amp; Obfuscation (0.0 – 2.5)</label>
+              <select id="axProt" onchange="updateRubricPreview()">
+                <option value="0.0" selected>+0.0 — Unprotected Offline Binary</option>
+                <option value="0.5">+0.5 — Basic Anti-Debug (IsDebuggerPresent / PEB)</option>
+                <option value="1.2">+1.2 — Executable Packer (UPX) or .text CRC32 Guard</option>
+                <option value="1.8">+1.8 — Custom Stack VM / O-LLVM Flattening / MBA</option>
+                <option value="2.5">+2.5 — Commercial Virtualizer (VMProtect / Themida)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="axPriv">Axis 5: Privilege Boundary (0.0 – 1.5)</label>
+              <select id="axPriv" onchange="updateRubricPreview()">
+                <option value="0.0" selected>+0.0 — User-Mode Process (Ring-3)</option>
+                <option value="0.7">+0.7 — Encrypted Network Protocol Emulation (Blowfish/RSA)</option>
+                <option value="1.5">+1.5 — Ring-0 Kernel Driver / KVM Hypervisor VMI / Silicon</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="addQuest">Quest Objective Description</label>
+              <input type="text" id="addQuest" placeholder="e.g. Reverse Player struct, hook stamina, and build AOB script" />
+            </div>
+          </div>
+          <div style="margin-top:16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+            <div id="rubricPreview" style="font-size:1.05rem; font-weight:800; color:var(--gold); font-family:var(--font-mono);">
+              Computed Score: 1.8 / 10.0  ➔  Assigned Tier: [Tier E]
+            </div>
+            <button type="button" class="btn" onclick="addCustomTargetToLog()">➕ Add Target to My Quest Log &amp; Generate JSON</button>
+          </div>
+          <pre id="jsonOutput">// Generated JSON entry for data/custom_targets.json will appear here...</pre>
+        </div>
+      </section>
 
-    <!-- TAB 7: HOW SAVING & SYNC WORKS -->
-    <div id="tab-sync" class="tab-panel">
-      <div class="card-box">
-        <h2>💾 How Your Progress is Saved (Browser `localStorage`, JSON & `README.md`)</h2>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px;">
-          <div style="background:var(--bg-input); border:1px solid var(--border); padding:14px; border-radius:8px;">
-            <h3 style="margin-top:0;">1. 🌐 Automatic Browser Save (`localStorage`)</h3>
-            <p style="font-size:0.84rem; color:var(--muted);">
-              Every time you check off a quest or a Top 200 game, edit your Adventurer handle, or change the theme/brightness, your browser <strong>instantly saves your state in <code>localStorage</code></strong> on your machine. Refreshing or closing the browser never loses progress, and your session is 100% private to you.
-            </p>
-          </div>
-          <div style="background:var(--bg-input); border:1px solid var(--border); padding:14px; border-radius:8px;">
-            <h3 style="margin-top:0;">2. 📄 Syncing with `README.md` & `data/player_progress.json`</h3>
-            <p style="font-size:0.84rem; color:var(--muted);">
-              Locally, you can either mark <code>- [x]</code> directly inside <code>README.md</code> and run <code>.\\update_progress.bat</code>, OR click <strong>"💾 Export `player_progress.json`"</strong> below, place it in the <code>data/</code> folder, and run <code>python Tools_and_Scripts/rpg_manager.py --from-json</code>!
-            </p>
+      <!-- TAB 6: SCOREBOARD -->
+      <section id="tab-scoreboard" role="tabpanel" aria-labelledby="tabbtn-scoreboard" class="tab-panel">
+        <div class="card-box">
+          <h2 id="heading-scoreboard" tabindex="-1">🏅 Global Artifact-Verified Hall of Fame</h2>
+          <p style="color:var(--muted); font-size:0.86rem; margin-top:4px; margin-bottom:12px;">
+            In your browser you see your personal progress privately. To rank on the <strong>Global Hall of Fame</strong>, quests must be backed by a verifiable artifact in the repository (<code>.CT</code> table, solver script, or technical writeup) evaluated by the automated 5-Axis Rubric.
+          </p>
+          <div tabindex="0" role="region" aria-labelledby="heading-scoreboard" class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Adventurer</th>
+                  <th scope="col">Class Title</th>
+                  <th scope="col">Verified Tier</th>
+                  <th scope="col">Verified EXP</th>
+                  <th scope="col">Proof Artifacts in Repository</th>
+                </tr>
+              </thead>
+              <tbody id="scoreboardBody"></tbody>
+            </table>
           </div>
         </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;">
-          <button class="btn" onclick="exportProgressJson()">💾 Export `player_progress.json` (Sync to README.md)</button>
-          <label class="btn btn-outline" style="cursor:pointer;">
-            📂 Import `player_progress.json`
-            <input type="file" accept=".json" style="display:none;" onchange="importProgressJson(this)" />
-          </label>
-          <button class="btn btn-outline" onclick="applyDeaversPreset()">🧙‍♂️ Load Author `deavers` Preset (Tier C)</button>
-          <button class="btn btn-outline" onclick="resetProfile()">🌱 Reset to Clean New Game (Tier F- | 0 EXP)</button>
-        </div>
-        <pre>
-# 1. Update the RPG Card in README.md after checking - [x] boxes:
+      </section>
+
+      <!-- TAB 7: HOW SAVING & SYNC WORKS -->
+      <section id="tab-sync" role="tabpanel" aria-labelledby="tabbtn-sync" class="tab-panel">
+        <div class="card-box">
+          <h2 id="heading-sync" tabindex="-1">💾 How Your Progress is Saved (Browser <code>localStorage</code>, JSON &amp; <code>README.md</code>)</h2>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px;">
+            <div style="background:var(--bg-input); border:1px solid var(--border); padding:14px; border-radius:var(--radius-md);">
+              <h3 style="margin-top:0;">1. 🌐 Automatic Browser Save (<code>localStorage</code>)</h3>
+              <p style="font-size:0.84rem; color:var(--muted);">
+                Every time you check off a quest or a Top 200 game, edit your Adventurer handle, or change the theme/brightness, your browser <strong>instantly saves your state in <code>localStorage</code></strong> on your machine. Refreshing or closing the browser never loses progress, and your session is 100% private to you.
+              </p>
+            </div>
+            <div style="background:var(--bg-input); border:1px solid var(--border); padding:14px; border-radius:var(--radius-md);">
+              <h3 style="margin-top:0;">2. 📄 Syncing with <code>README.md</code> &amp; <code>data/player_progress.json</code></h3>
+              <p style="font-size:0.84rem; color:var(--muted);">
+                Locally, you can either mark <code>- [x]</code> directly inside <code>README.md</code> and run <code>.\\update_progress.bat</code>, OR click <strong>"💾 Export <code>player_progress.json</code>"</strong> below, place it in the <code>data/</code> folder, and run <code>python Tools_and_Scripts/rpg_manager.py --from-json</code>!
+              </p>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;">
+            <button type="button" class="btn" onclick="exportProgressJson()">💾 Export player_progress.json (Sync to README.md)</button>
+            <label class="btn btn-outline" style="cursor:pointer;">
+              📂 Import player_progress.json
+              <input type="file" accept=".json" style="display:none;" onchange="importProgressJson(this)" />
+            </label>
+            <button type="button" class="btn btn-outline" onclick="applyDeaversPreset()">🧙‍♂️ Load Author deavers Preset (Tier C)</button>
+            <button type="button" class="btn btn-outline" onclick="resetProfile()">🌱 Reset to Clean New Game (Tier F- | 0 EXP)</button>
+          </div>
+          <pre># 1. Update the RPG Card in README.md after checking - [x] boxes:
 .\\update_progress.bat --name "YourHandle"
 
 # 2. Automatically grade any .CT table, trainer, DLL, or script from CLI:
@@ -744,9 +1213,23 @@ python Tools_and_Scripts/rpg_manager.py --analyze Game_Hacking
 
 # 3. Sync exported data/player_progress.json from browser into README.md:
 python Tools_and_Scripts/rpg_manager.py --from-json</pre>
-      </div>
-    </div>
+        </div>
+      </section>
+    </main>
   </div>
+
+  <!-- COMMAND PALETTE MODAL (Ctrl+K / Cmd+K) -->
+  <dialog id="cmdDialog" class="cmd-dialog" aria-label="Quick Command Palette">
+    <div class="cmd-header">
+      <span aria-hidden="true">⚡</span>
+      <input type="text" id="cmdSearchInput" placeholder="Jump to any tab, Top 200 game, Dojo lab, or preset action..." oninput="renderCmdResults()" />
+      <button type="button" class="btn btn-outline" style="padding:4px 8px; font-size:0.74rem;" onclick="closeCmdPalette()">ESC</button>
+    </div>
+    <ul id="cmdResultsList" class="cmd-results"></ul>
+  </dialog>
+
+  <!-- TOAST NOTIFICATION REGION -->
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
 
   <script>
     const TOP200_GAMES = {top200_json_str};
@@ -1144,10 +1627,23 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
       return {{ filename, total, tier: tObj.code, tierTitle: tObj.title, a1, a2, a3, a4, a5, ev, metricsText }};
     }}
 
+    let activeEngineChip = "";
+
+    function showToast(msg) {{
+      const region = document.getElementById("toastRegion");
+      if (!region) return;
+      const el = document.createElement("div");
+      el.className = "toast-msg";
+      el.textContent = msg;
+      region.appendChild(el);
+      setTimeout(() => {{ el.remove(); }}, 3200);
+    }}
+
     function loadSampleArtifact(name) {{
       document.getElementById("gradedFileName").textContent = name;
       document.getElementById("artifactCodeBox").value = SAMPLE_ARTIFACTS[name] || "";
       runAutoGrader();
+      showToast(`Loaded verified artifact: ${{name}}`);
     }}
 
     function handleArtifactUpload(input) {{
@@ -1158,9 +1654,32 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
         document.getElementById("gradedFileName").textContent = file.name;
         document.getElementById("artifactCodeBox").value = e.target.result;
         runAutoGrader();
+        showToast(`Analyzed uploaded file: ${{file.name}}`);
       }};
       reader.readAsText(file);
     }}
+
+    // Drag and Drop on #artifactDropzone
+    (function initDropzone() {{
+      const dz = document.getElementById("artifactDropzone");
+      if (!dz) return;
+      dz.addEventListener("dragover", e => {{ e.preventDefault(); dz.classList.add("dragover"); }});
+      dz.addEventListener("dragleave", () => dz.classList.remove("dragover"));
+      dz.addEventListener("drop", e => {{
+        e.preventDefault();
+        dz.classList.remove("dragover");
+        const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(ev) {{
+          document.getElementById("gradedFileName").textContent = file.name;
+          document.getElementById("artifactCodeBox").value = ev.target.result;
+          runAutoGrader();
+          showToast(`Dropped & analyzed: ${{file.name}}`);
+        }};
+        reader.readAsText(file);
+      }});
+    }})();
 
     function runAutoGrader() {{
       const fname = document.getElementById("gradedFileName").textContent || "artifact.CT";
@@ -1182,7 +1701,7 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
       document.getElementById("gradeAxesBreakdown").innerHTML = rows.map(r => `
         <div class="axis-bar-row">
           <strong style="color:var(--heading);">${{r.name}}</strong>
-          <span style="color:var(--gold); font-weight:700;">+${{r.val.toFixed(2)}} / ${{r.max.toFixed(1)}}</span>
+          <span style="color:var(--gold); font-weight:700; font-family:var(--font-mono);">+${{r.val.toFixed(2)}} / ${{r.max.toFixed(1)}}</span>
           <span style="color:var(--muted);">${{r.desc}}</span>
         </div>
       `).join("");
@@ -1200,7 +1719,14 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
       state.customQuests.push(newQ);
       state.checked[newQ.id] = true;
       saveState();
-      alert(`Artifact ${{lastGradedResult.filename}} (Tier ${{lastGradedResult.tier}} | ${{lastGradedResult.total.toFixed(1)}}/10) added and credited to your RPG progression!`);
+      showToast(`Claimed ${{lastGradedResult.filename}} (Tier ${{lastGradedResult.tier}} | ${{lastGradedResult.total.toFixed(1)}}/10)!`);
+    }}
+
+    function setEngineChip(engineKeyword, btn) {{
+      activeEngineChip = engineKeyword.toLowerCase();
+      document.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      renderTop200();
     }}
 
     function renderTop200() {{
@@ -1220,6 +1746,7 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
 
       const filtered = TOP200_GAMES.filter(g => {{
         if (tf !== "ALL" && groupMap[tf] && !groupMap[tf].includes(g.tier)) return false;
+        if (activeEngineChip && !g.engine.toLowerCase().includes(activeEngineChip) && !g.what_to_find.toLowerCase().includes(activeEngineChip)) return false;
         if (q && !(g.title.toLowerCase().includes(q) || g.engine.toLowerCase().includes(q) || g.what_to_find.toLowerCase().includes(q) || g.tier.toLowerCase() === q)) return false;
         return true;
       }});
@@ -1229,12 +1756,12 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
         const done = !!state.checked[qid];
         return `
           <tr style="${{done ? 'background:var(--green-soft);' : ''}} cursor:pointer;" onclick="toggleQuest('${{qid}}')">
-            <td><input type="checkbox" ${{done ? 'checked' : ''}} onclick="event.stopPropagation(); toggleQuest('${{qid}}')" /></td>
-            <td><strong>#${{g.rank}}</strong></td>
-            <td><strong style="color:var(--heading);">${{g.title}}</strong></td>
+            <td><input type="checkbox" aria-label="Mark ${{g.title}} as completed" ${{done ? 'checked' : ''}} onclick="event.stopPropagation(); toggleQuest('${{qid}}')" /></td>
+            <td><strong style="font-family:var(--font-mono);">#${{g.rank}}</strong></td>
+            <th scope="row"><strong style="color:var(--heading);">${{g.title}}</strong></th>
             <td style="color:var(--muted);">${{g.engine}}</td>
             <td><span class="tier-badge">${{g.tier}}</span></td>
-            <td style="color:var(--gold); font-weight:600;">${{g.diff}}</td>
+            <td style="color:var(--gold); font-weight:700; font-family:var(--font-mono);">${{g.diff}}</td>
             <td>${{g.what_to_find}}</td>
           </tr>
         `;
@@ -1248,6 +1775,8 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
 
       let totalChecked = 0;
       let totalExp = 0;
+      let dojoDone = 0;
+      let top200Done = 0;
 
       quests.forEach(q => {{
         if (!counts[q.tier]) return;
@@ -1255,6 +1784,8 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
         if (state.checked[q.id]) {{
           counts[q.tier].checked++;
           totalChecked++;
+          if (q.cat === "DOJO") dojoDone++;
+          if (String(q.id).startsWith("top200_")) top200Done++;
           const meta = TIER_META.find(m => m.code === q.tier);
           if (meta) totalExp += meta.exp;
         }}
@@ -1283,6 +1814,8 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
       return {{
         counts,
         totalChecked,
+        dojoDone,
+        top200Done,
         totalQuests: DEFAULT_QUESTS.length + (state.customQuests || []).length,
         totalExp,
         clearedCount: clearedIndices.length,
@@ -1304,11 +1837,38 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
 
       const pct = Math.round((prog.clearedCount / TIER_META.length) * 100);
       document.getElementById("uiCampaignBar").style.width = `${{pct}}%`;
+      const track = document.getElementById("uiProgressTrack");
+      if (track) track.setAttribute("aria-valuenow", String(pct));
 
       const curTp = Math.min(3, prog.counts[prog.curTier.code].tp);
       document.getElementById("uiTrialLabel").textContent =
         `Tier ${{prog.curTier.code}} Rank-Up Trial (3 Same-Tier OR 1 Higher-Tier Breakthrough):`;
       document.getElementById("uiTpStatus").textContent = `${{curTp}} / 3 TP`;
+
+      const nextTierObj = TIER_META[Math.min(TIER_META.length - 1, prog.curIdx + 1)];
+      const elDojo = document.getElementById("teleDojoDone");
+      const elTop = document.getElementById("teleTop200Done");
+      const elNext = document.getElementById("teleNextRank");
+      if (elDojo) elDojo.textContent = `${{prog.dojoDone}} / 18`;
+      if (elTop) elTop.textContent = `${{prog.top200Done}} / 200`;
+      if (elNext) elNext.textContent = nextTierObj ? nextTierObj.code : "MAX";
+
+      // Update 5-Axis SVG Capability Radar
+      const poly = document.getElementById("radarDataPoly");
+      if (poly) {{
+        const ratio = Math.max(0.18, Math.min(1.0, (prog.curIdx + 2) / TIER_META.length));
+        const rArch = Math.min(1.0, ratio * 1.15);
+        const rPtr  = Math.min(1.0, ratio * 1.10);
+        const rHook = Math.min(1.0, ratio * 1.05);
+        const rObf  = Math.min(1.0, Math.max(0.15, ratio * 0.85));
+        const rRing = Math.min(1.0, Math.max(0.15, ratio * 0.75));
+        const p1 = `110,${{(95 - 75 * rArch).toFixed(1)}}`;
+        const p2 = `${{(110 + 80 * rPtr).toFixed(1)}},${{(95 - 20 * rPtr).toFixed(1)}}`;
+        const p3 = `${{(110 + 50 * rHook).toFixed(1)}},${{(95 + 67 * rHook).toFixed(1)}}`;
+        const p4 = `${{(110 - 50 * rObf).toFixed(1)}},${{(95 + 67 * rObf).toFixed(1)}}`;
+        const p5 = `${{(110 - 80 * rRing).toFixed(1)}},${{(95 - 20 * rRing).toFixed(1)}}`;
+        poly.setAttribute("points", `${{p1}} ${{p2}} ${{p3}} ${{p4}} ${{p5}}`);
+      }}
 
       const skills = [
         {{ name: "Stage 1: Memory & Bitmasks", ok: prog.totalChecked >= 1 }},
@@ -1337,6 +1897,7 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
       const container = document.getElementById("tiersContainer");
       container.innerHTML = "";
 
+      let renderedIdx = 0;
       TIER_META.forEach(t => {{
         const c = prog.counts[t.code];
         if (statF === "LOCKED" && c.cleared) return;
@@ -1353,7 +1914,10 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
 
         const tpDisplay = Math.min(3, c.tp);
         const card = document.createElement("div");
-        card.className = `tier-card ${{c.cleared ? 'cleared' : ''}}`;
+        // Apply deferred-tier (content-visibility: auto + contain-intrinsic-size) ONLY to off-screen cards below the initial fold
+        const deferClass = renderedIdx >= 3 ? "deferred-tier" : "";
+        renderedIdx++;
+        card.className = `tier-card ${{c.cleared ? 'cleared' : ''}} ${{deferClass}}`.trim();
         card.innerHTML = `
           <div class="tier-top">
             <div>
@@ -1361,7 +1925,7 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
               <strong style="margin-left:8px; color:var(--heading);">${{t.title}}</strong>
               <span style="color:var(--muted); font-size:0.8rem; margin-left:8px;">(${{t.act}} • Diff ${{t.diff.toFixed(1)}}/10 • +${{t.exp}} EXP)</span>
             </div>
-            <span class="tp-pill" style="color:${{c.cleared ? '#8fd19a' : 'var(--gold)'}}">
+            <span class="tp-pill" style="color:${{c.cleared ? 'var(--green-bright)' : 'var(--gold)'}}">
               ${{c.cleared ? '✅ TIER CLEARED' : `⚡ ${{tpDisplay}}/3 TP`}}
             </span>
           </div>
@@ -1372,7 +1936,7 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
               const tagLabel = q.cat === "DOJO" ? "🧪 Dojo Lab" : q.cat === "GAME" ? "🎮 Game" : q.cat === "SOFT" ? "💻 Software" : "🛠️ Toolcraft";
               return `
                 <li class="quest-item ${{isDone ? 'done' : ''}}" onclick="toggleQuest('${{q.id}}')">
-                  <input type="checkbox" ${{isDone ? 'checked' : ''}} onclick="event.stopPropagation(); toggleQuest('${{q.id}}')" />
+                  <input type="checkbox" aria-label="${{q.text}}" ${{isDone ? 'checked' : ''}} onclick="event.stopPropagation(); toggleQuest('${{q.id}}')" />
                   <span class="q-tag ${{tagClass}}">${{tagLabel}}</span>
                   <span style="flex:1; font-size:0.86rem;">${{q.text}}</span>
                 </li>
@@ -1399,18 +1963,18 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
       tbody.innerHTML = `
         <tr>
           <td>🥇 <strong>#1</strong></td>
-          <td><strong style="color:var(--heading);">deavers</strong> <span style="color:var(--accent); font-size:0.76rem;">[Author / Verified]</span></td>
+          <th scope="row"><strong style="color:var(--heading);">deavers</strong> <span style="color:var(--accent-bright); font-size:0.75rem;">[Author / Verified]</span></th>
           <td>Adventurer (Managed JIT)</td>
           <td><span class="tier-badge">Tier C</span></td>
-          <td style="color:var(--gold); font-weight:700;">6,850 EXP</td>
+          <td style="color:var(--gold); font-weight:700; font-family:var(--font-mono);">6,850 EXP</td>
           <td><code>PvZ.CT</code> (2.1 E+), <code>UnrealTournament_UT99.CT</code> (2.9 D), <code>isaac-ng.CT</code> (3.8 C-), <code>StreetsOfRogue_v98.CT</code> (4.1 C)</td>
         </tr>
         <tr style="background:var(--accent-soft);">
           <td>⚡ <strong>YOU</strong></td>
-          <td><strong style="color:var(--heading);">${{userName}}</strong> <span style="color:#8fd19a; font-size:0.76rem;">[Browser Session]</span></td>
+          <th scope="row"><strong style="color:var(--heading);">${{userName}}</strong> <span style="color:var(--green-bright); font-size:0.75rem;">[Browser Session]</span></th>
           <td>${{prog.curTier.title}}</td>
           <td><span class="tier-badge">Tier ${{prog.curTier.code}}</span></td>
-          <td style="color:var(--gold); font-weight:700;">${{prog.totalExp.toLocaleString()}} EXP</td>
+          <td style="color:var(--gold); font-weight:700; font-family:var(--font-mono);">${{prog.totalExp.toLocaleString()}} EXP</td>
           <td>${{prog.totalChecked}} Quests Checked</td>
         </tr>
       `;
@@ -1434,6 +1998,7 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
       a.href = URL.createObjectURL(blob);
       a.download = "player_progress.json";
       a.click();
+      showToast("Exported player_progress.json");
     }}
 
     function importProgressJson(input) {{
@@ -1450,9 +2015,9 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
           }}
           document.getElementById("uiPlayerName").value = state.playerName;
           saveState();
-          alert("Profile imported successfully!");
+          showToast("Profile imported successfully!");
         }} catch (err) {{
-          alert("Error reading JSON file");
+          showToast("Error reading JSON file");
         }}
       }};
       reader.readAsText(file);
@@ -1464,6 +2029,7 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
       DEFAULT_QUESTS.forEach(q => {{ if (q.deavers) state.checked[q.id] = true; }});
       document.getElementById("uiPlayerName").value = "deavers";
       saveState();
+      showToast("Loaded verified deavers preset (Tier C | 6,850 EXP)");
     }}
 
     function resetProfile() {{
@@ -1472,18 +2038,117 @@ python Tools_and_Scripts/rpg_manager.py --from-json</pre>
       state.customQuests = [];
       document.getElementById("uiPlayerName").value = "New Challenger";
       saveState();
+      showToast("Reset profile to Tier F- (0 EXP)");
     }}
 
     function recalcAndRender() {{
       renderTiers();
     }}
 
-    function switchTab(name, btn) {{
-      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-      document.getElementById("tab-" + name).classList.add("active");
-      btn.classList.add("active");
+    // Same-Document View Transition + Accessible ARIA Tab Selection & Focus Routing
+    function switchTab(name, btn, focusTargetHeading = false) {{
+      const applyDomSwitch = () => {{
+        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+        document.querySelectorAll(".tab-btn").forEach(b => {{
+          b.classList.remove("active");
+          b.setAttribute("aria-selected", "false");
+        }});
+        const targetPanel = document.getElementById("tab-" + name);
+        if (targetPanel) targetPanel.classList.add("active");
+        const activeBtn = btn || document.getElementById("tabbtn-" + name);
+        if (activeBtn) {{
+          activeBtn.classList.add("active");
+          activeBtn.setAttribute("aria-selected", "true");
+        }}
+      }};
+
+      const routeFocus = () => {{
+        if (!focusTargetHeading) return;
+        const heading = document.getElementById("heading-" + name);
+        if (heading) heading.focus({{ preventScroll: true }});
+      }};
+
+      if (!document.startViewTransition) {{
+        applyDomSwitch();
+        routeFocus();
+        return;
+      }}
+      const transition = document.startViewTransition(() => {{
+        applyDomSwitch();
+      }});
+      transition.finished.then(routeFocus);
     }}
+
+    // Command Palette (Ctrl+K / Cmd+K)
+    function openCmdPalette() {{
+      const dlg = document.getElementById("cmdDialog");
+      if (!dlg) return;
+      if (!dlg.open) dlg.showModal();
+      const inp = document.getElementById("cmdSearchInput");
+      inp.value = "";
+      renderCmdResults();
+      inp.focus();
+    }}
+
+    function closeCmdPalette() {{
+      const dlg = document.getElementById("cmdDialog");
+      if (dlg && dlg.open) dlg.close();
+    }}
+
+    function renderCmdResults() {{
+      const q = (document.getElementById("cmdSearchInput").value || "").toLowerCase().trim();
+      const list = document.getElementById("cmdResultsList");
+      if (!list) return;
+
+      const actions = [
+        {{ label: "⚔️ Go to 28-Tier Campaign Quests", sub: "Navigation", act: () => switchTab("quests", null, true) }},
+        {{ label: "🔥 Go to Top 200 Popular Games (#001–#200)", sub: "Navigation", act: () => switchTab("top200", null, true) }},
+        {{ label: "🔬 Go to Automated .CT / Script Grader", sub: "Navigation", act: () => switchTab("autograde", null, true) }},
+        {{ label: "📖 Go to x86/x64 & Engine Cheat Sheet", sub: "Navigation", act: () => switchTab("cheatsheet", null, true) }},
+        {{ label: "⚖️ Go to 5-Axis Target Calculator", sub: "Navigation", act: () => switchTab("adder", null, true) }},
+        {{ label: "🧙‍♂️ Load Verified Author Preset (deavers — Tier C)", sub: "Preset", act: () => applyDeaversPreset() }},
+        {{ label: "🌱 Reset Profile to Clean New Game (Tier F-)", sub: "Preset", act: () => resetProfile() }}
+      ];
+
+      TOP200_GAMES.slice(0, 60).forEach(g => {{
+        actions.push({{
+          label: `🎮 #${{g.rank}} ${{g.title}} (${{g.engine}})`,
+          sub: `Tier ${{g.tier}} • ${{g.diff}}`,
+          act: () => {{
+            switchTab("top200", null, true);
+            const sb = document.getElementById("top200Search");
+            if (sb) {{ sb.value = g.title; renderTop200(); }}
+          }}
+        }});
+      }});
+
+      const matches = actions.filter(a => !q || a.label.toLowerCase().includes(q) || a.sub.toLowerCase().includes(q)).slice(0, 12);
+      list.innerHTML = matches.map((m, idx) => `
+        <li class="cmd-item" tabindex="0" data-cmd-idx="${{idx}}">
+          <span>${{m.label}}</span>
+          <span class="tier-badge">${{m.sub}}</span>
+        </li>
+      `).join("");
+
+      list.querySelectorAll(".cmd-item").forEach(el => {{
+        const idx = Number(el.getAttribute("data-cmd-idx"));
+        el.onclick = () => {{ closeCmdPalette(); matches[idx].act(); }};
+        el.onkeydown = (ev) => {{
+          if (ev.key === "Enter" || ev.key === " ") {{
+            ev.preventDefault();
+            closeCmdPalette();
+            matches[idx].act();
+          }}
+        }};
+      }});
+    }}
+
+    document.addEventListener("keydown", e => {{
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {{
+        e.preventDefault();
+        openCmdPalette();
+      }}
+    }});
 
     loadState();
     updateRubricPreview();
