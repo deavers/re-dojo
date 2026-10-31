@@ -1,0 +1,41 @@
+name: OPSEC Sanitizer & Dojo Build CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  opsec-and-integrity-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository (Full History for OPSEC Scan)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run OPSEC, Privacy & PII Sanitizer
+        run: python Tools_and_Scripts/opsec_sanitizer.py --ci
+
+      - name: Verify 5-Axis Rubric & Custom Target Database
+        run: python Tools_and_Scripts/rpg_manager.py --verify-db
+
+      - name: Run Automated Artifact Grader Self-Test
+        run: python Tools_and_Scripts/auto_artifact_grader.py Game_Hacking/
+
+      - name: Verify C++20 Dojo Labs & Crackmes Compile Cleanly (GCC)
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+          cmake --build . --parallel

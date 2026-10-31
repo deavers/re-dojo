@@ -1,0 +1,118 @@
+# ============================================================================
+# Reverse Engineering & Game Hacking Journey - Hardened OPSEC .gitignore
+# ============================================================================
+
+# 1. Compiled Executables, Shared Libraries & Packages (Prevent Binary/PDB Path Leaks)
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.out
+*.app
+*.apk
+*.ipa
+*.sys
+*.drv
+
+# 2. Process Memory Dumps & Crash Reports (CRITICAL: Contains OS Env Vars & Session Tokens)
+*.dmp
+*.mdmp
+*.hdmp
+*.core
+*.crash
+*.etl
+*.wer
+
+# 3. Disassembler, Decompiler & Debugger Databases (IDA Pro, Ghidra, Binary Ninja, x64dbg)
+*.idb
+*.i64
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+*.bndb
+*.dd32
+*.dd64
+*.trace32
+*.trace64
+*.ghidra
+*.gpr
+*.rep/
+*.zfproj
+
+# 4. Cheat Engine Temporary, Backup & Trainer Binaries
+*.CT~
+*.bak
+*.tmp
+*.cetrainer
+*.cetrainer.bak
+
+# 5. C/C++ Compiler & Linker Intermediate Artifacts (MSVC / Clang / GCC)
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.ipdb
+*.iobj
+*.pch
+*.tlog
+*.log
+*.lastbuildstate
+*.recipe
+license.dat
+
+# 6. Proprietary Game Storefront / DRM Artifacts (Never Commit Game Files)
+steam_appid.txt
+steam_api*.dll
+libsteam_api.*
+Galaxy*.dll
+EOSSDK*.dll
+*.pak
+*.upk
+*.ucas
+*.utoc
+*.assets
+*.bundle
+*.vdf
+*.acf
+
+# 7. Visual Studio, VS Code, JetBrains & CMake Local Metadata
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+Makefile
+build/
+out/
+
+# 8. Secrets, Keys & Environment Configurations
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.cer
+*.crt
+
+# 9. Python Bytecode & Virtual Environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 10. OS Telemetry & Thumbnail Caches
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/

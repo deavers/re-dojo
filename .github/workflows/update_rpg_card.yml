@@ -1,0 +1,33 @@
+name: Update RPG Progress Card
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'README.md'
+      - 'data/custom_targets.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-rpg-card:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Recalculate RPG Character Sheet & Custom Targets
+        run: python Tools_and_Scripts/rpg_manager.py
+
+      - name: Commit Updated README.md
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git diff --quiet README.md || (git add README.md && git commit -m "chore(rpg): auto-update character rank card & quest progress [skip ci]" && git push)

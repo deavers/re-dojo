@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>100</ID>
+      <Description>"=== [Dojo Lab 01] Static Scalars (lab01_static_scalars.exe) ==="</Description>
+      <Options moHideChildren="0"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>101</ID>
+          <Description>"[Lab 01] Infinite Gold &amp; HP (Auto Assembler Template)"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : lab01_static_scalars.exe
+  Author : deavers (In-Repo Dojo Reference Table)
+  Purpose: Demonstrates basic register/memory override on Lab 01
+}
+
+[ENABLE]
+aobscanmodule(INJECT_LAB01,lab01_static_scalars.exe,89 05 * * * * 8B 05)
+alloc(newmem,$1000,INJECT_LAB01)
+
+label(code)
+label(return)
+
+newmem:
+  mov eax,#999999
+
+code:
+  mov [lab01_static_scalars.exe+data],eax
+  jmp return
+
+INJECT_LAB01:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT_LAB01)
+
+[DISABLE]
+INJECT_LAB01:
+  db 89 05
+unregistersymbol(INJECT_LAB01)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>200</ID>
+      <Description>"=== [Dojo Lab 04] 3-Level Pointer Chain (lab04_multilevel_pointers.exe) ==="</Description>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>201</ID>
+          <Description>"[Lab 04] g_WorldManager -&gt; pInstance -&gt; pLocalHero -&gt; pWallet -&gt; manaCrystals"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"lab04_multilevel_pointers.exe"+00018000</Address>
+          <Offsets>
+            <Offset>8</Offset>
+            <Offset>20</Offset>
+            <Offset>18</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>300</ID>
+      <Description>"=== [Dojo Lab 05] NOP &amp; Codecave Injection (lab05_code_injection.exe) ==="</Description>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>301</ID>
+          <Description>"[Lab 05] +5,000 EXP Multiplier Codecave (GainExperience)"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : lab05_code_injection.exe
+  Author : deavers (In-Repo Dojo Reference Table)
+  Purpose: Hooks GainExperience(Hero*, int amount) on x64 (RCX=Hero*, EDX=amount)
+}
+
+[ENABLE]
+aobscanmodule(INJECT_EXP,lab05_code_injection.exe,01 51 08 8B 41 08)
+alloc(newmem,$1000,INJECT_EXP)
+
+label(code)
+label(return)
+
+newmem:
+  mov edx,#5000          // Force +5000 EXP per swing!
+
+code:
+  add [rcx+08],edx
+  mov eax,[rcx+08]
+  jmp return
+
+INJECT_EXP:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT_EXP)
+
+[DISABLE]
+INJECT_EXP:
+  db 01 51 08 8B 41 08
+unregistersymbol(INJECT_EXP)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>400</ID>
+      <Description>"=== [Dojo Lab 06] Shared-Code Entity Filter (lab06_shared_code_filter.exe) ==="</Description>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>401</ID>
+          <Description>"[Lab 06] Smart Faction Filter: Player God Mode + Enemy One-Hit Kill"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : lab06_shared_code_filter.exe
+  Author : deavers (In-Repo Dojo Reference Table)
+  Purpose: Disambiguates ApplySharedDamage(CombatEntity* target [RCX], int dmg [EDX])
+           Offset +0x00 = int32_t hp
+           Offset +0x08 = int32_t factionId (1 = Player, 2 = Enemy Boss)
+}
+
+[ENABLE]
+aobscanmodule(INJECT_SHARED,lab06_shared_code_filter.exe,29 11 8B 01)
+alloc(newmem,$1000,INJECT_SHARED)
+
+label(enemy_hit)
+label(code)
+label(return)
+
+newmem:
+  cmp dword ptr [rcx+08],#1   // Is target factionId == 1 (Player)?
+  jne enemy_hit
+  xor edx,edx                 // Player takes 0 damage (God Mode)
+  jmp code
+
+enemy_hit:
+  mov edx,#999999             // Enemy takes 999,999 damage (One-Hit Kill)
+
+code:
+  sub [rcx],edx
+  mov eax,[rcx]
+  jmp return
+
+INJECT_SHARED:
+  jmp newmem
+return:
+registersymbol(INJECT_SHARED)
+
+[DISABLE]
+INJECT_SHARED:
+  db 29 11 8B 01
+unregistersymbol(INJECT_SHARED)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

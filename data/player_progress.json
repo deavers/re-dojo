@@ -1,0 +1,129 @@
+{
+  "player_name": "New Challenger",
+  "rank_label": "Tier F- (Unranked Novice)",
+  "current_tier": "F-",
+  "total_exp": 0,
+  "quests_completed": 0,
+  "quests_total": 142,
+  "tiers_cleared": 0,
+  "current_tier_tp": 0,
+  "completed_quest_lines": [],
+  "tier_breakdown": {
+    "F-": {
+      "checked": 0,
+      "total": 5
+    },
+    "F": {
+      "checked": 0,
+      "total": 4
+    },
+    "F+": {
+      "checked": 0,
+      "total": 5
+    },
+    "E--": {
+      "checked": 0,
+      "total": 5
+    },
+    "E-": {
+      "checked": 0,
+      "total": 6
+    },
+    "E": {
+      "checked": 0,
+      "total": 6
+    },
+    "E+": {
+      "checked": 0,
+      "total": 6
+    },
+    "D-": {
+      "checked": 0,
+      "total": 4
+    },
+    "D": {
+      "checked": 0,
+      "total": 6
+    },
+    "D+": {
+      "checked": 0,
+      "total": 5
+    },
+    "C-": {
+      "checked": 0,
+      "total": 6
+    },
+    "C": {
+      "checked": 0,
+      "total": 6
+    },
+    "C+": {
+      "checked": 0,
+      "total": 5
+    },
+    "B-": {
+      "checked": 0,
+      "total": 6
+    },
+    "B": {
+      "checked": 0,
+      "total": 5
+    },
+    "B+": {
+      "checked": 0,
+      "total": 6
+    },
+    "A-": {
+      "checked": 0,
+      "total": 6
+    },
+    "A": {
+      "checked": 0,
+      "total": 5
+    },
+    "A+": {
+      "checked": 0,
+      "total": 6
+    },
+    "S-": {
+      "checked": 0,
+      "total": 4
+    },
+    "S": {
+      "checked": 0,
+      "total": 4
+    },
+    "S+": {
+      "checked": 0,
+      "total": 4
+    },
+    "SS-": {
+      "checked": 0,
+      "total": 4
+    },
+    "SS": {
+      "checked": 0,
+      "total": 4
+    },
+    "SS+": {
+      "checked": 0,
+      "total": 3
+    },
+    "SSS-": {
+      "checked": 0,
+      "total": 4
+    },
+    "SSS": {
+      "checked": 0,
+      "total": 4
+    },
+    "SSS+": {
+      "checked": 0,
+      "total": 4
+    },
+    "SSS++": {
+      "checked": 0,
+      "total": 4
+    }
+  }
+}

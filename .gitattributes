@@ -1,0 +1,10 @@
+# Normalize line endings automatically across Windows / Linux
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.sh text eol=lf
+
+# Enable XML syntax highlighting on GitHub for Cheat Engine tables (.CT)
+*.CT linguist-language=XML
+*.ct linguist-language=XML

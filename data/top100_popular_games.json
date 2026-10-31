@@ -1,0 +1,1602 @@
+[
+  {
+    "rank": "001",
+    "title": "Cookie Clicker",
+    "engine": "JS / Electron Wrapper (x64)",
+    "tier": "F+",
+    "diff": "0.5 / 10",
+    "what_to_find": "IEEE-754 Double (`8 Bytes`) cookie counter (`Game.cookies`), CPS multipliers, plaintext/Base64 save state, and Golden Cookie spawn timers."
+  },
+  {
+    "rank": "002",
+    "title": "Clicker Heroes ⭐",
+    "engine": "Unity / ActionScript Wrapper",
+    "tier": "F+",
+    "diff": "0.6 / 10",
+    "what_to_find": "Double / BigNumber gold counter, boss HP floats, 30-second boss fight countdown timer, and Cheat Engine Speedhack tick acceleration."
+  },
+  {
+    "rank": "003",
+    "title": "AdVenture Capitalist",
+    "engine": "Unity Engine Mono (x86/x64)",
+    "tier": "F+",
+    "diff": "0.7 / 10",
+    "what_to_find": "Double cash balance, Angel Investor count, business revenue multiplier floats, and offline profit timer deltas."
+  },
+  {
+    "rank": "004",
+    "title": "Plague Inc: Evolved",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "F+",
+    "diff": "0.9 / 10",
+    "what_to_find": "4-byte integer DNA Points counter, infectivity/severity/lethality floats, and Cure research progress freeze (`0.0f`)."
+  },
+  {
+    "rank": "005",
+    "title": "Plants vs. Zombies: Fusion / Mods",
+    "engine": "Unity / PopCap Hybrid",
+    "tier": "E--",
+    "diff": "1.1 / 10",
+    "what_to_find": "Sun counter, instant seed packet cooldown timer reset, and projectile damage/ID overrides in memory."
+  },
+  {
+    "rank": "006",
+    "title": "Bloons TD 6 (Offline Sandbox)",
+    "engine": "Unity IL2CPP / Mono",
+    "tier": "E--",
+    "diff": "1.2 / 10",
+    "what_to_find": "In-round Cash (Double/Float), shield/lives counter, tower XP values, and ability cooldown timer freeze."
+  },
+  {
+    "rank": "007",
+    "title": "Windows Minesweeper (winmine.exe)",
+    "engine": "Native Win32 C (x86)",
+    "tier": "E-",
+    "diff": "1.3 / 10",
+    "what_to_find": "Static 2D minefield byte array at `0x01005340` (`0x8F` = mine, `0x0F` = safe tile), 1-second timer freeze, and direct win-function call."
+  },
+  {
+    "rank": "008",
+    "title": "3D Pinball: Space Cadet",
+    "engine": "Native Win32 C (x86)",
+    "tier": "E-",
+    "diff": "1.4 / 10",
+    "what_to_find": "4-byte Score counter, remaining balls (`Balls Left`), plunger spring impulse float, and Tilt penalty flag patch."
+  },
+  {
+    "rank": "009",
+    "title": "DX-Ball 2 & Ricochet Infinity",
+    "engine": "Native Win32 C++ (x86)",
+    "tier": "E-",
+    "diff": "1.5 / 10",
+    "what_to_find": "Extra lives counter, paddle width float, ball velocity vector, and power-up drop bitflags."
+  },
+  {
+    "rank": "010",
+    "title": "Chicken Invaders 4 & 5",
+    "engine": "Custom Win32 OpenGL C++ (x86)",
+    "tier": "E-",
+    "diff": "1.6 / 10",
+    "what_to_find": "Weapon overheat gauge float (`0.0f`), Firepower upgrade level, lives, and missile stock counters."
+  },
+  {
+    "rank": "011",
+    "title": "AssaultCube",
+    "engine": "Cube Engine (x86 Open-Source C++)",
+    "tier": "E",
+    "diff": "1.7 / 10",
+    "what_to_find": "Classic beginner benchmark: static `LocalPlayer` (`0x50F4F4`), `EntityList`, HP/Armor/Ammo, recoil instructions, 4x4 `ViewMatrix`, and Pitch/Yaw angles."
+  },
+  {
+    "rank": "012",
+    "title": "Aim Hero ⭐",
+    "engine": "Unity Engine (x86/x64)",
+    "tier": "E",
+    "diff": "1.8 / 10",
+    "what_to_find": "Target sphere 3D coordinates `(X, Y, Z)` (Floats), target lifetime timers, camera `ViewMatrix`, and Pitch/Yaw Euler aim angles."
+  },
+  {
+    "rank": "013",
+    "title": "Worms Armageddon & World Party",
+    "engine": "Team17 2D Engine (x86 C++)",
+    "tier": "E",
+    "diff": "1.8 / 10",
+    "what_to_find": "Worm health array, infinite Banana Bombs / Holy Hand Grenades, wind direction/strength floats, and turn countdown timer."
+  },
+  {
+    "rank": "014",
+    "title": "CS2D & Soldat (Offline Bots)",
+    "engine": "BlitzMax / Custom Delphi 2D",
+    "tier": "E",
+    "diff": "1.9 / 10",
+    "what_to_find": "2D player coordinates `(X, Y)`, HP, cash, jetpack fuel float in Soldat, and zero weapon spread/recoil."
+  },
+  {
+    "rank": "015",
+    "title": "Quake III Arena (ioquake3)",
+    "engine": "id Tech 3 (x86/x64 C)",
+    "tier": "E",
+    "diff": "1.9 / 10",
+    "what_to_find": "`centity_t` & `clientInfo_t` struct arrays, velocity vectors for strafe/bunnyhop physics, and OpenGL `wglSwapBuffers` overlay hook."
+  },
+  {
+    "rank": "016",
+    "title": "Serious Sam: The First & Second Encounter",
+    "engine": "Serious Engine 1 (`Engine.dll` x86)",
+    "tier": "E",
+    "diff": "2.0 / 10",
+    "what_to_find": "Health, Armor, Cannonball/Serious Bomb ammo counters, movement speed float, and gravity modifiers in `Engine.dll`."
+  },
+  {
+    "rank": "017",
+    "title": "SuperTuxKart",
+    "engine": "Antarctica Engine (C++)",
+    "tier": "E",
+    "diff": "2.0 / 10",
+    "what_to_find": "Nitro energy reserve float, kart mass/acceleration physics struct, lap counter, and race timer."
+  },
+  {
+    "rank": "018",
+    "title": "Bejeweled 3 & Feeding Frenzy 2",
+    "engine": "PopCap Framework (x86 C++)",
+    "tier": "E+",
+    "diff": "2.1 / 10",
+    "what_to_find": "Score counter, level timer freeze, and player fish size scale float (`Scale`) in Feeding Frenzy to eat sharks immediately."
+  },
+  {
+    "rank": "019",
+    "title": "Plants vs. Zombies GOTY ⭐ ✅",
+    "engine": "PopCap Framework (x86 C++)",
+    "tier": "E+",
+    "diff": "2.1 / 10",
+    "what_to_find": "Pointer chain `LawnApp -> Board -> Sun` (`+0x5560` / `+0x5578`), seed slot recharge timers, projectile ID swapping (pea -> cob cannon), and Crazy Dave coins."
+  },
+  {
+    "rank": "020",
+    "title": "Castle Crashers ⭐",
+    "engine": "The Behemoth 2D C++ Engine (x86)",
+    "tier": "E+",
+    "diff": "2.2 / 10",
+    "what_to_find": "Character stat struct (`XP`, `Level`, `Gold`, `Strength`, `Magic`, `Defense`, `Agility`), sandwich/potion quantities, and aerial juggle gravity."
+  },
+  {
+    "rank": "021",
+    "title": "Neighbours from Hell 1 & 2",
+    "engine": "JoWooD 2D Engine (x86 C++)",
+    "tier": "E+",
+    "diff": "2.2 / 10",
+    "what_to_find": "Neighbor anger meter percentage, Woody stealth invisibility flag when sharing a room, and inventory item array."
+  },
+  {
+    "rank": "022",
+    "title": "Peggle Deluxe & Zuma Deluxe",
+    "engine": "PopCap Framework (x86 C++)",
+    "tier": "E+",
+    "diff": "2.2 / 10",
+    "what_to_find": "Ball counter, aim-guide trajectory line length float, rolling ball linked list in Zuma, and frog rotation angle."
+  },
+  {
+    "rank": "023",
+    "title": "Alien Shooter 1 & 2 / Zombie Shooter",
+    "engine": "Sigma Team 2D Isometric C++ (x86)",
+    "tier": "E+",
+    "diff": "2.3 / 10",
+    "what_to_find": "Cash, HP, Armor, ammo pools, implant durability, and character attribute structs (`Accuracy`, `Speed`, `Strength`)."
+  },
+  {
+    "rank": "024",
+    "title": "Angry Birds Classic (PC)",
+    "engine": "Box2D + Lua C++ Wrapper (x86)",
+    "tier": "E+",
+    "diff": "2.3 / 10",
+    "what_to_find": "Box2D slingshot impulse multiplier, world gravity vector, remaining bird counter, and Lua level unlock tables."
+  },
+  {
+    "rank": "025",
+    "title": "Braid & Super Meat Boy",
+    "engine": "Custom 2D C++ Engines (x86)",
+    "tier": "E+",
+    "diff": "2.4 / 10",
+    "what_to_find": "Time-rewind ring buffer frames in Braid, and horizontal acceleration / jump velocity vectors in Super Meat Boy."
+  },
+  {
+    "rank": "026",
+    "title": "Limbo & Inside",
+    "engine": "Playdead Custom C++/C# Engine",
+    "tier": "E+",
+    "diff": "2.4 / 10",
+    "what_to_find": "Player `(X, Y)` world coordinates, gravity/jump vectors, and disabling hazard death trigger callbacks."
+  },
+  {
+    "rank": "027",
+    "title": "Papers, Please",
+    "engine": "OpenFL / NME (x86/x64)",
+    "tier": "E+",
+    "diff": "2.4 / 10",
+    "what_to_find": "Family savings balance, Citations counter (freeze at `0` to prevent penalties), workday clock timer, and heat/food status flags."
+  },
+  {
+    "rank": "028",
+    "title": "DOOM (1993) + DOOM II ⭐",
+    "engine": "id Tech 1 / KEX Engine (C/C++)",
+    "tier": "D-",
+    "diff": "2.5 / 10",
+    "what_to_find": "`mobj_t` actor structs, `16.16` fixed-point coordinates & momentum, invulnerability bitflags, and ammo/armor pointers."
+  },
+  {
+    "rank": "029",
+    "title": "Return to Castle Wolfenstein",
+    "engine": "id Tech 3 (`WolfSP.exe` x86 C)",
+    "tier": "D-",
+    "diff": "2.5 / 10",
+    "what_to_find": "`gentity_t` actor structs, health, armor, stamina float, Venom gun overheat timer, and secret gold bars."
+  },
+  {
+    "rank": "030",
+    "title": "Duke Nukem 3D (EDuke32)",
+    "engine": "Build Engine (C/C++)",
+    "tier": "D-",
+    "diff": "2.6 / 10",
+    "what_to_find": "Static `sprite[]`, `wall[]`, and `sector[]` arrays, Jetpack fuel timer, Steroids duration, and weapon ammo tables."
+  },
+  {
+    "rank": "031",
+    "title": "Medal of Honor: Allied Assault",
+    "engine": "id Tech 3 + F.A.K.K.2 (x86)",
+    "tier": "D-",
+    "diff": "2.6 / 10",
+    "what_to_find": "Health, ammo counters, weapon recoil suppression, and reading enemy coordinates from the entity array."
+  },
+  {
+    "rank": "032",
+    "title": "Painkiller: Black Edition",
+    "engine": "PAIN Engine (x86 C++ & Lua)",
+    "tier": "D-",
+    "diff": "2.7 / 10",
+    "what_to_find": "Soul counter for Demon Morph (`66 Souls`), gold for Black Tarot cards, Stakegun ammo, and Havok ragdoll impulses."
+  },
+  {
+    "rank": "033",
+    "title": "Wolfenstein 3D & Quake II",
+    "engine": "Wolf3D Raycaster & id Tech 2",
+    "tier": "D-",
+    "diff": "2.7 / 10",
+    "what_to_find": "64x64 tile map grid in RAM (secret push-walls), `edict_t` entity structs in Quake II, and QuakeC VM stack."
+  },
+  {
+    "rank": "034",
+    "title": "Age of Empires II (HD / Definitive)",
+    "engine": "Genie Engine (C++)",
+    "tier": "D-",
+    "diff": "2.8 / 10",
+    "what_to_find": "Player resource float array (`Food`, `Wood`, `Gold`, `Stone`), Population Cap limit, and instant building construction hook."
+  },
+  {
+    "rank": "035",
+    "title": "Command & Conquer: Red Alert 2 & Generals",
+    "engine": "Westwood 2D / SAGE 3D Engine (x86)",
+    "tier": "D-",
+    "diff": "2.8 / 10",
+    "what_to_find": "Credits balance, base Power grid capacity, Map Shroud (Fog of War) reveal flag, and instant unit production hook."
+  },
+  {
+    "rank": "036",
+    "title": "StarCraft: Brood War",
+    "engine": "Blizzard Storm 2D Engine (x86)",
+    "tier": "D-",
+    "diff": "2.8 / 10",
+    "what_to_find": "Minerals, Vespene Gas, Psi/Supply cap, `CUnit` doubly-linked entity list, and unit HP/Shield fixed-point values."
+  },
+  {
+    "rank": "037",
+    "title": "Gothic I & Gothic II: Night of the Raven",
+    "engine": "Piranha Bytes ZenGin (`Gothic2.exe` x86)",
+    "tier": "D",
+    "diff": "2.9 / 10",
+    "what_to_find": "`oCNpc` player class: Learning Points (`LP`), Strength, Dexterity, Mana, Magic Circle level, and Gold ore/coins."
+  },
+  {
+    "rank": "038",
+    "title": "Unreal Tournament 99 GOTY ⭐ ✅",
+    "engine": "Unreal Engine 1 (x86 C++)",
+    "tier": "D",
+    "diff": "2.9 / 10",
+    "what_to_find": "`UObject -> AActor -> APawn` hierarchy in `Engine.dll`, shared damage instruction filter (Player God Mode + Bot One-Hit Kill)."
+  },
+  {
+    "rank": "039",
+    "title": "Counter-Strike 1.6 (Offline Bots) ⭐",
+    "engine": "GoldSrc Engine (x86 C++)",
+    "tier": "D",
+    "diff": "3.0 / 10",
+    "what_to_find": "Bot bone coordinates, recoil `punchangle` vectors, `$16000` cash, FOV float, and OpenGL `glBegin` model rendering hook."
+  },
+  {
+    "rank": "040",
+    "title": "Deus Ex (2000 GOTY)",
+    "engine": "Unreal Engine 1 (`DeusEx.dll` x86)",
+    "tier": "D",
+    "diff": "3.0 / 10",
+    "what_to_find": "Bioelectric energy float for augmentations, Skill Points, lockpicks, multitools, weapon accuracy, and credits."
+  },
+  {
+    "rank": "041",
+    "title": "Half-Life 1 (1998) ⭐",
+    "engine": "GoldSrc Engine (`hw.dll` / `client.dll`)",
+    "tier": "D",
+    "diff": "3.0 / 10",
+    "what_to_find": "`cl_entity_s` entity array, `cl_enginefunc_t` engine pointer table, HEV suit armor, and `FL_ONGROUND` bunnyhop bitflag."
+  },
+  {
+    "rank": "042",
+    "title": "The Elder Scrolls III: Morrowind",
+    "engine": "NetImmerse / Gamebryo (x86 C++)",
+    "tier": "D",
+    "diff": "3.0 / 10",
+    "what_to_find": "`MACP` player actor struct: Health, Magicka, Fatigue (controls hit/cast success probability!), attributes, and Gold."
+  },
+  {
+    "rank": "043",
+    "title": "Hitman: Codename 47 / Silent Assassin / Blood Money",
+    "engine": "IO Glacier 1 Engine (x86 C++)",
+    "tier": "D",
+    "diff": "3.1 / 10",
+    "what_to_find": "Agent 47 health, weapon upgrade money balance, suspicion/noise meter, and locking the `Silent Assassin` rating flag."
+  },
+  {
+    "rank": "044",
+    "title": "Max Payne 1 & Max Payne 2",
+    "engine": "MAX-FX Engine (x86 C++)",
+    "tier": "D",
+    "diff": "3.1 / 10",
+    "what_to_find": "Bullet Time hourglass float, Painkillers counter, projectile velocity vectors, and camera FOV."
+  },
+  {
+    "rank": "045",
+    "title": "POSTAL 2 ⭐",
+    "engine": "Unreal Engine 2 (`Postal2.exe` x86)",
+    "tier": "D",
+    "diff": "3.1 / 10",
+    "what_to_find": "`UPawn` inventory linked list, cat-silencer counter, health pipes, and NPC aggression AI state flags."
+  },
+  {
+    "rank": "046",
+    "title": "System Shock 2 & Thief: Deadly Shadows",
+    "engine": "Dark Engine / Modified UE2 (x86)",
+    "tier": "D",
+    "diff": "3.1 / 10",
+    "what_to_find": "Cyber Modules, Psi Points, weapon degradation, Nanites, and the stealth visibility `Light Gem` float in Thief."
+  },
+  {
+    "rank": "047",
+    "title": "Baldur's Gate I & II (Enhanced Edition)",
+    "engine": "Infinity Engine (x86/x64 C++)",
+    "tier": "D",
+    "diff": "3.2 / 10",
+    "what_to_find": "AD&D 2e character stats (`THAC0`, `Armor Class`, `HP`), spell memorization slots without resting, Gold, and party XP."
+  },
+  {
+    "rank": "048",
+    "title": "Diablo II (Offline Singleplayer)",
+    "engine": "Blizzard Custom 2D/Isometric C++",
+    "tier": "D",
+    "diff": "3.2 / 10",
+    "what_to_find": "`UnitAny` (`pPlayerUnit`) struct, fixed-point stats (HP/Mana shifted by `<< 8` bits), gold, stamina, and map seed."
+  },
+  {
+    "rank": "049",
+    "title": "Fallout 1 & Fallout 2",
+    "engine": "Interplay 2D Isometric Engine (x86)",
+    "tier": "D",
+    "diff": "3.2 / 10",
+    "what_to_find": "Turn-based combat Action Points (`AP`), S.P.E.C.I.A.L. stat block, Skill Points, carry weight limit, and Bottle Caps."
+  },
+  {
+    "rank": "050",
+    "title": "Warcraft III (Classic Offline)",
+    "engine": "Blizzard Storm / JASS VM (C++)",
+    "tier": "D",
+    "diff": "3.2 / 10",
+    "what_to_find": "Gold, Lumber, Food cap, Hero ability cooldown timers, unit structs in `Game.dll`, and the JASS scripting VM."
+  },
+  {
+    "rank": "051",
+    "title": "F.E.A.R. (First Encounter Assault Recon)",
+    "engine": "LithTech Jupiter EX Engine (x86 C++)",
+    "tier": "D+",
+    "diff": "3.3 / 10",
+    "what_to_find": "Slow-Mo Reflexes charge float, Medkit/Reflex boosters, armor, and Penetrator / Type-7 particle weapon ammo."
+  },
+  {
+    "rank": "052",
+    "title": "Far Cry 1 (2004) ⭐",
+    "engine": "CryEngine 1 (`CryGame.dll` C++/Lua)",
+    "tier": "D+",
+    "diff": "3.3 / 10",
+    "what_to_find": "Stamina, sniper breath-hold float, binocular tagging distance limit, weapon recoil vectors, and CryEngine 1 entity tables."
+  },
+  {
+    "rank": "053",
+    "title": "Splinter Cell: Chaos Theory ⭐",
+    "engine": "Lead Engine (Modified UE2.5 x86)",
+    "tier": "D+",
+    "diff": "3.3 / 10",
+    "what_to_find": "Light visibility meter float (`0.0f` = total darkness), acoustic footstep noise float, night-vision battery, and SC-20K ammo."
+  },
+  {
+    "rank": "054",
+    "title": "Vampire: The Masquerade – Bloodlines",
+    "engine": "Source Engine Early Branch (`vampire.dll`)",
+    "tier": "D+",
+    "diff": "3.3 / 10",
+    "what_to_find": "Blood Pool reserve, XP points for Disciplines, Humanity/Masquerade counters, cash, and computer hacking bypass."
+  },
+  {
+    "rank": "055",
+    "title": "GTA III & Bully: Scholarship Edition",
+    "engine": "RenderWare / Gamebryo (x86 C++)",
+    "tier": "D+",
+    "diff": "3.4 / 10",
+    "what_to_find": "`CPed` pool in GTA III; cash, slingshot/firecrackers, Prefect `Trouble Meter`, and curfew clock freeze in Bully."
+  },
+  {
+    "rank": "056",
+    "title": "GTA: Vice City & San Andreas (Original)",
+    "engine": "RenderWare Engine (x86 C++)",
+    "tier": "D+",
+    "diff": "3.4 / 10",
+    "what_to_find": "Static `CPed` (`0xB6F5F0`) and `CVehicle` pools, weapon slots, Wanted Level (`0–6`), vehicle gravity, and calling `CHud::SetHelpMessage`."
+  },
+  {
+    "rank": "057",
+    "title": "Mafia: The City of Lost Heaven & Mafia II",
+    "engine": "LS3D Engine & Illusion Engine (x86)",
+    "tier": "D+",
+    "diff": "3.4 / 10",
+    "what_to_find": "Race car damage/timer patch in the iconic 'Fair Play' mission, Tommy Gun ammo, cash, and speed limiter removal."
+  },
+  {
+    "rank": "058",
+    "title": "FlatOut 2 & Burnout Paradise",
+    "engine": "Bugbear Engine & Criterion RenderWare",
+    "tier": "D+",
+    "diff": "3.5 / 10",
+    "what_to_find": "Nitro gauge float, opponent chassis health in demolition derbies, cash, and driver ejection impulse vectors in stunts."
+  },
+  {
+    "rank": "059",
+    "title": "LEGO Star Wars: The Complete Saga ⭐",
+    "engine": "TT Games Nu2x Engine (x86 C++)",
+    "tier": "D+",
+    "diff": "3.5 / 10",
+    "what_to_find": "64-bit Studs counter, `True Jedi` meter threshold, and Red Brick score multiplier bitflags (`x2`, `x4`, `x6`, `x8`, `x10`)."
+  },
+  {
+    "rank": "060",
+    "title": "Need for Speed: Most Wanted (2005)",
+    "engine": "EA EAGL Engine (x86 C++)",
+    "tier": "D+",
+    "diff": "3.5 / 10",
+    "what_to_find": "`N2O` nitrous and `Speedbreaker` slow-motion floats, Bounty rating points, cash, and vehicle mass/torque multipliers."
+  },
+  {
+    "rank": "061",
+    "title": "Prince of Persia: Sands of Time / Warrior Within",
+    "engine": "Ubisoft Jade Engine (x86 C++)",
+    "tier": "D+",
+    "diff": "3.5 / 10",
+    "what_to_find": "Sand Tanks counter (for time rewind), Eye of the Storm slow-motion charges, and Prince / Dahaka health."
+  },
+  {
+    "rank": "062",
+    "title": "SPORE ⭐",
+    "engine": "Maxis Custom C++ Engine (x86)",
+    "tier": "D+",
+    "diff": "3.5 / 10",
+    "what_to_find": "DNA Points in Creature/Tribe stages, bypassing the `Complexity Meter` limit in the Creature Editor, and Space Stage ship energy."
+  },
+  {
+    "rank": "063",
+    "title": "Devil May Cry 3 & 4 Special Edition",
+    "engine": "MT Framework (x86/x64 C++)",
+    "tier": "D+",
+    "diff": "3.6 / 10",
+    "what_to_find": "Red Orbs & Proud Souls counters, `Devil Trigger` gauge float, instant `SSS` Style Rank multiplier, and HP."
+  },
+  {
+    "rank": "064",
+    "title": "Heroes of Might and Magic III (HD/HotA)",
+    "engine": "New World Computing C++ (x86)",
+    "tier": "D+",
+    "diff": "3.6 / 10",
+    "what_to_find": "Hero struct (`Movement Points` on the adventure map, `Mana`, primary stats), 7 kingdom resource array, and creature stack counts."
+  },
+  {
+    "rank": "065",
+    "title": "Resident Evil 4 (2005 Classic / UHD)",
+    "engine": "Capcom Custom C++ Engine (x86)",
+    "tier": "D+",
+    "diff": "3.6 / 10",
+    "what_to_find": "Pesetas (`PTAS`), Leon & Ashley HP/MaxHP, Attaché Case 2D grid inventory items, and knife durability."
+  },
+  {
+    "rank": "066",
+    "title": "Star Wars: Knights of the Old Republic (KOTOR)",
+    "engine": "BioWare Odyssey Engine (x86 C++)",
+    "tier": "D+",
+    "diff": "3.6 / 10",
+    "what_to_find": "Hooking the `d20` combat/persuasion RNG roll (always natural 20), Force Points, Light/Dark alignment, and Credits."
+  },
+  {
+    "rank": "067",
+    "title": "Stronghold Crusader & Warcraft II",
+    "engine": "Firefly 2D Isometric C++ (x86)",
+    "tier": "D+",
+    "diff": "3.6 / 10",
+    "what_to_find": "Treasury Gold, Castle Popularity (`100`), stockpile goods (stone, iron, bread, weapons), and troop population cap."
+  },
+  {
+    "rank": "068",
+    "title": "The Sims 2 / The Sims 3 (Offline)",
+    "engine": "Maxis Custom C++ / Mono Sims3",
+    "tier": "D+",
+    "diff": "3.6 / 10",
+    "what_to_find": "Household Simoleons balance, the 6 Sim Motive floats (`Hunger`, `Energy`, `Bladder`, `Fun`, `Social`, `Hygiene`), and Lifetime Happiness."
+  },
+  {
+    "rank": "069",
+    "title": "Shovel Knight & Katana ZERO",
+    "engine": "Yacht Club C++ & GameMaker Studio",
+    "tier": "C-",
+    "diff": "3.7 / 10",
+    "what_to_find": "Chronos slow-motion battery float in Katana ZERO (`data.win`), and relic Magic / Gold pouches in Shovel Knight."
+  },
+  {
+    "rank": "070",
+    "title": "Bastion & Transistor",
+    "engine": "Supergiant Custom C# / MonoGame",
+    "tier": "C-",
+    "diff": "3.8 / 10",
+    "what_to_find": "Fragments currency, Spirit tonics, Function `MEM` slot capacity limit in Transistor, and Turn() planning energy."
+  },
+  {
+    "rank": "071",
+    "title": "FTL: Faster Than Light",
+    "engine": "Subset Custom C++ Engine",
+    "tier": "C-",
+    "diff": "3.8 / 10",
+    "what_to_find": "Ship `Hull` integrity, `Scrap` currency, Fuel, Missiles, Drone Parts, and reactor power bar allocation across subsystems."
+  },
+  {
+    "rank": "072",
+    "title": "Geometry Dash ⭐",
+    "engine": "Cocos2d-x C++ (`libcocos2d.dll`)",
+    "tier": "C-",
+    "diff": "3.8 / 10",
+    "what_to_find": "Patching `PlayLayer::destroyPlayer` (Noclip), `PlayerObject` gravity/speed floats, and traversing `CCNode` scene trees."
+  },
+  {
+    "rank": "073",
+    "title": "Loop Hero & Inscryption",
+    "engine": "GameMaker Studio & Unity Engine",
+    "tier": "C-",
+    "diff": "3.8 / 10",
+    "what_to_find": "Camp resource structs and card deck arrays in Loop Hero (`data.win`), and card Attack/HP & scale teeth in Inscryption."
+  },
+  {
+    "rank": "074",
+    "title": "The Binding of Isaac: Repentance ⭐ ✅",
+    "engine": "Custom C++20 + Lua 5.3 (x86)",
+    "tier": "C-",
+    "diff": "3.8 / 10",
+    "what_to_find": "`Entity_Player` struct, Red/Soul/Black heart bitmasks, `Tear Delay` fire-rate formula, active item charge, and pedestal item IDs."
+  },
+  {
+    "rank": "075",
+    "title": "Barony ⭐",
+    "engine": "Custom 3D Voxel C++ Engine",
+    "tier": "C-",
+    "diff": "3.9 / 10",
+    "what_to_find": "`Stat` struct (`HP`, `MP`, `STR`, `DEX`), cursed/blessed item `beatitude` flags, hunger timer, and zero spell mana cost."
+  },
+  {
+    "rank": "076",
+    "title": "Darkest Dungeon 1",
+    "engine": "Red Hook Custom C++ Engine (x64)",
+    "tier": "C-",
+    "diff": "3.9 / 10",
+    "what_to_find": "Locking hero Stress at `0` (preventing Afflictions/Heart Attacks), Torchlight at `100`, Gold, and Heirloom crests."
+  },
+  {
+    "rank": "077",
+    "title": "Rogue Legacy 1 & 2",
+    "engine": "C# MonoGame (RL1) & Unity Engine (RL2)",
+    "tier": "C-",
+    "diff": "3.9 / 10",
+    "what_to_find": "Manor upgrade Gold, double-jump/dash runes, Mana pool, and armor `Resolve` weight capacity."
+  },
+  {
+    "rank": "078",
+    "title": "Spelunky HD & Spelunky 2",
+    "engine": "Custom C++ Engine (x86/x64)",
+    "tier": "C-",
+    "diff": "3.9 / 10",
+    "what_to_find": "Rope & Bomb counters, Ghost spawn timer freeze (`0`), Jetpack/Kapala equipment bitflags, and teleport coordinates."
+  },
+  {
+    "rank": "079",
+    "title": "Brotato & Halls of Torment",
+    "engine": "Godot Engine 3/4 (GDScript / C++)",
+    "tier": "C-",
+    "diff": "4.0 / 10",
+    "what_to_find": "Unpacking Godot `.pck` archives, Materials currency, primary stats (`Harvesting`, `Luck`, `Attack Speed`, `Armor`), and HP."
+  },
+  {
+    "rank": "080",
+    "title": "Celeste",
+    "engine": "C# XNA / FNA / Monocle Engine",
+    "tier": "C-",
+    "diff": "4.0 / 10",
+    "what_to_find": "`Player.Dashes` field (infinite mid-air dashes), `Player.Stamina` (infinite wall-climb grip), and sub-pixel velocity vectors."
+  },
+  {
+    "rank": "081",
+    "title": "Core Keeper & Forager",
+    "engine": "Unity Engine & GameMaker Studio",
+    "tier": "C-",
+    "diff": "4.0 / 10",
+    "what_to_find": "Pickaxe durability, food saturation, and skill points in Core Keeper; infinite energy and coins in Forager."
+  },
+  {
+    "rank": "082",
+    "title": "Dead Cells",
+    "engine": "Heaps.io Engine (Haxe -> HashLink VM)",
+    "tier": "C-",
+    "diff": "4.0 / 10",
+    "what_to_find": "HashLink VM bytecode (`hlboot.dat`), Cells, Gold, `Brutality`/`Tactics`/`Survival` scroll counts, and skill cooldowns."
+  },
+  {
+    "rank": "083",
+    "title": "Hotline Miami 1 & 2",
+    "engine": "GameMaker / SilverWare C++",
+    "tier": "C-",
+    "diff": "4.0 / 10",
+    "what_to_find": "Equipped weapon magazine ammo, `Combo Window` expiration timer freeze, and patching bullet collision checks on the player."
+  },
+  {
+    "rank": "084",
+    "title": "Undertale & Deltarune",
+    "engine": "GameMaker Studio (`data.win` VM)",
+    "tier": "C-",
+    "diff": "4.0 / 10",
+    "what_to_find": "GameMaker dynamic `double` hash-table variables (`global.hp`, `global.gold`, battle box Soul `(X,Y)` coords) and `data.win` bytecode."
+  },
+  {
+    "rank": "085",
+    "title": "Blasphemous 1 & 2",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.1 / 10",
+    "what_to_find": "Tears of Atonement currency, `Fervour` prayer bar, Bile Flask charges, and Penitent One health."
+  },
+  {
+    "rank": "086",
+    "title": "Ori and the Blind Forest & Will of the Wisps",
+    "engine": "Unity Engine (Moon Studios x64)",
+    "tier": "C",
+    "diff": "4.1 / 10",
+    "what_to_find": "Life & Energy cells, `Spirit Light` currency, Spirit Shard slots, and infinite mid-air jumps/dashes."
+  },
+  {
+    "rank": "087",
+    "title": "Punch Club 1 & 2 ⭐",
+    "engine": "Unity Engine Mono (C#)",
+    "tier": "C",
+    "diff": "4.1 / 10",
+    "what_to_find": "Decompiling `Assembly-CSharp.dll` in `dnSpyEx`, disabling daily `Stat Decay`, and locking Energy/Hunger/Mood bars."
+  },
+  {
+    "rank": "088",
+    "title": "Streets of Rogue (v98) ⭐ ✅",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.1 / 10",
+    "what_to_find": "Cheat Engine Mono Dissector: `Agent`, `InvDatabase`, and `Stat` classes, infinite weapon durability, EXP hook, and trait points."
+  },
+  {
+    "rank": "089",
+    "title": "Cult of the Lamb",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.2 / 10",
+    "what_to_find": "Follower `Faith`, Hunger, and Village Hygiene bars, Gold coins, and Crusade Fervour / Tarot card multipliers."
+  },
+  {
+    "rank": "090",
+    "title": "Disco Elysium",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.2 / 10",
+    "what_to_find": "Skill Points, `Morale` & `Health` pips, Réal currency, and patching `2d6` skill check rolls to always succeed."
+  },
+  {
+    "rank": "091",
+    "title": "Enter the Gungeon ⭐",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.2 / 10",
+    "what_to_find": "`PlayerController` & `HealthHaver` classes, infinite `Blanks`, Keys, Hegemony Credits, zero spread, and dodge-roll i-frames."
+  },
+  {
+    "rank": "092",
+    "title": "Graveyard Keeper ⭐",
+    "engine": "Unity Engine Mono (C#)",
+    "tier": "C",
+    "diff": "4.2 / 10",
+    "what_to_find": "`WorldGameObject` & `PlayerComponent` classes, infinite Energy, Red/Green/Blue tech points, and corpse `White Skulls` quality."
+  },
+  {
+    "rank": "093",
+    "title": "Slay the Spire",
+    "engine": "Java / LibGDX Framework (JVM)",
+    "tier": "C",
+    "diff": "4.2 / 10",
+    "what_to_find": "Decompiling `desktop-1.0.jar` (`Jadx`/`Recaf`) or scanning `AbstractPlayer.currentHealth`, combat `EnergyManager`, and Gold."
+  },
+  {
+    "rank": "094",
+    "title": "Balatro",
+    "engine": "LÖVE 2D Framework (LuaJIT)",
+    "tier": "C",
+    "diff": "4.3 / 10",
+    "what_to_find": "Extracting the ZIP archive appended to `Balatro.exe`, inspecting Lua state tables (`G.GAME.dollars`, `hands_left`, `discards_left`), and Joker multipliers."
+  },
+  {
+    "rank": "095",
+    "title": "Subnautica (Original)",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.3 / 10",
+    "what_to_find": "`Oxygen` manager, `LiveMixin` health component, battery/power-cell charge, Cyclops `CrushDamage` depth, and blueprint unlocks."
+  },
+  {
+    "rank": "096",
+    "title": "The Forest",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.3 / 10",
+    "what_to_find": "`LocalPlayer -> Stats` class: Energy, Stamina, Fullness, Thirst, Creepy Armor, and instant blueprint construction."
+  },
+  {
+    "rank": "097",
+    "title": "Cuphead",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.4 / 10",
+    "what_to_find": "`PlayerStatsManager` (HP & `SuperMeter` Ex-cards), `LevelPlayerWeaponManager` damage multipliers, and Gold coins."
+  },
+  {
+    "rank": "098",
+    "title": "Hollow Knight",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.4 / 10",
+    "what_to_find": "`HeroController.instance` & `PlayerData`: infinite Soul (`MPCharge`), `Geo`, `charmSlots` notch capacity, and Shade Cloak cooldown."
+  },
+  {
+    "rank": "099",
+    "title": "Kerbal Space Program",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.4 / 10",
+    "what_to_find": "Infinite LiquidFuel/Oxidizer/MonoPropellant in `PartResource`, ElectricCharge, R&D `Science` points, and career Funds."
+  },
+  {
+    "rank": "100",
+    "title": "Raft & Green Hell",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.4 / 10",
+    "what_to_find": "Thirst/Hunger & Hook durability in Raft; Macronutrients (Proteins/Fats/Carbs), `Sanity`, and Stamina in Green Hell."
+  },
+  {
+    "rank": "101",
+    "title": "Cities: Skylines",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.5 / 10",
+    "what_to_find": "`EconomyManager` treasury balance, eliminating ground/water pollution, and unlocking all 25/81 map tiles."
+  },
+  {
+    "rank": "102",
+    "title": "Pillars of Eternity & Pathfinder: Wrath of the Righteous",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C",
+    "diff": "4.5 / 10",
+    "what_to_find": "Party attribute blocks, per-rest spell casts, Gold, Crusade army morale, and `d20` attack/saving-throw roll hooks."
+  },
+  {
+    "rank": "103",
+    "title": "Stardew Valley ⭐",
+    "engine": ".NET / MonoGame (x64 C#)",
+    "tier": "C",
+    "diff": "4.5 / 10",
+    "what_to_find": "`StardewValley.Game1.player` singleton: infinite `stamina`, Gold, `DailyLuck` max roll, watering can water, and clock freeze."
+  },
+  {
+    "rank": "104",
+    "title": "Terraria ⭐",
+    "engine": "C# XNA / FNA (.NET JIT)",
+    "tier": "C",
+    "diff": "4.5 / 10",
+    "what_to_find": "JIT signature scanning `Terraria.Player::Update`: infinite wing flight (`wingTime`), mana, pickaxe `blockRange`, and item IDs."
+  },
+  {
+    "rank": "105",
+    "title": "Lethal Company (Offline Solo) ⭐",
+    "engine": "Unity Mono + Netcode (x64)",
+    "tier": "C+",
+    "diff": "4.6 / 10",
+    "what_to_find": "Authoring a `BepInEx + Harmony` C# plugin for `PlayerControllerB`: infinite `sprintMeter`, battery charge, zero carry weight, and Quota."
+  },
+  {
+    "rank": "106",
+    "title": "Unturned (Offline Sandbox) ⭐",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C+",
+    "diff": "4.6 / 10",
+    "what_to_find": "`SDG.Unturned` namespace: `PlayerLife` (HP/Food/Water/Virus), `UseableGun` (zero recoil/spread), and vehicle fuel/health."
+  },
+  {
+    "rank": "107",
+    "title": "Valheim (Offline Solo World)",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C+",
+    "diff": "4.6 / 10",
+    "what_to_find": "BepInEx/Harmony hooks on `Player`: infinite `m_stamina` & `m_eitr`, `m_maxCarryWeight`, and unrestricted metal portal teleportation."
+  },
+  {
+    "rank": "108",
+    "title": "7 Days to Die (Offline Singleplayer)",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C+",
+    "diff": "4.7 / 10",
+    "what_to_find": "Skill Points, Stamina, core temperature, stealth meter, and `BlockDamage` multiplier for instant mining."
+  },
+  {
+    "rank": "109",
+    "title": "Project Zomboid (Solo Sandbox)",
+    "engine": "Java + LWJGL + Lua Scripting",
+    "tier": "C+",
+    "diff": "4.7 / 10",
+    "what_to_find": "Hooking the Java/Lua VM (`IsoGameCharacter`), clearing zombie infection (`isInfected = false`), endurance, panic, and carry weight."
+  },
+  {
+    "rank": "110",
+    "title": "Subnautica: Below Zero ⭐",
+    "engine": "Unity Engine (x64)",
+    "tier": "C+",
+    "diff": "4.7 / 10",
+    "what_to_find": "`OxygenManager`, `LiveMixin` health component, body temperature float, Seatruck crush depth, and Ion Cube energy."
+  },
+  {
+    "rank": "111",
+    "title": "RimWorld",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C+",
+    "diff": "4.8 / 10",
+    "what_to_find": "Harmony hooks on `Pawn_NeedsTracker` (colonist mood/hunger), `SkillRecord` (level 20 without XP decay), and instant construction."
+  },
+  {
+    "rank": "112",
+    "title": "Satisfactory",
+    "engine": "Unreal Engine 4 / 5 (x64 C++)",
+    "tier": "C+",
+    "diff": "4.8 / 10",
+    "what_to_find": "Jetpack fuel, FICSIT `AWESOME Sink` coupons, inventory slots, radiation immunity, and power grid capacity."
+  },
+  {
+    "rank": "113",
+    "title": "Kenshi",
+    "engine": "Ogre3D C++ Engine (`kenshi_x64.exe`)",
+    "tier": "C+",
+    "diff": "4.9 / 10",
+    "what_to_find": "Cats currency, character limb health struct (Head, Chest, Stomach, Left/Right Arms & Legs -> `100.0f`), hunger, and stat XP multiplier."
+  },
+  {
+    "rank": "114",
+    "title": "Vampire Survivors & ULTRAKILL",
+    "engine": "Unity Engine Mono (x64)",
+    "tier": "C+",
+    "diff": "4.9 / 10",
+    "what_to_find": "Magnet pickup radius & wave timers in Vampire Survivors; `NewMovement` stamina dashes, `StyleHUD`, and weapon cooldowns in ULTRAKILL."
+  },
+  {
+    "rank": "115",
+    "title": "Fallout: New Vegas & Fallout 4",
+    "engine": "Gamebryo (x86) & Creation Engine (x64)",
+    "tier": "B-",
+    "diff": "5.0 / 10",
+    "what_to_find": "`Actor` struct, S.P.E.C.I.A.L. stats, `95%` hit chance & Action Points in `V.A.T.S.`, Bottle Caps (`0xF`), and Power Armor Fusion Core charge."
+  },
+  {
+    "rank": "116",
+    "title": "Mount & Blade: Warband ⭐",
+    "engine": "TaleWorlds Custom C++ Engine",
+    "tier": "B-",
+    "diff": "5.0 / 10",
+    "what_to_find": "Party size limit, `Morale`, `Renown`, Denars, troop XP upgrade tables, and world-map party movement speed."
+  },
+  {
+    "rank": "117",
+    "title": "The Elder Scrolls IV: Oblivion",
+    "engine": "Gamebryo Engine (x86 C++)",
+    "tier": "B-",
+    "diff": "5.0 / 10",
+    "what_to_find": "Health, Magicka, Fatigue, unbreakable Lockpicks during tumbler minigame, enchanted weapon Soul Gem charges, and Gold."
+  },
+  {
+    "rank": "118",
+    "title": "The Elder Scrolls V: Skyrim SE ⭐",
+    "engine": "Creation Engine (x64 C++)",
+    "tier": "B-",
+    "diff": "5.0 / 10",
+    "what_to_find": "`PlayerCharacter` singleton, `ActorValueOwner` VMT (HP/Magicka/Stamina/CarryWeight), Dragon Shout cooldown, and Papyrus VM hooks."
+  },
+  {
+    "rank": "119",
+    "title": "BioShock 1 & BioShock 2 Remastered",
+    "engine": "Modified Unreal Engine 2.5 (x64)",
+    "tier": "B-",
+    "diff": "5.1 / 10",
+    "what_to_find": "`ADAM` for Plasmid slots, `EVE` hypo mana, vending machine Dollars, and auto-completing pipe/needle hacking minigames."
+  },
+  {
+    "rank": "120",
+    "title": "Dragon Age: Origins & II ⭐",
+    "engine": "BioWare Eclipse / Lycium Engine",
+    "tier": "B-",
+    "diff": "5.1 / 10",
+    "what_to_find": "Party attribute arrays (`Strength`, `Willpower`, `Magic`, `Cunning`), spell cooldown timers, companion approval, and Gold Sovereigns."
+  },
+  {
+    "rank": "121",
+    "title": "Mass Effect 1 / 2 / 3 (Legendary Edition)",
+    "engine": "Unreal Engine 3 (x64 C++)",
+    "tier": "B-",
+    "diff": "5.1 / 10",
+    "what_to_find": "`Paragon`/`Renegade` morality points, Credits, Element Zero / Platinum / Iridium / Palladium probes, and weapon heat sink cooldowns."
+  },
+  {
+    "rank": "122",
+    "title": "Crysis 1 / Warhead / Crysis 2 & 3",
+    "engine": "CryEngine 2 & CryEngine 3 (x86/x64)",
+    "tier": "B-",
+    "diff": "5.2 / 10",
+    "what_to_find": "Nanosuit energy float (`Suit Energy` for infinite Cloak & Armor modes), Nano-Catalysts, and zero weapon recoil/spread."
+  },
+  {
+    "rank": "123",
+    "title": "Dead Space (2008) & Dead Space 2",
+    "engine": "Visceral Engine (x86 C++)",
+    "tier": "B-",
+    "diff": "5.2 / 10",
+    "what_to_find": "Bench `Power Nodes`, `Stasis` module energy float, vacuum Oxygen timer, Credits, and Plasma Cutter ammo."
+  },
+  {
+    "rank": "124",
+    "title": "Far Cry 3 & Far Cry 4",
+    "engine": "Ubisoft Dunia Engine 2 (x86/x64)",
+    "tier": "B-",
+    "diff": "5.2 / 10",
+    "what_to_find": "Skill Points, wallet/rucksack capacity without hunting pelts, Syringe buff timers, sniper breath, and zero recoil."
+  },
+  {
+    "rank": "125",
+    "title": "S.T.A.L.K.E.R.: Call of Pripyat (OpenXRay)",
+    "engine": "X-Ray Engine 1.6 (C++ & Lua)",
+    "tier": "B-",
+    "diff": "5.3 / 10",
+    "what_to_find": "`CActor` class in `xrGame.dll`: radiation, bleeding, psy-health, carry weight (`MaxWalkWeight`), rubles, and weapon condition."
+  },
+  {
+    "rank": "126",
+    "title": "S.T.A.L.K.E.R.: Shadow of Chernobyl & Clear Sky",
+    "engine": "X-Ray Engine 1.0 / 1.5 (`xrGame.dll`)",
+    "tier": "B-",
+    "diff": "5.3 / 10",
+    "what_to_find": "`CActor` stamina, radiation, bleeding, `max_walk_weight`, artifact belt slots, and weapon jam probability."
+  },
+  {
+    "rank": "127",
+    "title": "Sleeping Dogs & Saints Row: The Third / IV",
+    "engine": "United Front Engine & Volition CTG",
+    "tier": "B-",
+    "diff": "5.3 / 10",
+    "what_to_find": "Triad/Cop/Face XP meters, `Respect` level, superpower Data Clusters in Saints Row IV, and infinite ammo."
+  },
+  {
+    "rank": "128",
+    "title": "Call of Duty 4: Modern Warfare & World at War (Solo/Zombies)",
+    "engine": "IW 3.0 Engine (x86 C++)",
+    "tier": "B",
+    "diff": "5.4 / 10",
+    "what_to_find": "Solo Zombies `Points`, `Ray Gun` ammo, Juggernog perk flags, and `cg_t` / `centity_t` structs for bot/zombie ESP."
+  },
+  {
+    "rank": "129",
+    "title": "Counter-Strike: Source & Garry's Mod ⭐",
+    "engine": "Source Engine (x86/x64)",
+    "tier": "B",
+    "diff": "5.4 / 10",
+    "what_to_find": "Calling `CreateInterface(\"VClientEntityList003\")`, entity iteration, `[3][4]` bone matrix extraction, DX9 `EndScene` ImGui ESP, and GMod Lua."
+  },
+  {
+    "rank": "130",
+    "title": "Half-Life 2 & Portal 2 ⭐",
+    "engine": "Source Engine (`client.dll` & `engine.dll`)",
+    "tier": "B",
+    "diff": "5.4 / 10",
+    "what_to_find": "Walking `ClientClass` linked list to dump **Netvars** (`DT_BasePlayer`), `CreateMove` VMT hook, AUX suit power, and portal surface placement."
+  },
+  {
+    "rank": "131",
+    "title": "Portal 1 & Team Fortress 2 (Offline Bots)",
+    "engine": "Source Engine (x86/x64 C++)",
+    "tier": "B",
+    "diff": "5.4 / 10",
+    "what_to_find": "Velocity vectors for Accelerated Back Hopping (`ABH`), Portal Gun fire angles, and offline bot Netvars/crit bucket."
+  },
+  {
+    "rank": "132",
+    "title": "Call of Duty: Black Ops I & II (Campaign & Solo Zombies)",
+    "engine": "Treyarch IW Engine (x86 C++)",
+    "tier": "B",
+    "diff": "5.5 / 10",
+    "what_to_find": "Solo Zombies points, `Pack-a-Punch` upgraded weapon ammo, player health, and camera FOV float."
+  },
+  {
+    "rank": "133",
+    "title": "Left 4 Dead 2 (Offline Singleplayer)",
+    "engine": "Source Engine (x86)",
+    "tier": "B",
+    "diff": "5.5 / 10",
+    "what_to_find": "Special Infected & `Tank`/`Witch` Netvars, removing melee `Shove Cooldown` fatigue, shotgun spread, and Survivor health/temp-HP."
+  },
+  {
+    "rank": "134",
+    "title": "Mirror's Edge (2008)",
+    "engine": "Unreal Engine 3 (x86 C++)",
+    "tier": "B",
+    "diff": "5.5 / 10",
+    "what_to_find": "Faith's horizontal `Velocity` vector, `Reaction Time` slow-motion gauge, gravity modifier for super-jumps, and speedrun timers."
+  },
+  {
+    "rank": "135",
+    "title": "Borderlands 2 & The Pre-Sequel",
+    "engine": "Unreal Engine 3 (x86 C++)",
+    "tier": "B",
+    "diff": "5.6 / 10",
+    "what_to_find": "Scanning UE3 `GObjects` & `GNames` tables, modular weapon generator (swapping barrel/grip parts & rarity in RAM), Golden Keys, and `Badass Tokens`."
+  },
+  {
+    "rank": "136",
+    "title": "Dishonored 1 & BioShock Infinite",
+    "engine": "Unreal Engine 3 (Modified x86)",
+    "tier": "B",
+    "diff": "5.6 / 10",
+    "what_to_find": "Piero's Spiritual Remedy mana auto-regen, `Blink` teleport range limit bypass, Corvo's Runes, Bone Charms, and `Salts`/Silver Eagles."
+  },
+  {
+    "rank": "137",
+    "title": "Dishonored 2 & Prey (2017)",
+    "engine": "Void Engine (id Tech 5) & CryEngine 4 (x64)",
+    "tier": "B",
+    "diff": "5.6 / 10",
+    "what_to_find": "`Neuromods` & Psi Pool in Prey, Recycler Charge material yield, and Void mana / runes in Dishonored 2."
+  },
+  {
+    "rank": "138",
+    "title": "Outlast 1 & Outlast 2",
+    "engine": "Unreal Engine 3.5 (x64 C++)",
+    "tier": "B",
+    "diff": "5.6 / 10",
+    "what_to_find": "Camcorder night-vision battery charge float (`1.0f`), spare battery count, bandages, and infinite sprint stamina."
+  },
+  {
+    "rank": "139",
+    "title": "Batman: Arkham Asylum & Arkham City",
+    "engine": "Unreal Engine 3 (Rocksteady x86)",
+    "tier": "B",
+    "diff": "5.7 / 10",
+    "what_to_find": "Freeflow `Combo Counter` (triggering Critical Strikes / Special Takedowns after 1 hit), Glide speed vectors, and WayneTech upgrade points."
+  },
+  {
+    "rank": "140",
+    "title": "Deus Ex: Human Revolution & Mankind Divided",
+    "engine": "Crystal Engine & Dawn Engine (x64)",
+    "tier": "B",
+    "diff": "5.7 / 10",
+    "what_to_find": "`Praxis Kits`, biocell energy bars, credits, hacking terminal countdown timer freeze, and infinite `Glass-Shield` cloak."
+  },
+  {
+    "rank": "141",
+    "title": "XCOM: Enemy Unknown & XCOM 2: War of the Chosen",
+    "engine": "Unreal Engine 3.5 (x64 C++ & Kismet)",
+    "tier": "B",
+    "diff": "5.7 / 10",
+    "what_to_find": "Soldier `Action Points` (infinite moves per turn), `100% Aim` hit chance, `Supplies`, `Intel`, Alien Alloys, and Elerium."
+  },
+  {
+    "rank": "142",
+    "title": "Assetto Corsa ⭐",
+    "engine": "Kunos Custom C++ Physics Engine",
+    "tier": "B+",
+    "diff": "5.8 / 10",
+    "what_to_find": "Tire `Grip` multiplier, tire temperature/wear floats, hybrid `KERS`/`ERS` battery charge, and reading `acpmf_physics` Shared Memory."
+  },
+  {
+    "rank": "143",
+    "title": "Euro Truck Simulator 2 ⭐",
+    "engine": "SCS Prism3D Engine (x64 C++)",
+    "tier": "B+",
+    "diff": "5.8 / 10",
+    "what_to_find": "Economy (`Money`, `XP`), zero truck/trailer/cargo damage (`0.0f`), speed limiter removal, and `scs-telemetry.dll` shared memory."
+  },
+  {
+    "rank": "144",
+    "title": "Grand Theft Auto IV: The Complete Edition",
+    "engine": "RAGE Engine (x86/x64 C++)",
+    "tier": "B+",
+    "diff": "5.8 / 10",
+    "what_to_find": "Niko's Health, Armor, Cash, Wanted Level stars, vehicle deformation immunity, and Euphoria ragdoll/gravity physics."
+  },
+  {
+    "rank": "145",
+    "title": "Max Payne 3 & L.A. Noire",
+    "engine": "RAGE Engine & Team Bondi Engine",
+    "tier": "B+",
+    "diff": "5.8 / 10",
+    "what_to_find": "`Bullet Time` gauge, `Painkillers`, Intuition Points during interrogations in L.A. Noire, and infinite ammo."
+  },
+  {
+    "rank": "146",
+    "title": "Alien: Isolation & SOMA",
+    "engine": "Cathode Engine & Frictional HPL3 Engine",
+    "tier": "B+",
+    "diff": "5.9 / 10",
+    "what_to_find": "Flamethrower fuel, flashlight & motion tracker battery, crafting `Scrap`, and disabling Xenomorph AI sensory detection in `Cathode`."
+  },
+  {
+    "rank": "147",
+    "title": "Grand Theft Auto V Legacy (Story Mode) ⭐",
+    "engine": "RAGE Engine (x64 C++)",
+    "tier": "B+",
+    "diff": "5.9 / 10",
+    "what_to_find": "`CPedFactory` (`WorldPtr`), `CReplayInterface` entity list, `Native Invoker` script table, and `CHandlingData` vehicle physics."
+  },
+  {
+    "rank": "148",
+    "title": "Metal Gear Solid V: The Phantom Pain",
+    "engine": "Konami Fox Engine (x64 C++ & Lua)",
+    "tier": "B+",
+    "diff": "5.9 / 10",
+    "what_to_find": "Mother Base `GMP` funds, processed resources, infinite weapon suppressor durability, NVG battery, and Fulton recovery balloons."
+  },
+  {
+    "rank": "149",
+    "title": "Assassin's Creed II / IV Black Flag / Odyssey",
+    "engine": "Ubisoft Anvil / AnvilNext 2.0 (x64)",
+    "tier": "B+",
+    "diff": "6.0 / 10",
+    "what_to_find": "Florins/Drachmae, `Jackdaw` ship hull upgrade metal/wood, naval mortar ammo, ability Adrenaline segments, and stealth bush flags."
+  },
+  {
+    "rank": "150",
+    "title": "Batman: Arkham Origins & Arkham Knight",
+    "engine": "Unreal Engine 3 (Modified x64)",
+    "tier": "B+",
+    "diff": "6.0 / 10",
+    "what_to_find": "Batmobile Afterburner & 60mm cannon energy, `WayneTech` points, Combo multiplier lock, and Riddler trial timer freeze."
+  },
+  {
+    "rank": "151",
+    "title": "Dying Light 1 & 2 ⭐",
+    "engine": "Techland Chrome Engine 6 / C-Engine",
+    "tier": "B+",
+    "diff": "6.0 / 10",
+    "what_to_find": "Parkour & combat Stamina floats, unbreakable melee weapon durability, UV Flashlight battery, zero `Grappling Hook` cooldown, and night timer."
+  },
+  {
+    "rank": "152",
+    "title": "Kingdom Come: Deliverance",
+    "engine": "CryEngine 3.8.6 (x64 C++ & XML/Lua)",
+    "tier": "B+",
+    "diff": "6.0 / 10",
+    "what_to_find": "Henry's Health, Stamina, Nourishment, Energy, Groschen, `Saviour Schnapps` (saving without consuming), and armor durability."
+  },
+  {
+    "rank": "153",
+    "title": "Metro 2033 Redux & Metro Exodus ⭐",
+    "engine": "4A Engine (x64 C++)",
+    "tier": "B+",
+    "diff": "6.0 / 10",
+    "what_to_find": "Gas mask filter countdown timer, Tikhar pneumatic air pressure float, Military-Grade Rounds currency, NVG battery, and weapon dirtiness."
+  },
+  {
+    "rank": "154",
+    "title": "Middle-earth: Shadow of Mordor & Shadow of War",
+    "engine": "LithTech Firebird Engine (x64 C++)",
+    "tier": "B+",
+    "diff": "6.0 / 10",
+    "what_to_find": "Elven `Focus` (bow slow-mo), `Wrath` bar, Mirian currency, Skill Points, and editing Orc Captain traits/levels in the **Nemesis System**."
+  },
+  {
+    "rank": "155",
+    "title": "Control & Alan Wake Remastered",
+    "engine": "Remedy Northlight Engine (x64 DX12)",
+    "tier": "B+",
+    "diff": "6.1 / 10",
+    "what_to_find": "Telekinetic `Launch` energy float, Ability Points, `Source` currency, Service Weapon ammo regen, and Alan Wake's flashlight batteries."
+  },
+  {
+    "rank": "156",
+    "title": "Cyberpunk 2077",
+    "engine": "REDengine 4 (x64 DirectX 12 & redscript)",
+    "tier": "B+",
+    "diff": "6.1 / 10",
+    "what_to_find": "`StatPoolsSystem` (Health, Cyberdeck `RAM`, Stamina), Eurodollars, `Sandevistan` cooldown timer, Street Cred, and Perk/Attribute points."
+  },
+  {
+    "rank": "157",
+    "title": "DOOM (2016) & DOOM Eternal",
+    "engine": "id Tech 6 & id Tech 7 (x64 Vulkan)",
+    "tier": "B+",
+    "diff": "6.1 / 10",
+    "what_to_find": "Chainsaw fuel pips, `Crucible` charges, `Blood Punch` gauge, unlocking restricted console variables (`CVARs`), and `vkQueuePresentKHR` hook."
+  },
+  {
+    "rank": "158",
+    "title": "Forza Horizon 4 & 5 (Offline Solo Mode) & BeamNG.drive",
+    "engine": "ForzaTech & Torque3D Soft-Body Physics",
+    "tier": "B+",
+    "diff": "6.1 / 10",
+    "what_to_find": "Credits (`CR`), Skill Chain drift score multiplier, gravity & engine torque curves in BeamNG.drive (`Lua` + C++ node/beam physics)."
+  },
+  {
+    "rank": "159",
+    "title": "HITMAN 2 & HITMAN World of Assassination ⭐",
+    "engine": "IO Interactive Glacier 2 Engine (x64)",
+    "tier": "B+",
+    "diff": "6.1 / 10",
+    "what_to_find": "RTTI classes `ZHitman5` & `ZActor`, NPC `Enforcer` suspicion gauge timers, locking the `Silent Assassin` rating flag, and infinite Instinct."
+  },
+  {
+    "rank": "160",
+    "title": "The Witcher 3: Wild Hunt (Next-Gen)",
+    "engine": "REDengine 3 (x64 C++ & WitcherScript)",
+    "tier": "B+",
+    "diff": "6.1 / 10",
+    "what_to_find": "RTTI class `CR4Player`, potion `Toxicity` float, Sign `Stamina`, sword/armor durability, inventory weight, and enabling the debug script console."
+  },
+  {
+    "rank": "161",
+    "title": "Watch Dogs 1 & Watch Dogs 2",
+    "engine": "Ubisoft Disrupt Engine (x64 C++)",
+    "tier": "B+",
+    "diff": "6.1 / 10",
+    "what_to_find": "Profiler smartphone/Botnet battery charge for hacks, Cash, `Research Points`, and Felony/Police heat level suppression."
+  },
+  {
+    "rank": "162",
+    "title": "Escape the Backrooms & Phasmophobia ⭐",
+    "engine": "Unreal Engine 4 & Unity IL2CPP",
+    "tier": "A-",
+    "diff": "6.2 / 10",
+    "what_to_find": "Locking `Sanity` drain, infinite sprint stamina, and building an `FNamePool` / Entity ESP to visualize AI monster patrol routes."
+  },
+  {
+    "rank": "163",
+    "title": "Ghostrunner 1 & 2",
+    "engine": "Unreal Engine 4 (x64 C++)",
+    "tier": "A-",
+    "diff": "6.2 / 10",
+    "what_to_find": "Dumping UE4 SDK (`Dumper-7`), infinite mid-air slow-mo dash (`Sensory Boost`), zero ability cooldowns, and locking death counter at `0`."
+  },
+  {
+    "rank": "164",
+    "title": "KovaaK's (Aim Trainer) ⭐",
+    "engine": "Unreal Engine 4 (x64 C++)",
+    "tier": "A-",
+    "diff": "6.2 / 10",
+    "what_to_find": "Ideal **Dumper-7** training ground: UE4 SDK dump, `UWorld -> PersistentLevel -> Actors` traversal, 3D target capsules, and `ProcessEvent` hook."
+  },
+  {
+    "rank": "165",
+    "title": "Palworld (Offline Singleplayer) ⭐",
+    "engine": "Unreal Engine 5 (x64 C++)",
+    "tier": "A-",
+    "diff": "6.3 / 10",
+    "what_to_find": "Traversing `GWorld` actor array, Pal Sphere `100% Capture Rate` formula, base work speed, Ancient Technology Points, and carry weight."
+  },
+  {
+    "rank": "166",
+    "title": "The Outer Worlds & Star Wars Jedi: Fallen Order / Survivor",
+    "engine": "Unreal Engine 4 (x64 C++)",
+    "tier": "A-",
+    "diff": "6.3 / 10",
+    "what_to_find": "Tactical Time Dilation (`TTD`) meter, Jedi `Force Meter`, BD-1 healing stim canisters, Skill Points, and Bits."
+  },
+  {
+    "rank": "167",
+    "title": "Atomic Heart & S.T.A.L.K.E.R. 2: Heart of Chornobyl",
+    "engine": "Unreal Engine 4 & Unreal Engine 5 (x64)",
+    "tier": "A-",
+    "diff": "6.4 / 10",
+    "what_to_find": "Neuropolymer & glove energy in Atomic Heart; Coupons, stamina, radiation, and carry weight inside `GWorld` in S.T.A.L.K.E.R. 2."
+  },
+  {
+    "rank": "168",
+    "title": "Dead Space Remake (2023) & Dragon Age: The Veilguard",
+    "engine": "EA Frostbite Engine (x64 DX12)",
+    "tier": "A-",
+    "diff": "6.4 / 10",
+    "what_to_find": "Navigating Frostbite's `TypeInfo` reflection & `ClientGameContext`: upgrade `Nodes`, Credits, Stasis energy, and Isaac Clarke's RIG HP."
+  },
+  {
+    "rank": "169",
+    "title": "Deep Rock Galactic (Offline Solo Mode)",
+    "engine": "Unreal Engine 4 (x64 C++)",
+    "tier": "A-",
+    "diff": "6.4 / 10",
+    "what_to_find": "Rechargeable `Flares` count, Minigun/Drills overheat gauge, Engineer turret ammo, mined mineral multiplier (`Morkite`/`Gold`), and gravity."
+  },
+  {
+    "rank": "170",
+    "title": "Lies of P & Black Myth: Wukong",
+    "engine": "Unreal Engine 4 & Unreal Engine 5 (x64)",
+    "tier": "A-",
+    "diff": "6.5 / 10",
+    "what_to_find": "Widening `Perfect Guard` parry window frames, Legion Arm / weapon blade `Durability`, `Fable Arts` / Mana bars, and Ergo / Will."
+  },
+  {
+    "rank": "171",
+    "title": "Warhammer 40,000: Space Marine 2 (Offline Campaign)",
+    "engine": "Saber Swarm Engine (x64 C++)",
+    "tier": "A-",
+    "diff": "6.5 / 10",
+    "what_to_find": "Astartes Armor segments, Health, Titus's `Righteous Fury` ability meter, plasma weapon overheat float, and Bolter ammo."
+  },
+  {
+    "rank": "172",
+    "title": "Aimlabs & Slime Rancher 2 ⭐",
+    "engine": "Unity IL2CPP (x64 Native Assembly)",
+    "tier": "A",
+    "diff": "6.6 / 10",
+    "what_to_find": "Recovering metadata via **Il2CppDumper** (`GameAssembly.dll` + `global-metadata.dat`), importing symbols into Ghidra, and hooking via **MinHook**."
+  },
+  {
+    "rank": "173",
+    "title": "Hades I & Hades II",
+    "engine": "Supergiant Custom C++ & Lua 5.2 Engine (x64)",
+    "tier": "A",
+    "diff": "6.6 / 10",
+    "what_to_find": "Zagreus/Melinoë HP, `Darkness`, Chthonic Keys, Nectar, Titan Blood, `Death Defiance` charges, and live-editing Olympian Boon Lua scripts."
+  },
+  {
+    "rank": "174",
+    "title": "Subnautica: Below Zero & Sons of the Forest",
+    "engine": "Unity Engine Mono / IL2CPP (x64)",
+    "tier": "A",
+    "diff": "6.7 / 10",
+    "what_to_find": "Symbol recovery with `Il2CppDumper`, body temperature, oxygen, infinite logs in hand (`LogHack`) for instant building, and 3D printer resin."
+  },
+  {
+    "rank": "175",
+    "title": "Risk of Rain 2",
+    "engine": "Unity Engine Mono / IL2CPP (x64)",
+    "tier": "A",
+    "diff": "6.8 / 10",
+    "what_to_find": "Hooking `CharacterBody::RecalculateStats`, `Lunar Coins` counter, item stack count arrays, Gold, and teleporter charge speed."
+  },
+  {
+    "rank": "176",
+    "title": "Genshin Impact / Star Rail (Local Private Sandbox Study)",
+    "engine": "Modified Unity IL2CPP (Custom Metadata)",
+    "tier": "A",
+    "diff": "6.9 / 10",
+    "what_to_find": "Studying `global-metadata.dat` header obfuscation & string literal encryption on local offline private sandboxes."
+  },
+  {
+    "rank": "177",
+    "title": "Zenless / Honkai (Offline Local Server Architecture Lab)",
+    "engine": "Unity IL2CPP + Custom Metadata Encryption",
+    "tier": "A",
+    "diff": "6.9 / 10",
+    "what_to_find": "Locating `Il2CppCodeRegistration` & `Il2CppMetadataRegistration` dispatch tables in stripped binaries and dumping protobuf schemas."
+  },
+  {
+    "rank": "178",
+    "title": "Don't Starve Together & Starbound ⭐",
+    "engine": "Klei C++/Lua & Chucklefish C++/Lua 5.3",
+    "tier": "A+",
+    "diff": "7.0 / 10",
+    "what_to_find": "Hooking native `lua_State*` to inspect `ThePlayer.components.health`/`sanity`/`hunger`, and reversing Matter Manipulator structs in Starbound."
+  },
+  {
+    "rank": "179",
+    "title": "God of War (2018) & God of War Ragnarök",
+    "engine": "Santa Monica Proprietary Engine (x64 DX12)",
+    "tier": "A+",
+    "diff": "7.0 / 10",
+    "what_to_find": "`Spartan Rage` meter, `Hacksilver`, Kratos & Atreus XP, Runic Attack cooldown timers, and enemy Stun bar multipliers."
+  },
+  {
+    "rank": "180",
+    "title": "PAYDAY 2 (Offline Crime.Net Solo) ⭐",
+    "engine": "Diesel Engine 2.0 (C++ & LuaJIT)",
+    "tier": "A+",
+    "diff": "7.0 / 10",
+    "what_to_find": "Intercepting `lua_call` / `luaL_loadbuffer` (**SuperBLT** architecture), modifying `tweak_data`, bypassing the 4-pager stealth alarm limit, and Skill Points."
+  },
+  {
+    "rank": "181",
+    "title": "Ghost of Tsushima Director's Cut & Death Stranding",
+    "engine": "Sucker Punch Engine & Decima Engine (x64)",
+    "tier": "A+",
+    "diff": "7.1 / 10",
+    "what_to_find": "Jin Sakai's `Resolve` orbs, `Supplies`, Technique Points; and Sam's cargo balance stability & exoskeleton battery in Death Stranding."
+  },
+  {
+    "rank": "182",
+    "title": "Horizon Zero Dawn & Marvel's Spider-Man Remastered",
+    "engine": "Decima Engine & Insomniac Engine (x64 DX12)",
+    "tier": "A+",
+    "diff": "7.1 / 10",
+    "what_to_find": "Metal `Shards` & bow Concentration slow-mo in Decima; infinite web-shooters, Focus bar, and Tech Parts in Insomniac's engine."
+  },
+  {
+    "rank": "183",
+    "title": "Sid Meier's Civilization VI & Hearts of Iron IV ⭐",
+    "engine": "Firaxis LORE Engine & Clausewitz Engine",
+    "tier": "A+",
+    "diff": "7.1 / 10",
+    "what_to_find": "Treasury Gold, Faith/Science/Culture per turn, Fog of War (`MapVisibility`) bitmasks, unit movement points, and Political Power in HoI4."
+  },
+  {
+    "rank": "184",
+    "title": "NieR: Automata & Bayonetta",
+    "engine": "PlatinumGames Engine (x64/x86 C++)",
+    "tier": "A+",
+    "diff": "7.2 / 10",
+    "what_to_find": "`G` currency, `Plug-in Chips` memory capacity (128 limit bypass), Pod program cooldowns, and `Witch Time` duration."
+  },
+  {
+    "rank": "185",
+    "title": "Resident Evil 7 Biohazard & Resident Evil Village",
+    "engine": "Capcom RE Engine (x64 Native + Managed VM)",
+    "tier": "A+",
+    "diff": "7.2 / 10",
+    "what_to_find": "`REFramework` reflection (`via.ManagedObject`), `Lei` currency, Duke's treasures, infinite Magnum ammo, and disabling Lady Dimitrescu's AI."
+  },
+  {
+    "rank": "186",
+    "title": "Baldur's Gate 3 & Divinity: Original Sin 2",
+    "engine": "Larian Divinity Engine 4.0 (x64 ECS)",
+    "tier": "A+",
+    "diff": "7.3 / 10",
+    "what_to_find": "Pure **Entity-Component-System (ECS)** architecture: component pools, `Spell Slots`, Action Points, `d20` roll hooks, and the Osiris story VM."
+  },
+  {
+    "rank": "187",
+    "title": "Monster Hunter: World & Monster Hunter: Rise",
+    "engine": "MT Framework & Capcom RE Engine (x64)",
+    "tier": "A+",
+    "diff": "7.3 / 10",
+    "what_to_find": "Purple weapon `Sharpness` lock, hunter stamina, `Wirebug` cooldown gauges, `Zenny`, Guild Points, and monster part-break thresholds."
+  },
+  {
+    "rank": "188",
+    "title": "Resident Evil 2 / 3 / 4 Remake & Devil May Cry 5",
+    "engine": "Capcom RE Engine (x64 Native + Managed VM)",
+    "tier": "A+",
+    "diff": "7.3 / 10",
+    "what_to_find": "Internal RE Engine reflection (`via.ManagedObject`), enemy HP display, unbreakable Combat Knives, Dynamic Difficulty (`GameRankSystem`), and `Devil Trigger`."
+  },
+  {
+    "rank": "189",
+    "title": "Crusader Kings III, Europa Universalis IV & Stellaris",
+    "engine": "Paradox Clausewitz + Jomini Engine (x64)",
+    "tier": "S-",
+    "diff": "7.4 / 10",
+    "what_to_find": "Gold, Prestige, Piety, Dynasty Renown, patching the `Ironman` memory flag to enable the developer console, and empire alloys/energy in Stellaris."
+  },
+  {
+    "rank": "190",
+    "title": "Dark Souls III & Sekiro: Shadows Die Twice",
+    "engine": "FromSoftware Dantelion Engine (x64)",
+    "tier": "S-",
+    "diff": "7.5 / 10",
+    "what_to_find": "`WorldChrMan` singleton, dodge-roll invulnerability frame (`i-frame`) animation flags, `Posture` bar in Sekiro, and live `Param` table patching."
+  },
+  {
+    "rank": "191",
+    "title": "Total War: Warhammer III & Rome II",
+    "engine": "Creative Assembly Warscape Engine (x64)",
+    "tier": "S-",
+    "diff": "7.5 / 10",
+    "what_to_find": "Faction treasury Gold, `Winds of Magic` battle reserve float, campaign army movement range, and unit entity health pools."
+  },
+  {
+    "rank": "192",
+    "title": "Armored Core VI: Fires of Rubicon & Nioh 2",
+    "engine": "FromSoftware Dantelion 2 & Koei Tecmo Engine",
+    "tier": "S-",
+    "diff": "7.6 / 10",
+    "what_to_find": "AC generator energy (`EN`), `ACS Strain` stagger threshold, `COAM` credits, Repair Kits; and Amrita / `Ki` pulse recovery in Nioh 2."
+  },
+  {
+    "rank": "193",
+    "title": "Elden Ring + Shadow of the Erdtree (Offline Mode)",
+    "engine": "FromSoftware Dantelion 2 (x64 DX12)",
+    "tier": "S-",
+    "diff": "7.6 / 10",
+    "what_to_find": "`CSChrIns` hierarchy, applying buffs via `SpEffect` IDs, `Poise`, Scadutree Blessing multipliers, and rendering 3D hitboxes over DX12."
+  },
+  {
+    "rank": "194",
+    "title": "Persona 5 Royal & Yakuza 0 / Like a Dragon",
+    "engine": "P-Studio Engine & RGG Dragon Engine (x64)",
+    "tier": "S",
+    "diff": "7.7 / 10",
+    "what_to_find": "Yen, Persona `SP` mana, Joker's Social Stats, Persona Compendium stat/skill overrides, and Yen/Style points in Yakuza 0."
+  },
+  {
+    "rank": "195",
+    "title": "Factorio & Noita",
+    "engine": "Custom C++20 DOD & FallingEverything Engine",
+    "tier": "S",
+    "diff": "7.8 / 10",
+    "what_to_find": "`Structure of Arrays (SoA)` slab allocators in Factorio; cellular automata pixel grid, Wand `Cast Delay`/`Recharge` structs, and PRNG seed in Noita."
+  },
+  {
+    "rank": "196",
+    "title": "Zelda: Breath of the Wild & Tears of the Kingdom",
+    "engine": "Cemu (PowerPC Big-Endian) & Ryujinx (ARM64)",
+    "tier": "S+",
+    "diff": "8.1 / 10",
+    "what_to_find": "Cross-ISA RE: scanning `Big-Endian Float` stamina & `4 Byte Big Endian` weapon durability in Cemu, and patching `ARM64` (`AArch64`) instructions in Switch NSO."
+  },
+  {
+    "rank": "197",
+    "title": "Minecraft: Java Edition (Offline Singleplayer)",
+    "engine": "JVM Bytecode + LWJGL OpenGL (JNI/JVMTI)",
+    "tier": "SS-",
+    "diff": "8.4 / 10",
+    "what_to_find": "Injecting a native C++ DLL, attaching to the JVM via `JNI_GetCreatedJavaVMs` & `JVMTI`, resolving obfuscated mappings, and runtime class transformation."
+  },
+  {
+    "rank": "198",
+    "title": "No Man's Sky (Offline Mode)",
+    "engine": "Hello Games Procedural Engine (x64 Vulkan)",
+    "tier": "SS",
+    "diff": "8.6 / 10",
+    "what_to_find": "Mathematical procedural generation: galaxy seed hashes, voxel terrain noise functions, Hyperdrive fuel, and packed binary save structures."
+  },
+  {
+    "rank": "199",
+    "title": "Red Dead Redemption 2 (Offline Story Mode) ⭐",
+    "engine": "RAGE Engine (x64 Vulkan/DX12 + Arxan)",
+    "tier": "SS+",
+    "diff": "8.9 / 10",
+    "what_to_find": "Analyzing **Arxan** background integrity verification threads (hashing `.text` for `0xE9` hooks) and implementing stealth VMT / Hardware Breakpoint (`DR0`–`DR3`) hooks."
+  },
+  {
+    "rank": "200",
+    "title": "Star Citizen (Offline Arena Commander) & Diablo 1 (DevilutionX)",
+    "engine": "StarEngine (64-bit Double Coords) & Matching Decomp",
+    "tier": "SSS+",
+    "diff": "9.8 / 10",
+    "what_to_find": "64-bit `double`-precision planetary coordinates, nested ship Local Physics Grids, and `100% byte-accurate` matching C++ decompilation."
+  }
+]

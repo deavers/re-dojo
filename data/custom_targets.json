@@ -1,0 +1,75 @@
+{
+  "_documentation": {
+    "description": "Add your own offline games or software targets to `targets` below, then run `update_progress.bat` (or `python Tools_and_Scripts/rpg_manager.py`). The 5-Axis Rubric Calculator will automatically compute the objective Difficulty (0.1 - 10.0) and RPG Tier (F- to SSS++) so no one can artificially inflate an easy program to SSS++!",
+    "rubric_axes": {
+      "arch_symbols": {
+        "0.2": "White-box source / Plaintext config / Full PDB symbols",
+        "0.5": "Simple 32-bit/64-bit native desktop binary or .NET/Java with full symbols",
+        "0.9": "Standard Unity Mono / C# XNA / GameMaker / Scripting VM with metadata",
+        "1.4": "Stripped x86/x64 Native C++ binary (no symbols)",
+        "1.7": "Transpiled Unity IL2CPP / Embedded LuaJIT / Mixed-mode native+managed",
+        "2.0": "Cross-Architecture Console Emulator (Big-Endian PowerPC, ARM64, PS3 Cell, MIPS) or Custom CPU"
+      },
+      "memory_indirection": {
+        "0.1": "Static global variables or 1D/2D fixed array",
+        "0.4": "Simple 1-to-3 level heap pointer chain",
+        "0.8": "Dynamic linked lists, hash maps, or procedural room state",
+        "1.2": "Deep C++ OOP polymorphism, VMTs, Source Netvars, or Unreal GWorld/FNamePool hierarchy",
+        "1.7": "Data-Oriented Design (SoA slabs), custom memory allocators, pure ECS, or 64-bit planetary coords",
+        "2.0": "XOR/Encrypted runtime values in RAM or ephemeral VM stack registers"
+      },
+      "engine_complexity": {
+        "0.1": "Simple CLI/2D scalar loop",
+        "0.5": "2D physics, tilemaps, or state machines",
+        "0.8": "Shared damage/update engine code requiring entity/team filtering",
+        "1.2": "3D Vector math, ViewMatrix 4x4 WorldToScreen, and skeletal bone matrices",
+        "1.6": "Internal DLL Trampoline/VMT hooking, DX11/DX12/Vulkan ImGui overlay, or custom SDK generation",
+        "2.0": "Byte-accurate matching decompilation or automated LLVM IR binary lifting"
+      },
+      "binary_protection": {
+        "0.0": "No protection / unprotected offline binary",
+        "0.5": "Basic user-mode anti-debug checks (IsDebuggerPresent, PEB, 0xCC scan)",
+        "1.2": "Commercial packer (UPX, SecuROM) or .text CRC32 integrity verification threads (Arxan)",
+        "1.8": "Custom Bytecode Virtual Machine, O-LLVM Control-Flow Flattening (CFF), or MBA obfuscation",
+        "2.5": "Commercial Virtualizer (VMProtect, Themida) or hardware crypto dongle"
+      },
+      "privilege_boundary": {
+        "0.0": "Standard User-Mode (Ring-3) local process",
+        "0.7": "Custom encrypted binary network protocol emulation (Blowfish/RSA packet crafting)",
+        "1.5": "Ring-0 Kernel Driver, QEMU/KVM Hypervisor VMI (CR3 page table walk), EPT hooking, or Silicon glitching"
+      }
+    }
+  },
+  "targets": [
+    {
+      "id": "custom_balatro",
+      "title": "Balatro (Offline Deckbuilder)",
+      "category": "Game",
+      "engine": "LÖVE 2D Framework (LuaJIT + C++)",
+      "rubric": {
+        "arch_symbols": 0.9,
+        "memory_indirection": 0.8,
+        "engine_complexity": 0.5,
+        "binary_protection": 0.0,
+        "privilege_boundary": 0.0
+      },
+      "quest": "Unpack the LÖVE2D archive appended to `Balatro.exe`, inspect Lua state variables (`G.GAME.dollars`, `G.GAME.chips`), and hook chip multiplier scoring.",
+      "completed": false
+    },
+    {
+      "id": "custom_keepass_kdbx",
+      "title": "KeePass 2.x (KDBX v4 Vault Format Audit)",
+      "category": "Software",
+      "engine": ".NET CLR / Custom KDBX Binary Container",
+      "rubric": {
+        "arch_symbols": 0.9,
+        "memory_indirection": 1.2,
+        "engine_complexity": 1.2,
+        "binary_protection": 1.2,
+        "privilege_boundary": 0.0
+      },
+      "quest": "Audit how `KeePass.exe` parses the KDBX 4.0 binary header, Argon2d/AES-256-CBC key derivation parameters, and DPAPI protected in-memory strings (`ProtectedBinary`).",
+      "completed": false
+    }
+  ]
+}

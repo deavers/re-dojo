@@ -546,18 +546,18 @@ label(return)
 label(MyTears)
 
 newmem:
-  // Проверяем: игра сейчас читает стат с индексом 5 (Слезы)?
+  // Check if the game is currently reading stat index 5 (Tears)
   cmp esi, 05
   jne code
 
-  // Если да, замораживаем наше значение перед тем, как игра его прочитает
+  // If so, overwrite with our custom Tears value before the read
   push eax
   mov eax, [MyTears]
   mov [ebx+esi*4+04], eax
   pop eax
 
 code:
-  // Оригинальная инструкция чтения
+  // Original SSE read instruction
   movss xmm0,[ebx+esi*4+04]
   jmp return
 

@@ -1,0 +1,46 @@
+{
+  "updated_at": "2026-10-31",
+  "rules": "Global Scoreboard entries require verifiable proof artifacts in the repository (e.g., Cheat Engine .CT tables with AOB scripts, Crackme keygens/writeups, or C++/Python tools). Difficulty scores are strictly enforced by the 5-Axis Technical Rubric Calculator.",
+  "leaderboard": [
+    {
+      "rank": 1,
+      "player": "deavers",
+      "title": "Low-Level Systems Alchemist",
+      "current_tier": "Tier C",
+      "tier_name": "Adventurer",
+      "max_difficulty_cleared": 4.1,
+      "verified_exp": 6850,
+      "verified_quests_count": 16,
+      "verified_artifacts": [
+        {
+          "target": "Plants vs. Zombies GOTY (PlantsVsZombies.exe)",
+          "tier": "E+",
+          "difficulty": 2.1,
+          "artifact": "Game_Hacking/PvZ.CT",
+          "highlights": "Multi-level pointers, AOB sun/cooldown/damage hooks, Lua speed controller"
+        },
+        {
+          "target": "Unreal Tournament 99 GOTY (UnrealTournament.exe)",
+          "tier": "D",
+          "difficulty": 2.9,
+          "artifact": "Game_Hacking/UnrealTournament_UT99.CT",
+          "highlights": "UE1 UObject/APawn hierarchy, shared damage disambiguation filter (1-Hit Kill)"
+        },
+        {
+          "target": "The Binding of Isaac: Repentance (isaac-ng.exe)",
+          "tier": "C-",
+          "difficulty": 3.8,
+          "artifact": "Game_Hacking/isaac-ng.CT",
+          "highlights": "Entity_Player structure dissect, heart bitmasks, room-transition stat lock"
+        },
+        {
+          "target": "Streets of Rogue v98 (StreetsOfRogue.exe)",
+          "tier": "C",
+          "difficulty": 4.1,
+          "artifact": "Game_Hacking/StreetsOfRogue_v98.CT",
+          "highlights": "Unity Mono Dissector, Agent/Stat classes, x64 JIT EXP & inventory hooks"
+        }
+      ]
+    }
+  ]
+}
