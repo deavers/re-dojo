@@ -277,7 +277,7 @@ def build_rpg_card_block(player_name: str, stats: dict) -> str:
 ![Focus](https://img.shields.io/static/v1?label=Focus&message=Offline%20RE%20%26%20Binary%20Auditing&color=blue&style=for-the-badge)
 ![Current Rank](https://img.shields.io/static/v1?label=Player%20Rank&message={badge_rank}&color=success&style=for-the-badge)
 ![Total EXP](https://img.shields.io/static/v1?label=Progress&message={badge_exp}&color=orange&style=for-the-badge)
-![Web RPG](https://img.shields.io/static/v1?label=Interactive%20Web%20RPG&message=docs%2Findex.html&color=blueviolet&style=for-the-badge)
+![Web RPG](https://img.shields.io/static/v1?label=Live%20Web%20RPG&message=deavers.github.io%2Fre--dojo&color=blueviolet&style=for-the-badge)
 ![License](https://img.shields.io/static/v1?label=License&message=MIT&color=green&style=for-the-badge)
 
 ```text

@@ -1,10 +1,40 @@
-# 🛡️ RE:DOJO — Reverse Engineering, Binary Auditing & Offline Game Hacking RPG
+<div align="center">
+
+```text
+  ____  _____     ____   ___     _  ___  
+ |  _ \| ____|   |  _ \ / _ \   | |/ _ \ 
+ | |_) |  _|     | | | | | | |_ | | | | |
+ |  _ <| |___ _  | |_| | |_| | || | |_| |
+ |_| \_\_____(_) |____/ \___/ \__/ \___/ 
+```
+
+# 🥋 RE:DOJO
+### *The Interactive Reverse Engineering & Offline Game Hacking RPG Academy*
+**From Tier F- (Unranked Novice) to SSS++ (Silicon Demigod)**
+
+[![Live Web RPG](https://img.shields.io/badge/LIVE%20WEB%20RPG-deavers.github.io%2Fre--dojo-blueviolet?style=for-the-badge&logo=googlechrome&logoColor=white)](https://deavers.github.io/re-dojo/)
+[![Stars](https://img.shields.io/github/stars/deavers/re-dojo?style=for-the-badge&color=gold)](https://github.com/deavers/re-dojo/stargazers)
+[![Forks](https://img.shields.io/github/forks/deavers/re-dojo?style=for-the-badge&color=informational)](https://github.com/deavers/re-dojo/network/members)
+[![OPSEC Audited](https://img.shields.io/badge/OPSEC-Strictly%20Offline-success?style=for-the-badge&logo=shield)](./SECURITY.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
+
+<br/>
+
+**[🌐 Launch Interactive Web RPG](https://deavers.github.io/re-dojo/)** • 
+**[🧪 C++20 Practice Dojo](./Course_Solutions/)** • 
+**[🔥 Top 200 Games Masterlist](#-top-200-most-popular--iconic-games-for-reverse-engineering-001--200)** • 
+**[🔬 Auto-Grader](./Tools_and_Scripts/auto_artifact_grader.py)** • 
+**[📖 RE Cheat Sheet](https://deavers.github.io/re-dojo/)**
+
+<br/>
+
+</div>
 
 <!-- RPG_CARD_START -->
 ![Focus](https://img.shields.io/static/v1?label=Focus&message=Offline%20RE%20%26%20Binary%20Auditing&color=blue&style=for-the-badge)
 ![Current Rank](https://img.shields.io/static/v1?label=Player%20Rank&message=Tier%20F-%20%28Unranked%20Novice%29&color=success&style=for-the-badge)
 ![Total EXP](https://img.shields.io/static/v1?label=Progress&message=0%20EXP%20%280/142%20Quests%29&color=orange&style=for-the-badge)
-![Web RPG](https://img.shields.io/static/v1?label=Interactive%20Web%20RPG&message=docs%2Findex.html&color=blueviolet&style=for-the-badge)
+![Web RPG](https://img.shields.io/static/v1?label=Live%20Web%20RPG&message=deavers.github.io%2Fre--dojo&color=blueviolet&style=for-the-badge)
 ![License](https://img.shields.io/static/v1?label=License&message=MIT&color=green&style=for-the-badge)
 
 ```text
