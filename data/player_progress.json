@@ -4,126 +4,126 @@
   "current_tier": "F-",
   "total_exp": 0,
   "quests_completed": 0,
-  "quests_total": 142,
+  "quests_total": 284,
   "tiers_cleared": 0,
   "current_tier_tp": 0,
   "completed_quest_lines": [],
   "tier_breakdown": {
     "F-": {
       "checked": 0,
-      "total": 5
+      "total": 10
     },
     "F": {
       "checked": 0,
-      "total": 4
+      "total": 8
     },
     "F+": {
       "checked": 0,
-      "total": 5
+      "total": 10
     },
     "E--": {
       "checked": 0,
-      "total": 5
+      "total": 10
     },
     "E-": {
       "checked": 0,
-      "total": 6
+      "total": 12
     },
     "E": {
       "checked": 0,
-      "total": 6
+      "total": 12
     },
     "E+": {
       "checked": 0,
-      "total": 6
+      "total": 12
     },
     "D-": {
       "checked": 0,
-      "total": 4
+      "total": 8
     },
     "D": {
       "checked": 0,
-      "total": 6
+      "total": 12
     },
     "D+": {
       "checked": 0,
-      "total": 5
+      "total": 10
     },
     "C-": {
       "checked": 0,
-      "total": 6
+      "total": 12
     },
     "C": {
       "checked": 0,
-      "total": 6
+      "total": 12
     },
     "C+": {
       "checked": 0,
-      "total": 5
+      "total": 10
     },
     "B-": {
       "checked": 0,
-      "total": 6
+      "total": 12
     },
     "B": {
       "checked": 0,
-      "total": 5
+      "total": 10
     },
     "B+": {
       "checked": 0,
-      "total": 6
+      "total": 12
     },
     "A-": {
       "checked": 0,
-      "total": 6
+      "total": 12
     },
     "A": {
       "checked": 0,
-      "total": 5
+      "total": 10
     },
     "A+": {
       "checked": 0,
-      "total": 6
+      "total": 12
     },
     "S-": {
       "checked": 0,
-      "total": 4
+      "total": 8
     },
     "S": {
       "checked": 0,
-      "total": 4
+      "total": 8
     },
     "S+": {
       "checked": 0,
-      "total": 4
+      "total": 8
     },
     "SS-": {
       "checked": 0,
-      "total": 4
+      "total": 8
     },
     "SS": {
       "checked": 0,
-      "total": 4
+      "total": 8
     },
     "SS+": {
       "checked": 0,
-      "total": 3
+      "total": 6
     },
     "SSS-": {
       "checked": 0,
-      "total": 4
+      "total": 8
     },
     "SSS": {
       "checked": 0,
-      "total": 4
+      "total": 8
     },
     "SSS+": {
       "checked": 0,
-      "total": 4
+      "total": 8
     },
     "SSS++": {
       "checked": 0,
-      "total": 4
+      "total": 8
     }
   }
 }
