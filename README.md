@@ -1,4 +1,4 @@
-# 🛡️ Reverse Engineering, Binary Auditing & Offline Game Hacking RPG
+# 🛡️ RE:DOJO — Reverse Engineering, Binary Auditing & Offline Game Hacking RPG
 
 <!-- RPG_CARD_START -->
 ![Focus](https://img.shields.io/static/v1?label=Focus&message=Offline%20RE%20%26%20Binary%20Auditing&color=blue&style=for-the-badge)
@@ -105,7 +105,7 @@ Instead of letting users type a fake `"SSS++"` rating for an easy game, our engi
 ## 📂 Repository Architecture & In-Repo Interactive Dojo
 
 ```text
-Reverse-Engineering-Journey/
+re-dojo/
 ├── 📁 Course_Solutions/       # 10 Progressive C++ Game Hacking & Memory Labs (Tier F- to A+)
 ├── 📁 Crackmes_and_CTF/       # 8 Progressive Binary Auditing, Keygen & VM Crackmes (Tier F+ to SSS-)
 ├── 📁 Game_Hacking/           # Real-World Cheat Engine tables (.CT), AOB scripts, & Lua trainers

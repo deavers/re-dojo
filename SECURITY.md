@@ -2,7 +2,7 @@
 
 ## 1. Educational Scope & Strict Non-Interference Policy
 
-This repository (**Reverse Engineering, Binary Auditing & Offline Game Hacking RPG**) is an open-source computer science curriculum dedicated to **x86/x64 Assembly, Operating Systems Internals, Binary Auditing, Compiler Design, and Dynamic Memory Analysis**.
+This repository (**RE:DOJO — Reverse Engineering, Binary Auditing & Offline Game Hacking RPG**) is an open-source computer science curriculum dedicated to **x86/x64 Assembly, Operating Systems Internals, Binary Auditing, Compiler Design, and Dynamic Memory Analysis**.
 
 To protect both the repository maintainers and the broader community, the following boundaries are **strictly enforced**:
 

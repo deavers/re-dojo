@@ -33,7 +33,7 @@ html = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🛡️ Reverse Engineering & Offline Game Hacking RPG</title>
+  <title>🛡️ RE:DOJO — Reverse Engineering & Offline Game Hacking RPG</title>
   <style>
     /* Eye-Friendly Low-Glare Matte Dark Themes (No Harsh Neon Glare) */
     :root, [data-theme="dimmed"] {{
@@ -263,7 +263,7 @@ html = f"""<!DOCTYPE html>
 <body>
   <div class="container" id="appRoot">
     <header>
-      <h1>🛡️ Reverse Engineering & Offline Game Hacking RPG</h1>
+      <h1>🛡️ RE:DOJO &mdash; Reverse Engineering & Offline Game Hacking RPG</h1>
       <div class="header-controls">
         <span class="privacy-pill" id="saveStatusPill">💾 Auto-Saved in Browser (localStorage)</span>
         <div class="theme-ctrl">

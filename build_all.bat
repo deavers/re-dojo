@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 echo ============================================================================
-echo   Reverse Engineering Journey - Hardened OPSEC Build Script (MSVC / MinGW)
+echo   RE:DOJO - Hardened OPSEC Build Script (MSVC / MinGW)
 echo ============================================================================
 
 if not exist "build\bin" mkdir "build\bin"
