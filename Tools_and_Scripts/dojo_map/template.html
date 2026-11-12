@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="__CSP__" />
+  <meta name="referrer" content="no-referrer" />
+  <title>RE:DOJO Map</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A5%8B%3C/text%3E%3C/svg%3E" />
+  <style>__STYLE__</style>
+</head>
+<body>
+  <a class="skip" href="#map">К карте уровней</a>
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">🥋</span>
+      <div>
+        <h1>RE:DOJO — карта уровней</h1>
+        <p class="sub">Офлайн. Прогресс хранится только в этом браузере. <a href="index.html">← основное RPG-приложение</a></p>
+      </div>
+    </div>
+    <section class="card" aria-label="Персонаж">
+      <div class="rank">
+        <span class="rank-code" id="rankCode">F-</span>
+        <div>
+          <div class="rank-title" id="rankTitle">White-Box Novice</div>
+          <div class="tp" aria-label="Очки тира">
+            <div class="tp-bar"><div class="tp-fill" id="tpFill"></div></div>
+            <span id="tpText">0/3 TP</span>
+          </div>
+        </div>
+      </div>
+      <dl class="stats">
+        <div><dt>EXP</dt><dd id="statExp">0</dd></div>
+        <div><dt>Игры</dt><dd id="statGames">0/200</dd></div>
+        <div><dt>Лабы</dt><dd id="statLabs">0/18</dd></div>
+        <div><dt>Подсказки</dt><dd id="statHints">0</dd></div>
+      </dl>
+      <div class="actions">
+        <button type="button" id="btnFree" class="btn" aria-pressed="false" title="Открывает все уровни без учёта ранга">🔓 Свободный режим</button>
+        <button type="button" id="btnTheme" class="btn" title="Тема">🌓</button>
+        <button type="button" id="btnExport" class="btn" title="Скачать прогресс как JSON-файл">⬇ Экспорт</button>
+        <label class="btn" title="Загрузить прогресс из JSON-файла">⬆ Импорт<input type="file" id="fileImport" accept="application/json,.json" class="visually-hidden" /></label>
+        <button type="button" id="btnReset" class="btn danger">Сброс</button>
+      </div>
+    </section>
+  </header>
+
+  <form class="filters" id="filters" role="search" aria-label="Фильтры">
+    <input type="search" id="fSearch" placeholder="Поиск: название, движок, что искать…" aria-label="Поиск" autocomplete="off" />
+    <select id="fEngine" aria-label="Движок"></select>
+    <select id="fArch" aria-label="Архитектура"></select>
+    <select id="fDiff" aria-label="Сложность"></select>
+    <select id="fTech" aria-label="Техника"></select>
+    <select id="fStatus" aria-label="Статус"></select>
+    <label class="chk"><input type="checkbox" id="fSteam" /> только ⭐ Steam</label>
+    <button type="reset" class="btn" id="btnClear">Сбросить</button>
+    <output id="shownCount" class="count" aria-live="polite"></output>
+  </form>
+
+  <div class="layout">
+    <main id="map" class="map-wrap" tabindex="-1" aria-label="Карта уровней по тирам">
+      <svg id="edges" class="edges" aria-hidden="true">
+        <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arrow-head" /></marker></defs>
+        <g id="edgeLayer"></g>
+      </svg>
+      <div id="bands"></div>
+    </main>
+    <aside id="panel" class="panel" aria-labelledby="pTitle" hidden>
+      <button type="button" class="close" id="btnClose" aria-label="Закрыть">✕</button>
+      <div id="panelBody"></div>
+    </aside>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="application/json" id="dojo-data">__DATA__</script>
+  <script>__SCRIPT__</script>
+</body>
+</html>
