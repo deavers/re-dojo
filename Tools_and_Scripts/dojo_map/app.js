@@ -230,10 +230,12 @@
     const bands = $("bands");
     bands.replaceChildren();
     let shown = 0;
+    const shownBy = { game: 0, lab: 0, quest: 0 };
     TIERS.forEach((t, i) => {
       const nodes = BY_TIER[i].filter((n) => matches(n, f, prog));
       if (!nodes.length) return;
       shown += nodes.length;
+      for (const n of nodes) shownBy[n.kind === "game" ? "game" : n.kind === "campaign_quest" ? "quest" : "lab"] += 1;
       const stateLabel = state.free ? ["open", "свободный режим"] : i <= prog.idx ? ["open", "открыт"] : i === prog.idx + 1 ? ["next", "прорыв: +3 TP"] : ["", "закрыт"];
       bands.append(el("section", { cls: "band", attrs: { "aria-labelledby": "band-" + i } }, [
         el("div", { cls: "band-head" }, [
@@ -244,7 +246,9 @@
         el("div", { cls: "tiles" }, nodes.map((n) => tile(n, prog))),
       ]));
     });
-    $("shownCount").textContent = `Показано ${shown} из ${NODES.length}`;
+    // Separate counters: games out of 200, labs/crackmes out of 18, restricted campaign quests.
+    $("shownCount").textContent = `Игры: ${shownBy.game} из ${DATA.games.length} · Лабы и крякми: ${shownBy.lab} из ${DATA.labs.length}`
+      + ` · Квесты: ${shownBy.quest} из ${DATA.quests.length}`;
     if (!shown) bands.append(el("p", { cls: "empty", text: "Ничего не найдено. Сбросьте фильтры." }));
     markRelations();
     scheduleEdges();

@@ -73,7 +73,9 @@ h1 { font-size: 20px; margin: 0; letter-spacing: .2px; }
 .edges .arrow-head { fill: var(--edge); }
 
 .band { margin: 14px 0 6px; }
-.band-head { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin-bottom: 8px; }
+.band-head { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin-bottom: 8px; padding: 4px 0;
+  /* Opaque layer above the edge SVG (z 2): dependency arrows run UNDER tier titles and the open/closed badges. */
+  position: relative; z-index: 3; background: var(--bg); }
 .band-head h2 { margin: 0; font-size: 15px; }
 .band-head .meta { color: var(--muted); font-size: 12px; }
 .band-state { font-size: 11px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }

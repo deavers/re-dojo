@@ -104,7 +104,8 @@ await ev("localStorage.clear()"); await nav(url);
 
 check("220 tiles rendered", (await ev("document.querySelectorAll('.tile').length")) === 220);
 check("start rank F-", (await ev("document.getElementById('rankCode').textContent")) === "F-");
-check("count label", (await ev("document.getElementById('shownCount').textContent")) === "Показано 220 из 220");
+check("count label split by kind", (await ev("document.getElementById('shownCount').textContent")) === "Игры: 200 из 200 · Лабы и крякми: 18 из 18 · Квесты: 2 из 2");
+check("tier headers render above dependency edges", (await ev("(() => { const h = getComputedStyle(document.querySelector('.band-head')); return Number(h.zIndex) > Number(getComputedStyle(document.getElementById('edges')).zIndex) && h.backgroundColor !== 'rgba(0, 0, 0, 0)'; })()")) === true);
 const lockedGames = await ev("[...document.querySelectorAll('.tile.kind-game.locked')].length");
 check("all 200 games locked at start (lowest game tier F+ > F)", lockedGames === 200, String(lockedGames));
 
@@ -154,10 +155,18 @@ check("E-- games still locked", (await ev("document.querySelector('.tile[data-id
 // filters
 await ev(`(() => { const s = document.getElementById('fEngine'); s.value = 'unity_mono'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);
 check("engine filter unity_mono -> 31", (await ev("document.querySelectorAll('.tile').length")) === 31);
+check("counter under a game-only filter", (await ev("document.getElementById('shownCount').textContent")) === "Игры: 31 из 200 · Лабы и крякми: 0 из 18 · Квесты: 0 из 2");
 await ev(`(() => { document.getElementById('filters').reset(); const s = document.getElementById('fSearch'); s.value = 'isaac'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);
 await sleep(50);
 const isaac = await ev("[...document.querySelectorAll('.tile')].map(t => t.dataset.id)");
 check("search 'isaac'", isaac.includes("g074"), JSON.stringify(isaac));
+await ev(`(() => { const s = document.getElementById('fSearch'); s.value = 'pointer'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+await sleep(50);
+{
+  const ids = await ev("[...document.querySelectorAll('.tile')].map(t => t.dataset.id)");
+  const g = ids.filter((x) => x.startsWith("g")).length, l = ids.filter((x) => /^(lab|cm)/.test(x)).length;
+  check("counter matches visible tiles per kind", (await ev("document.getElementById('shownCount').textContent")) === `Игры: ${g} из 200 · Лабы и крякми: ${l} из 18 · Квесты: 0 из 2` && l > 0 && g > 0, `${g} games, ${l} labs`);
+}
 await ev(`(() => { document.getElementById('filters').reset(); })()`); await sleep(50);
 await ev(`(() => { const s = document.getElementById('fStatus'); s.value = 'notes'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);
 check("status 'with my notes' -> 4 games", (await ev("document.querySelectorAll('.tile').length")) === 4);

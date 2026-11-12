@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-Y0NFXeWQKB/AZslk7I3GMkeL2soMzhHi7RzxPVxjPAo='; style-src 'sha256-sfAP7palUpW4vnwxxKANheFFTP9kllBdnX7qWM9Qxxc='; img-src data:; base-uri 'none'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-oow8d1QaSvFkTpnAvPz8kBa/jEBt2+7w+gYUAzfiHJY='; style-src 'sha256-eUEhiKpRae5x1At2gTxYLddodMgAS3zAtt2dV47d9o8='; img-src data:; base-uri 'none'; form-action 'none'" />
   <meta name="referrer" content="no-referrer" />
   <title>RE:DOJO Map</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A5%8B%3C/text%3E%3C/svg%3E" />
@@ -82,7 +82,9 @@ h1 { font-size: 20px; margin: 0; letter-spacing: .2px; }
 .edges .arrow-head { fill: var(--edge); }
 
 .band { margin: 14px 0 6px; }
-.band-head { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin-bottom: 8px; }
+.band-head { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin-bottom: 8px; padding: 4px 0;
+  /* Opaque layer above the edge SVG (z 2): dependency arrows run UNDER tier titles and the open/closed badges. */
+  position: relative; z-index: 3; background: var(--bg); }
 .band-head h2 { margin: 0; font-size: 15px; }
 .band-head .meta { color: var(--muted); font-size: 12px; }
 .band-state { font-size: 11px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
@@ -448,10 +450,12 @@ details p { margin: 8px 0 0; }
     const bands = $("bands");
     bands.replaceChildren();
     let shown = 0;
+    const shownBy = { game: 0, lab: 0, quest: 0 };
     TIERS.forEach((t, i) => {
       const nodes = BY_TIER[i].filter((n) => matches(n, f, prog));
       if (!nodes.length) return;
       shown += nodes.length;
+      for (const n of nodes) shownBy[n.kind === "game" ? "game" : n.kind === "campaign_quest" ? "quest" : "lab"] += 1;
       const stateLabel = state.free ? ["open", "свободный режим"] : i <= prog.idx ? ["open", "открыт"] : i === prog.idx + 1 ? ["next", "прорыв: +3 TP"] : ["", "закрыт"];
       bands.append(el("section", { cls: "band", attrs: { "aria-labelledby": "band-" + i } }, [
         el("div", { cls: "band-head" }, [
@@ -462,7 +466,9 @@ details p { margin: 8px 0 0; }
         el("div", { cls: "tiles" }, nodes.map((n) => tile(n, prog))),
       ]));
     });
-    $("shownCount").textContent = `Показано ${shown} из ${NODES.length}`;
+    // Separate counters: games out of 200, labs/crackmes out of 18, restricted campaign quests.
+    $("shownCount").textContent = `Игры: ${shownBy.game} из ${DATA.games.length} · Лабы и крякми: ${shownBy.lab} из ${DATA.labs.length}`
+      + ` · Квесты: ${shownBy.quest} из ${DATA.quests.length}`;
     if (!shown) bands.append(el("p", { cls: "empty", text: "Ничего не найдено. Сбросьте фильтры." }));
     markRelations();
     scheduleEdges();
