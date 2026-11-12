@@ -56,7 +56,8 @@ def scan_workspace_files() -> list[str]:
     issues = []
     text_exts = {
         ".md", ".html", ".json", ".py", ".cpp", ".hpp", ".h", ".c",
-        ".CT", ".ct", ".bat", ".sh", ".ps1", ".yml", ".yaml", ".txt", ".cmake"
+        ".CT", ".ct", ".bat", ".sh", ".ps1", ".yml", ".yaml", ".txt", ".cmake",
+        ".js", ".mjs", ".cjs", ".ts", ".css"
     }
 
     for p in sorted(ROOT.rglob("*")):
