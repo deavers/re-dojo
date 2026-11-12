@@ -30,6 +30,11 @@ jobs:
       - name: Verify 5-Axis Rubric & Custom Target Database
         run: python Tools_and_Scripts/rpg_manager.py --verify-db
 
+      - name: Verify RE:DOJO Map Data (games.json fresh + schema, provenance & safety rules)
+        run: |
+          python Tools_and_Scripts/build_games_json.py --check
+          python Tools_and_Scripts/validate_games.py
+
       - name: Run Automated Artifact Grader Self-Test
         run: python Tools_and_Scripts/auto_artifact_grader.py Game_Hacking/
 

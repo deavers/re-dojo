@@ -1,0 +1,610 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "re-dojo/games.schema.json",
+  "title": "RE:DOJO map data (data/games.json)",
+  "description": "Structural JSON Schema for data/games.json (IDE autocomplete). Enums mirror Tools_and_Scripts/dojo_schema.py and validate_games.py fails if they drift. Authoritative rules (literal provenance, my_notes refs, safety, difficulty mapping, hint order) live in Tools_and_Scripts/validate_games.py.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "tiers",
+    "labs",
+    "quests",
+    "games"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "generated_by": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_labels": {
+      "type": "object"
+    },
+    "tiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "max_diff",
+          "title",
+          "exp"
+        ],
+        "properties": {
+          "code": {
+            "enum": [
+              "F-",
+              "F",
+              "F+",
+              "E--",
+              "E-",
+              "E",
+              "E+",
+              "D-",
+              "D",
+              "D+",
+              "C-",
+              "C",
+              "C+",
+              "B-",
+              "B",
+              "B+",
+              "A-",
+              "A",
+              "A+",
+              "S-",
+              "S",
+              "S+",
+              "SS-",
+              "SS",
+              "SS+",
+              "SSS-",
+              "SSS",
+              "SSS+",
+              "SSS++"
+            ]
+          }
+        }
+      }
+    },
+    "labs": {
+      "type": "array",
+      "minItems": 18,
+      "maxItems": 18,
+      "items": {
+        "$ref": "#/$defs/lab"
+      }
+    },
+    "quests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/quest"
+      }
+    },
+    "games": {
+      "type": "array",
+      "minItems": 200,
+      "maxItems": 200,
+      "items": {
+        "$ref": "#/$defs/game"
+      }
+    }
+  },
+  "$defs": {
+    "tier": {
+      "enum": [
+        "F-",
+        "F",
+        "F+",
+        "E--",
+        "E-",
+        "E",
+        "E+",
+        "D-",
+        "D",
+        "D+",
+        "C-",
+        "C",
+        "C+",
+        "B-",
+        "B",
+        "B+",
+        "A-",
+        "A",
+        "A+",
+        "S-",
+        "S",
+        "S+",
+        "SS-",
+        "SS",
+        "SS+",
+        "SSS-",
+        "SSS",
+        "SSS+",
+        "SSS++"
+      ]
+    },
+    "note": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "kind"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "anchor": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "cheat_table",
+            "writeup",
+            "lab_source"
+          ]
+        }
+      }
+    },
+    "prerequisites": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "labs",
+        "games",
+        "source"
+      ],
+      "properties": {
+        "labs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(lab|cm)[0-9]{2}$"
+          }
+        },
+        "games": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source": {
+          "enum": [
+            "my_notes",
+            "repo_catalog",
+            "derived"
+          ]
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "restricted"
+      ],
+      "properties": {
+        "restricted": {
+          "type": "boolean"
+        },
+        "note": {
+          "type": "string"
+        },
+        "redirect_labs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "restricted": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "note",
+          "redirect_labs"
+        ],
+        "properties": {
+          "redirect_labs": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    "hint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "kind",
+        "text",
+        "source",
+        "refs"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            1,
+            2,
+            3
+          ]
+        },
+        "kind": {
+          "enum": [
+            "nudge",
+            "concept",
+            "near_spoiler"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400
+        },
+        "source": {
+          "enum": [
+            "my_notes",
+            "repo_catalog",
+            "needs_verification"
+          ]
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_][^:]*$"
+          }
+        }
+      }
+    },
+    "hints": {
+      "type": "array",
+      "oneOf": [
+        {
+          "maxItems": 0
+        },
+        {
+          "minItems": 3,
+          "maxItems": 3
+        }
+      ],
+      "items": {
+        "$ref": "#/$defs/hint"
+      }
+    },
+    "base": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "tier",
+        "exp",
+        "prerequisites",
+        "notes",
+        "hints",
+        "hints_status",
+        "safety"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "tier": {
+          "$ref": "#/$defs/tier"
+        },
+        "exp": {
+          "type": "integer"
+        },
+        "prerequisites": {
+          "$ref": "#/$defs/prerequisites"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/note"
+          }
+        },
+        "hints": {
+          "$ref": "#/$defs/hints"
+        },
+        "hints_status": {
+          "enum": [
+            "pending",
+            "draft",
+            "reviewed"
+          ]
+        },
+        "hints_batch": {
+          "type": "string"
+        },
+        "safety": {
+          "$ref": "#/$defs/safety"
+        }
+      }
+    },
+    "game": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        },
+        {
+          "type": "object",
+          "required": [
+            "rank",
+            "flags",
+            "engine",
+            "engine_family",
+            "arch",
+            "difficulty_raw",
+            "difficulty",
+            "what_to_find",
+            "techniques",
+            "tools"
+          ],
+          "properties": {
+            "id": {
+              "pattern": "^g[0-9]{3}$"
+            },
+            "kind": {
+              "const": "game"
+            },
+            "rank": {
+              "type": "string",
+              "pattern": "^[0-9]{3}$"
+            },
+            "flags": {
+              "type": "object",
+              "required": [
+                "steam_library",
+                "author_completed"
+              ],
+              "properties": {
+                "steam_library": {
+                  "type": "boolean"
+                },
+                "author_completed": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "engine": {
+              "type": "string"
+            },
+            "engine_family": {
+              "enum": [
+                "unity_mono",
+                "unity_il2cpp",
+                "unreal_1",
+                "unreal_2",
+                "unreal_3",
+                "unreal_4",
+                "unreal_5",
+                "source",
+                "goldsrc",
+                "idtech",
+                "native_win32",
+                "dotnet_xna",
+                "gamemaker",
+                "godot",
+                "lua_hybrid",
+                "popcap",
+                "renderware_gamebryo",
+                "js_web",
+                "emulator",
+                "custom"
+              ]
+            },
+            "arch": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "enum": [
+                  "x86",
+                  "x64",
+                  "arm",
+                  "unknown"
+                ]
+              }
+            },
+            "difficulty_raw": {
+              "type": "number",
+              "minimum": 0.1,
+              "maximum": 10
+            },
+            "difficulty": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "what_to_find": {
+              "type": "string"
+            },
+            "techniques": {
+              "type": "array",
+              "items": {
+                "allOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "source"
+                    ],
+                    "properties": {
+                      "source": {
+                        "enum": [
+                          "my_notes",
+                          "repo_catalog",
+                          "derived"
+                        ]
+                      },
+                      "id": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "id": {
+                        "enum": [
+                          "exact_value_scan",
+                          "float_double_scan",
+                          "bitmask_flags",
+                          "struct_dissect",
+                          "pointer_scan",
+                          "pointer_chain",
+                          "aob_injection",
+                          "nop_patch",
+                          "code_cave",
+                          "shared_code_filter",
+                          "ce_lua_script",
+                          "speedhack",
+                          "mono_dissect",
+                          "dotnet_decompile",
+                          "il2cpp_dump",
+                          "harmony_bepinex",
+                          "vmt_hook",
+                          "detour_hook",
+                          "dll_injection",
+                          "sdk_dump",
+                          "w2s_math",
+                          "archive_format",
+                          "save_format",
+                          "lua_vm_hook",
+                          "emulator_memory",
+                          "integrity_concept"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "tools": {
+              "type": "array",
+              "items": {
+                "allOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "source"
+                    ],
+                    "properties": {
+                      "source": {
+                        "enum": [
+                          "my_notes",
+                          "repo_catalog",
+                          "derived"
+                        ]
+                      },
+                      "id": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "id": {
+                        "enum": [
+                          "cheat_engine",
+                          "x64dbg",
+                          "ghidra",
+                          "reclass_net",
+                          "dnspyex",
+                          "il2cppdumper",
+                          "dumper7",
+                          "bepinex_harmony",
+                          "system_informer",
+                          "hex_editor",
+                          "python",
+                          "z3"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "lab": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        },
+        {
+          "type": "object",
+          "required": [
+            "label",
+            "path",
+            "difficulty_raw",
+            "difficulty",
+            "prerequisite_text",
+            "concept"
+          ],
+          "properties": {
+            "id": {
+              "pattern": "^(lab|cm)[0-9]{2}$"
+            },
+            "kind": {
+              "enum": [
+                "lab",
+                "crackme"
+              ]
+            },
+            "path": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "quest": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        },
+        {
+          "type": "object",
+          "required": [
+            "readme_match",
+            "readme_text"
+          ],
+          "properties": {
+            "kind": {
+              "const": "campaign_quest"
+            },
+            "safety": {
+              "properties": {
+                "restricted": {
+                  "const": true
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

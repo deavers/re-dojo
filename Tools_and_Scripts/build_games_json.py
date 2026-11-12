@@ -1,0 +1,336 @@
+#!/usr/bin/env python3
+"""
+RE:DOJO map - build data/games.json from what already exists in the repo.
+
+Inputs (read-only):
+  data/top200_popular_games.json   Top 200 catalog (left untouched; README render + CI depend on it)
+  README.md                        In-Repo Dojo table (labs/crackmes) + campaign quest lines
+  data/notes_index.json            hand-curated links to the author's real notes (.CT / writeups)
+  data/safety_overrides.json       restricted nodes (commercial protection) + redirect labs
+  data/hints/*.json                hint batches (stage 5); merged by node id, optional
+
+Output:
+  data/games.json                  deterministic (no timestamps, sorted ids, LF, UTF-8)
+
+Usage:
+  python Tools_and_Scripts/build_games_json.py            # write data/games.json
+  python Tools_and_Scripts/build_games_json.py --check    # exit 1 if data/games.json is stale
+  python Tools_and_Scripts/build_games_json.py --hints-dir <dir> --out <file>
+
+Stdlib only. Console output is ASCII-only (Windows cp1251 consoles).
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import math
+import re
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import dojo_schema as S  # noqa: E402
+
+ROOT = S.ROOT
+TOP200_PATH = ROOT / "data" / "top200_popular_games.json"
+README_PATH = ROOT / "README.md"
+NOTES_PATH = ROOT / "data" / "notes_index.json"
+SAFETY_PATH = ROOT / "data" / "safety_overrides.json"
+DEFAULT_HINTS_DIR = ROOT / "data" / "hints"
+DEFAULT_OUT = ROOT / "data" / "games.json"
+
+LAB_ROW_RX = re.compile(
+    r"^\| \*\*(Lab|CM) (\d+)\*\* \| `([^`]+)` \| `([\d.]+)` \| \[`[^`]+`\]\(\./([^)]+)\) \| (.*?) \| (.*?) \|\s*$"
+)
+
+
+class BuildError(Exception):
+    pass
+
+
+def rel(p: Path) -> str:
+    """Repo-relative POSIX path (never leak absolute local paths into output or errors)."""
+    try:
+        return p.resolve().relative_to(ROOT).as_posix()
+    except ValueError:
+        return p.name
+
+
+def load_json(p: Path):
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        raise BuildError(f"missing input: {rel(p)}")
+    except json.JSONDecodeError as e:
+        raise BuildError(f"invalid JSON in {rel(p)}: line {e.lineno}: {e.msg}")
+
+
+def clean_md(text: str) -> str:
+    text = text.replace("\\times", "x").replace("$", "")
+    text = re.sub(r"\*\*?([^*]+)\*\*?", r"\1", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def humanize_dir(path: str) -> str:
+    folder = path.split("/")[1] if "/" in path else path
+    folder = re.sub(r"^(Lab)?\d+_", "", folder)
+    return folder.replace("_", " ")
+
+
+def difficulty_1_5(raw: float) -> int:
+    return max(1, min(5, math.ceil(raw / 2)))
+
+
+def first_family(engine: str) -> str:
+    for rx, fam in S.ENGINE_FAMILY_RULES:
+        if re.search(rx, engine):
+            return fam
+    return "custom"
+
+
+def arch_of(engine: str) -> list[str]:
+    found = [a for rx, a in S.ARCH_RULES if re.search(rx, engine)]
+    return found or ["unknown"]
+
+
+def add_item(items: dict, key: str, source: str) -> None:
+    """Keep the strongest source: my_notes > repo_catalog > derived."""
+    rank = {"my_notes": 0, "repo_catalog": 1, "derived": 2}
+    if key not in items or rank[source] < rank[items[key]]:
+        items[key] = source
+
+
+def to_list(items: dict, order: list[str]) -> list[dict]:
+    return [{"id": k, "source": items[k]} for k in sorted(items, key=order.index)]
+
+
+def parse_labs(readme: str) -> list[dict]:
+    labs = []
+    for line in readme.splitlines():
+        m = LAB_ROW_RX.match(line)
+        if not m:
+            continue
+        kind, num, tier, diff, path, prereq, concept = m.groups()
+        lab_id = f"{'lab' if kind == 'Lab' else 'cm'}{int(num):02d}"
+        labs.append({
+            "id": lab_id,
+            "kind": "lab" if kind == "Lab" else "crackme",
+            "label": f"{kind} {int(num):02d}",
+            "title": humanize_dir(path),
+            "tier": tier,
+            "difficulty_raw": float(diff),
+            "difficulty": difficulty_1_5(float(diff)),
+            "exp": S.TIER_EXP[tier],
+            "path": path,
+            "prerequisite_text": clean_md(prereq),
+            "concept": clean_md(concept),
+            "prerequisites": {"labs": [], "games": [], "source": "derived"},
+            "notes": [{"path": path, "kind": "lab_source"}],
+            "hints": [],
+            "hints_status": "pending",
+            "safety": {"restricted": False},
+        })
+    if len(labs) != 18:
+        raise BuildError(f"expected 18 labs/crackmes in README Dojo table, parsed {len(labs)}")
+    # Each series is N+1 learning: LabN needs Lab(N-1), CMN needs CM(N-1).
+    for series in ("lab", "cm"):
+        chain = sorted((l for l in labs if l["id"].startswith(series)), key=lambda l: l["id"])
+        for prev, cur in zip(chain, chain[1:]):
+            cur["prerequisites"]["labs"] = [prev["id"]]
+    return sorted(labs, key=lambda l: (S.TIER_INDEX[l["tier"]], l["id"]))
+
+
+def load_hints(hints_dir: Path) -> dict:
+    merged: dict = {}
+    if not hints_dir.exists():
+        return merged
+    for p in sorted(hints_dir.glob("*.json")):
+        data = load_json(p)
+        entries = data.get("entries")
+        if not isinstance(entries, dict):
+            raise BuildError(f"{p.name}: top-level 'entries' object is required")
+        for node_id, entry in entries.items():
+            if node_id in merged:
+                raise BuildError(f"{p.name}: hints for '{node_id}' already defined in {merged[node_id]['_file']}")
+            merged[node_id] = {**entry, "_file": p.name}
+    return merged
+
+
+def apply_hints(node: dict, hints: dict, used: set) -> None:
+    entry = hints.get(node["id"])
+    if not entry:
+        return
+    used.add(node["id"])
+    node["hints"] = entry.get("hints", [])
+    node["hints_status"] = entry.get("status", "draft")
+    node["hints_batch"] = entry["_file"]
+
+
+def build(hints_dir: Path) -> dict:
+    top200 = load_json(TOP200_PATH)
+    readme = README_PATH.read_text(encoding="utf-8")
+    notes_idx = load_json(NOTES_PATH)
+    safety = load_json(SAFETY_PATH)
+    hints = load_hints(hints_dir)
+    used_hints: set = set()
+
+    labs = parse_labs(readme)
+    for lab in labs:
+        for extra in notes_idx.get("labs", {}).get(lab["id"], []):
+            lab["notes"].append(extra)
+        apply_hints(lab, hints, used_hints)
+
+    games = []
+    for g in top200:
+        raw_title = g["title"]
+        title = raw_title.replace(S.TITLE_STAR, "").replace(S.TITLE_CHECK, "")
+        title = re.sub(r"\s+", " ", title).strip()
+        gid = f"g{g['rank']}"
+        engine = g["engine"]
+        catalog_text = f"{g['what_to_find']} {engine}"
+        family = first_family(engine)
+
+        techniques: dict = {}
+        tools: dict = {}
+        mine = notes_idx.get("games", {}).get(gid, {})
+        for t in mine.get("techniques", []):
+            add_item(techniques, t, "my_notes")
+        for t in mine.get("tools", []):
+            add_item(tools, t, "my_notes")
+        for rx, t in S.CATALOG_TECHNIQUE_RULES:
+            if re.search(rx, catalog_text, re.IGNORECASE):
+                add_item(techniques, t, "repo_catalog")
+        for t in S.ENGINE_DERIVED_TECHNIQUES.get(family, []):
+            add_item(techniques, t, "derived")
+        for rx, tool in S.CATALOG_TOOL_RULES:
+            if re.search(rx, catalog_text):
+                add_item(tools, tool, "repo_catalog")
+        for t in techniques:
+            if t in S.TECHNIQUE_DERIVED_TOOLS:
+                add_item(tools, S.TECHNIQUE_DERIVED_TOOLS[t], "derived")
+
+        prereq_labs: list[str] = []
+        for t in sorted(techniques, key=S.TECHNIQUES.index):
+            for lab_id in S.TECHNIQUE_LABS.get(t, []):
+                if lab_id not in prereq_labs:
+                    prereq_labs.append(lab_id)
+
+        raw_diff = float(g["diff"].split("/")[0])
+        node = {
+            "id": gid,
+            "kind": "game",
+            "rank": g["rank"],
+            "title": title,
+            "flags": {
+                "steam_library": S.TITLE_STAR in raw_title,
+                "author_completed": S.TITLE_CHECK in raw_title,
+            },
+            "engine": engine,
+            "engine_family": family,
+            "arch": arch_of(engine),
+            "tier": g["tier"],
+            "difficulty_raw": raw_diff,
+            "difficulty": difficulty_1_5(raw_diff),
+            "exp": S.TIER_EXP[g["tier"]],
+            "what_to_find": g["what_to_find"],
+            "techniques": to_list(techniques, S.TECHNIQUES),
+            "tools": to_list(tools, S.TOOLS),
+            "prerequisites": {"labs": prereq_labs, "games": [], "source": "derived"},
+            "notes": mine.get("notes", []),
+            "hints": [],
+            "hints_status": "pending",
+            "safety": {"restricted": False},
+        }
+        if gid in safety.get("games", {}):
+            node["safety"] = safety["games"][gid]
+        apply_hints(node, hints, used_hints)
+        games.append(node)
+
+    quests = []
+    readme_lines = readme.splitlines()
+    for q in safety.get("quests", []):
+        hits = [ln for ln in readme_lines if q["readme_match"] in ln]
+        if len(hits) != 1:
+            raise BuildError(f"quest {q['id']}: readme_match must hit exactly 1 README line, got {len(hits)}")
+        node = {
+            "id": q["id"],
+            "kind": "campaign_quest",
+            "title": q["title"],
+            "tier": q["tier"],
+            "exp": S.TIER_EXP[q["tier"]],
+            "readme_match": q["readme_match"],
+            "readme_text": clean_md(re.sub(r"^- \[[ xX]\]\s*", "", hits[0])),
+            "prerequisites": {"labs": list(q["redirect_labs"]), "games": [], "source": "derived"},
+            "notes": [],
+            "hints": [],
+            "hints_status": "pending",
+            "safety": {"restricted": q["restricted"], "note": q["note"], "redirect_labs": q["redirect_labs"]},
+        }
+        apply_hints(node, hints, used_hints)
+        quests.append(node)
+
+    unknown = sorted(set(hints) - used_hints)
+    if unknown:
+        raise BuildError(f"hints reference unknown node ids: {', '.join(unknown)}")
+
+    return {
+        "schema_version": S.SCHEMA_VERSION,
+        "generated_by": "Tools_and_Scripts/build_games_json.py",
+        "sources": [
+            "data/top200_popular_games.json", "README.md", "data/notes_index.json",
+            "data/safety_overrides.json", "data/hints/*.json",
+        ],
+        "source_labels": {
+            "my_notes": "из моих заметок",
+            "repo_catalog": "нужна проверка",
+            "derived": "нужна проверка",
+            "needs_verification": "нужна проверка",
+        },
+        "tiers": [
+            {"code": c, "max_diff": d, "title": t, "exp": e} for c, d, t, e in S.TIERS
+        ],
+        "labs": labs,
+        "quests": quests,
+        "games": games,
+    }
+
+
+def serialize(data: dict) -> str:
+    return json.dumps(data, ensure_ascii=False, indent=2) + "\n"
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="Build data/games.json for the RE:DOJO map")
+    ap.add_argument("--check", action="store_true", help="fail if the output file is stale")
+    ap.add_argument("--hints-dir", type=Path, default=DEFAULT_HINTS_DIR)
+    ap.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    args = ap.parse_args()
+
+    try:
+        data = build(args.hints_dir)
+    except BuildError as e:
+        print(f"[BUILD ERROR] {e}")
+        return 1
+
+    if args.check:
+        try:
+            current = json.loads(args.out.read_text(encoding="utf-8"))
+        except (FileNotFoundError, json.JSONDecodeError):
+            current = None
+        if current != data:
+            print(f"[STALE] {rel(args.out)} is out of date. Run: python Tools_and_Scripts/build_games_json.py")
+            return 1
+        print(f"[OK] {rel(args.out)} is up to date ({len(data['games'])} games, {len(data['labs'])} labs, {len(data['quests'])} quests).")
+        return 0
+
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    with open(args.out, "w", encoding="utf-8", newline="\n") as f:
+        f.write(serialize(data))
+    hinted = sum(1 for n in data["games"] + data["labs"] + data["quests"] if n["hints"])
+    print(f"[OK] wrote {rel(args.out)}: {len(data['games'])} games, {len(data['labs'])} labs, "
+          f"{len(data['quests'])} quests, {hinted} nodes with hints.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

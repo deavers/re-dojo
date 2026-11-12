@@ -1,0 +1,38 @@
+{
+  "_documentation": {
+    "purpose": "Map nodes that touch protection of commercial software. Restricted nodes stay on the map, but hints are conceptual only and practice is redirected to the author's own lab binaries.",
+    "used_by": "Tools_and_Scripts/build_games_json.py",
+    "rules": [
+      "restricted=true requires a note and at least one redirect lab id (labNN / cmNN).",
+      "Any Top 200 entry whose catalog text mentions a commercial protection (see PROTECTION_RX in validate_games.py) MUST be listed here.",
+      "Campaign quests are keyed by a stable substring of their README.md line (readme_match), not by line number."
+    ]
+  },
+  "games": {
+    "g199": {
+      "restricted": true,
+      "note": "Commercial integrity protection (Arxan). Conceptual hints only: what an integrity check is and how it is designed. Hands-on practice happens only on your own binaries (Lab 10, CM 05).",
+      "redirect_labs": ["lab10", "cm05"]
+    }
+  },
+  "quests": [
+    {
+      "id": "q_ss_legacy_drm",
+      "title": "Legacy DRM Study (SecuROM / SafeDisc)",
+      "tier": "SS",
+      "readme_match": "**[Legacy DRM Study]:**",
+      "restricted": true,
+      "note": "Commercial copy protection. Conceptual hints only (what a packer stub / OEP / import table is). Hands-on practice happens only on your own binaries (Lab 10, CM 05, CM 06).",
+      "redirect_labs": ["lab10", "cm05", "cm06"]
+    },
+    {
+      "id": "q_ssp_integrity_guard",
+      "title": "Integrity Guard Study (Arxan, offline)",
+      "tier": "SS+",
+      "readme_match": "**[Integrity Guard Study]:**",
+      "restricted": true,
+      "note": "Commercial integrity protection (Arxan). Conceptual hints only. Hands-on practice happens only on your own binaries (Lab 10, CM 05).",
+      "redirect_labs": ["lab10", "cm05"]
+    }
+  ]
+}
