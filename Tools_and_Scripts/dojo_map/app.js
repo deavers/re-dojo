@@ -341,6 +341,12 @@
         el("div", { cls: "chips" }, n.safety.redirect_labs.map(labChip)),
       ]));
     }
+    if (n.safety.online_note === true) {
+      out.push(el("div", { cls: "banner online-note", attrs: { role: "note" } }, [
+        el("strong", { text: "🌐 Только офлайн / одиночный режим. " }),
+        document.createTextNode("Античит отключён, в онлайн не заходить."),
+      ]));
+    }
 
     // what to look for (catalog / README / lab concept) - collapsed, it is spoilery
     if (n.kind === "game") {

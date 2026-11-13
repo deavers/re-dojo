@@ -47,6 +47,9 @@ Hints live here, **not** in `data/games.json`. `Tools_and_Scripts/build_games_js
 * A game whose catalog text (title + engine + what_to_find) matches `PROTECTION_RX` must be restricted in
   `data/safety_overrides.json`. Broader wording is only listed for a human decision:
   `python Tools_and_Scripts/validate_games.py --protection-report`.
+* Games with `safety.online_note = true` (listed in `online_note_games` in `data/safety_overrides.json`) also
+  have an online mode. Hints must stay offline / single-player: `online`, `multiplayer`, `ranked`, `server`
+  (and RU `онлайн`, `мультиплеер`, `сервер`, `ранкед`, `рейтинговый`) are an error there. `offline` is fine.
 * Restricted nodes (`safety.restricted = true`: `g176`, `g177`, `g199`, `q_ss_legacy_drm`, `q_ssp_integrity_guard`):
   conceptual hints only, no concrete addresses / offsets / bytes at all, and the level-3 hint must reference
   one of the node's `redirect_labs` sources (your own binaries).

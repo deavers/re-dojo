@@ -219,6 +219,13 @@ PROTECTION_REVIEW_RX = re.compile(
     r"|(?-i:\bEAC\b|\bVAC\b)",
     re.IGNORECASE,
 )
+# Hints of games with safety.online_note must stay in an offline / single-player context.
+# 'offline' does not match (\bonline\b); Russian stems included because hints may be written in Russian.
+ONLINE_CONTEXT_RX = re.compile(
+    r"\b(?:online|multi-?player|ranked|servers?)\b"
+    r"|(?<![а-яё])(?:онлайн\w*|мультиплеер\w*|сервер\w*|ранкед\w*|рейтингов\w*)",
+    re.IGNORECASE,
+)
 # A title qualified as Offline / Solo / Bots / ... implies the game also has an online mode. The repo
 # does not state any protection for it, so this is listed for a human decision, never flagged.
 OFFLINE_QUALIFIER_RX = re.compile(r"\b(?:Offline|Solo|Bots|Sandbox|Story Mode|Singleplayer)\b", re.IGNORECASE)

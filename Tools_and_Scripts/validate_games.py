@@ -288,6 +288,11 @@ class Validator:
         if not isinstance(s, dict) or not isinstance(s.get("restricted"), bool):
             self.err(w, "safety.restricted must be a boolean")
             return
+        if "online_note" in s:
+            if not isinstance(s["online_note"], bool):
+                self.err(w, "safety.online_note must be a boolean")
+            elif s["online_note"] and (s["restricted"] or n.get("kind") != "game"):
+                self.err(w, "safety.online_note is only for unrestricted games")
         if s["restricted"]:
             if not (isinstance(s.get("note"), str) and s["note"].strip()):
                 self.err(w, "restricted node needs safety.note")
@@ -380,6 +385,10 @@ class Validator:
             prot_rx = S.PROTECTION_PRODUCTS_RX if n.get("kind") in ("lab", "crackme") else S.PROTECTION_RX
             if not restricted and prot_rx.search(text):
                 self.err(hw, "hint mentions a commercial protection but the node is not safety.restricted")
+            if n.get("safety", {}).get("online_note") is True:
+                m = S.ONLINE_CONTEXT_RX.search(text)
+                if m:
+                    self.err(hw, f"online_note game: hints must stay offline / single-player, found '{m.group(0)}'")
 
             # --- anti-hallucination: concrete literals must have provenance
             if restricted:

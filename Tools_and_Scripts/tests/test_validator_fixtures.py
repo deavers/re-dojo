@@ -93,6 +93,13 @@ cases = {
         H(1, "The header key sits at 0x10."), H(2, "b"), H(3, "Use CM 03.", "needs_verification", [CM03])]}}, False, "no concrete addresses"),
     "n38_g177_l3_not_own_lab": ({"g177": {"status": "draft", "hints": [
         H(1, "a"), H(2, "b"), H(3, "Dump it with a public tool.")]}}, False, "level-3 hint must reference"),
+    # --- online_note games: hints stay offline / single-player
+    "n39_online_word_en": ({"g006": three("Ranked matches use a different value.")}, False, "must stay offline"),
+    "n40_server_word_en": ({"g039": three("The server owns the health value.")}, False, "must stay offline"),
+    "n41_online_word_ru": ({"g105": three("В онлайне значение проверяет хост.")}, False, "must stay offline"),
+    "n42_multiplayer_ru": ({"g107": three("Мультиплеер не трогаем.")}, False, "must stay offline"),
+    "p10_offline_wording_ok": ({"g039": three("Start an offline match against bots and scan for the health value.")}, True, ""),
+    "p11_online_word_ok_without_note": ({"g019": three("No online part here, just scan the sun counter.")}, True, ""),
 }
 
 def run(args):
@@ -129,6 +136,8 @@ muts = {
     "m21_ambiguous_but_status_known": (lambda d: d["games"][1].update(engine_derivation={"status": "known"}), "'ambiguous' <=>"),
     "m22_excluded_tool_present": (lambda d: d["games"][175]["tools"].append({"id": "il2cppdumper", "source": "derived"}), "excluded by safety.exclude_items"),
     "m23_g176_not_restricted": (lambda d: d["games"][175].update(safety={"restricted": False}), "commercial protection"),
+    "m24_online_note_on_restricted": (lambda d: d["games"][198]["safety"].update(online_note=True), "only for unrestricted games"),
+    "m25_online_note_not_bool": (lambda d: d["games"][5]["safety"].update(online_note="yes"), "online_note must be a boolean"),
 }
 for name, (f, needle) in muts.items():
     d = copy.deepcopy(base); f(d); out = sp / f"{name}.games.json"

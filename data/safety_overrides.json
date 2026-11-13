@@ -7,9 +7,37 @@
       "Any Top 200 entry whose catalog text (title + engine + what_to_find) matches PROTECTION_RX in Tools_and_Scripts/dojo_schema.py MUST be listed here with restricted=true.",
       "Optional exclude_items {techniques: [...], tools: [...]}: ids that are never shown for this node, whatever the catalog says.",
       "Broader words (encryption, bypass, online, offline-qualified titles) are only reported: python Tools_and_Scripts/validate_games.py --protection-report",
+      "online_note_games: NOT restricted, but the game also has an online mode. The map shows an offline-only banner (anti-cheat off, never go online) and hints must stay offline: ONLINE_CONTEXT_RX in dojo_schema.py (online, multiplayer, ranked, server; RU: онлайн, мультиплеер, сервер, ранкед/рейтинговый) is an error there.",
       "Campaign quests are keyed by a stable substring of their README.md line (readme_match), not by line number."
     ]
   },
+  "online_note_games": [
+    "g006",
+    "g014",
+    "g039",
+    "g048",
+    "g050",
+    "g068",
+    "g105",
+    "g106",
+    "g107",
+    "g108",
+    "g109",
+    "g128",
+    "g131",
+    "g132",
+    "g133",
+    "g147",
+    "g158",
+    "g165",
+    "g169",
+    "g171",
+    "g180",
+    "g193",
+    "g197",
+    "g198",
+    "g200"
+  ],
   "games": {
     "g176": {
       "restricted": true,

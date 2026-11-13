@@ -1197,7 +1197,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -1638,7 +1639,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -3043,7 +3045,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -3532,7 +3535,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -3627,7 +3631,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -4541,7 +4546,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -6737,7 +6743,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -6800,7 +6807,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -6875,7 +6883,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -6932,7 +6941,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -6987,7 +6997,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -7970,7 +7981,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -8121,7 +8133,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -8175,7 +8188,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -8226,7 +8240,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -8843,7 +8858,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -9361,7 +9377,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -9741,7 +9758,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -9953,7 +9971,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -10059,7 +10078,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -10560,7 +10580,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -11145,7 +11166,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -11353,7 +11375,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -11402,7 +11425,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     },
     {
@@ -11520,7 +11544,8 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": false,
+        "online_note": true
       }
     }
   ]

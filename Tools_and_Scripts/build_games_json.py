@@ -173,6 +173,8 @@ def build(hints_dir: Path) -> dict:
             lab["notes"].append(extra)
         apply_hints(lab, hints, used_hints)
 
+    # Not restricted, but the game has an online mode: map shows an offline-only banner.
+    online_ids = set(safety.get("online_note_games", []))
     games = []
     for g in top200:
         raw_title = g["title"]
@@ -253,8 +255,17 @@ def build(hints_dir: Path) -> dict:
             for lab_id in override.get("redirect_labs", []):
                 if lab_id not in prereq_labs:
                     prereq_labs.append(lab_id)
+        if gid in online_ids:
+            node["safety"] = {**node["safety"], "online_note": True}
         apply_hints(node, hints, used_hints)
         games.append(node)
+
+    unknown_online = sorted(online_ids - {g["id"] for g in games})
+    if unknown_online:
+        raise BuildError(f"online_note_games lists unknown game ids: {', '.join(unknown_online)}")
+    clash = sorted(i for i in online_ids if safety.get("games", {}).get(i, {}).get("restricted"))
+    if clash:
+        raise BuildError(f"online_note_games must not list restricted games: {', '.join(clash)}")
 
     quests = []
     readme_lines = readme.splitlines()

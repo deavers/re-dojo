@@ -222,6 +222,10 @@
               }
             }
           }
+        },
+        "online_note": {
+          "type": "boolean",
+          "description": "Not restricted; the game has an online mode. Offline-only banner; hints must not use online context words."
         }
       },
       "if": {
