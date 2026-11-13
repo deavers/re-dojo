@@ -126,6 +126,12 @@
         "path": "Course_Solutions/Lab11_Integer_Widths/lab11_core.hpp",
         "kind": "lab_source"
       }
+    ],
+    "lab12": [
+      {
+        "path": "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_core.hpp",
+        "kind": "lab_source"
+      }
     ]
   }
 }

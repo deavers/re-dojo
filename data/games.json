@@ -342,6 +342,77 @@
       }
     },
     {
+      "id": "lab12",
+      "kind": "lab",
+      "label": "Lab 12",
+      "title": "Double and Fuzzy Scan",
+      "tier": "F+",
+      "difficulty_raw": 0.6,
+      "difficulty": 1,
+      "exp": 150,
+      "path": "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_double_fuzzy.cpp",
+      "prerequisite_text": "Float & Int16 scans",
+      "concept": "Rounded display defeats exact scans: `Unknown initial value` + Increased / Decreased, `double` vs `float`",
+      "prerequisites": {
+        "labs": [
+          "lab02"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_double_fuzzy.cpp",
+          "kind": "lab_source"
+        },
+        {
+          "path": "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_core.hpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Число на экране округлено, поэтому точный скан по нему ничего не найдёт. Начни с «Unknown initial value», а дальше отсеивай по тому, как значение меняется после твоих действий.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_double_fuzzy.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Эссенция и чистота — разные типы с плавающей точкой: одна занимает 8 байт, другая 4. Сканируй каждую своим типом. Записанное не тем типом значение испортит соседние байты или окажется крошечным числом.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_double_fuzzy.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab12_core.hpp: essence — double на +0x00, catalystPurity — float на +0x08. Фильтр в игре упирается в kPurityCap, а камню нужно purity >= 0.999 (99.9 %), так что чистоту поднимай правкой памяти.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_core.hpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
+      "safety": {
+        "restricted": false
+      },
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "hints_batch": "labs_01.json"
+    },
+    {
       "id": "cm01",
       "kind": "crackme",
       "label": "CM 01",
@@ -1076,6 +1147,7 @@
           "lab01",
           "lab11",
           "lab02",
+          "lab12",
           "cm04"
         ],
         "games": [],
@@ -1139,7 +1211,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -1209,7 +1282,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -1303,7 +1377,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -1442,7 +1517,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -1573,6 +1649,7 @@
           "lab01",
           "lab11",
           "lab02",
+          "lab12",
           "lab05"
         ],
         "games": [],
@@ -1659,7 +1736,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -1741,7 +1819,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -1905,6 +1984,7 @@
       "prerequisites": {
         "labs": [
           "lab02",
+          "lab12",
           "lab08"
         ],
         "games": [],
@@ -1960,7 +2040,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -2040,7 +2121,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -2183,7 +2265,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -2270,6 +2353,7 @@
           "lab01",
           "lab11",
           "lab02",
+          "lab12",
           "lab03",
           "lab07"
         ],
@@ -2353,7 +2437,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -2639,7 +2724,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -3022,6 +3108,7 @@
           "lab01",
           "lab11",
           "lab02",
+          "lab12",
           "lab03",
           "lab07"
         ],
@@ -3297,6 +3384,7 @@
           "lab01",
           "lab11",
           "lab02",
+          "lab12",
           "lab09"
         ],
         "games": [],
@@ -3626,6 +3714,7 @@
           "lab01",
           "lab11",
           "lab02",
+          "lab12",
           "lab09"
         ],
         "games": [],
@@ -3678,7 +3767,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -3901,7 +3991,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -4004,7 +4095,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -4279,7 +4371,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -4334,7 +4427,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -4391,7 +4485,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -4650,7 +4745,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -4760,7 +4856,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -4903,7 +5000,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -5151,7 +5249,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -5209,7 +5308,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -5353,6 +5453,7 @@
       "prerequisites": {
         "labs": [
           "lab02",
+          "lab12",
           "lab05"
         ],
         "games": [],
@@ -5698,7 +5799,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -6086,7 +6188,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -7747,7 +7850,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -8376,7 +8480,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -8431,7 +8536,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -8890,7 +8996,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -9161,7 +9268,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -9338,7 +9446,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -9746,7 +9855,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -9851,7 +9961,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -9943,7 +10054,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -10195,6 +10307,7 @@
       "prerequisites": {
         "labs": [
           "lab02",
+          "lab12",
           "lab03",
           "lab07"
         ],
@@ -10781,7 +10894,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -11812,7 +11926,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
@@ -12038,6 +12153,7 @@
       "prerequisites": {
         "labs": [
           "lab02",
+          "lab12",
           "lab05"
         ],
         "games": [],
@@ -12270,7 +12386,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab02"
+          "lab02",
+          "lab12"
         ],
         "games": [],
         "source": "derived"
