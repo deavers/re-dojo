@@ -1396,6 +1396,73 @@
       }
     },
     {
+      "id": "lab39",
+      "kind": "lab",
+      "label": "Lab 39",
+      "title": "DotNet Decompile",
+      "tier": "B-",
+      "difficulty_raw": 4.7,
+      "difficulty": 3,
+      "exp": 770,
+      "path": "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs",
+      "prerequisite_text": "Classes and method tables",
+      "concept": "Own .NET 8 game: decompile with dnSpyEx / ILSpy, read how the passphrase is forged, reproduce it",
+      "prerequisites": {
+        "labs": [
+          "lab07"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Это управляемая сборка .NET: имена классов и методов сохранились. Открой Lab39.dll в dnSpyEx или ILSpy и найди метод, который сравнивает твой ввод с фразой.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Фраза не хранится строкой — её собирает отдельный метод из массива чисел. Перепиши этот цикл у себя (C# Interactive, Python) и посмотри, что получится.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В Program.cs ForgePassphrase делает chars[i] = (Gears[i] ^ (0x2A + i * 5)) - i для каждого элемента Gears. Сравнение точное (Ordinal), регистр важен.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs"
+          ]
+        }
+      ],
+      "hints_status": "draft",
+      "safety": {
+        "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": true
+      },
+      "hints_batch": "labs_01.json"
+    },
+    {
       "id": "lab08",
       "kind": "lab",
       "label": "Lab 08",
@@ -2200,7 +2267,8 @@
           "lab01",
           "lab11",
           "lab02",
-          "lab12"
+          "lab12",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -2295,7 +2363,8 @@
           "lab01",
           "lab11",
           "lab02",
-          "lab12"
+          "lab12",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -6283,7 +6352,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab39"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -6891,7 +6962,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab39"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -7178,7 +7251,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -7277,7 +7351,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab39"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -7362,6 +7438,7 @@
           "lab03",
           "lab16",
           "lab05",
+          "lab39",
           "lab09"
         ],
         "games": [],
@@ -7467,7 +7544,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -7540,7 +7618,8 @@
         "labs": [
           "lab01",
           "lab11",
-          "lab05"
+          "lab05",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -7608,7 +7687,8 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab16"
+          "lab16",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -7676,7 +7756,8 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab16"
+          "lab16",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -7845,7 +7926,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -7913,7 +7995,8 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab16"
+          "lab16",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -7977,7 +8060,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -8035,7 +8119,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab39"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -8092,7 +8178,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab39"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -8149,7 +8237,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab39"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -8206,7 +8296,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab39"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -8278,6 +8370,7 @@
         "labs": [
           "lab01",
           "lab11",
+          "lab39",
           "lab09"
         ],
         "games": [],
@@ -8338,7 +8431,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -8397,7 +8491,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab05"
+          "lab05",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -8463,7 +8558,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab39"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -8527,7 +8624,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab39"
         ],
         "games": [],
         "source": "derived"
@@ -8603,6 +8701,7 @@
       ],
       "prerequisites": {
         "labs": [
+          "lab39",
           "lab09"
         ],
         "games": [],
@@ -8662,7 +8761,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab39"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -8854,6 +8955,7 @@
       ],
       "prerequisites": {
         "labs": [
+          "lab39",
           "lab09"
         ],
         "games": [],
@@ -9023,7 +9125,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab39"
+        ],
         "games": [],
         "source": "derived"
       },

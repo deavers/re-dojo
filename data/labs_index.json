@@ -970,7 +970,7 @@
       "title": ".NET: декомпиляция своей C#-игры",
       "tier": "B-",
       "difficulty_raw": 4.7,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab07"
       ],

@@ -281,18 +281,20 @@ README ~0,5; 3 подсказки ~0,4; CMake/индекс ~0,2). Партия �
 * **Отличие от базового шаблона:** правка идёт кодом в чужой VM, а не байтами; Lab 53 / 57 / 61 / 67 добавляют вызов
   из DLL, метатаблицы, байткод `luac` тем же `luado`.
 
-### Категория «.NET / C#» (образец: Lab 39 — **черновик, лаба ещё не собрана: нет .NET SDK в окружении**)
+### Категория «.NET / C#» (образец: Lab 39, проверен)
 
-* **Файлы:** `game/LabNN.csproj` (`net8.0`, консоль, без NuGet-зависимостей, чтобы сборка шла офлайн) и `game/*.cs`;
-  `solve/solve.py`; `check/expected.json`; README. Без `core.hpp` и selftest на C++.
-* **Задача:** «прочитай декомпилированный код» — секрет (ключ, формула) вычисляется в C#, ответ вводится в stdin,
-  флаг печатает сама игра. Правка IL в dnSpyEx — опциональный второй путь, автопроверкой не проверяется.
-* **CMake:** `find_program(DOTNET dotnet)`; если SDK есть — тесты `labNN_build` (`dotnet build -c Release`),
-  `labNN_solve_ok`, `labNN_wrong_fails` (через `dotnet <dll>`), метка `dotnet`; если нет — тесты не регистрируются,
-  CMake пишет предупреждение.
-* **CI:** `labs_index.json` → `"ci": "sources_only"`: в CI проверяются только исходники (наличие и формат `.csproj`,
-  `solve.py` и `expected.json` — python-тест без SDK); полная автопроверка — локально.
-* **Обязательные неверные ответы:** близкий ключ, ключ до последнего преобразования, неверный регистр, неверная длина.
+* **Файлы:** `game/LabNN.csproj` (`net8.0`, консоль, без NuGet — сборка офлайн; `TreatWarningsAsErrors`,
+  `Deterministic`, `PathMap`, `DebugType=none` — PDB не создаются, иначе в них путь сборки и opsec падает),
+  `game/Program.cs`, `check/check_sources.py`, `check/expected.json`, `solve/solve.py`, README.
+* **Задача:** «прочитай декомпилированный код»: секрет вычисляется в C# (в исходнике — только данные), ответ в stdin,
+  флаг (FNV-1a от «печати») печатает игра. Правка IL в dnSpyEx — необязательный второй путь, не проверяется.
+* **CMake:** `dojo_add_dotnet_lab(ID … DIR … PROJECT game/LabNN.csproj ASSEMBLY LabNN)` из `cmake/DojoDotnet.cmake`.
+  Всегда: `<id>_sources` (python, без SDK). Если есть SDK и `DOJO_DOTNET_TESTS=ON` (по умолчанию локально):
+  `<id>_build` (`cmake/DojoDotnetBuild.cmake` копирует `game/` в папку сборки и запускает `dotnet build` там — `obj/` и
+  `bin/` не попадают в репо), `<id>_solve_ok`, `<id>_wrong_fails` (раннер против apphost).
+* **CI:** `"ci": "sources_only"` — обе задачи конфигурируют с `-DDOJO_DOTNET_TESTS=OFF`, остаётся только `<id>_sources`.
+* **Обязательные неверные ответы:** пропущенный шаг преобразования, регистр, перестановка, часть ответа, пустая строка (2).
+* **Предупреждения:** считать по сводке `dotnet build` («Warning(s)» / «Предупреждений»), должно быть 0.
 
 ### Категория «Z3 / символьное исполнение» (образец: CM 16 — **черновик, крякми ещё не собрана: нет z3-solver**)
 

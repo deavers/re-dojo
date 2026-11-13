@@ -480,6 +480,38 @@
           ]
         }
       ]
+    },
+    "lab39": {
+      "status": "draft",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Это управляемая сборка .NET: имена классов и методов сохранились. Открой Lab39.dll в dnSpyEx или ILSpy и найди метод, который сравнивает твой ввод с фразой.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Фраза не хранится строкой — её собирает отдельный метод из массива чисел. Перепиши этот цикл у себя (C# Interactive, Python) и посмотри, что получится.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В Program.cs ForgePassphrase делает chars[i] = (Gears[i] ^ (0x2A + i * 5)) - i для каждого элемента Gears. Сравнение точное (Ordinal), регистр важен.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs"
+          ]
+        }
+      ]
     }
   }
 }

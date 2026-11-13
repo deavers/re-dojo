@@ -62,6 +62,7 @@ endif()
 # ============================================================================
 enable_testing()
 include(cmake/DojoLab.cmake)
+include(cmake/DojoDotnet.cmake)
 add_test(NAME dojo_runner_selftest COMMAND ${Python3_EXECUTABLE} -I ${DOJO_LAB_RUNNER} selftest)
 set_tests_properties(dojo_runner_selftest PROPERTIES LABELS "lab")
 
@@ -113,3 +114,5 @@ dojo_add_lab(ID lab52 TARGET lab52_embedded_lua DIR Course_Solutions/Lab52_Embed
              SELFTEST Course_Solutions/Lab52_Embedded_Lua/check/lab52_selftest.cpp
              LIBS lua54
              LABELS windows)
+dojo_add_dotnet_lab(ID lab39 DIR Course_Solutions/Lab39_DotNet_Decompile PROJECT game/Lab39.csproj
+                    ASSEMBLY Lab39)
