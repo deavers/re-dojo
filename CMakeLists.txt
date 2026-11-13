@@ -116,3 +116,6 @@ dojo_add_lab(ID lab52 TARGET lab52_embedded_lua DIR Course_Solutions/Lab52_Embed
              LABELS windows)
 dojo_add_dotnet_lab(ID lab39 DIR Course_Solutions/Lab39_DotNet_Decompile PROJECT game/Lab39.csproj
                     ASSEMBLY Lab39)
+dojo_add_lab(ID cm16 TARGET crackme16_z3_lock DIR Crackmes_and_CTF/16_Z3_Constraint_Lock
+             SOURCE   Crackmes_and_CTF/16_Z3_Constraint_Lock/crackme16_z3_lock.cpp
+             LABELS z3)

@@ -28,6 +28,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install z3-solver (Z3 crackme reference solvers)
+        run: python -m pip install z3-solver==5.4.1.0
+
       - name: Run OPSEC, Privacy & PII Sanitizer
         run: python Tools_and_Scripts/opsec_sanitizer.py --ci
 
@@ -67,6 +70,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Install z3-solver (Z3 crackme reference solvers)
+        run: python -m pip install z3-solver==5.4.1.0
 
       - name: Show installed Visual Studio instances (vswhere) and CMake version
         run: |

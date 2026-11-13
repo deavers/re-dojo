@@ -1458,7 +1458,7 @@
       "title": "Z3: первая система ограничений",
       "tier": "A",
       "difficulty_raw": 6.6,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "cm10",
         "cm13"
