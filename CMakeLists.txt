@@ -32,6 +32,10 @@ add_executable(lab08_3d_w2s_simulator     Course_Solutions/Lab08_3D_Math_and_Wor
 add_executable(lab09_internal_hook_target Course_Solutions/Lab09_Internal_DLL_and_Hooks/lab09_internal_hook_target.cpp)
 add_executable(lab10_integrity_boss       Course_Solutions/Lab10_Integrity_and_AntiTamper_Boss/lab10_integrity_boss.cpp)
 
+# Output names expected by Game_Hacking/Dojo_Labs_Reference.CT (aobscanmodule / module+offset).
+set_target_properties(lab04_pointer_chains PROPERTIES OUTPUT_NAME lab04_multilevel_pointers)
+set_target_properties(lab06_shared_code    PROPERTIES OUTPUT_NAME lab06_shared_code_filter)
+
 # Crackmes and CTF (8 Progressive Keygenning & De-Obfuscation Targets)
 add_executable(crackme01_strings          Crackmes_and_CTF/01_Apprentice_Gate/crackme01_strings.cpp)
 add_executable(crackme02_serial_math      Crackmes_and_CTF/02_Mathematical_Lock/crackme02_serial_math.cpp)

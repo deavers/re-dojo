@@ -24,7 +24,7 @@ This directory contains reusable **C++20 Memory Frameworks**, **3D Math Librarie
 
 ### 1. Scanning a Binary for AOB Signatures & Entropy (`pe_and_aob_scanner.py`)
 ```powershell
-python Tools_and_Scripts/04_Python_RE_Toolkit/pe_and_aob_scanner.py build/bin/lab06_shared_code.exe "48 8B ?? 8B ?? 08"
+python Tools_and_Scripts/04_Python_RE_Toolkit/pe_and_aob_scanner.py build/bin/lab06_shared_code_filter.exe "48 8B ?? 8B ?? 08"
 ```
 
 ### 2. Running the Stack VM Disassembler & Z3 Workbench
