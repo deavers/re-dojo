@@ -15,7 +15,8 @@
 | Встроенная Lua | Lab 52 | selftest `luado`, `LIBS lua54` |
 | Крякми (stdin) | CM 09, CM 10 | бинарь сам, `FLAG{...}` |
 | Крякми с VM | CM 17 | бинарь сам, байткод из ассемблера вне репо |
-| .NET, Z3 | Lab 39, CM 16 | черновики шаблонов (см. lab_plan.md) |
+| .NET / C# | Lab 39 | `dojo_add_dotnet_lab`; `<id>_sources` всегда, dotnet-тесты локально (`ci: sources_only`) |
+| Z3 / символьное | CM 16 | бинарь сам, `solve.py` решает в z3, `LABELS z3` |
 
 ## 2. Чеклист
 
@@ -37,6 +38,8 @@
 ## 3. Команды
 
 ```powershell
+# CTest должен видеть Python с z3: один раз при конфигурации (Windows: Python 3.12; WSL: venv с z3)
+cmake -S . -B build -A x64 -DPython3_EXECUTABLE="<python с z3-solver>"   # .NET-тесты: нужен SDK, DOJO_DOTNET_TESTS=ON
 python -X utf8 Tools_and_Scripts/build_games_json.py; python -X utf8 Tools_and_Scripts/build_dojo_map.py
 cmake -S . -B build -A x64; cmake --build build --config Release --parallel
 ctest --test-dir build -C Release -R "^<id>_" --output-on-failure
@@ -56,6 +59,10 @@ node Tools_and_Scripts/tests/e2e_dojo_map.mjs; python -X utf8 Tools_and_Scripts/
 * **Литералы не из исходников:** `12.50` (значение на экране), `+0x0300` при `0x0300` в коде → валидатор отклоняет.
 * **Девиртуализация:** вызовы через `volatile`-указатель, иначе правка vptr не влияет.
 * **`__declspec` вне Windows:** `LUA_BUILD_AS_DLL` только для `WIN32`.
+* **Не тот Python у CTest:** `find_package` взял 3.14 / системный python3 без z3 → `-DPython3_EXECUTABLE`, раннер с `-I`.
+* **PDB с локальным путём:** `dotnet build` писал PDB с путём пользователя (opsec сканирует `build/`) → `DebugType=none`.
+* **Windows-путь в WSL:** `C:/...` внутри `wsl -e bash` стал относительной папкой `C:` в репо → в WSL только `/mnt/c/...`.
+* **Суффиксы литералов:** в коде `0xFFFFU` — в подсказке тоже `0xFFFFU`, иначе валидатор не найдёт токен.
 * **Экранирование в heredoc:** `\v` в Python-строке стал управляющим символом в YAML → правки сложных строк через файл/Edit.
 
 ## 5. Промпт-шаблон для более простой модели
