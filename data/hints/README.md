@@ -3,7 +3,7 @@
 Hints live here, **not** in `data/games.json`. `Tools_and_Scripts/build_games_json.py` merges every
 `*.json` file in this folder by node id, so rebuilding `games.json` never wipes hint work.
 
-## File format (`batch_01.json`, `batch_02.json`, …)
+## File format (`batch_01.json`, … for games; `labs_01.json`, … for labs and crackmes)
 
 ```json
 {

@@ -138,6 +138,12 @@ muts = {
     "m23_g176_not_restricted": (lambda d: d["games"][175].update(safety={"restricted": False}), "commercial protection"),
     "m24_online_note_on_restricted": (lambda d: d["games"][198]["safety"].update(online_note=True), "only for unrestricted games"),
     "m25_online_note_not_bool": (lambda d: d["games"][5]["safety"].update(online_note="yes"), "online_note must be a boolean"),
+    # --- labs come from data/labs_index.json
+    "m26_lab_bad_id": (lambda d: d["labs"][0].update(id="lab1x"), "lab id must match"),
+    "m27_planned_redirect_not_planned": (lambda d: d["games"][198]["safety"].update(redirect_labs_planned=["lab10"]), "is not a planned lab"),
+    "m28_lab_prereqs_differ": (lambda d: d["labs"][1]["prerequisites"].update(labs=[]), "must equal data/labs_index.json prereqs"),
+    "m29_lab_platform_not_bool": (lambda d: d["labs"][0].update(platform={"windows_only": "yes"}), "platform must be"),
+    "m30_lab_not_in_index": (lambda d: d["labs"].append({**d["labs"][0], "id": "lab99"}), "differ from data/labs_index.json"),
 }
 for name, (f, needle) in muts.items():
     d = copy.deepcopy(base); f(d); out = sp / f"{name}.games.json"

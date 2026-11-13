@@ -3,7 +3,7 @@
     "purpose": "Map nodes that touch protection of commercial software. Restricted nodes stay on the map, but hints are conceptual only and practice is redirected to the author's own lab binaries.",
     "used_by": "Tools_and_Scripts/build_games_json.py",
     "rules": [
-      "restricted=true requires a note and at least one redirect lab id (labNN / cmNN).",
+      "restricted=true requires a note and at least one redirect lab id (labNN / cmNN) that is built; planned ids from data/labs_index.json are allowed too and become safety.redirect_labs_planned (shown as text, no edge, no hint ref) until the lab is built.",
       "Any Top 200 entry whose catalog text (title + engine + what_to_find) matches PROTECTION_RX in Tools_and_Scripts/dojo_schema.py MUST be listed here with restricted=true.",
       "Optional exclude_items {techniques: [...], tools: [...]}: ids that are never shown for this node, whatever the catalog says.",
       "Broader words (encryption, bypass, online, offline-qualified titles) are only reported: python Tools_and_Scripts/validate_games.py --protection-report",
@@ -41,20 +41,20 @@
   "games": {
     "g176": {
       "restricted": true,
-      "note": "Encrypted / obfuscated IL2CPP metadata of an online-service game (local private sandbox context). Conceptual hints only: what global-metadata is, why a publisher encrypts or obfuscates it, and what that protects. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05).",
-      "redirect_labs": ["cm03", "lab10", "cm05"],
+      "note": "Encrypted / obfuscated IL2CPP metadata of an online-service game (local private sandbox context). Conceptual hints only: what global-metadata is, why a publisher encrypts or obfuscates it, and what that protects. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05; planned: Lab 59 own IL2CPP-like binary, Lab 66 own encrypted metadata).",
+      "redirect_labs": ["cm03", "lab10", "cm05", "lab59", "lab66"],
       "exclude_items": {"techniques": ["il2cpp_dump"], "tools": ["il2cppdumper"]}
     },
     "g177": {
       "restricted": true,
-      "note": "Custom metadata encryption in an online-service game (offline local server context). Conceptual hints only: how metadata registration and its encryption are designed and why. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05).",
-      "redirect_labs": ["cm03", "lab10", "cm05"],
+      "note": "Custom metadata encryption in an online-service game (offline local server context). Conceptual hints only: how metadata registration and its encryption are designed and why. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05; planned: Lab 59 own IL2CPP-like binary, Lab 66 own encrypted metadata).",
+      "redirect_labs": ["cm03", "lab10", "cm05", "lab59", "lab66"],
       "exclude_items": {"techniques": ["il2cpp_dump"], "tools": ["il2cppdumper"]}
     },
     "g199": {
       "restricted": true,
-      "note": "Commercial integrity protection (Arxan). Conceptual hints only: what an integrity check is and how it is designed. Hands-on practice happens only on your own binaries (Lab 10, CM 05).",
-      "redirect_labs": ["lab10", "cm05"]
+      "note": "Commercial integrity protection (Arxan). Conceptual hints only: what an integrity check is and how it is designed. Hands-on practice happens only on your own binaries (Lab 10, CM 05; planned: Lab 65 own guard thread).",
+      "redirect_labs": ["lab10", "cm05", "lab65"]
     }
   },
   "quests": [

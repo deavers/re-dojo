@@ -165,27 +165,8 @@ TECHNIQUE_DERIVED_TOOLS = {
     "nop_patch": "x64dbg",
 }
 
-# Technique -> in-repo lab that teaches it (prerequisite recommendation, source 'derived').
-TECHNIQUE_LABS = {
-    "exact_value_scan": ["lab01"],
-    "float_double_scan": ["lab02"],
-    "bitmask_flags": ["lab02"],
-    "struct_dissect": ["lab03"],
-    "pointer_chain": ["lab04"],
-    "pointer_scan": ["lab04"],
-    "aob_injection": ["lab05"],
-    "nop_patch": ["lab05"],
-    "code_cave": ["lab05"],
-    "shared_code_filter": ["lab06"],
-    "vmt_hook": ["lab07"],
-    "sdk_dump": ["lab07"],
-    "w2s_math": ["lab08"],
-    "dll_injection": ["lab09"],
-    "detour_hook": ["lab09"],
-    "integrity_concept": ["lab10", "cm05"],
-    "archive_format": ["cm04"],
-    "save_format": ["cm04"],
-}
+# Technique -> in-repo labs is NOT static any more: build_games_json.technique_labs() derives it from
+# data/labs_index.json (field 'trains'; the two lowest-difficulty built labs per technique).
 
 # ---------------------------------------------------------------------------
 # Commercial protection, hard tier. A hit in a game's catalog text (title + engine + what_to_find)

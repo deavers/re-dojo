@@ -33,6 +33,11 @@ import dojo_schema as S  # noqa: E402
 ROOT = S.ROOT
 
 
+LAB_ID_RX = re.compile(r"^(?:lab|cm)\d+$")
+LAB_CHECKS = ["quest", "flag", "checker", "selftest"]
+LAB_PLATFORM_KEYS = ["windows_only", "msvc_only", "needs_unity", "needs_dotnet"]
+
+
 def say(msg: str) -> None:
     print(msg.encode("ascii", "backslashreplace").decode("ascii"))
 
@@ -44,6 +49,10 @@ class Validator:
         self.lab_ids: set[str] = set()
         self.lab_paths: dict[str, list[str]] = {}
         self._file_cache: dict[str, str] = {}
+        try:
+            self.index = json.loads(self.read("data/labs_index.json"))["labs"]
+        except (KeyError, TypeError, json.JSONDecodeError):
+            self.index = {}
 
     # ------------------------------------------------------------------ helpers
     def err(self, where: str, msg: str) -> None:
@@ -112,8 +121,10 @@ class Validator:
         self.schema_drift()
         if len(d["games"]) != 200:
             self.err("root.games", f"expected 200 games, got {len(d['games'])}")
-        if len(d["labs"]) != 18:
-            self.err("root.labs", f"expected 18 labs/crackmes, got {len(d['labs'])}")
+        built = sorted(k for k, v in self.index.items() if v.get("status") == "built")
+        if sorted(n.get("id") for n in d["labs"]) != built:
+            self.err("root.labs", f"labs differ from data/labs_index.json status 'built' ({len(built)} expected, "
+                                  f"{len(d['labs'])} in file)")
         return self.errors
 
     def schema_drift(self) -> None:
@@ -263,11 +274,20 @@ class Validator:
                 self.err(w, f"ambiguous engine: tool '{t.get('id')}' is not backed by what_to_find")
 
     def labs(self, w: str, lab: dict) -> None:
-        if not (isinstance(lab["id"], str) and lab["id"][:3] in ("lab", "cm0", "cm1")):
-            self.err(w, "lab id must be labNN or cmNN")
+        if not (isinstance(lab["id"], str) and LAB_ID_RX.match(lab["id"])):
+            self.err(w, "lab id must match lab<digits> or cm<digits>")
         if lab.get("kind") not in ("lab", "crackme"):
             self.err(w, "kind must be lab or crackme")
         self.safe_repo_path(w, lab.get("path"))
+        entry = self.index.get(lab["id"], {})
+        if lab.get("prerequisites", {}).get("labs") != entry.get("prereqs"):
+            self.err(w, "prerequisites.labs must equal data/labs_index.json prereqs")
+        if lab.get("check") not in LAB_CHECKS:
+            self.err(w, f"check must be one of {LAB_CHECKS}")
+        plat = lab.get("platform")
+        if not (isinstance(plat, dict) and set(plat) == set(LAB_PLATFORM_KEYS)
+                and all(isinstance(v, bool) for v in plat.values())):
+            self.err(w, f"platform must be an object of booleans {LAB_PLATFORM_KEYS}")
 
     def quests(self, w: str, q: dict) -> None:
         if q.get("kind") != "campaign_quest":
@@ -303,6 +323,13 @@ class Validator:
                 for lab_id in red:
                     if lab_id not in self.lab_ids:
                         self.err(w, f"redirect lab '{lab_id}' does not exist")
+            planned = s.get("redirect_labs_planned", [])
+            if not isinstance(planned, list):
+                self.err(w, "safety.redirect_labs_planned must be a list")
+            else:
+                for lab_id in planned:
+                    if self.index.get(lab_id, {}).get("status") != "planned":
+                        self.err(w, f"planned redirect lab '{lab_id}' is not a planned lab in data/labs_index.json")
 
     def allowed_ref_paths(self, n: dict) -> set[str]:
         """Files that may back a 'my_notes' hint: the node's notes + sources of its labs."""

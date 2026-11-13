@@ -102,9 +102,14 @@ const url = pathToFileURL(pagePath).href;
 await nav(url);
 await ev("localStorage.clear()"); await nav(url);
 
-check("220 tiles rendered", (await ev("document.querySelectorAll('.tile').length")) === 220);
+// Totals come from the embedded data (labs = data/labs_index.json status 'built'), never hard-coded.
+const TOT = await ev("(() => { const d = JSON.parse(document.getElementById('dojo-data').textContent); return { g: d.games.length, l: d.labs.length, q: d.quests.length }; })()");
+check("all tiles rendered (games + labs + quests from data)", (await ev("document.querySelectorAll('.tile').length")) === TOT.g + TOT.l + TOT.q, JSON.stringify(TOT));
+const winTag = await ev("(() => { const t = document.querySelector('.tile[data-id=\"lab09\"] .ptag'); return t ? t.textContent : ''; })()");
+const noTag = await ev("document.querySelectorAll('.tile[data-id=\"lab01\"] .ptag').length");
+check("platform tag 'только Windows' on lab09, none on lab01", winTag === "только Windows" && noTag === 0, winTag);
 check("start rank F-", (await ev("document.getElementById('rankCode').textContent")) === "F-");
-check("count label split by kind", (await ev("document.getElementById('shownCount').textContent")) === "Игры: 200 из 200 · Лабы и крякми: 18 из 18 · Квесты: 2 из 2");
+check("count label split by kind", (await ev("document.getElementById('shownCount').textContent")) === `Игры: ${TOT.g} из ${TOT.g} · Лабы и крякми: ${TOT.l} из ${TOT.l} · Квесты: ${TOT.q} из ${TOT.q}`);
 check("tier headers render above dependency edges", (await ev("(() => { const h = getComputedStyle(document.querySelector('.band-head')); return Number(h.zIndex) > Number(getComputedStyle(document.getElementById('edges')).zIndex) && h.backgroundColor !== 'rgba(0, 0, 0, 0)'; })()")) === true);
 const lockedGames = await ev("[...document.querySelectorAll('.tile.kind-game.locked')].length");
 check("all 200 games locked at start (lowest game tier F+ > F)", lockedGames === 200, String(lockedGames));
@@ -145,6 +150,7 @@ await click('.tile[data-id="g176"]');
 const b176 = await ev("[...document.querySelectorAll('#panelBody .banner')].map(b => b.textContent).join(' | ')");
 const tools176 = await ev("[...document.querySelectorAll('#panelBody span.chip')].map(c => c.textContent).join(' ')");
 check("g176 restricted, redirected to CM 03, no Il2CppDumper", b176.includes("Ограниченный уровень") && b176.includes("CM 03") && !tools176.includes("Il2CppDumper"), b176.slice(0, 120));
+check("g176 lists planned redirect labs as text", b176.includes("В плане (ещё не собраны): lab59, lab66"), b176.slice(-160));
 await click('.tile[data-id="g006"]');
 const onl = await ev("[...document.querySelectorAll('#panelBody .banner.online-note')].map(b => b.textContent).join(' | ')");
 check("online_note banner on g006", onl.includes("Только офлайн / одиночный режим") && onl.includes("в онлайн не заходить"), onl.slice(0, 100));
@@ -168,7 +174,7 @@ check("E-- games still locked", (await ev("document.querySelector('.tile[data-id
 // filters
 await ev(`(() => { const s = document.getElementById('fEngine'); s.value = 'unity_mono'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);
 check("engine filter unity_mono -> 23", (await ev("document.querySelectorAll('.tile').length")) === 23);
-check("counter under a game-only filter", (await ev("document.getElementById('shownCount').textContent")) === "Игры: 23 из 200 · Лабы и крякми: 0 из 18 · Квесты: 0 из 2");
+check("counter under a game-only filter", (await ev("document.getElementById('shownCount').textContent")) === `Игры: 23 из ${TOT.g} · Лабы и крякми: 0 из ${TOT.l} · Квесты: 0 из ${TOT.q}`);
 await ev(`(() => { const s = document.getElementById('fEngine'); s.value = 'ambiguous'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);
 check("engine filter ambiguous -> 17", (await ev("document.querySelectorAll('.tile').length")) === 17);
 await ev(`(() => { document.getElementById('filters').reset(); const s = document.getElementById('fSearch'); s.value = 'isaac'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);
@@ -180,7 +186,7 @@ await sleep(50);
 {
   const ids = await ev("[...document.querySelectorAll('.tile')].map(t => t.dataset.id)");
   const g = ids.filter((x) => x.startsWith("g")).length, l = ids.filter((x) => /^(lab|cm)/.test(x)).length;
-  check("counter matches visible tiles per kind", (await ev("document.getElementById('shownCount').textContent")) === `Игры: ${g} из 200 · Лабы и крякми: ${l} из 18 · Квесты: 0 из 2` && l > 0 && g > 0, `${g} games, ${l} labs`);
+  check("counter matches visible tiles per kind", (await ev("document.getElementById('shownCount').textContent")) === `Игры: ${g} из ${TOT.g} · Лабы и крякми: ${l} из ${TOT.l} · Квесты: 0 из ${TOT.q}` && l > 0 && g > 0, `${g} games, ${l} labs`);
 }
 await ev(`(() => { document.getElementById('filters').reset(); })()`); await sleep(50);
 await ev(`(() => { const s = document.getElementById('fStatus'); s.value = 'notes'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);

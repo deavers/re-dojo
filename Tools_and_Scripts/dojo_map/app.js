@@ -201,6 +201,12 @@
   }
 
   // ------------------------------------------------------------------ map
+  // Lab platform requirements from data/labs_index.json, shown on the tile itself.
+  function platformTags(n) {
+    const p = n.platform || {};
+    const tags = [p.windows_only ? "только Windows" : null, p.needs_unity ? "нужен Unity" : null].filter(Boolean);
+    return tags.length ? [el("span", { cls: "ptags" }, tags.map((t) => el("span", { cls: "ptag", text: t })))] : [];
+  }
   function tile(n, prog) {
     const done = !!state.done[n.id];
     const locked = isLocked(n, prog);
@@ -214,7 +220,9 @@
     if (n.kind === "game" && n.notes.length) icons.append("📒");
     if (n.kind === "game" && n.flags.steam_library) icons.append("⭐");
     if (n.hints.length) icons.append("💡");
-    const status = [done ? "пройдено" : null, locked ? "закрыто" : null, n.safety.restricted ? "ограничено" : null].filter(Boolean).join(", ");
+    const plat = n.platform || {};
+    const status = [done ? "пройдено" : null, locked ? "закрыто" : null, n.safety.restricted ? "ограничено" : null,
+      plat.windows_only ? "только Windows" : null, plat.needs_unity ? "нужен Unity" : null].filter(Boolean).join(", ");
     return el("button", {
       cls: cls.join(" "),
       attrs: { type: "button", "data-id": n.id, "aria-label": `${nodeKindLabel(n)} ${n.title}, тир ${n.tier}${status ? ", " + status : ""}` },
@@ -222,6 +230,7 @@
     }, [
       el("span", { cls: "kind", text: `${nodeKindLabel(n)} · ${n.exp} EXP` }),
       el("span", { cls: "name", text: n.title }),
+      ...platformTags(n),
       el("span", { cls: "foot" }, [n.difficulty ? pips(n.difficulty) : el("span"), icons]),
     ]);
   }
@@ -247,7 +256,7 @@
         el("div", { cls: "tiles" }, nodes.map((n) => tile(n, prog))),
       ]));
     });
-    // Separate counters: games out of 200, labs/crackmes out of 18, restricted campaign quests.
+    // Separate counters per kind; totals come from the data (labs: data/labs_index.json status 'built').
     $("shownCount").textContent = `Игры: ${shownBy.game} из ${DATA.games.length} · Лабы и крякми: ${shownBy.lab} из ${DATA.labs.length}`
       + ` · Квесты: ${shownBy.quest} из ${DATA.quests.length}`;
     if (!shown) bands.append(el("p", { cls: "empty", text: "Ничего не найдено. Сбросьте фильтры." }));
@@ -339,6 +348,9 @@
         document.createTextNode("Только концептуальные подсказки. Никакого обхода защиты коммерческого ПО. Практика — на собственных бинарниках."),
         el("p", { cls: "small", text: n.safety.note }),
         el("div", { cls: "chips" }, n.safety.redirect_labs.map(labChip)),
+        ...(n.safety.redirect_labs_planned && n.safety.redirect_labs_planned.length
+          ? [el("p", { cls: "small planned-labs", text: "В плане (ещё не собраны): " + n.safety.redirect_labs_planned.join(", ") + " — см. docs/lab_plan.md" })]
+          : []),
       ]));
     }
     if (n.safety.online_note === true) {

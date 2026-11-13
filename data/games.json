@@ -6,6 +6,7 @@
     "README.md",
     "data/notes_index.json",
     "data/safety_overrides.json",
+    "data/labs_index.json",
     "data/hints/*.json"
   ],
   "source_labels": {
@@ -222,6 +223,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -253,6 +261,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -282,6 +297,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -313,37 +335,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
-      }
-    },
-    {
-      "id": "cm02",
-      "kind": "crackme",
-      "label": "CM 02",
-      "title": "Mathematical Lock",
-      "tier": "E",
-      "difficulty_raw": 1.9,
-      "difficulty": 1,
-      "exp": 260,
-      "path": "Crackmes_and_CTF/02_Mathematical_Lock/crackme02_serial_math.cpp",
-      "prerequisite_text": "Assembly jumps",
-      "concept": "Reversing `AAAA-BBBB-CCCC` arithmetic & writing a Python Keygen",
-      "prerequisites": {
-        "labs": [
-          "cm01"
-        ],
-        "games": [],
-        "source": "derived"
       },
-      "notes": [
-        {
-          "path": "Crackmes_and_CTF/02_Mathematical_Lock/crackme02_serial_math.cpp",
-          "kind": "lab_source"
-        }
-      ],
-      "hints": [],
-      "hints_status": "pending",
-      "safety": {
-        "restricted": false
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -379,6 +377,51 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      }
+    },
+    {
+      "id": "cm02",
+      "kind": "crackme",
+      "label": "CM 02",
+      "title": "Mathematical Lock",
+      "tier": "E",
+      "difficulty_raw": 1.9,
+      "difficulty": 1,
+      "exp": 260,
+      "path": "Crackmes_and_CTF/02_Mathematical_Lock/crackme02_serial_math.cpp",
+      "prerequisite_text": "Assembly jumps",
+      "concept": "Reversing `AAAA-BBBB-CCCC` arithmetic & writing a Python Keygen",
+      "prerequisites": {
+        "labs": [
+          "cm01"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Crackmes_and_CTF/02_Mathematical_Lock/crackme02_serial_math.cpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [],
+      "hints_status": "pending",
+      "safety": {
+        "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -414,37 +457,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
-      }
-    },
-    {
-      "id": "cm03",
-      "kind": "crackme",
-      "label": "CM 03",
-      "title": "XOR and Rol Cipher",
-      "tier": "D",
-      "difficulty_raw": 3.1,
-      "difficulty": 2,
-      "exp": 400,
-      "path": "Crackmes_and_CTF/03_XOR_and_Rol_Cipher/crackme03_xor_rol.cpp",
-      "prerequisite_text": "Decompiler math",
-      "concept": "Bitwise rotation (`ROL8`/`ROR8`) + index-dependent `XOR` cipher inversion",
-      "prerequisites": {
-        "labs": [
-          "cm02"
-        ],
-        "games": [],
-        "source": "derived"
       },
-      "notes": [
-        {
-          "path": "Crackmes_and_CTF/03_XOR_and_Rol_Cipher/crackme03_xor_rol.cpp",
-          "kind": "lab_source"
-        }
-      ],
-      "hints": [],
-      "hints_status": "pending",
-      "safety": {
-        "restricted": false
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -480,6 +499,51 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      }
+    },
+    {
+      "id": "cm03",
+      "kind": "crackme",
+      "label": "CM 03",
+      "title": "XOR and Rol Cipher",
+      "tier": "D",
+      "difficulty_raw": 3.1,
+      "difficulty": 2,
+      "exp": 400,
+      "path": "Crackmes_and_CTF/03_XOR_and_Rol_Cipher/crackme03_xor_rol.cpp",
+      "prerequisite_text": "Decompiler math",
+      "concept": "Bitwise rotation (`ROL8`/`ROR8`) + index-dependent `XOR` cipher inversion",
+      "prerequisites": {
+        "labs": [
+          "cm02"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Crackmes_and_CTF/03_XOR_and_Rol_Cipher/crackme03_xor_rol.cpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [],
+      "hints_status": "pending",
+      "safety": {
+        "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -511,6 +575,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -542,6 +613,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -573,6 +651,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -604,6 +689,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -635,6 +727,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "quest",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -666,6 +765,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -697,6 +803,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "quest",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -728,6 +841,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     },
     {
@@ -759,6 +879,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
       }
     }
   ],
@@ -1892,6 +2019,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
+          "lab07",
           "lab09"
         ],
         "games": [],
@@ -2057,7 +2185,8 @@
         "labs": [
           "lab01",
           "lab02",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -2327,7 +2456,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -2478,7 +2608,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -2731,6 +2862,7 @@
           "lab01",
           "lab02",
           "lab03",
+          "lab07",
           "lab04"
         ],
         "games": [],
@@ -2796,7 +2928,8 @@
         "labs": [
           "lab01",
           "lab02",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -3002,7 +3135,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -3221,7 +3355,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -3558,7 +3693,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -3822,7 +3958,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -3880,7 +4017,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -3976,7 +4114,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -4695,7 +4834,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -5155,7 +5295,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -5224,6 +5365,7 @@
         "labs": [
           "lab02",
           "lab03",
+          "lab07",
           "lab05"
         ],
         "games": [],
@@ -5322,7 +5464,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -5544,8 +5687,7 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab01",
-          "cm04"
+          "lab01"
         ],
         "games": [],
         "source": "derived"
@@ -6058,6 +6200,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
+          "lab07",
           "lab05",
           "lab09"
         ],
@@ -6302,7 +6445,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -6369,7 +6513,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -6472,9 +6617,7 @@
         }
       ],
       "prerequisites": {
-        "labs": [
-          "cm04"
-        ],
+        "labs": [],
         "games": [],
         "source": "derived"
       },
@@ -6603,7 +6746,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -7587,9 +7731,7 @@
         }
       ],
       "prerequisites": {
-        "labs": [
-          "lab07"
-        ],
+        "labs": [],
         "games": [],
         "source": "derived"
       },
@@ -7646,7 +7788,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -7755,7 +7898,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -8243,7 +8387,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -8387,7 +8532,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -8736,9 +8882,7 @@
         }
       ],
       "prerequisites": {
-        "labs": [
-          "lab07"
-        ],
+        "labs": [],
         "games": [],
         "source": "derived"
       },
@@ -9833,7 +9977,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -9891,7 +10036,8 @@
       "prerequisites": {
         "labs": [
           "lab02",
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -9992,9 +10138,7 @@
         }
       ],
       "prerequisites": {
-        "labs": [
-          "lab07"
-        ],
+        "labs": [],
         "games": [],
         "source": "derived"
       },
@@ -10052,8 +10196,7 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab01",
-          "lab07"
+          "lab01"
         ],
         "games": [],
         "source": "derived"
@@ -10112,8 +10255,7 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab09",
-          "lab07"
+          "lab09"
         ],
         "games": [],
         "source": "derived"
@@ -10163,9 +10305,7 @@
         }
       ],
       "prerequisites": {
-        "labs": [
-          "lab07"
-        ],
+        "labs": [],
         "games": [],
         "source": "derived"
       },
@@ -10215,9 +10355,7 @@
         }
       ],
       "prerequisites": {
-        "labs": [
-          "lab07"
-        ],
+        "labs": [],
         "games": [],
         "source": "derived"
       },
@@ -10267,9 +10405,7 @@
         }
       ],
       "prerequisites": {
-        "labs": [
-          "lab07"
-        ],
+        "labs": [],
         "games": [],
         "source": "derived"
       },
@@ -10376,8 +10512,7 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab01",
-          "lab07"
+          "lab01"
         ],
         "games": [],
         "source": "derived"
@@ -10429,9 +10564,7 @@
         }
       ],
       "prerequisites": {
-        "labs": [
-          "lab07"
-        ],
+        "labs": [],
         "games": [],
         "source": "derived"
       },
@@ -10770,7 +10903,7 @@
       "hints_status": "pending",
       "safety": {
         "restricted": true,
-        "note": "Encrypted / obfuscated IL2CPP metadata of an online-service game (local private sandbox context). Conceptual hints only: what global-metadata is, why a publisher encrypts or obfuscates it, and what that protects. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05).",
+        "note": "Encrypted / obfuscated IL2CPP metadata of an online-service game (local private sandbox context). Conceptual hints only: what global-metadata is, why a publisher encrypts or obfuscates it, and what that protects. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05; planned: Lab 59 own IL2CPP-like binary, Lab 66 own encrypted metadata).",
         "redirect_labs": [
           "cm03",
           "lab10",
@@ -10783,7 +10916,11 @@
           "tools": [
             "il2cppdumper"
           ]
-        }
+        },
+        "redirect_labs_planned": [
+          "lab59",
+          "lab66"
+        ]
       }
     },
     {
@@ -10828,7 +10965,7 @@
       "hints_status": "pending",
       "safety": {
         "restricted": true,
-        "note": "Custom metadata encryption in an online-service game (offline local server context). Conceptual hints only: how metadata registration and its encryption are designed and why. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05).",
+        "note": "Custom metadata encryption in an online-service game (offline local server context). Conceptual hints only: how metadata registration and its encryption are designed and why. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05; planned: Lab 59 own IL2CPP-like binary, Lab 66 own encrypted metadata).",
         "redirect_labs": [
           "cm03",
           "lab10",
@@ -10841,7 +10978,11 @@
           "tools": [
             "il2cppdumper"
           ]
-        }
+        },
+        "redirect_labs_planned": [
+          "lab59",
+          "lab66"
+        ]
       }
     },
     {
@@ -10905,6 +11046,7 @@
         "labs": [
           "lab01",
           "lab03",
+          "lab07",
           "lab09"
         ],
         "games": [],
@@ -11659,7 +11801,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -11781,6 +11924,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
+          "lab07",
           "lab09"
         ],
         "games": [],
@@ -11831,7 +11975,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab03"
+          "lab03",
+          "lab07"
         ],
         "games": [],
         "source": "derived"
@@ -11895,8 +12040,8 @@
         "labs": [
           "lab07",
           "lab09",
-          "lab10",
-          "cm05"
+          "cm05",
+          "lab10"
         ],
         "games": [],
         "source": "derived"
@@ -11906,10 +12051,13 @@
       "hints_status": "pending",
       "safety": {
         "restricted": true,
-        "note": "Commercial integrity protection (Arxan). Conceptual hints only: what an integrity check is and how it is designed. Hands-on practice happens only on your own binaries (Lab 10, CM 05).",
+        "note": "Commercial integrity protection (Arxan). Conceptual hints only: what an integrity check is and how it is designed. Hands-on practice happens only on your own binaries (Lab 10, CM 05; planned: Lab 65 own guard thread).",
         "redirect_labs": [
           "lab10",
           "cm05"
+        ],
+        "redirect_labs_planned": [
+          "lab65"
         ]
       }
     },

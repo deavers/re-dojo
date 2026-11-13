@@ -7,6 +7,7 @@ Inputs (read-only):
   README.md                        In-Repo Dojo table (labs/crackmes) + campaign quest lines
   data/notes_index.json            hand-curated links to the author's real notes (.CT / writeups)
   data/safety_overrides.json       restricted nodes (commercial protection) + redirect labs
+  data/labs_index.json             labs/crackmes: built vs planned, prerequisites, techniques trained
   data/hints/*.json                hint batches (stage 5); merged by node id, optional
 
 Output:
@@ -36,6 +37,7 @@ TOP200_PATH = ROOT / "data" / "top200_popular_games.json"
 README_PATH = ROOT / "README.md"
 NOTES_PATH = ROOT / "data" / "notes_index.json"
 SAFETY_PATH = ROOT / "data" / "safety_overrides.json"
+LABS_INDEX_PATH = ROOT / "data" / "labs_index.json"
 DEFAULT_HINTS_DIR = ROOT / "data" / "hints"
 DEFAULT_OUT = ROOT / "data" / "games.json"
 
@@ -97,7 +99,7 @@ def to_list(items: dict, order: list[str]) -> list[dict]:
     return [{"id": k, "source": items[k]} for k in sorted(items, key=order.index)]
 
 
-def parse_labs(readme: str) -> list[dict]:
+def parse_labs(readme: str, index: dict) -> list[dict]:
     labs = []
     for line in readme.splitlines():
         m = LAB_ROW_RX.match(line)
@@ -105,6 +107,8 @@ def parse_labs(readme: str) -> list[dict]:
             continue
         kind, num, tier, diff, path, prereq, concept = m.groups()
         lab_id = f"{'lab' if kind == 'Lab' else 'cm'}{int(num):02d}"
+        if lab_id not in index:
+            raise BuildError(f"README Dojo row {lab_id} is missing in data/labs_index.json")
         labs.append({
             "id": lab_id,
             "kind": "lab" if kind == "Lab" else "crackme",
@@ -123,14 +127,46 @@ def parse_labs(readme: str) -> list[dict]:
             "hints_status": "pending",
             "safety": {"restricted": False},
         })
-    if len(labs) != 18:
-        raise BuildError(f"expected 18 labs/crackmes in README Dojo table, parsed {len(labs)}")
-    # Each series is N+1 learning: LabN needs Lab(N-1), CMN needs CM(N-1).
-    for series in ("lab", "cm"):
-        chain = sorted((l for l in labs if l["id"].startswith(series)), key=lambda l: l["id"])
-        for prev, cur in zip(chain, chain[1:]):
-            cur["prerequisites"]["labs"] = [prev["id"]]
-    return sorted(labs, key=lambda l: (S.TIER_INDEX[l["tier"]], l["id"]))
+    # data/labs_index.json is the source of truth for which labs exist and how they connect.
+    built = {k for k, v in index.items() if v["status"] == "built"}
+    parsed = {l["id"] for l in labs}
+    if len(parsed) != len(labs):
+        raise BuildError("duplicate lab rows in README Dojo table")
+    if parsed != built:
+        raise BuildError("README Dojo table and data/labs_index.json (status 'built') disagree: "
+                         f"only in README {sorted(parsed - built)}, only in index {sorted(built - parsed)}")
+    for lab in labs:
+        entry = index[lab["id"]]
+        if (entry["tier"], entry["difficulty_raw"]) != (lab["tier"], lab["difficulty_raw"]):
+            raise BuildError(f"{lab['id']}: tier/difficulty differ between README and data/labs_index.json")
+        not_built = [p for p in entry["prereqs"] if p not in built]
+        if not_built:
+            raise BuildError(f"{lab['id']}: prerequisites not built yet: {not_built}")
+        lab["prerequisites"]["labs"] = list(entry["prereqs"])
+        lab["check"] = entry["check"]
+        lab["platform"] = dict(entry["platform"])
+    return sorted(labs, key=lambda l: (S.TIER_INDEX[l["tier"]], index[l["id"]]["order"]))
+
+
+def technique_labs(index: dict) -> dict[str, list[str]]:
+    """Technique -> the two lowest-difficulty BUILT labs whose 'trains' lists it (entry + next step)."""
+    out: dict[str, list[str]] = {}
+    for tech in S.TECHNIQUES:
+        cands = [(v["difficulty_raw"], v["order"], k) for k, v in index.items()
+                 if v["status"] == "built" and tech in v["trains"]]
+        if cands:
+            out[tech] = [k for _, _, k in sorted(cands)[:2]]
+    return out
+
+
+def split_redirects(lab_ids: list[str], index: dict) -> tuple[list[str], list[str]]:
+    """Redirect labs that exist now vs. ones that are only planned (shown as text, no edge, no hint ref)."""
+    built = [i for i in lab_ids if index.get(i, {}).get("status") == "built"]
+    planned = [i for i in lab_ids if index.get(i, {}).get("status") == "planned"]
+    unknown = [i for i in lab_ids if i not in index]
+    if unknown:
+        raise BuildError(f"redirect labs not in data/labs_index.json: {unknown}")
+    return built, planned
 
 
 def load_hints(hints_dir: Path) -> dict:
@@ -164,10 +200,12 @@ def build(hints_dir: Path) -> dict:
     readme = README_PATH.read_text(encoding="utf-8")
     notes_idx = load_json(NOTES_PATH)
     safety = load_json(SAFETY_PATH)
+    index = load_json(LABS_INDEX_PATH)["labs"]
+    tech_labs = technique_labs(index)
     hints = load_hints(hints_dir)
     used_hints: set = set()
 
-    labs = parse_labs(readme)
+    labs = parse_labs(readme, index)
     for lab in labs:
         for extra in notes_idx.get("labs", {}).get(lab["id"], []):
             lab["notes"].append(extra)
@@ -216,7 +254,7 @@ def build(hints_dir: Path) -> dict:
 
         prereq_labs: list[str] = []
         for t in sorted(techniques, key=S.TECHNIQUES.index):
-            for lab_id in S.TECHNIQUE_LABS.get(t, []):
+            for lab_id in tech_labs.get(t, []):
                 if lab_id not in prereq_labs:
                     prereq_labs.append(lab_id)
 
@@ -250,9 +288,14 @@ def build(hints_dir: Path) -> dict:
             "safety": {"restricted": False},
         }
         if override:
-            node["safety"] = override
+            node["safety"] = dict(override)
+            if "redirect_labs" in override:
+                built_r, planned_r = split_redirects(override["redirect_labs"], index)
+                node["safety"]["redirect_labs"] = built_r
+                if planned_r:
+                    node["safety"]["redirect_labs_planned"] = planned_r
             # Practice on restricted nodes is redirected to own labs: show them as prerequisites (map edges).
-            for lab_id in override.get("redirect_labs", []):
+            for lab_id in node["safety"].get("redirect_labs", []):
                 if lab_id not in prereq_labs:
                     prereq_labs.append(lab_id)
         if gid in online_ids:
@@ -273,6 +316,7 @@ def build(hints_dir: Path) -> dict:
         hits = [ln for ln in readme_lines if q["readme_match"] in ln]
         if len(hits) != 1:
             raise BuildError(f"quest {q['id']}: readme_match must hit exactly 1 README line, got {len(hits)}")
+        q_built, q_planned = split_redirects(q["redirect_labs"], index)
         node = {
             "id": q["id"],
             "kind": "campaign_quest",
@@ -281,11 +325,12 @@ def build(hints_dir: Path) -> dict:
             "exp": S.TIER_EXP[q["tier"]],
             "readme_match": q["readme_match"],
             "readme_text": clean_md(re.sub(r"^- \[[ xX]\]\s*", "", hits[0])),
-            "prerequisites": {"labs": list(q["redirect_labs"]), "games": [], "source": "derived"},
+            "prerequisites": {"labs": list(q_built), "games": [], "source": "derived"},
             "notes": [],
             "hints": [],
             "hints_status": "pending",
-            "safety": {"restricted": q["restricted"], "note": q["note"], "redirect_labs": q["redirect_labs"]},
+            "safety": {"restricted": q["restricted"], "note": q["note"], "redirect_labs": q_built,
+                       **({"redirect_labs_planned": q_planned} if q_planned else {})},
         }
         apply_hints(node, hints, used_hints)
         quests.append(node)
@@ -299,7 +344,7 @@ def build(hints_dir: Path) -> dict:
         "generated_by": "Tools_and_Scripts/build_games_json.py",
         "sources": [
             "data/top200_popular_games.json", "README.md", "data/notes_index.json",
-            "data/safety_overrides.json", "data/hints/*.json",
+            "data/safety_overrides.json", "data/labs_index.json", "data/hints/*.json",
         ],
         "source_labels": {
             "my_notes": "из моих заметок",

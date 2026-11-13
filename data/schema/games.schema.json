@@ -226,6 +226,13 @@
         "online_note": {
           "type": "boolean",
           "description": "Not restricted; the game has an online mode. Offline-only banner; hints must not use online context words."
+        },
+        "redirect_labs_planned": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Redirect labs from data/labs_index.json that are only planned: shown as text, no edge, no hint ref."
         }
       },
       "if": {
@@ -646,11 +653,13 @@
             "difficulty_raw",
             "difficulty",
             "prerequisite_text",
-            "concept"
+            "concept",
+            "check",
+            "platform"
           ],
           "properties": {
             "id": {
-              "pattern": "^(lab|cm)[0-9]{2}$"
+              "pattern": "^(lab|cm)[0-9]+$"
             },
             "kind": {
               "enum": [
@@ -660,6 +669,38 @@
             },
             "path": {
               "type": "string"
+            },
+            "check": {
+              "enum": [
+                "quest",
+                "flag",
+                "checker",
+                "selftest"
+              ]
+            },
+            "platform": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "windows_only",
+                "msvc_only",
+                "needs_unity",
+                "needs_dotnet"
+              ],
+              "properties": {
+                "windows_only": {
+                  "type": "boolean"
+                },
+                "msvc_only": {
+                  "type": "boolean"
+                },
+                "needs_unity": {
+                  "type": "boolean"
+                },
+                "needs_dotnet": {
+                  "type": "boolean"
+                }
+              }
             }
           }
         }

@@ -87,6 +87,8 @@ h1 { font-size: 20px; margin: 0; letter-spacing: .2px; }
 .tile:hover { background: var(--tile-hover); transform: translateY(-1px); }
 .tile .kind { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .tile .name { font-weight: 600; font-size: 13px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tile .ptags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tile .ptag { font-size: 10px; line-height: 1.4; padding: 0 6px; border-radius: 999px; border: 1px solid var(--warn); color: var(--warn); }
 .tile .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
 .pips { letter-spacing: 1px; color: var(--accent); }
 .pips .off { color: var(--border); }

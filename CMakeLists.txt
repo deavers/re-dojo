@@ -47,3 +47,18 @@ if(WIN32)
     add_executable(external_memory_trainer Tools_and_Scripts/01_External_Trainer_Template/external_memory_trainer.cpp)
     add_library(internal_hook_lab09 SHARED Tools_and_Scripts/03_Internal_DLL_Skeleton/dllmain_internal_hook.cpp)
 endif()
+
+# ============================================================================
+# Autocheck for new labs (docs/lab_plan.md, section 3):
+#   build -> reference solution passes -> wrong input fails
+#   cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+#   cmake --build build --config Release --parallel
+#   ctest --test-dir build -C Release --output-on-failure
+# Code style of new labs: Allman braces, Tools_and_Scripts/lab_template/.clang-format
+# ============================================================================
+enable_testing()
+include(cmake/DojoLab.cmake)
+add_test(NAME dojo_runner_selftest COMMAND ${Python3_EXECUTABLE} ${DOJO_LAB_RUNNER} selftest)
+set_tests_properties(dojo_runner_selftest PROPERTIES LABELS "lab")
+
+# New labs: one dojo_add_lab(...) per lab, in plan order.
