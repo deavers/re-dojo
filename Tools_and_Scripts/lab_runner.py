@@ -3,7 +3,7 @@
 RE:DOJO - lab autocheck runner (stdlib only). Called by CTest via cmake/DojoLab.cmake.
 
   python Tools_and_Scripts/lab_runner.py ok    --lab-dir <lab folder> --exe <binary>
-  python Tools_and_Scripts/lab_runner.py wrong --lab-dir <lab folder> --exe <binary>
+  python Tools_and_Scripts/lab_runner.py wrong --lab-dir <lab folder> --exe <binary> [--real-exe <lab binary>]
   python Tools_and_Scripts/lab_runner.py selftest            # runner checks itself (no compiler needed)
 
 Lab folder contract (docs/lab_plan.md, section 3):
@@ -11,6 +11,10 @@ Lab folder contract (docs/lab_plan.md, section 3):
                         WRONG: list[str]  stdin payloads that must NOT pass
   check/expected.json   {"flag_sha256": "<hex>", "runs": 1}   runs > 1 = fresh process each time
 Exit-code contract of every new lab binary: 0 solved (prints FLAG{...}), 1 wrong, 2 usage, 3 quit.
+'wrong' accepts only exit 1 or 2 for a wrong payload: a crash, a timeout or any other code is a FAIL
+(a lab that crashes on bad input is broken, not "rejecting"). With --real-exe it also starts the real
+lab binary with empty stdin (memory labs are otherwise only driven through their selftest binary):
+it must end with 1, 2 or 3 and print no FLAG.
 Output is ASCII-only; the flag itself is never printed by this runner.
 """
 from __future__ import annotations
@@ -24,6 +28,10 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+
+# No bytecode cache: solve.py must always be read fresh (a .pyc keyed on mtime-seconds + size can go stale),
+# and running the tests must not drop __pycache__ folders into lab directories.
+sys.dont_write_bytecode = True
 
 FLAG_RX = re.compile(r"FLAG\{[^}\r\n]*\}")
 TIMEOUT_S = 20
@@ -39,7 +47,8 @@ def load_solve(lab_dir: Path):
     if spec is None or spec.loader is None:
         raise SystemExit(f"[RUNNER] cannot load {path.name}")
     mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
+    code = compile(path.read_text(encoding="utf-8"), str(path), "exec")
+    exec(code, mod.__dict__)
     if not callable(getattr(mod, "answer", None)) or not isinstance(getattr(mod, "WRONG", None), list):
         raise SystemExit("[RUNNER] solve.py must define answer() and WRONG = [...]")
     return mod
@@ -48,7 +57,8 @@ def load_solve(lab_dir: Path):
 def run(exe: str, payload: str) -> tuple[int, str]:
     cmd = [sys.executable, exe] if exe.endswith(".py") else [exe]
     try:
-        r = subprocess.run(cmd, input=payload, capture_output=True, text=True, timeout=TIMEOUT_S)
+        r = subprocess.run(cmd, input=payload, capture_output=True, text=True, timeout=TIMEOUT_S,
+                           encoding="utf-8", errors="replace")
     except subprocess.TimeoutExpired:
         return 124, ""
     return r.returncode, r.stdout
@@ -73,17 +83,23 @@ def mode_ok(lab_dir: Path, exe: str) -> int:
     return 0
 
 
-def mode_wrong(lab_dir: Path, exe: str) -> int:
+def mode_wrong(lab_dir: Path, exe: str, real_exe: str | None = None) -> int:
     solve = load_solve(lab_dir)
     if not solve.WRONG:
         say("[FAIL] solve.py WRONG list is empty - a lab must prove that wrong input fails")
         return 1
     for i, payload in enumerate(solve.WRONG, 1):
         rc, out = run(exe, payload)
-        if rc == 0 or FLAG_RX.search(out):
-            say(f"[FAIL] wrong input #{i} was accepted (exit={rc})")
+        if rc not in (1, 2) or FLAG_RX.search(out):
+            say(f"[FAIL] wrong input #{i}: exit={rc} (expected 1 or 2), flag printed={bool(FLAG_RX.search(out))}")
             return 1
-    say(f"[OK] all {len(solve.WRONG)} wrong inputs rejected")
+    if real_exe:
+        rc, out = run(real_exe, "")
+        if rc not in (1, 2, 3) or FLAG_RX.search(out):
+            say(f"[FAIL] real lab binary on empty input: exit={rc} (expected 1, 2 or 3), "
+                f"flag printed={bool(FLAG_RX.search(out))}")
+            return 1
+    say(f"[OK] all {len(solve.WRONG)} wrong inputs rejected" + ("; real binary quits cleanly" if real_exe else ""))
     return 0
 
 
@@ -92,8 +108,10 @@ data = sys.stdin.read().strip()
 if data == "open sesame":
     print("FLAG{RUNNER_SELFTEST}")
     sys.exit(0)
+if data == "boom":
+    sys.exit(-11)
 print("FAILED")
-sys.exit(1)
+sys.exit(1 if data else 2)
 '''
 FAKE_SOLVE = '''def answer():
     return "open sesame\\n"
@@ -111,7 +129,14 @@ def mode_selftest() -> int:
             json.dumps({"flag_sha256": sha("FLAG{RUNNER_SELFTEST}"), "runs": 2}), encoding="utf-8")
         exe = Path(tmp) / "fake_lab.py"
         exe.write_text(FAKE_EXE, encoding="utf-8")
-        ok = mode_ok(lab, str(exe)) == 0 and mode_wrong(lab, str(exe)) == 0
+        ok = mode_ok(lab, str(exe)) == 0 and mode_wrong(lab, str(exe), real_exe=str(exe)) == 0
+        say("-- negative checks: the [FAIL] lines below are expected --")
+        # A crash on a wrong payload is a failure, not a rejection.
+        crash = FAKE_SOLVE.replace('"open\\n"', '"boom\\n"')
+        assert crash != FAKE_SOLVE
+        (lab / "solve" / "solve.py").write_text(crash, encoding="utf-8")
+        ok &= mode_wrong(lab, str(exe)) == 1
+        (lab / "solve" / "solve.py").write_text(FAKE_SOLVE, encoding="utf-8")
         # The runner itself must catch a broken lab: wrong expected hash, and a lab that accepts anything.
         (lab / "check" / "expected.json").write_text(json.dumps({"flag_sha256": "0" * 64}), encoding="utf-8")
         ok &= mode_ok(lab, str(exe)) == 1
@@ -126,12 +151,13 @@ def main() -> int:
     ap.add_argument("mode", choices=["ok", "wrong", "selftest"])
     ap.add_argument("--lab-dir", type=Path)
     ap.add_argument("--exe")
+    ap.add_argument("--real-exe")
     a = ap.parse_args()
     if a.mode == "selftest":
         return mode_selftest()
     if not (a.lab_dir and a.exe):
         ap.error("--lab-dir and --exe are required")
-    return mode_ok(a.lab_dir, a.exe) if a.mode == "ok" else mode_wrong(a.lab_dir, a.exe)
+    return mode_ok(a.lab_dir, a.exe) if a.mode == "ok" else mode_wrong(a.lab_dir, a.exe, a.real_exe)
 
 
 if __name__ == "__main__":

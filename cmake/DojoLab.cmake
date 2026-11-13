@@ -10,7 +10,8 @@
 # Creates the lab executable (+ <TARGET>_selftest if SELFTEST is given) and three tests:
 #   <ID>_build        builds the target(s)                         (fixture setup)
 #   <ID>_solve_ok     reference solution passes: exit 0, sha256(FLAG) == check/expected.json
-#   <ID>_wrong_fails  every wrong input from solve/solve.py fails: exit != 0, no FLAG
+#   <ID>_wrong_fails  every wrong input from solve/solve.py fails with exit 1 or 2 and no FLAG
+#                     (a crash or timeout is a FAIL); the real lab binary quits cleanly on empty stdin
 # The tests drive the SELFTEST binary when present (memory labs), otherwise the lab binary
 # itself (crackmes read stdin). Runner: Tools_and_Scripts/lab_runner.py (stdlib only).
 # Labels: every lab test gets 'lab'; pass LABELS windows / unity to keep Linux CI off them.
@@ -32,7 +33,8 @@ function(dojo_add_lab)
     set(_run_target ${L_TARGET})
     if(L_SELFTEST)
         add_executable(${L_TARGET}_selftest ${L_SELFTEST})
-        target_include_directories(${L_TARGET}_selftest PRIVATE ${CMAKE_SOURCE_DIR}/${L_DIR})
+        target_include_directories(${L_TARGET}_selftest PRIVATE ${CMAKE_SOURCE_DIR}/${L_DIR}
+                                   ${CMAKE_SOURCE_DIR}/Tools_and_Scripts/lab_template)
         list(APPEND _targets ${L_TARGET}_selftest)
         set(_run_target ${L_TARGET}_selftest)
     endif()
@@ -50,12 +52,14 @@ function(dojo_add_lab)
     foreach(mode ok wrong)
         if(mode STREQUAL "ok")
             set(_name ${L_ID}_solve_ok)
+            set(_extra)
         else()
             set(_name ${L_ID}_wrong_fails)
+            set(_extra --real-exe $<TARGET_FILE:${L_TARGET}>)
         endif()
         add_test(NAME ${_name}
                  COMMAND ${Python3_EXECUTABLE} ${DOJO_LAB_RUNNER} ${mode}
-                         --lab-dir ${CMAKE_SOURCE_DIR}/${L_DIR} --exe $<TARGET_FILE:${_run_target}>)
+                         --lab-dir ${CMAKE_SOURCE_DIR}/${L_DIR} --exe $<TARGET_FILE:${_run_target}> ${_extra})
         set_tests_properties(${_name} PROPERTIES FIXTURES_REQUIRED ${L_ID}_bin LABELS "${_labels}" TIMEOUT 60)
     endforeach()
 endfunction()

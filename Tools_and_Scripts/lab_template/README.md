@@ -9,7 +9,8 @@ Course_Solutions/LabNN_<Name>/            crackmes: Crackmes_and_CTF/NN_<Name>/
   labNN_<name>.cpp           the target. Labs keep Apprentice / Hardcore modes.
   labNN_core.hpp             state + win check + flag, no I/O  (memory labs, shared with the selftest)
   check/labNN_selftest.cpp   CTest harness: applies the edits a solver would make, then checks the win
-  check/expected.json        {"flag_sha256": "...", "runs": 1}  - only the hash, never the flag
+  check/expected.json        {"flag_sha256": "...", "runs": 1}  - the flag is never stored as plain text:
+                             the binary computes it, the repo keeps only its sha256 (solve.py is the spoiler)
   solve/solve.py             reference solution (spoiler): answer() and WRONG = [...]
   README.md                  goal, prerequisites, how it is checked, which map games it prepares for
 ```
@@ -33,6 +34,11 @@ so `validate_games.py` checks them like every other hint (provenance, no invente
 | `labNN_build` | the lab (and its selftest) compile |
 | `labNN_solve_ok` | `solve.answer()` fed to the binary gives exit 0 and `sha256(FLAG) == check/expected.json` (in `runs` fresh processes) |
 | `labNN_wrong_fails` | every payload in `solve.WRONG` gives exit != 0 and no `FLAG` |
+
+Shared harness for memory-lab selftests: `Tools_and_Scripts/lab_template/dojo_selftest.hpp` (`act`, `poke`, `chain`;
+every address bounds-checked, so a wrong answer fails instead of crashing). `labNN_wrong_fails` accepts only
+exit 1 or 2 (a crash or timeout is a FAIL) and also starts the real lab binary with empty stdin: it must quit
+with 1, 2 or 3 and print no FLAG.
 
 A lab is accepted only if all three are green. Memory labs are driven through their selftest binary
 (same `labNN_core.hpp`, no Cheat Engine in CI): that verifies the lab and the reference answer, not the

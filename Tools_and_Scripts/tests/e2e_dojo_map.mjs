@@ -121,7 +121,8 @@ check("hint button disabled while locked", (await ev("document.getElementById('b
 check("done button disabled while locked", (await ev("document.getElementById('btnDone').disabled")) === true);
 check("my_notes badge shown", (await ev("[...document.querySelectorAll('#panelBody .src.mine')].length")) > 0);
 const edges = await ev("document.querySelectorAll('#edgeLayer path').length");
-check("dependency edges drawn to prereq labs", edges === 3, String(edges));
+const g019Prereqs = await ev("JSON.parse(document.getElementById('dojo-data').textContent).games.find(g => g.id === 'g019').prerequisites.labs.length");
+check("dependency edges drawn to prereq labs (one per prerequisite in data)", edges === g019Prereqs && edges > 0, `${edges} edges, ${g019Prereqs} prereqs`);
 
 // free mode: reveal hints in order
 await click("#btnFree");
