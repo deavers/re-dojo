@@ -96,6 +96,38 @@
           ]
         }
       ]
+    },
+    "cm09": {
+      "status": "draft",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Строки с паролем в бинаре нет. Найди место, где ввод сравнивается с массивом байтов, и посмотри, что с вводом делают до сравнения.",
+          "source": "my_notes",
+          "refs": [
+            "Crackmes_and_CTF/09_Mirror_Gate/crackme09_mirror.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Цикл берёт символы ввода не по порядку, а с противоположного конца, и к каждому прибавляет одно и то же число. Обе операции обратимы: примени обратные в обратном порядке.",
+          "source": "my_notes",
+          "refs": [
+            "Crackmes_and_CTF/09_Mirror_Gate/crackme09_mirror.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В crackme09_mirror.cpp массив kEncoded из 13 байт сравнивается с input[n - 1 - i] + kShift. Вычти kShift из каждого байта и разверни результат — получится пароль.",
+          "source": "my_notes",
+          "refs": [
+            "Crackmes_and_CTF/09_Mirror_Gate/crackme09_mirror.cpp"
+          ]
+        }
+      ]
     }
   }
 }

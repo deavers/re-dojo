@@ -136,7 +136,7 @@
       "title": "Пароль после простой трансформации",
       "tier": "E--",
       "difficulty_raw": 0.9,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "cm01"
       ],
