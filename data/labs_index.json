@@ -319,7 +319,7 @@
       "title": "Pointer scan через перезапуски",
       "tier": "E+",
       "difficulty_raw": 2.1,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab18"
       ],

@@ -256,6 +256,38 @@
           ]
         }
       ]
+    },
+    "lab19": {
+      "status": "draft",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Адрес золота меняется при каждом запуске, так что сохранённый адрес бесполезен. Сделай сканирование указателей на золото, перезапусти программу, найди золото заново и отсей список указателей по новому адресу.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_pointer_scan.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "После первого запуска в списке будут пути, которые указывают на героя только случайно или на его копию. Такой путь даст правильное число на экране, но правка по нему ничего не изменит. Оставляй только пути, пережившие несколько перезапусков.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_pointer_scan.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab19_core.hpp стабильный путь такой: g_World +0x18 -> Registry, +0x08 -> list, +0x18 (элемент 3) -> герой, +0x2C = gold. Ловушки: lastSpawned на +0x10 и heroSnapshot на +0x20.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_core.hpp"
+          ]
+        }
+      ]
     }
   }
 }

@@ -88,18 +88,23 @@ def mode_wrong(lab_dir: Path, exe: str, real_exe: str | None = None) -> int:
     if not solve.WRONG:
         say("[FAIL] solve.py WRONG list is empty - a lab must prove that wrong input fails")
         return 1
+    exp_path = lab_dir / "check" / "expected.json"
+    runs = int(json.loads(exp_path.read_text(encoding="utf-8")).get("runs", 1)) if exp_path.exists() else 1
     for i, payload in enumerate(solve.WRONG, 1):
-        rc, out = run(exe, payload)
-        if rc not in (1, 2) or FLAG_RX.search(out):
-            say(f"[FAIL] wrong input #{i}: exit={rc} (expected 1 or 2), flag printed={bool(FLAG_RX.search(out))}")
-            return 1
+        for r in range(runs):  # a wrong answer must fail in EVERY fresh run, not just usually
+            rc, out = run(exe, payload)
+            if rc not in (1, 2) or FLAG_RX.search(out):
+                say(f"[FAIL] wrong input #{i}, run {r + 1}/{runs}: exit={rc} (expected 1 or 2), "
+                    f"flag printed={bool(FLAG_RX.search(out))}")
+                return 1
     if real_exe:
         rc, out = run(real_exe, "")
         if rc not in (1, 2, 3) or FLAG_RX.search(out):
             say(f"[FAIL] real lab binary on empty input: exit={rc} (expected 1, 2 or 3), "
                 f"flag printed={bool(FLAG_RX.search(out))}")
             return 1
-    say(f"[OK] all {len(solve.WRONG)} wrong inputs rejected" + ("; real binary quits cleanly" if real_exe else ""))
+    say(f"[OK] all {len(solve.WRONG)} wrong inputs rejected in {runs} run(s) each"
+        + ("; real binary quits cleanly" if real_exe else ""))
     return 0
 
 

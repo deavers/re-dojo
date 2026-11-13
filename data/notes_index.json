@@ -162,6 +162,12 @@
         "path": "Course_Solutions/Lab18_Lazy_Singleton/lab18_core.hpp",
         "kind": "lab_source"
       }
+    ],
+    "lab19": [
+      {
+        "path": "Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_core.hpp",
+        "kind": "lab_source"
+      }
     ]
   }
 }

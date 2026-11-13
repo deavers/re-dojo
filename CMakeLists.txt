@@ -85,3 +85,6 @@ dojo_add_lab(ID lab17 TARGET lab17_nested_padding DIR Course_Solutions/Lab17_Nes
 dojo_add_lab(ID lab18 TARGET lab18_lazy_singleton DIR Course_Solutions/Lab18_Lazy_Singleton
              SOURCE   Course_Solutions/Lab18_Lazy_Singleton/lab18_lazy_singleton.cpp
              SELFTEST Course_Solutions/Lab18_Lazy_Singleton/check/lab18_selftest.cpp)
+dojo_add_lab(ID lab19 TARGET lab19_pointer_scan DIR Course_Solutions/Lab19_Pointer_Scan_Restarts
+             SOURCE   Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_pointer_scan.cpp
+             SELFTEST Course_Solutions/Lab19_Pointer_Scan_Restarts/check/lab19_selftest.cpp)
