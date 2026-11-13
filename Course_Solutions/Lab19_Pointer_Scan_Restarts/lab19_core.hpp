@@ -81,7 +81,7 @@ inline void BuildWorld(std::uint32_t seed)
         g_Junk.push_back(::operator new(16 + rng() % 1024));
     };
     junk();
-    Registry* reg = new Registry{kEntityCount, kEntityCount + rng() % 8, nullptr};
+    Registry* reg = new Registry{kEntityCount, static_cast<std::uint32_t>(kEntityCount + rng() % 8), nullptr};
     junk();
     reg->list = new Entity*[reg->capacity]();
     std::array<std::uint32_t, kEntityCount> order = {0, 1, 2, 3, 4, 5, 6, 7};
