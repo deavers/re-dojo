@@ -73,3 +73,6 @@ dojo_add_lab(ID lab13 TARGET lab13_strings DIR Course_Solutions/Lab13_Strings_in
              SELFTEST Course_Solutions/Lab13_Strings_in_Memory/check/lab13_selftest.cpp)
 dojo_add_lab(ID cm09 TARGET crackme09_mirror DIR Crackmes_and_CTF/09_Mirror_Gate
              SOURCE   Crackmes_and_CTF/09_Mirror_Gate/crackme09_mirror.cpp)
+dojo_add_lab(ID lab15 TARGET lab15_fixed_point DIR Course_Solutions/Lab15_Fixed_Point
+             SOURCE   Course_Solutions/Lab15_Fixed_Point/lab15_fixed_point.cpp
+             SELFTEST Course_Solutions/Lab15_Fixed_Point/check/lab15_selftest.cpp)

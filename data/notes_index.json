@@ -138,6 +138,12 @@
         "path": "Course_Solutions/Lab13_Strings_in_Memory/lab13_core.hpp",
         "kind": "lab_source"
       }
+    ],
+    "lab15": [
+      {
+        "path": "Course_Solutions/Lab15_Fixed_Point/lab15_core.hpp",
+        "kind": "lab_source"
+      }
     ]
   }
 }

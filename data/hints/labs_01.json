@@ -128,6 +128,38 @@
           ]
         }
       ]
+    },
+    "lab15": {
+      "status": "draft",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "На экране дробные числа, но скан Float их не находит. Значит, дробь хранится не во float. Попробуй найти топливо как обычное 4-байтовое целое через «Unknown initial value» и «Increased / Decreased».",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab15_Fixed_Point/lab15_fixed_point.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Это фиксированная точка 16.16: младшие 16 бит — дробная часть, сырое значение = число на экране × 65536. Посчитай сырое целое для текущего топлива и проверь находку точным сканом.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab15_Fixed_Point/lab15_core.hpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab15_core.hpp: fuel — int32 на +0x00, thrust — int32 на +0x04, оба 16.16. Для прыжка нужны точные сырые значения: 1000 × 65536 для топлива и 3.25 × 65536 для тяги. Пиши их как 4 Bytes, а не как Float.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab15_Fixed_Point/lab15_core.hpp"
+          ]
+        }
+      ]
     }
   }
 }
