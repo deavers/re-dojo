@@ -1347,7 +1347,7 @@
       "title": "Встроенная Lua 5.4: lua_State",
       "tier": "A",
       "difficulty_raw": 6.3,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab09",
         "lab17"

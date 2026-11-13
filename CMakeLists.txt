@@ -65,6 +65,9 @@ include(cmake/DojoLab.cmake)
 add_test(NAME dojo_runner_selftest COMMAND ${Python3_EXECUTABLE} ${DOJO_LAB_RUNNER} selftest)
 set_tests_properties(dojo_runner_selftest PROPERTIES LABELS "lab")
 
+# Third-party: Lua 5.4.9 (unmodified, MIT) for the Lua labs - third_party/lua/README.md
+add_subdirectory(third_party/lua)
+
 # New labs: one dojo_add_lab(...) per lab, in plan order.
 dojo_add_lab(ID lab11 TARGET lab11_integer_widths DIR Course_Solutions/Lab11_Integer_Widths
              SOURCE   Course_Solutions/Lab11_Integer_Widths/lab11_integer_widths.cpp
@@ -105,3 +108,8 @@ dojo_add_lab(ID lab54 TARGET lab54_emulator DIR Course_Solutions/Lab54_Emulator_
 dojo_add_lab(ID lab45 TARGET lab45_name_pool DIR Course_Solutions/Lab45_MiniUE_Name_Pool
              SOURCE   Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_name_pool.cpp
              SELFTEST Course_Solutions/Lab45_MiniUE_Name_Pool/check/lab45_selftest.cpp)
+dojo_add_lab(ID lab52 TARGET lab52_embedded_lua DIR Course_Solutions/Lab52_Embedded_Lua
+             SOURCE   Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp
+             SELFTEST Course_Solutions/Lab52_Embedded_Lua/check/lab52_selftest.cpp
+             LIBS lua54
+             LABELS windows)

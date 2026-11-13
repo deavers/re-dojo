@@ -448,6 +448,38 @@
           ]
         }
       ]
+    },
+    "lab52": {
+      "status": "draft",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Золото и титул хранятся не в C++-структурах, а в Lua-таблице hero. Вместо поиска чисел найди сам lua_State игры: указатель на него где-то хранит движок.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Функции Lua экспортирует lua54.dll, поэтому внедрённая DLL может взять luaL_loadstring и lua_pcallk через GetProcAddress. Загрузи кусок кода и вызови его в состоянии игры. Окружение урезано: os и io нет.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab52_core.hpp указатель lua_State* лежит в g_Engine на +0x10. Выполни в нём hero.gold = 1000000; hero.title = \"Archmage\" — именно поля таблицы hero, золото числом.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab52_Embedded_Lua/lab52_core.hpp"
+          ]
+        }
+      ]
     }
   }
 }

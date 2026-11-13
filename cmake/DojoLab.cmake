@@ -5,7 +5,7 @@
 #                SOURCE  Course_Solutions/Lab11_Integer_Widths/lab11_integer_widths.cpp
 #                [SELFTEST Course_Solutions/Lab11_Integer_Widths/check/lab11_selftest.cpp]
 #                DIR     Course_Solutions/Lab11_Integer_Widths
-#                [LABELS windows ...])
+#                [LABELS windows ...] [LIBS lua54 ...])
 #
 # Creates the lab executable (+ <TARGET>_selftest if SELFTEST is given) and three tests:
 #   <ID>_build        builds the target(s)                         (fixture setup)
@@ -21,7 +21,7 @@ find_package(Python3 COMPONENTS Interpreter REQUIRED)
 set(DOJO_LAB_RUNNER ${CMAKE_SOURCE_DIR}/Tools_and_Scripts/lab_runner.py)
 
 function(dojo_add_lab)
-    cmake_parse_arguments(L "" "ID;TARGET;SOURCE;SELFTEST;DIR" "LABELS" ${ARGN})
+    cmake_parse_arguments(L "" "ID;TARGET;SOURCE;SELFTEST;DIR" "LABELS;LIBS" ${ARGN})
     foreach(req ID TARGET SOURCE DIR)
         if(NOT L_${req})
             message(FATAL_ERROR "dojo_add_lab: ${req} is required")
@@ -29,10 +29,16 @@ function(dojo_add_lab)
     endforeach()
 
     add_executable(${L_TARGET} ${L_SOURCE})
+    if(L_LIBS)
+        target_link_libraries(${L_TARGET} PRIVATE ${L_LIBS})
+    endif()
     set(_targets ${L_TARGET})
     set(_run_target ${L_TARGET})
     if(L_SELFTEST)
         add_executable(${L_TARGET}_selftest ${L_SELFTEST})
+        if(L_LIBS)
+            target_link_libraries(${L_TARGET}_selftest PRIVATE ${L_LIBS})
+        endif()
         target_include_directories(${L_TARGET}_selftest PRIVATE ${CMAKE_SOURCE_DIR}/${L_DIR}
                                    ${CMAKE_SOURCE_DIR}/Tools_and_Scripts/lab_template)
         list(APPEND _targets ${L_TARGET}_selftest)

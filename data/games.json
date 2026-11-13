@@ -1583,6 +1583,78 @@
       }
     },
     {
+      "id": "lab52",
+      "kind": "lab",
+      "label": "Lab 52",
+      "title": "Embedded Lua",
+      "tier": "A",
+      "difficulty_raw": 6.3,
+      "difficulty": 4,
+      "exp": 1250,
+      "path": "Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp",
+      "prerequisite_text": "Internal DLL",
+      "concept": "Embedded Lua 5.4: find the game's `lua_State`, run your own chunk through `lua54.dll` (`luaL_loadstring` + `lua_pcallk`)",
+      "prerequisites": {
+        "labs": [
+          "lab09",
+          "lab17"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp",
+          "kind": "lab_source"
+        },
+        {
+          "path": "Course_Solutions/Lab52_Embedded_Lua/lab52_core.hpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Золото и титул хранятся не в C++-структурах, а в Lua-таблице hero. Вместо поиска чисел найди сам lua_State игры: указатель на него где-то хранит движок.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Функции Lua экспортирует lua54.dll, поэтому внедрённая DLL может взять luaL_loadstring и lua_pcallk через GetProcAddress. Загрузи кусок кода и вызови его в состоянии игры. Окружение урезано: os и io нет.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab52_core.hpp указатель lua_State* лежит в g_Engine на +0x10. Выполни в нём hero.gold = 1000000; hero.title = \"Archmage\" — именно поля таблицы hero, золото числом.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab52_Embedded_Lua/lab52_core.hpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
+      "safety": {
+        "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "hints_batch": "labs_01.json"
+    },
+    {
       "id": "lab54",
       "kind": "lab",
       "label": "Lab 54",
@@ -3688,7 +3760,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab52"
         ],
         "games": [],
         "source": "derived"
@@ -4115,7 +4188,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab52"
         ],
         "games": [],
         "source": "derived"
@@ -5277,7 +5351,8 @@
       "prerequisites": {
         "labs": [
           "lab02",
-          "lab12"
+          "lab12",
+          "lab52"
         ],
         "games": [],
         "source": "derived"
@@ -6438,7 +6513,8 @@
           "lab02",
           "lab03",
           "lab16",
-          "lab05"
+          "lab05",
+          "lab52"
         ],
         "games": [],
         "source": "derived"
@@ -7704,7 +7780,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab52"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -8639,7 +8717,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab09"
+          "lab09",
+          "lab52"
         ],
         "games": [],
         "source": "derived"
@@ -9493,7 +9572,8 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab16"
+          "lab16",
+          "lab52"
         ],
         "games": [],
         "source": "derived"
@@ -9692,7 +9772,8 @@
       "tools": [],
       "prerequisites": {
         "labs": [
-          "lab08"
+          "lab08",
+          "lab52"
         ],
         "games": [],
         "source": "derived"
@@ -10573,7 +10654,9 @@
       ],
       "tools": [],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab52"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -10767,7 +10850,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab52"
         ],
         "games": [],
         "source": "derived"
@@ -11054,7 +11138,9 @@
       ],
       "tools": [],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab52"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -11883,7 +11969,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab52"
         ],
         "games": [],
         "source": "derived"
@@ -12196,7 +12283,8 @@
           "lab11",
           "lab03",
           "lab16",
-          "lab09"
+          "lab09",
+          "lab52"
         ],
         "games": [],
         "source": "derived"
@@ -12278,7 +12366,9 @@
       ],
       "tools": [],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab52"
+        ],
         "games": [],
         "source": "derived"
       },
