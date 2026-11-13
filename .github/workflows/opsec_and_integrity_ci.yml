@@ -18,6 +18,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # On pull_request the default ref is GitHub's synthetic merge commit (refs/pull/N/merge). Its author is
+          # the PR creator's profile display name and it never exists in the repository history. Scan and build
+          # the PR's real head commit instead (every real commit is still checked); pushes keep github.sha.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
@@ -56,15 +60,24 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Build Labs with MSVC (Visual Studio 17 2022, x64)
+      - name: Show installed Visual Studio instances (vswhere) and CMake version
         run: |
-          cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+          & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -all -products * -format text |
+            Select-String -Pattern '^(displayName|installationVersion|installationPath):'
+          cmake --version
+
+      - name: Build Labs with MSVC (newest Visual Studio on the runner, x64)
+        run: |
+          # No -G: CMake picks the newest Visual Studio it finds, so a runner image update cannot break the job.
+          cmake -S . -B build -A x64
           cmake --build build --config Release --parallel
 
       - name: Lab Autocheck (CTest, all labels except unity)
