@@ -15,6 +15,8 @@
 # The tests drive the SELFTEST binary when present (memory labs), otherwise the lab binary
 # itself (crackmes read stdin). Runner: Tools_and_Scripts/lab_runner.py (stdlib only).
 # Labels: every lab test gets 'lab'; pass LABELS windows / unity to keep Linux CI off them.
+# The runner starts with python -I (isolated: no PYTHONPATH, no user site, no cwd on sys.path), so a
+# solve.py import (e.g. z3) resolves only from the configured interpreter: -DPython3_EXECUTABLE=<python with z3>.
 # ============================================================================
 
 find_package(Python3 COMPONENTS Interpreter REQUIRED)
@@ -64,7 +66,7 @@ function(dojo_add_lab)
             set(_extra --real-exe $<TARGET_FILE:${L_TARGET}>)
         endif()
         add_test(NAME ${_name}
-                 COMMAND ${Python3_EXECUTABLE} ${DOJO_LAB_RUNNER} ${mode}
+                 COMMAND ${Python3_EXECUTABLE} -I ${DOJO_LAB_RUNNER} ${mode}
                          --lab-dir ${CMAKE_SOURCE_DIR}/${L_DIR} --exe $<TARGET_FILE:${_run_target}> ${_extra})
         set_tests_properties(${_name} PROPERTIES FIXTURES_REQUIRED ${L_ID}_bin LABELS "${_labels}" TIMEOUT 60)
     endforeach()

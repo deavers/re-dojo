@@ -62,7 +62,7 @@ endif()
 # ============================================================================
 enable_testing()
 include(cmake/DojoLab.cmake)
-add_test(NAME dojo_runner_selftest COMMAND ${Python3_EXECUTABLE} ${DOJO_LAB_RUNNER} selftest)
+add_test(NAME dojo_runner_selftest COMMAND ${Python3_EXECUTABLE} -I ${DOJO_LAB_RUNNER} selftest)
 set_tests_properties(dojo_runner_selftest PROPERTIES LABELS "lab")
 
 # Third-party: Lua 5.4.9 (unmodified, MIT) for the Lua labs - third_party/lua/README.md
