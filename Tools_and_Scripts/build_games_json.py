@@ -139,10 +139,12 @@ def parse_labs(readme: str, index: dict) -> list[dict]:
         entry = index[lab["id"]]
         if (entry["tier"], entry["difficulty_raw"]) != (lab["tier"], lab["difficulty_raw"]):
             raise BuildError(f"{lab['id']}: tier/difficulty differ between README and data/labs_index.json")
-        not_built = [p for p in entry["prereqs"] if p not in built]
-        if not_built:
-            raise BuildError(f"{lab['id']}: prerequisites not built yet: {not_built}")
-        lab["prerequisites"]["labs"] = list(entry["prereqs"])
+        # A lab may be built ahead of its plan prerequisites: edges only to built labs,
+        # the planned ones are listed as text (prerequisites_planned) until they exist.
+        lab["prerequisites"]["labs"] = [p for p in entry["prereqs"] if p in built]
+        planned = [p for p in entry["prereqs"] if p not in built]
+        if planned:
+            lab["prerequisites_planned"] = planned
         lab["check"] = entry["check"]
         lab["platform"] = dict(entry["platform"])
     return sorted(labs, key=lambda l: (S.TIER_INDEX[l["tier"]], index[l["id"]]["order"]))

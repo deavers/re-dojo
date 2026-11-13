@@ -4,10 +4,11 @@
     "used_by": "Tools_and_Scripts/build_games_json.py, Tools_and_Scripts/validate_games.py",
     "rules": [
       "status 'built' <=> the lab has a row in the README Dojo table and its source exists; tier / difficulty must match that row.",
-      "prereqs of a built lab must all be built. Map edges come from prereqs (no more implicit LabN -> LabN-1 chain).",
+      "prereqs: plan prerequisites. A lab may be built before some of them; map edges go only to built ones, the rest are shown as text (prerequisites_planned) until they are built.",
       "trains: technique ids from dojo_schema.TECHNIQUES. Game -> lab recommendations: per technique, the two lowest-difficulty BUILT labs that train it.",
       "check: quest (existing labs, manual), flag (prints FLAG{...}), checker (checker.py validates an artifact), selftest (CTest harness).",
-      "platform.windows_only / needs_unity are shown on the map tile."
+      "platform.windows_only / needs_unity are shown on the map tile.",
+      "ci: 'full' = CMake/CTest build_ok/solve_ok/wrong_fails run in CI; 'sources_only' = CI cannot build the category (.NET SDK, Unity Editor): CI checks only the sources and the tests that run without that toolchain; the full autocheck runs locally."
     ]
   },
   "labs": {
@@ -28,7 +29,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab11": {
       "order": 2,
@@ -49,7 +51,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab02": {
       "order": 3,
@@ -71,7 +74,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab12": {
       "order": 4,
@@ -92,7 +96,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm01": {
       "order": 5,
@@ -109,7 +114,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab13": {
       "order": 6,
@@ -128,7 +134,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm09": {
       "order": 7,
@@ -147,7 +154,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab14": {
       "order": 8,
@@ -168,7 +176,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab15": {
       "order": 9,
@@ -187,7 +196,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab03": {
       "order": 10,
@@ -208,7 +218,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab16": {
       "order": 11,
@@ -229,7 +240,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab17": {
       "order": 12,
@@ -250,7 +262,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab04": {
       "order": 13,
@@ -271,7 +284,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm02": {
       "order": 14,
@@ -290,7 +304,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab18": {
       "order": 15,
@@ -311,7 +326,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab19": {
       "order": 16,
@@ -332,7 +348,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab20": {
       "order": 17,
@@ -353,7 +370,8 @@
         "msvc_only": true,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab05": {
       "order": 18,
@@ -376,7 +394,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab21": {
       "order": 19,
@@ -397,7 +416,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab22": {
       "order": 20,
@@ -418,7 +438,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm10": {
       "order": 21,
@@ -437,7 +458,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab23": {
       "order": 22,
@@ -458,7 +480,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab24": {
       "order": 23,
@@ -480,7 +503,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab25": {
       "order": 24,
@@ -502,7 +526,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab06": {
       "order": 25,
@@ -523,7 +548,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm03": {
       "order": 26,
@@ -542,7 +568,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab26": {
       "order": 27,
@@ -564,7 +591,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab27": {
       "order": 28,
@@ -586,7 +614,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm11": {
       "order": 29,
@@ -605,7 +634,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab28": {
       "order": 30,
@@ -624,7 +654,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab29": {
       "order": 31,
@@ -646,7 +677,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab30": {
       "order": 32,
@@ -665,7 +697,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab31": {
       "order": 33,
@@ -686,7 +719,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab07": {
       "order": 34,
@@ -708,7 +742,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab32": {
       "order": 35,
@@ -729,7 +764,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab33": {
       "order": 36,
@@ -750,7 +786,8 @@
         "msvc_only": true,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab34": {
       "order": 37,
@@ -772,7 +809,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab35": {
       "order": 38,
@@ -792,7 +830,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm04": {
       "order": 39,
@@ -813,7 +852,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab36": {
       "order": 40,
@@ -835,7 +875,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm12": {
       "order": 41,
@@ -855,7 +896,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab37": {
       "order": 42,
@@ -877,7 +919,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm13": {
       "order": 43,
@@ -896,7 +939,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab38": {
       "order": 44,
@@ -917,7 +961,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab39": {
       "order": 45,
@@ -938,7 +983,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": true
-      }
+      },
+      "ci": "sources_only"
     },
     "lab40": {
       "order": 46,
@@ -959,7 +1005,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": true
-      }
+      },
+      "ci": "sources_only"
     },
     "lab41": {
       "order": 47,
@@ -980,7 +1027,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": true
-      }
+      },
+      "ci": "sources_only"
     },
     "lab08": {
       "order": 48,
@@ -1001,7 +1049,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab42": {
       "order": 49,
@@ -1022,7 +1071,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab43": {
       "order": 50,
@@ -1043,7 +1093,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm14": {
       "order": 51,
@@ -1062,7 +1113,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab44": {
       "order": 52,
@@ -1084,7 +1136,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm05": {
       "order": 53,
@@ -1105,7 +1158,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab45": {
       "order": 54,
@@ -1127,7 +1181,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab46": {
       "order": 55,
@@ -1148,7 +1203,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab47": {
       "order": 56,
@@ -1169,7 +1225,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab09": {
       "order": 57,
@@ -1191,7 +1248,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab48": {
       "order": 58,
@@ -1212,7 +1270,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab49": {
       "order": 59,
@@ -1233,7 +1292,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab50": {
       "order": 60,
@@ -1254,7 +1314,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab51": {
       "order": 61,
@@ -1277,7 +1338,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab52": {
       "order": 62,
@@ -1299,7 +1361,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab53": {
       "order": 63,
@@ -1321,7 +1384,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm15": {
       "order": 64,
@@ -1340,7 +1404,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab54": {
       "order": 65,
@@ -1362,7 +1427,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab55": {
       "order": 66,
@@ -1383,7 +1449,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm16": {
       "order": 67,
@@ -1403,7 +1470,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab56": {
       "order": 68,
@@ -1425,7 +1493,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm06": {
       "order": 69,
@@ -1444,7 +1513,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab57": {
       "order": 70,
@@ -1465,7 +1535,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab58": {
       "order": 71,
@@ -1486,7 +1557,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": true
-      }
+      },
+      "ci": "sources_only"
     },
     "lab59": {
       "order": 72,
@@ -1507,7 +1579,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab10": {
       "order": 73,
@@ -1528,7 +1601,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab60": {
       "order": 74,
@@ -1550,7 +1624,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab61": {
       "order": 75,
@@ -1572,7 +1647,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab62": {
       "order": 76,
@@ -1593,7 +1669,8 @@
         "msvc_only": false,
         "needs_unity": true,
         "needs_dotnet": false
-      }
+      },
+      "ci": "sources_only"
     },
     "cm17": {
       "order": 77,
@@ -1612,7 +1689,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab63": {
       "order": 78,
@@ -1634,7 +1712,8 @@
         "msvc_only": false,
         "needs_unity": true,
         "needs_dotnet": false
-      }
+      },
+      "ci": "sources_only"
     },
     "lab64": {
       "order": 79,
@@ -1656,7 +1735,8 @@
         "msvc_only": false,
         "needs_unity": true,
         "needs_dotnet": false
-      }
+      },
+      "ci": "sources_only"
     },
     "cm18": {
       "order": 80,
@@ -1676,7 +1756,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm19": {
       "order": 81,
@@ -1695,7 +1776,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm07": {
       "order": 82,
@@ -1714,7 +1796,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm20": {
       "order": 83,
@@ -1734,7 +1817,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm21": {
       "order": 84,
@@ -1753,7 +1837,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm22": {
       "order": 85,
@@ -1772,7 +1857,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab65": {
       "order": 86,
@@ -1794,7 +1880,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm23": {
       "order": 87,
@@ -1813,7 +1900,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab66": {
       "order": 88,
@@ -1833,7 +1921,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm24": {
       "order": 89,
@@ -1853,7 +1942,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm25": {
       "order": 90,
@@ -1872,7 +1962,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab67": {
       "order": 91,
@@ -1895,7 +1986,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm26": {
       "order": 92,
@@ -1915,7 +2007,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab68": {
       "order": 93,
@@ -1936,7 +2029,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm27": {
       "order": 94,
@@ -1956,7 +2050,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm08": {
       "order": 95,
@@ -1975,7 +2070,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab69": {
       "order": 96,
@@ -1999,7 +2095,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm28": {
       "order": 97,
@@ -2020,7 +2117,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab70": {
       "order": 98,
@@ -2044,7 +2142,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "cm29": {
       "order": 99,
@@ -2064,7 +2163,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     },
     "lab71": {
       "order": 100,
@@ -2084,7 +2184,8 @@
         "msvc_only": false,
         "needs_unity": false,
         "needs_dotnet": false
-      }
+      },
+      "ci": "full"
     }
   }
 }

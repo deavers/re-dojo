@@ -141,7 +141,8 @@ muts = {
     # --- labs come from data/labs_index.json
     "m26_lab_bad_id": (lambda d: d["labs"][0].update(id="lab1x"), "lab id must match"),
     "m27_planned_redirect_not_planned": (lambda d: d["games"][198]["safety"].update(redirect_labs_planned=["lab10"]), "is not a planned lab"),
-    "m28_lab_prereqs_differ": (lambda d: d["labs"][1]["prerequisites"].update(labs=[]), "must equal data/labs_index.json prereqs"),
+    "m28_lab_prereqs_differ": (lambda d: d["labs"][1]["prerequisites"].update(labs=[]), "must equal the BUILT prereqs"),
+    "m31_lab_planned_prereq_invented": (lambda d: d["labs"][0].update(prerequisites_planned=["lab99"]), "prerequisites_planned must list"),
     "m29_lab_platform_not_bool": (lambda d: d["labs"][0].update(platform={"windows_only": "yes"}), "platform must be"),
     "m30_lab_not_in_index": (lambda d: d["labs"].append({**d["labs"][0], "id": "lab99"}), "differ from data/labs_index.json"),
 }

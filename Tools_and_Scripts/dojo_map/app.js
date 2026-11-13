@@ -368,6 +368,9 @@
     } else {
       out.push(el("p", { text: n.concept }));
       out.push(el("p", { cls: "small", text: "Опирается на: " + n.prerequisite_text }));
+      if (n.prerequisites_planned && n.prerequisites_planned.length) {
+        out.push(el("p", { cls: "small planned-labs", text: "Предпосылки из плана (ещё не собраны): " + n.prerequisites_planned.join(", ") }));
+      }
     }
 
     if (n.engine_derivation && n.engine_derivation.status === "unknown") {

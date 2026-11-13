@@ -280,8 +280,12 @@ class Validator:
             self.err(w, "kind must be lab or crackme")
         self.safe_repo_path(w, lab.get("path"))
         entry = self.index.get(lab["id"], {})
-        if lab.get("prerequisites", {}).get("labs") != entry.get("prereqs"):
-            self.err(w, "prerequisites.labs must equal data/labs_index.json prereqs")
+        prereqs = entry.get("prereqs", [])
+        built_pre = [p for p in prereqs if self.index.get(p, {}).get("status") == "built"]
+        if lab.get("prerequisites", {}).get("labs") != built_pre:
+            self.err(w, "prerequisites.labs must equal the BUILT prereqs from data/labs_index.json")
+        if lab.get("prerequisites_planned", []) != [p for p in prereqs if p not in built_pre]:
+            self.err(w, "prerequisites_planned must list the not-yet-built prereqs from data/labs_index.json")
         if lab.get("check") not in LAB_CHECKS:
             self.err(w, f"check must be one of {LAB_CHECKS}")
         plat = lab.get("platform")

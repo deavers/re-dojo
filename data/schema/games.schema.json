@@ -701,6 +701,13 @@
                   "type": "boolean"
                 }
               }
+            },
+            "prerequisites_planned": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Plan prerequisites (data/labs_index.json) that are not built yet: text only, no map edge."
             }
           }
         }

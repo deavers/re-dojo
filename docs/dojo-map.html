@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ENxaxmImwZ8mGIL9/a3mE8LH1XdirmSruG7hJoEh/TA='; style-src 'sha256-5UkHcU033L8jhmy5QDGpC5ZbB3ok7F9fAc3bOQ3Lsug='; img-src data:; base-uri 'none'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-cjX2FtR0SKIObqe8WtYtZAkTcplw1l/0gLNz8rKwUWo='; style-src 'sha256-5UkHcU033L8jhmy5QDGpC5ZbB3ok7F9fAc3bOQ3Lsug='; img-src data:; base-uri 'none'; form-action 'none'" />
   <meta name="referrer" content="no-referrer" />
   <title>RE:DOJO Map</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A5%8B%3C/text%3E%3C/svg%3E" />
@@ -590,6 +590,9 @@ details p { margin: 8px 0 0; }
     } else {
       out.push(el("p", { text: n.concept }));
       out.push(el("p", { cls: "small", text: "Опирается на: " + n.prerequisite_text }));
+      if (n.prerequisites_planned && n.prerequisites_planned.length) {
+        out.push(el("p", { cls: "small planned-labs", text: "Предпосылки из плана (ещё не собраны): " + n.prerequisites_planned.join(", ") }));
+      }
     }
 
     if (n.engine_derivation && n.engine_derivation.status === "unknown") {
