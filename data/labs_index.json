@@ -237,7 +237,7 @@
       "title": "Вложенные структуры и выравнивание",
       "tier": "E",
       "difficulty_raw": 1.6,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab16"
       ],

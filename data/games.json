@@ -767,6 +767,77 @@
       "hints_batch": "labs_01.json"
     },
     {
+      "id": "lab17",
+      "kind": "lab",
+      "label": "Lab 17",
+      "title": "Nested Structs and Padding",
+      "tier": "E",
+      "difficulty_raw": 1.6,
+      "difficulty": 1,
+      "exp": 260,
+      "path": "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_nested_padding.cpp",
+      "prerequisite_text": "Array stride",
+      "concept": "Nested structs, alignment padding before `double` / `uint16`, `#pragma pack(1)` unaligned fields",
+      "prerequisites": {
+        "labs": [
+          "lab16"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_nested_padding.cpp",
+          "kind": "lab_source"
+        },
+        {
+          "path": "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_core.hpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Открой объект героя в Structure Dissect (или ReClass.NET) и не считай смещения в уме: компилятор вставляет пустые байты между полями разного размера.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_nested_padding.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Поле выравнивается по своему размеру: double — по 8, uint16 — по 2. Поэтому вложенная структура с double сама начинается с границы 8. Только у упакованной структуры пустых байтов нет, и её поле может стоять на нечётном адресе.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_core.hpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab17_core.hpp смещения внутри g_Hero: crit (double) — +0x18, durability (uint16) — +0x22, goldValue упакованной добычи (uint32) — +0x29. Их закрепляют static_assert.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_core.hpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
+      "safety": {
+        "restricted": false
+      },
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "hints_batch": "labs_01.json"
+    },
+    {
       "id": "lab04",
       "kind": "lab",
       "label": "Lab 04",

@@ -150,6 +150,12 @@
         "path": "Course_Solutions/Lab16_Array_of_Structs/lab16_core.hpp",
         "kind": "lab_source"
       }
+    ],
+    "lab17": [
+      {
+        "path": "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_core.hpp",
+        "kind": "lab_source"
+      }
     ]
   }
 }

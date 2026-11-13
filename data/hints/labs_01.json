@@ -192,6 +192,38 @@
           ]
         }
       ]
+    },
+    "lab17": {
+      "status": "draft",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Открой объект героя в Structure Dissect (или ReClass.NET) и не считай смещения в уме: компилятор вставляет пустые байты между полями разного размера.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_nested_padding.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Поле выравнивается по своему размеру: double — по 8, uint16 — по 2. Поэтому вложенная структура с double сама начинается с границы 8. Только у упакованной структуры пустых байтов нет, и её поле может стоять на нечётном адресе.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_core.hpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab17_core.hpp смещения внутри g_Hero: crit (double) — +0x18, durability (uint16) — +0x22, goldValue упакованной добычи (uint32) — +0x29. Их закрепляют static_assert.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_core.hpp"
+          ]
+        }
+      ]
     }
   }
 }

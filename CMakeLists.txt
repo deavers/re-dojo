@@ -79,3 +79,6 @@ dojo_add_lab(ID lab15 TARGET lab15_fixed_point DIR Course_Solutions/Lab15_Fixed_
 dojo_add_lab(ID lab16 TARGET lab16_array_of_structs DIR Course_Solutions/Lab16_Array_of_Structs
              SOURCE   Course_Solutions/Lab16_Array_of_Structs/lab16_array_of_structs.cpp
              SELFTEST Course_Solutions/Lab16_Array_of_Structs/check/lab16_selftest.cpp)
+dojo_add_lab(ID lab17 TARGET lab17_nested_padding DIR Course_Solutions/Lab17_Nested_Structs_and_Padding
+             SOURCE   Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_nested_padding.cpp
+             SELFTEST Course_Solutions/Lab17_Nested_Structs_and_Padding/check/lab17_selftest.cpp)
