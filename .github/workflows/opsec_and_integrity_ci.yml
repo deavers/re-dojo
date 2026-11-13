@@ -43,11 +43,11 @@ jobs:
       - name: Run Automated Artifact Grader Self-Test
         run: python Tools_and_Scripts/auto_artifact_grader.py Game_Hacking/
 
-      - name: Verify C++20 Dojo Labs & Crackmes Compile Cleanly (GCC)
+      - name: Verify C++20 Dojo Labs & Crackmes Compile Cleanly (GCC, -Wall -Wextra -Werror)
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-Wall -Wextra -Werror"
           cmake --build . --parallel
 
       - name: Lab Autocheck (CTest - build, reference solution passes, wrong input fails)
