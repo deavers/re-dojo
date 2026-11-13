@@ -298,7 +298,7 @@
       "title": "Синглтон с ленивой инициализацией",
       "tier": "E+",
       "difficulty_raw": 2.0,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab04"
       ],

@@ -224,6 +224,38 @@
           ]
         }
       ]
+    },
+    "lab18": {
+      "status": "draft",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Статический указатель на менеджер существует с самого запуска, но пока ты ни разу не зашёл в подземелье, в нём ноль. Сначала дай игре создать объекты, потом ищи.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab18_Lazy_Singleton/lab18_lazy_singleton.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Найди самоцветы точным сканом, затем «что обращается к этому адресу»: получишь смещение внутри инвентаря и адрес самого инвентаря. Дальше ищи, кто хранит указатель на инвентарь, и так вверх до статического указателя.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab18_Lazy_Singleton/lab18_lazy_singleton.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab18_core.hpp цепочка такая: [g_pGameManager] +0x08 -> Player, Player +0x08 -> Inventory, Inventory +0x10 = gems (int32). Пиши 99999 только после первого входа в подземелье.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab18_Lazy_Singleton/lab18_core.hpp"
+          ]
+        }
+      ]
     }
   }
 }

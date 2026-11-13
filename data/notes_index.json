@@ -156,6 +156,12 @@
         "path": "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_core.hpp",
         "kind": "lab_source"
       }
+    ],
+    "lab18": [
+      {
+        "path": "Course_Solutions/Lab18_Lazy_Singleton/lab18_core.hpp",
+        "kind": "lab_source"
+      }
     ]
   }
 }

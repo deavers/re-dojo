@@ -82,3 +82,6 @@ dojo_add_lab(ID lab16 TARGET lab16_array_of_structs DIR Course_Solutions/Lab16_A
 dojo_add_lab(ID lab17 TARGET lab17_nested_padding DIR Course_Solutions/Lab17_Nested_Structs_and_Padding
              SOURCE   Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_nested_padding.cpp
              SELFTEST Course_Solutions/Lab17_Nested_Structs_and_Padding/check/lab17_selftest.cpp)
+dojo_add_lab(ID lab18 TARGET lab18_lazy_singleton DIR Course_Solutions/Lab18_Lazy_Singleton
+             SOURCE   Course_Solutions/Lab18_Lazy_Singleton/lab18_lazy_singleton.cpp
+             SELFTEST Course_Solutions/Lab18_Lazy_Singleton/check/lab18_selftest.cpp)

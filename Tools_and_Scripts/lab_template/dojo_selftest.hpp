@@ -42,7 +42,7 @@ struct Harness
 {
     unsigned char* object = nullptr;
     std::size_t objectSize = 0;
-    void* const* pointerRoot = nullptr;
+    const void* pointerRoot = nullptr; // ADDRESS of a static pointer variable (read with memcpy)
     std::vector<Region> regions;
     std::function<bool(const std::string&)> act;
 };
@@ -241,7 +241,9 @@ inline int Run(Harness& h)
             }
             else if (start == "ptr" && h.pointerRoot != nullptr)
             {
-                cur = static_cast<unsigned char*>(*h.pointerRoot);
+                void* first = nullptr;
+                std::memcpy(&first, h.pointerRoot, sizeof(void*));
+                cur = static_cast<unsigned char*>(first);
                 if (cur == nullptr)
                 {
                     return 1;
