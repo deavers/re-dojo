@@ -44,6 +44,7 @@
     unreal_4: "Unreal 4", unreal_5: "Unreal 5", source: "Source", goldsrc: "GoldSrc", idtech: "id Tech", native_win32: "Native Win32",
     dotnet_xna: ".NET / XNA", gamemaker: "GameMaker", godot: "Godot", lua_hybrid: "C++ + Lua", popcap: "PopCap",
     renderware_gamebryo: "RenderWare/Gamebryo", js_web: "JS / Web", emulator: "Эмулятор", custom: "Свой движок",
+    ambiguous: "Неоднозначный (unknown)",
   };
   const KIND_HINT = { nudge: "Намёк", concept: "Концепт", near_spoiler: "Почти спойлер" };
   const SRC_DETAIL = { my_notes: "из моих заметок", repo_catalog: "каталог репо", derived: "выведено правилом", needs_verification: "не подтверждено" };
@@ -351,6 +352,13 @@
       out.push(el("p", { cls: "small", text: "Опирается на: " + n.prerequisite_text }));
     }
 
+    if (n.engine_derivation && n.engine_derivation.status === "unknown") {
+      const cands = (n.engine_family_candidates || []).map((f) => FAMILY_LABEL[f] || f).join(", ");
+      out.push(el("p", { cls: "small engine-unknown" }, [
+        el("span", { cls: "chip", text: "Техники движка: unknown" }), srcBadge("needs_verification"),
+        document.createTextNode(` Движок неоднозначен (${n.engine_derivation.reason}). Кандидаты: ${cands || "—"}. Из строки движка ничего не выведено.`),
+      ]));
+    }
     if (n.techniques && n.techniques.length) {
       out.push(...section("Техники", el("div", { cls: "chips" }, n.techniques.map((t) =>
         el("span", { cls: "chip" }, [document.createTextNode(TECH_LABEL[t.id] || t.id), srcBadge(t.source)])))));

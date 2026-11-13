@@ -833,7 +833,14 @@
         "author_completed": false
       },
       "engine": "JS / Electron Wrapper (x64)",
-      "engine_family": "js_web",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "js_web"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "wrapper / hybrid engine"
+      },
       "arch": [
         "x64"
       ],
@@ -892,7 +899,15 @@
         "author_completed": false
       },
       "engine": "Unity / ActionScript Wrapper",
-      "engine_family": "unity_mono",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "Unity without a stated scripting backend (Mono / IL2CPP); wrapper / hybrid engine; candidates imply different techniques"
+      },
       "arch": [
         "unknown"
       ],
@@ -913,24 +928,12 @@
         {
           "id": "speedhack",
           "source": "repo_catalog"
-        },
-        {
-          "id": "mono_dissect",
-          "source": "derived"
-        },
-        {
-          "id": "dotnet_decompile",
-          "source": "derived"
         }
       ],
       "tools": [
         {
           "id": "cheat_engine",
           "source": "repo_catalog"
-        },
-        {
-          "id": "dnspyex",
-          "source": "derived"
         }
       ],
       "prerequisites": {
@@ -959,6 +962,12 @@
       },
       "engine": "Unity Engine Mono (x86/x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -1022,6 +1031,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -1083,7 +1098,16 @@
         "author_completed": false
       },
       "engine": "Unity / PopCap Hybrid",
-      "engine_family": "unity_mono",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono",
+        "popcap"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "Unity without a stated scripting backend (Mono / IL2CPP); wrapper / hybrid engine; candidates imply different techniques"
+      },
       "arch": [
         "unknown"
       ],
@@ -1096,23 +1120,11 @@
         {
           "id": "exact_value_scan",
           "source": "repo_catalog"
-        },
-        {
-          "id": "mono_dissect",
-          "source": "derived"
-        },
-        {
-          "id": "dotnet_decompile",
-          "source": "derived"
         }
       ],
       "tools": [
         {
           "id": "cheat_engine",
-          "source": "derived"
-        },
-        {
-          "id": "dnspyex",
           "source": "derived"
         }
       ],
@@ -1140,7 +1152,15 @@
         "author_completed": false
       },
       "engine": "Unity IL2CPP / Mono",
-      "engine_family": "unity_il2cpp",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "candidates imply different techniques"
+      },
       "arch": [
         "unknown"
       ],
@@ -1157,19 +1177,11 @@
         {
           "id": "float_double_scan",
           "source": "repo_catalog"
-        },
-        {
-          "id": "il2cpp_dump",
-          "source": "repo_catalog"
         }
       ],
       "tools": [
         {
           "id": "cheat_engine",
-          "source": "derived"
-        },
-        {
-          "id": "il2cppdumper",
           "source": "derived"
         }
       ],
@@ -1199,6 +1211,12 @@
       },
       "engine": "Native Win32 C (x86)",
       "engine_family": "native_win32",
+      "engine_family_candidates": [
+        "native_win32"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1232,6 +1250,12 @@
       },
       "engine": "Native Win32 C (x86)",
       "engine_family": "native_win32",
+      "engine_family_candidates": [
+        "native_win32"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1291,6 +1315,12 @@
       },
       "engine": "Native Win32 C++ (x86)",
       "engine_family": "native_win32",
+      "engine_family_candidates": [
+        "native_win32"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1345,6 +1375,12 @@
       },
       "engine": "Custom Win32 OpenGL C++ (x86)",
       "engine_family": "native_win32",
+      "engine_family_candidates": [
+        "native_win32"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1395,6 +1431,10 @@
       },
       "engine": "Cube Engine (x86 Open-Source C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1444,7 +1484,15 @@
         "author_completed": false
       },
       "engine": "Unity Engine (x86/x64)",
-      "engine_family": "unity_mono",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "Unity without a stated scripting backend (Mono / IL2CPP); candidates imply different techniques"
+      },
       "arch": [
         "x64",
         "x86"
@@ -1460,14 +1508,6 @@
           "source": "repo_catalog"
         },
         {
-          "id": "mono_dissect",
-          "source": "derived"
-        },
-        {
-          "id": "dotnet_decompile",
-          "source": "derived"
-        },
-        {
           "id": "w2s_math",
           "source": "repo_catalog"
         }
@@ -1475,10 +1515,6 @@
       "tools": [
         {
           "id": "cheat_engine",
-          "source": "derived"
-        },
-        {
-          "id": "dnspyex",
           "source": "derived"
         }
       ],
@@ -1508,6 +1544,10 @@
       },
       "engine": "Team17 2D Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1558,6 +1598,10 @@
       },
       "engine": "BlitzMax / Custom Delphi 2D",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -1608,6 +1652,12 @@
       },
       "engine": "id Tech 3 (x86/x64 C)",
       "engine_family": "idtech",
+      "engine_family_candidates": [
+        "idtech"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -1663,6 +1713,10 @@
       },
       "engine": "Serious Engine 1 (`Engine.dll` x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1713,6 +1767,10 @@
       },
       "engine": "Antarctica Engine (C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -1772,6 +1830,12 @@
       },
       "engine": "PopCap Framework (x86 C++)",
       "engine_family": "popcap",
+      "engine_family_candidates": [
+        "popcap"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1822,6 +1886,12 @@
       },
       "engine": "PopCap Framework (x86 C++)",
       "engine_family": "popcap",
+      "engine_family_candidates": [
+        "popcap"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1895,6 +1965,10 @@
       },
       "engine": "The Behemoth 2D C++ Engine (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1949,6 +2023,10 @@
       },
       "engine": "JoWooD 2D Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -1982,6 +2060,12 @@
       },
       "engine": "PopCap Framework (x86 C++)",
       "engine_family": "popcap",
+      "engine_family_candidates": [
+        "popcap"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2032,6 +2116,10 @@
       },
       "engine": "Sigma Team 2D Isometric C++ (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2085,7 +2173,14 @@
         "author_completed": false
       },
       "engine": "Box2D + Lua C++ Wrapper (x86)",
-      "engine_family": "lua_hybrid",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "wrapper / hybrid engine"
+      },
       "arch": [
         "x86"
       ],
@@ -2135,6 +2230,10 @@
       },
       "engine": "Custom 2D C++ Engines (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2167,7 +2266,14 @@
         "author_completed": false
       },
       "engine": "Playdead Custom C++/C# Engine",
-      "engine_family": "dotnet_xna",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "dotnet_xna"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "mixed C++/C# engine without a named .NET runtime"
+      },
       "arch": [
         "unknown"
       ],
@@ -2176,18 +2282,8 @@
       "difficulty": 2,
       "exp": 300,
       "what_to_find": "Player `(X, Y)` world coordinates, gravity/jump vectors, and disabling hazard death trigger callbacks.",
-      "techniques": [
-        {
-          "id": "dotnet_decompile",
-          "source": "derived"
-        }
-      ],
-      "tools": [
-        {
-          "id": "dnspyex",
-          "source": "derived"
-        }
-      ],
+      "techniques": [],
+      "tools": [],
       "prerequisites": {
         "labs": [],
         "games": [],
@@ -2211,6 +2307,10 @@
       },
       "engine": "OpenFL / NME (x86/x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -2257,6 +2357,12 @@
       },
       "engine": "id Tech 1 / KEX Engine (C/C++)",
       "engine_family": "idtech",
+      "engine_family_candidates": [
+        "idtech"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -2321,6 +2427,12 @@
       },
       "engine": "id Tech 3 (`WolfSP.exe` x86 C)",
       "engine_family": "idtech",
+      "engine_family_candidates": [
+        "idtech"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2380,6 +2492,10 @@
       },
       "engine": "Build Engine (C/C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -2425,6 +2541,12 @@
       },
       "engine": "id Tech 3 + F.A.K.K.2 (x86)",
       "engine_family": "idtech",
+      "engine_family_candidates": [
+        "idtech"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2470,6 +2592,12 @@
       },
       "engine": "PAIN Engine (x86 C++ & Lua)",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2519,6 +2647,12 @@
       },
       "engine": "Wolf3D Raycaster & id Tech 2",
       "engine_family": "idtech",
+      "engine_family_candidates": [
+        "idtech"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -2564,6 +2698,10 @@
       },
       "engine": "Genie Engine (C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -2623,6 +2761,10 @@
       },
       "engine": "Westwood 2D / SAGE 3D Engine (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2668,6 +2810,10 @@
       },
       "engine": "Blizzard Storm 2D Engine (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2713,6 +2859,10 @@
       },
       "engine": "Piranha Bytes ZenGin (`Gothic2.exe` x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2767,6 +2917,12 @@
       },
       "engine": "Unreal Engine 1 (x86 C++)",
       "engine_family": "unreal_1",
+      "engine_family_candidates": [
+        "unreal_1"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2836,6 +2992,12 @@
       },
       "engine": "GoldSrc Engine (x86 C++)",
       "engine_family": "goldsrc",
+      "engine_family_candidates": [
+        "goldsrc"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2895,6 +3057,12 @@
       },
       "engine": "Unreal Engine 1 (`DeusEx.dll` x86)",
       "engine_family": "unreal_1",
+      "engine_family_candidates": [
+        "unreal_1"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -2940,6 +3108,12 @@
       },
       "engine": "GoldSrc Engine (`hw.dll` / `client.dll`)",
       "engine_family": "goldsrc",
+      "engine_family_candidates": [
+        "goldsrc"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -2990,6 +3164,12 @@
       },
       "engine": "NetImmerse / Gamebryo (x86 C++)",
       "engine_family": "renderware_gamebryo",
+      "engine_family_candidates": [
+        "renderware_gamebryo"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3044,6 +3224,10 @@
       },
       "engine": "IO Glacier 1 Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3089,6 +3273,10 @@
       },
       "engine": "MAX-FX Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3139,6 +3327,12 @@
       },
       "engine": "Unreal Engine 2 (`Postal2.exe` x86)",
       "engine_family": "unreal_2",
+      "engine_family_candidates": [
+        "unreal_2"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3184,6 +3378,12 @@
       },
       "engine": "Dark Engine / Modified UE2 (x86)",
       "engine_family": "unreal_2",
+      "engine_family_candidates": [
+        "unreal_2"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3229,6 +3429,10 @@
       },
       "engine": "Infinity Engine (x86/x64 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -3284,6 +3488,10 @@
       },
       "engine": "Blizzard Custom 2D/Isometric C++",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -3338,6 +3546,10 @@
       },
       "engine": "Interplay 2D Isometric Engine (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3371,6 +3583,10 @@
       },
       "engine": "Blizzard Storm / JASS VM (C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -3425,6 +3641,10 @@
       },
       "engine": "LithTech Jupiter EX Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3475,6 +3695,12 @@
       },
       "engine": "CryEngine 1 (`CryGame.dll` C++/Lua)",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -3524,6 +3750,12 @@
       },
       "engine": "Lead Engine (Modified UE2.5 x86)",
       "engine_family": "unreal_2",
+      "engine_family_candidates": [
+        "unreal_2"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3574,6 +3806,12 @@
       },
       "engine": "Source Engine Early Branch (`vampire.dll`)",
       "engine_family": "source",
+      "engine_family_candidates": [
+        "source"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -3619,6 +3857,12 @@
       },
       "engine": "RenderWare / Gamebryo (x86 C++)",
       "engine_family": "renderware_gamebryo",
+      "engine_family_candidates": [
+        "renderware_gamebryo"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3664,6 +3908,12 @@
       },
       "engine": "RenderWare Engine (x86 C++)",
       "engine_family": "renderware_gamebryo",
+      "engine_family_candidates": [
+        "renderware_gamebryo"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3697,6 +3947,10 @@
       },
       "engine": "LS3D Engine & Illusion Engine (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3751,6 +4005,12 @@
       },
       "engine": "Bugbear Engine & Criterion RenderWare",
       "engine_family": "renderware_gamebryo",
+      "engine_family_candidates": [
+        "renderware_gamebryo"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -3801,6 +4061,10 @@
       },
       "engine": "TT Games Nu2x Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3851,6 +4115,10 @@
       },
       "engine": "EA EAGL Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3901,6 +4169,10 @@
       },
       "engine": "Ubisoft Jade Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3946,6 +4218,10 @@
       },
       "engine": "Maxis Custom C++ Engine (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -3979,6 +4255,10 @@
       },
       "engine": "MT Framework (x86/x64 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -4030,6 +4310,10 @@
       },
       "engine": "New World Computing C++ (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -4075,6 +4359,10 @@
       },
       "engine": "Capcom Custom C++ Engine (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -4120,6 +4408,10 @@
       },
       "engine": "BioWare Odyssey Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -4165,6 +4457,10 @@
       },
       "engine": "Firefly 2D Isometric C++ (x86)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -4210,6 +4506,10 @@
       },
       "engine": "Maxis Custom C++ / Mono Sims3",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -4255,6 +4555,12 @@
       },
       "engine": "Yacht Club C++ & GameMaker Studio",
       "engine_family": "gamemaker",
+      "engine_family_candidates": [
+        "gamemaker"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -4305,6 +4611,12 @@
       },
       "engine": "Supergiant Custom C# / MonoGame",
       "engine_family": "dotnet_xna",
+      "engine_family_candidates": [
+        "dotnet_xna"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -4348,6 +4660,10 @@
       },
       "engine": "Subset Custom C++ Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -4381,6 +4697,10 @@
       },
       "engine": "Cocos2d-x C++ (`libcocos2d.dll`)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -4434,7 +4754,16 @@
         "author_completed": false
       },
       "engine": "GameMaker Studio & Unity Engine",
-      "engine_family": "unity_mono",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono",
+        "gamemaker"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "Unity without a stated scripting backend (Mono / IL2CPP); candidates imply different techniques (several games in one entry)"
+      },
       "arch": [
         "unknown"
       ],
@@ -4451,14 +4780,6 @@
         {
           "id": "struct_dissect",
           "source": "repo_catalog"
-        },
-        {
-          "id": "mono_dissect",
-          "source": "derived"
-        },
-        {
-          "id": "dotnet_decompile",
-          "source": "derived"
         }
       ],
       "tools": [
@@ -4468,10 +4789,6 @@
         },
         {
           "id": "reclass_net",
-          "source": "derived"
-        },
-        {
-          "id": "dnspyex",
           "source": "derived"
         }
       ],
@@ -4501,6 +4818,12 @@
       },
       "engine": "Custom C++20 + Lua 5.3 (x86)",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -4574,6 +4897,10 @@
       },
       "engine": "Custom 3D Voxel C++ Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -4628,6 +4955,10 @@
       },
       "engine": "Red Hook Custom C++ Engine (x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -4672,7 +5003,16 @@
         "author_completed": false
       },
       "engine": "C# MonoGame (RL1) & Unity Engine (RL2)",
-      "engine_family": "unity_mono",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono",
+        "dotnet_xna"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "Unity without a stated scripting backend (Mono / IL2CPP); candidates imply different techniques (several games in one entry)"
+      },
       "arch": [
         "unknown"
       ],
@@ -4689,23 +5029,11 @@
         {
           "id": "float_double_scan",
           "source": "repo_catalog"
-        },
-        {
-          "id": "mono_dissect",
-          "source": "derived"
-        },
-        {
-          "id": "dotnet_decompile",
-          "source": "derived"
         }
       ],
       "tools": [
         {
           "id": "cheat_engine",
-          "source": "derived"
-        },
-        {
-          "id": "dnspyex",
           "source": "derived"
         }
       ],
@@ -4735,6 +5063,10 @@
       },
       "engine": "Custom C++ Engine (x86/x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -4786,6 +5118,12 @@
       },
       "engine": "Godot Engine 3/4 (GDScript / C++)",
       "engine_family": "godot",
+      "engine_family_candidates": [
+        "godot"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -4840,6 +5178,12 @@
       },
       "engine": "C# XNA / FNA / Monocle Engine",
       "engine_family": "dotnet_xna",
+      "engine_family_candidates": [
+        "dotnet_xna"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -4882,7 +5226,16 @@
         "author_completed": false
       },
       "engine": "Unity Engine & GameMaker Studio",
-      "engine_family": "unity_mono",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono",
+        "gamemaker"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "Unity without a stated scripting backend (Mono / IL2CPP); candidates imply different techniques (several games in one entry)"
+      },
       "arch": [
         "unknown"
       ],
@@ -4895,23 +5248,11 @@
         {
           "id": "exact_value_scan",
           "source": "repo_catalog"
-        },
-        {
-          "id": "mono_dissect",
-          "source": "derived"
-        },
-        {
-          "id": "dotnet_decompile",
-          "source": "derived"
         }
       ],
       "tools": [
         {
           "id": "cheat_engine",
-          "source": "derived"
-        },
-        {
-          "id": "dnspyex",
           "source": "derived"
         }
       ],
@@ -4940,6 +5281,10 @@
       },
       "engine": "Heaps.io Engine (Haxe -> HashLink VM)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -4985,6 +5330,12 @@
       },
       "engine": "GameMaker / SilverWare C++",
       "engine_family": "gamemaker",
+      "engine_family_candidates": [
+        "gamemaker"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -5039,6 +5390,12 @@
       },
       "engine": "GameMaker Studio (`data.win` VM)",
       "engine_family": "gamemaker",
+      "engine_family_candidates": [
+        "gamemaker"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -5089,6 +5446,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -5145,7 +5508,15 @@
         "author_completed": false
       },
       "engine": "Unity Engine (Moon Studios x64)",
-      "engine_family": "unity_mono",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "Unity without a stated scripting backend (Mono / IL2CPP); candidates imply different techniques"
+      },
       "arch": [
         "x64"
       ],
@@ -5154,26 +5525,8 @@
       "difficulty": 3,
       "exp": 600,
       "what_to_find": "Life & Energy cells, `Spirit Light` currency, Spirit Shard slots, and infinite mid-air jumps/dashes.",
-      "techniques": [
-        {
-          "id": "mono_dissect",
-          "source": "derived"
-        },
-        {
-          "id": "dotnet_decompile",
-          "source": "derived"
-        }
-      ],
-      "tools": [
-        {
-          "id": "cheat_engine",
-          "source": "derived"
-        },
-        {
-          "id": "dnspyex",
-          "source": "derived"
-        }
-      ],
+      "techniques": [],
+      "tools": [],
       "prerequisites": {
         "labs": [],
         "games": [],
@@ -5197,6 +5550,12 @@
       },
       "engine": "Unity Engine Mono (C#)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -5248,6 +5607,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -5337,6 +5702,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -5394,6 +5765,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -5460,6 +5837,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -5521,6 +5904,12 @@
       },
       "engine": "Unity Engine Mono (C#)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -5582,6 +5971,10 @@
       },
       "engine": "Java / LibGDX Framework (JVM)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -5627,6 +6020,12 @@
       },
       "engine": "LÖVE 2D Framework (LuaJIT)",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -5676,6 +6075,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -5733,6 +6138,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -5794,6 +6205,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -5851,6 +6268,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -5902,6 +6325,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -5953,6 +6382,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6004,6 +6439,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6055,6 +6496,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6121,6 +6568,12 @@
       },
       "engine": ".NET / MonoGame (x64 C#)",
       "engine_family": "dotnet_xna",
+      "engine_family_candidates": [
+        "dotnet_xna"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6174,6 +6627,12 @@
       },
       "engine": "C# XNA / FNA (.NET JIT)",
       "engine_family": "dotnet_xna",
+      "engine_family_candidates": [
+        "dotnet_xna"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -6227,6 +6686,12 @@
       },
       "engine": "Unity Mono + Netcode (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6286,6 +6751,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6343,6 +6814,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6412,6 +6889,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6463,6 +6946,12 @@
       },
       "engine": "Java + LWJGL + Lua Scripting",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -6511,7 +7000,15 @@
         "author_completed": false
       },
       "engine": "Unity Engine (x64)",
-      "engine_family": "unity_mono",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "Unity without a stated scripting backend (Mono / IL2CPP); candidates imply different techniques"
+      },
       "arch": [
         "x64"
       ],
@@ -6528,23 +7025,11 @@
         {
           "id": "float_double_scan",
           "source": "repo_catalog"
-        },
-        {
-          "id": "mono_dissect",
-          "source": "derived"
-        },
-        {
-          "id": "dotnet_decompile",
-          "source": "derived"
         }
       ],
       "tools": [
         {
           "id": "cheat_engine",
-          "source": "derived"
-        },
-        {
-          "id": "dnspyex",
           "source": "derived"
         }
       ],
@@ -6574,6 +7059,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6643,6 +7134,12 @@
       },
       "engine": "Unreal Engine 4 / 5 (x64 C++)",
       "engine_family": "unreal_4",
+      "engine_family_candidates": [
+        "unreal_4"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6688,6 +7185,10 @@
       },
       "engine": "Ogre3D C++ Engine (`kenshi_x64.exe`)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -6742,6 +7243,12 @@
       },
       "engine": "Unity Engine Mono (x64)",
       "engine_family": "unity_mono",
+      "engine_family_candidates": [
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6793,6 +7300,12 @@
       },
       "engine": "Gamebryo (x86) & Creation Engine (x64)",
       "engine_family": "renderware_gamebryo",
+      "engine_family_candidates": [
+        "renderware_gamebryo"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -6839,6 +7352,10 @@
       },
       "engine": "TaleWorlds Custom C++ Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -6872,6 +7389,12 @@
       },
       "engine": "Gamebryo Engine (x86 C++)",
       "engine_family": "renderware_gamebryo",
+      "engine_family_candidates": [
+        "renderware_gamebryo"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -6917,6 +7440,10 @@
       },
       "engine": "Creation Engine (x64 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -6980,6 +7507,12 @@
       },
       "engine": "Modified Unreal Engine 2.5 (x64)",
       "engine_family": "unreal_2",
+      "engine_family_candidates": [
+        "unreal_2"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -7013,6 +7546,10 @@
       },
       "engine": "BioWare Eclipse / Lycium Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -7058,6 +7595,12 @@
       },
       "engine": "Unreal Engine 3 (x64 C++)",
       "engine_family": "unreal_3",
+      "engine_family_candidates": [
+        "unreal_3"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -7091,6 +7634,10 @@
       },
       "engine": "CryEngine 2 & CryEngine 3 (x86/x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -7137,6 +7684,10 @@
       },
       "engine": "Visceral Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -7187,6 +7738,10 @@
       },
       "engine": "Ubisoft Dunia Engine 2 (x86/x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -7221,6 +7776,12 @@
       },
       "engine": "X-Ray Engine 1.6 (C++ & Lua)",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -7279,6 +7840,10 @@
       },
       "engine": "X-Ray Engine 1.0 / 1.5 (`xrGame.dll`)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -7312,6 +7877,10 @@
       },
       "engine": "United Front Engine & Volition CTG",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -7357,6 +7926,10 @@
       },
       "engine": "IW 3.0 Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -7411,6 +7984,12 @@
       },
       "engine": "Source Engine (x86/x64)",
       "engine_family": "source",
+      "engine_family_candidates": [
+        "source"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -7456,6 +8035,12 @@
       },
       "engine": "Source Engine (`client.dll` & `engine.dll`)",
       "engine_family": "source",
+      "engine_family_candidates": [
+        "source"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -7510,6 +8095,12 @@
       },
       "engine": "Source Engine (x86/x64 C++)",
       "engine_family": "source",
+      "engine_family_candidates": [
+        "source"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -7544,6 +8135,10 @@
       },
       "engine": "Treyarch IW Engine (x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -7594,6 +8189,12 @@
       },
       "engine": "Source Engine (x86)",
       "engine_family": "source",
+      "engine_family_candidates": [
+        "source"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -7639,6 +8240,12 @@
       },
       "engine": "Unreal Engine 3 (x86 C++)",
       "engine_family": "unreal_3",
+      "engine_family_candidates": [
+        "unreal_3"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -7672,6 +8279,12 @@
       },
       "engine": "Unreal Engine 3 (x86 C++)",
       "engine_family": "unreal_3",
+      "engine_family_candidates": [
+        "unreal_3"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -7717,6 +8330,12 @@
       },
       "engine": "Unreal Engine 3 (Modified x86)",
       "engine_family": "unreal_3",
+      "engine_family_candidates": [
+        "unreal_3"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -7750,6 +8369,12 @@
       },
       "engine": "Void Engine (id Tech 5) & CryEngine 4 (x64)",
       "engine_family": "idtech",
+      "engine_family_candidates": [
+        "idtech"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -7783,6 +8408,12 @@
       },
       "engine": "Unreal Engine 3.5 (x64 C++)",
       "engine_family": "unreal_3",
+      "engine_family_candidates": [
+        "unreal_3"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -7828,6 +8459,12 @@
       },
       "engine": "Unreal Engine 3 (Rocksteady x86)",
       "engine_family": "unreal_3",
+      "engine_family_candidates": [
+        "unreal_3"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x86"
       ],
@@ -7873,6 +8510,10 @@
       },
       "engine": "Crystal Engine & Dawn Engine (x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -7906,6 +8547,12 @@
       },
       "engine": "Unreal Engine 3.5 (x64 C++ & Kismet)",
       "engine_family": "unreal_3",
+      "engine_family_candidates": [
+        "unreal_3"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -7939,6 +8586,10 @@
       },
       "engine": "Kunos Custom C++ Physics Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -7984,6 +8635,10 @@
       },
       "engine": "SCS Prism3D Engine (x64 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8029,6 +8684,10 @@
       },
       "engine": "RAGE Engine (x86/x64 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -8075,6 +8734,10 @@
       },
       "engine": "RAGE Engine & Team Bondi Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -8120,6 +8783,10 @@
       },
       "engine": "Cathode Engine & Frictional HPL3 Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -8153,6 +8820,10 @@
       },
       "engine": "RAGE Engine (x64 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8186,6 +8857,12 @@
       },
       "engine": "Konami Fox Engine (x64 C++ & Lua)",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8224,6 +8901,10 @@
       },
       "engine": "Ubisoft Anvil / AnvilNext 2.0 (x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8269,6 +8950,12 @@
       },
       "engine": "Unreal Engine 3 (Modified x64)",
       "engine_family": "unreal_3",
+      "engine_family_candidates": [
+        "unreal_3"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8302,6 +8989,10 @@
       },
       "engine": "Techland Chrome Engine 6 / C-Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -8347,6 +9038,12 @@
       },
       "engine": "CryEngine 3.8.6 (x64 C++ & XML/Lua)",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8396,6 +9093,10 @@
       },
       "engine": "4A Engine (x64 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8441,6 +9142,10 @@
       },
       "engine": "LithTech Firebird Engine (x64 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8474,6 +9179,10 @@
       },
       "engine": "Remedy Northlight Engine (x64 DX12)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8524,6 +9233,10 @@
       },
       "engine": "REDengine 4 (x64 DirectX 12 & redscript)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8569,6 +9282,12 @@
       },
       "engine": "id Tech 6 & id Tech 7 (x64 Vulkan)",
       "engine_family": "idtech",
+      "engine_family_candidates": [
+        "idtech"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8614,6 +9333,10 @@
       },
       "engine": "ForzaTech & Torque3D Soft-Body Physics",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -8652,6 +9375,10 @@
       },
       "engine": "IO Interactive Glacier 2 Engine (x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8697,6 +9424,10 @@
       },
       "engine": "REDengine 3 (x64 C++ & WitcherScript)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8751,6 +9482,10 @@
       },
       "engine": "Ubisoft Disrupt Engine (x64 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8795,7 +9530,15 @@
         "author_completed": false
       },
       "engine": "Unreal Engine 4 & Unity IL2CPP",
-      "engine_family": "unity_il2cpp",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unreal_4"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "candidates imply different techniques (several games in one entry)"
+      },
       "arch": [
         "unknown"
       ],
@@ -8806,19 +9549,11 @@
       "what_to_find": "Locking `Sanity` drain, infinite sprint stamina, and building an `FNamePool` / Entity ESP to visualize AI monster patrol routes.",
       "techniques": [
         {
-          "id": "il2cpp_dump",
-          "source": "repo_catalog"
-        },
-        {
           "id": "sdk_dump",
           "source": "repo_catalog"
         }
       ],
       "tools": [
-        {
-          "id": "il2cppdumper",
-          "source": "derived"
-        },
         {
           "id": "dumper7",
           "source": "derived"
@@ -8849,6 +9584,12 @@
       },
       "engine": "Unreal Engine 4 (x64 C++)",
       "engine_family": "unreal_4",
+      "engine_family_candidates": [
+        "unreal_4"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8903,6 +9644,12 @@
       },
       "engine": "Unreal Engine 4 (x64 C++)",
       "engine_family": "unreal_4",
+      "engine_family_candidates": [
+        "unreal_4"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -8957,6 +9704,12 @@
       },
       "engine": "Unreal Engine 5 (x64 C++)",
       "engine_family": "unreal_5",
+      "engine_family_candidates": [
+        "unreal_5"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9002,6 +9755,12 @@
       },
       "engine": "Unreal Engine 4 (x64 C++)",
       "engine_family": "unreal_4",
+      "engine_family_candidates": [
+        "unreal_4"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9047,6 +9806,13 @@
       },
       "engine": "Unreal Engine 4 & Unreal Engine 5 (x64)",
       "engine_family": "unreal_5",
+      "engine_family_candidates": [
+        "unreal_5",
+        "unreal_4"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9092,6 +9858,10 @@
       },
       "engine": "EA Frostbite Engine (x64 DX12)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9137,6 +9907,12 @@
       },
       "engine": "Unreal Engine 4 (x64 C++)",
       "engine_family": "unreal_4",
+      "engine_family_candidates": [
+        "unreal_4"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9191,6 +9967,13 @@
       },
       "engine": "Unreal Engine 4 & Unreal Engine 5 (x64)",
       "engine_family": "unreal_5",
+      "engine_family_candidates": [
+        "unreal_5",
+        "unreal_4"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9236,6 +10019,10 @@
       },
       "engine": "Saber Swarm Engine (x64 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9286,6 +10073,12 @@
       },
       "engine": "Unity IL2CPP (x64 Native Assembly)",
       "engine_family": "unity_il2cpp",
+      "engine_family_candidates": [
+        "unity_il2cpp"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9343,6 +10136,12 @@
       },
       "engine": "Supergiant Custom C++ & Lua 5.2 Engine (x64)",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9391,7 +10190,15 @@
         "author_completed": false
       },
       "engine": "Unity Engine Mono / IL2CPP (x64)",
-      "engine_family": "unity_il2cpp",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "candidates imply different techniques"
+      },
       "arch": [
         "x64"
       ],
@@ -9434,7 +10241,15 @@
         "author_completed": false
       },
       "engine": "Unity Engine Mono / IL2CPP (x64)",
-      "engine_family": "unity_il2cpp",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp",
+        "unity_mono"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "candidates imply different techniques"
+      },
       "arch": [
         "x64"
       ],
@@ -9449,10 +10264,6 @@
           "source": "repo_catalog"
         },
         {
-          "id": "il2cpp_dump",
-          "source": "repo_catalog"
-        },
-        {
           "id": "detour_hook",
           "source": "repo_catalog"
         }
@@ -9464,10 +10275,6 @@
         },
         {
           "id": "x64dbg",
-          "source": "derived"
-        },
-        {
-          "id": "il2cppdumper",
           "source": "derived"
         }
       ],
@@ -9496,7 +10303,14 @@
         "author_completed": false
       },
       "engine": "Modified Unity IL2CPP (Custom Metadata)",
-      "engine_family": "unity_il2cpp",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "custom / modified metadata or encryption"
+      },
       "arch": [
         "unknown"
       ],
@@ -9505,20 +10319,14 @@
       "difficulty": 4,
       "exp": 1250,
       "what_to_find": "Studying `global-metadata.dat` header obfuscation & string literal encryption on local offline private sandboxes.",
-      "techniques": [
-        {
-          "id": "il2cpp_dump",
-          "source": "repo_catalog"
-        }
-      ],
-      "tools": [
-        {
-          "id": "il2cppdumper",
-          "source": "derived"
-        }
-      ],
+      "techniques": [],
+      "tools": [],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "cm03",
+          "lab10",
+          "cm05"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -9526,7 +10334,21 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": true,
+        "note": "Encrypted / obfuscated IL2CPP metadata of an online-service game (local private sandbox context). Conceptual hints only: what global-metadata is, why a publisher encrypts or obfuscates it, and what that protects. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05).",
+        "redirect_labs": [
+          "cm03",
+          "lab10",
+          "cm05"
+        ],
+        "exclude_items": {
+          "techniques": [
+            "il2cpp_dump"
+          ],
+          "tools": [
+            "il2cppdumper"
+          ]
+        }
       }
     },
     {
@@ -9539,7 +10361,14 @@
         "author_completed": false
       },
       "engine": "Unity IL2CPP + Custom Metadata Encryption",
-      "engine_family": "unity_il2cpp",
+      "engine_family": "ambiguous",
+      "engine_family_candidates": [
+        "unity_il2cpp"
+      ],
+      "engine_derivation": {
+        "status": "unknown",
+        "reason": "custom / modified metadata or encryption"
+      },
       "arch": [
         "unknown"
       ],
@@ -9548,20 +10377,14 @@
       "difficulty": 4,
       "exp": 1250,
       "what_to_find": "Locating `Il2CppCodeRegistration` & `Il2CppMetadataRegistration` dispatch tables in stripped binaries and dumping protobuf schemas.",
-      "techniques": [
-        {
-          "id": "il2cpp_dump",
-          "source": "repo_catalog"
-        }
-      ],
-      "tools": [
-        {
-          "id": "il2cppdumper",
-          "source": "derived"
-        }
-      ],
+      "techniques": [],
+      "tools": [],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "cm03",
+          "lab10",
+          "cm05"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -9569,7 +10392,21 @@
       "hints": [],
       "hints_status": "pending",
       "safety": {
-        "restricted": false
+        "restricted": true,
+        "note": "Custom metadata encryption in an online-service game (offline local server context). Conceptual hints only: how metadata registration and its encryption are designed and why. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05).",
+        "redirect_labs": [
+          "cm03",
+          "lab10",
+          "cm05"
+        ],
+        "exclude_items": {
+          "techniques": [
+            "il2cpp_dump"
+          ],
+          "tools": [
+            "il2cppdumper"
+          ]
+        }
       }
     },
     {
@@ -9583,6 +10420,12 @@
       },
       "engine": "Klei C++/Lua & Chucklefish C++/Lua 5.3",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -9650,6 +10493,10 @@
       },
       "engine": "Santa Monica Proprietary Engine (x64 DX12)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9683,6 +10530,12 @@
       },
       "engine": "Diesel Engine 2.0 (C++ & LuaJIT)",
       "engine_family": "lua_hybrid",
+      "engine_family_candidates": [
+        "lua_hybrid"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -9721,6 +10574,10 @@
       },
       "engine": "Sucker Punch Engine & Decima Engine (x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9754,6 +10611,10 @@
       },
       "engine": "Decima Engine & Insomniac Engine (x64 DX12)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9787,6 +10648,10 @@
       },
       "engine": "Firaxis LORE Engine & Clausewitz Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -9837,6 +10702,10 @@
       },
       "engine": "PlatinumGames Engine (x64/x86 C++)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64",
         "x86"
@@ -9871,6 +10740,10 @@
       },
       "engine": "Capcom RE Engine (x64 Native + Managed VM)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9916,6 +10789,10 @@
       },
       "engine": "Larian Divinity Engine 4.0 (x64 ECS)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9961,6 +10838,10 @@
       },
       "engine": "MT Framework & Capcom RE Engine (x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -9994,6 +10875,10 @@
       },
       "engine": "Capcom RE Engine (x64 Native + Managed VM)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -10039,6 +10924,10 @@
       },
       "engine": "Paradox Clausewitz + Jomini Engine (x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -10093,6 +10982,10 @@
       },
       "engine": "FromSoftware Dantelion Engine (x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -10138,6 +11031,10 @@
       },
       "engine": "Creative Assembly Warscape Engine (x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -10188,6 +11085,10 @@
       },
       "engine": "FromSoftware Dantelion 2 & Koei Tecmo Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -10221,6 +11122,10 @@
       },
       "engine": "FromSoftware Dantelion 2 (x64 DX12)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -10254,6 +11159,10 @@
       },
       "engine": "P-Studio Engine & RGG Dragon Engine (x64)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -10287,6 +11196,10 @@
       },
       "engine": "Custom C++20 DOD & FallingEverything Engine",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -10332,6 +11245,12 @@
       },
       "engine": "Cemu (PowerPC Big-Endian) & Ryujinx (ARM64)",
       "engine_family": "emulator",
+      "engine_family_candidates": [
+        "emulator"
+      ],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "arm"
       ],
@@ -10390,6 +11309,10 @@
       },
       "engine": "JVM Bytecode + LWJGL OpenGL (JNI/JVMTI)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],
@@ -10444,6 +11367,10 @@
       },
       "engine": "Hello Games Procedural Engine (x64 Vulkan)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -10489,6 +11416,10 @@
       },
       "engine": "RAGE Engine (x64 Vulkan/DX12 + Arxan)",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "x64"
       ],
@@ -10554,6 +11485,10 @@
       },
       "engine": "StarEngine (64-bit Double Coords) & Matching Decomp",
       "engine_family": "custom",
+      "engine_family_candidates": [],
+      "engine_derivation": {
+        "status": "known"
+      },
       "arch": [
         "unknown"
       ],

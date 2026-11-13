@@ -81,13 +81,6 @@ def difficulty_1_5(raw: float) -> int:
     return max(1, min(5, math.ceil(raw / 2)))
 
 
-def first_family(engine: str) -> str:
-    for rx, fam in S.ENGINE_FAMILY_RULES:
-        if re.search(rx, engine):
-            return fam
-    return "custom"
-
-
 def arch_of(engine: str) -> list[str]:
     found = [a for rx, a in S.ARCH_RULES if re.search(rx, engine)]
     return found or ["unknown"]
@@ -187,8 +180,12 @@ def build(hints_dir: Path) -> dict:
         title = re.sub(r"\s+", " ", title).strip()
         gid = f"g{g['rank']}"
         engine = g["engine"]
-        catalog_text = f"{g['what_to_find']} {engine}"
-        family = first_family(engine)
+        eng = S.derive_engine(engine)
+        family = eng["family"]
+        # Ambiguous engine -> nothing comes from the engine string: neither family-derived techniques
+        # nor keyword hits inside it ('IL2CPP' in the engine). Only what_to_find and my_notes count.
+        catalog_text = g["what_to_find"] if eng["status"] == "unknown" else f"{g['what_to_find']} {engine}"
+        override = safety.get("games", {}).get(gid)
 
         techniques: dict = {}
         tools: dict = {}
@@ -205,9 +202,15 @@ def build(hints_dir: Path) -> dict:
         for rx, tool in S.CATALOG_TOOL_RULES:
             if re.search(rx, catalog_text):
                 add_item(tools, tool, "repo_catalog")
+        # Restricted nodes may exclude items outright (e.g. no Il2CppDumper for encrypted metadata).
+        excluded = (override or {}).get("exclude_items", {})
+        for t in excluded.get("techniques", []):
+            techniques.pop(t, None)
         for t in techniques:
             if t in S.TECHNIQUE_DERIVED_TOOLS:
                 add_item(tools, S.TECHNIQUE_DERIVED_TOOLS[t], "derived")
+        for t in excluded.get("tools", []):
+            tools.pop(t, None)
 
         prereq_labs: list[str] = []
         for t in sorted(techniques, key=S.TECHNIQUES.index):
@@ -227,6 +230,9 @@ def build(hints_dir: Path) -> dict:
             },
             "engine": engine,
             "engine_family": family,
+            "engine_family_candidates": eng["candidates"],
+            "engine_derivation": ({"status": "unknown", "reason": eng["reason"]} if eng["status"] == "unknown"
+                                  else {"status": "known"}),
             "arch": arch_of(engine),
             "tier": g["tier"],
             "difficulty_raw": raw_diff,
@@ -241,8 +247,12 @@ def build(hints_dir: Path) -> dict:
             "hints_status": "pending",
             "safety": {"restricted": False},
         }
-        if gid in safety.get("games", {}):
-            node["safety"] = safety["games"][gid]
+        if override:
+            node["safety"] = override
+            # Practice on restricted nodes is redirected to own labs: show them as prerequisites (map edges).
+            for lab_id in override.get("redirect_labs", []):
+                if lab_id not in prereq_labs:
+                    prereq_labs.append(lab_id)
         apply_hints(node, hints, used_hints)
         games.append(node)
 

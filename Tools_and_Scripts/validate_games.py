@@ -23,6 +23,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -178,6 +179,7 @@ class Validator:
             self.err(w, "flags.steam_library / flags.author_completed must be booleans")
         if g.get("engine_family") not in S.ENGINE_FAMILIES:
             self.err(w, f"engine_family '{g.get('engine_family')}' not in enum")
+        self.engine_derivation(w, g)
         arch = g.get("arch")
         if not (isinstance(arch, list) and arch and all(a in S.ARCH for a in arch)) or ("unknown" in (arch or []) and len(arch) > 1):
             self.err(w, "arch must be a non-empty list of x86/x64/arm, or exactly ['unknown']")
@@ -207,10 +209,58 @@ class Validator:
                 if it.get("source") == "my_notes" and not has_notes:
                     self.err(w, f"{field} '{it.get('id')}' claims my_notes but the game has no notes")
 
-        catalog = f"{g.get('what_to_find', '')} {g.get('engine', '')}"
+        catalog = f"{g.get('title', '')} {g.get('engine', '')} {g.get('what_to_find', '')}"
         if S.PROTECTION_RX.search(catalog) and not g.get("safety", {}).get("restricted"):
             self.err(w, "catalog text mentions commercial protection -> safety.restricted must be true "
                         "(add it to data/safety_overrides.json)")
+
+        excl = g.get("safety", {}).get("exclude_items", {})
+        if not isinstance(excl, dict):
+            self.err(w, "safety.exclude_items must be an object")
+        else:
+            for field, enum in (("techniques", S.TECHNIQUES), ("tools", S.TOOLS)):
+                ids = excl.get(field, [])
+                if not (isinstance(ids, list) and all(i in enum for i in ids)):
+                    self.err(w, f"safety.exclude_items.{field} must be a list of known {field} ids")
+                    continue
+                present = {it.get("id") for it in g.get(field, []) if isinstance(it, dict)} & set(ids)
+                if present:
+                    self.err(w, f"{field} {sorted(present)} are excluded by safety.exclude_items but still listed")
+
+    def engine_derivation(self, w: str, g: dict) -> None:
+        """engine_family / candidates / derivation must equal dojo_schema.derive_engine(engine), and an
+        ambiguous engine may not contribute any technique or tool (family rules or engine keywords)."""
+        der, cands = g.get("engine_derivation"), g.get("engine_family_candidates")
+        if not (isinstance(der, dict) and der.get("status") in S.ENGINE_DERIVATION_STATUSES):
+            self.err(w, f"engine_derivation.status must be one of {S.ENGINE_DERIVATION_STATUSES}")
+            return
+        if not (isinstance(cands, list) and all(c in S.ENGINE_FAMILIES and c not in ("ambiguous", "custom") for c in cands)):
+            self.err(w, "engine_family_candidates must be a list of concrete engine families")
+            return
+        unknown = der["status"] == "unknown"
+        if unknown != (g.get("engine_family") == "ambiguous"):
+            self.err(w, "engine_family 'ambiguous' <=> engine_derivation.status 'unknown'")
+        if unknown and not (cands and isinstance(der.get("reason"), str) and der["reason"].strip()):
+            self.err(w, "unknown engine derivation needs candidates and a reason")
+        expect = S.derive_engine(str(g.get("engine", "")))
+        if (g.get("engine_family"), cands, der["status"]) != (expect["family"], expect["candidates"], expect["status"]):
+            self.err(w, f"engine derivation differs from dojo_schema.derive_engine(): expected family "
+                        f"'{expect['family']}', candidates {expect['candidates']}, status '{expect['status']}'")
+        if not unknown:
+            return
+        wtf = str(g.get("what_to_find", ""))
+        for t in g.get("techniques", []):
+            if not isinstance(t, dict):
+                continue
+            if t.get("source") == "derived":
+                self.err(w, f"ambiguous engine: technique '{t.get('id')}' must not be derived from the engine")
+            elif t.get("source") == "repo_catalog" and not any(
+                    tid == t.get("id") and re.search(rx, wtf, re.IGNORECASE) for rx, tid in S.CATALOG_TECHNIQUE_RULES):
+                self.err(w, f"ambiguous engine: technique '{t.get('id')}' is not backed by what_to_find")
+        for t in g.get("tools", []):
+            if isinstance(t, dict) and t.get("source") == "repo_catalog" and not any(
+                    tid == t.get("id") and re.search(rx, wtf) for rx, tid in S.CATALOG_TOOL_RULES):
+                self.err(w, f"ambiguous engine: tool '{t.get('id')}' is not backed by what_to_find")
 
     def labs(self, w: str, lab: dict) -> None:
         if not (isinstance(lab["id"], str) and lab["id"][:3] in ("lab", "cm0", "cm1")):
@@ -325,8 +375,10 @@ class Validator:
                     self.err(hw, "source my_notes needs at least one ref to THIS node's own notes "
                                  "(a lab source alone does not make a game hint 'my notes')")
 
-            # --- protection topics only on restricted nodes
-            if not restricted and S.PROTECTION_RX.search(text):
+            # --- protection topics only on restricted nodes. Labs/crackmes are the author's own binaries:
+            # license-file / keygen talk is fine there, commercial product names are not.
+            prot_rx = S.PROTECTION_PRODUCTS_RX if n.get("kind") in ("lab", "crackme") else S.PROTECTION_RX
+            if not restricted and prot_rx.search(text):
                 self.err(hw, "hint mentions a commercial protection but the node is not safety.restricted")
 
             # --- anti-hallucination: concrete literals must have provenance
@@ -349,9 +401,38 @@ class Validator:
                 self.err(f"{w}.hints[2]", "restricted node: level-3 hint must reference a redirect lab source")
 
 
+def protection_report(data: dict) -> None:
+    """Report-only scan of all games for a human safety decision. Never changes data, never fails."""
+    def ctx(text: str, m) -> str:
+        a, b = max(0, m.start() - 35), min(len(text), m.end() + 35)
+        return ("..." if a else "") + text[a:b] + ("..." if b < len(text) else "")
+
+    say("== Hard tier (PROTECTION_RX: forces safety.restricted) ==")
+    for g in data["games"]:
+        hits = [(f, m.group(0)) for f in ("title", "engine", "what_to_find")
+                for m in S.PROTECTION_RX.finditer(str(g.get(f, "")))]
+        if hits:
+            say(f"  {g['id']} restricted={g['safety']['restricted']} {g['title']}: "
+                + "; ".join(f"{f}: '{h}'" for f, h in hits))
+    say("== Review tier (PROTECTION_REVIEW_RX: broad words, human decision) ==")
+    for g in data["games"]:
+        for f in ("title", "engine", "what_to_find"):
+            text = str(g.get(f, ""))
+            for m in S.PROTECTION_REVIEW_RX.finditer(text):
+                say(f"  {g['id']} restricted={g['safety']['restricted']} {f}: '{m.group(0)}' | {ctx(text, m)}")
+    say("== Offline-qualified titles (online mode implied; protection NOT stated in the repo) ==")
+    for g in data["games"]:
+        m = S.OFFLINE_QUALIFIER_RX.search(g["title"])
+        if m:
+            say(f"  {g['id']} restricted={g['safety']['restricted']} '{m.group(0)}' | {g['title']}")
+    say("Note: zero text hits does not mean a game ships without protection; the catalog simply does not say.")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Validate RE:DOJO data/games.json")
     ap.add_argument("--file", type=Path, default=ROOT / "data" / "games.json")
+    ap.add_argument("--protection-report", action="store_true",
+                    help="list protection-related wording in all games for a human decision (report only)")
     args = ap.parse_args()
     try:
         data = json.loads(args.file.read_text(encoding="utf-8"))
@@ -361,6 +442,9 @@ def main() -> int:
     except json.JSONDecodeError as e:
         say(f"[FAIL] {args.file.name}: invalid JSON at line {e.lineno}: {e.msg}")
         return 1
+    if args.protection_report:
+        protection_report(data)
+        return 0
 
     errors = Validator(data).run()
     if errors:

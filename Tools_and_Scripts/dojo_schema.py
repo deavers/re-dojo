@@ -30,7 +30,9 @@ ENGINE_FAMILIES = [
     "unity_mono", "unity_il2cpp", "unreal_1", "unreal_2", "unreal_3", "unreal_4", "unreal_5",
     "source", "goldsrc", "idtech", "native_win32", "dotnet_xna", "gamemaker", "godot",
     "lua_hybrid", "popcap", "renderware_gamebryo", "js_web", "emulator", "custom",
+    "ambiguous",  # engine string allows several families with different techniques -> nothing derived
 ]
+ENGINE_DERIVATION_STATUSES = ["known", "unknown"]
 
 TECHNIQUES = [
     "exact_value_scan", "float_double_scan", "bitmask_flags", "struct_dissect", "pointer_scan",
@@ -53,7 +55,8 @@ NOTE_KINDS = ["cheat_table", "writeup", "lab_source"]
 HINT_MAX_LEN = 400
 
 # ---------------------------------------------------------------------------
-# Derivation rules (ordered; first match wins for engine family)
+# Derivation rules. ENGINE_FAMILY_RULES order = display priority when several candidates agree on
+# techniques ('UE4 & UE5' -> unreal_5). Unity backends and C#/.NET are special-cased in derive_engine().
 # ---------------------------------------------------------------------------
 ENGINE_FAMILY_RULES = [
     (r"IL2CPP", "unity_il2cpp"),
@@ -184,11 +187,41 @@ TECHNIQUE_LABS = {
     "save_format": ["cm04"],
 }
 
-# Catalog text that touches commercial software protection -> node must be safety.restricted.
-PROTECTION_RX = re.compile(
-    r"\b(Arxan|Denuvo|SecuROM|SafeDisc|StarForce|VMProtect|Themida|WinLicense|anti-?cheat|EasyAntiCheat|BattlEye|DRM)\b",
+# ---------------------------------------------------------------------------
+# Commercial protection, hard tier. A hit in a game's catalog text (title + engine + what_to_find)
+# forces safety.restricted; hints of unrestricted nodes must not match.
+# ---------------------------------------------------------------------------
+_PROTECTION_PRODUCTS = (
+    r"\b(?:Arxan|Denuvo|SecuROM|SafeDisc|StarForce|VMProtect|Themida|WinLicense|DRM"
+    r"|anti-?cheats?|EasyAntiCheat|Easy\s+Anti-?Cheat|BattlEye|Vanguard|Valve\s+Anti-?Cheat)\b"
+    r"|(?-i:\bEAC\b|\bVAC\b)"                                         # acronyms: upper-case only
+    r"|\b(?:custom|encrypted|modified)\s+(?:global[- ])?metadata\b"     # encrypted IL2CPP metadata
+    r"|\bmetadata\s+(?:encrypt|obfuscat)\w*"
+    r"|\b(?:private|local)\s+(?:private\s+|offline\s+)?(?:servers?|sandbox(?:es)?)\b"
+)
+# Bypassing license / online checks of commercial software. NOT applied to hints of labs and
+# crackmes: those are the author's own binaries (CM 02 keygen, CM 04 license.dat).
+_LICENSE_BYPASS = (
+    r"\b(?:bypass\w*|crack\w*|skip\w*|disabl\w*|remov\w*|patch\w*)\s+(?:the\s+)?"
+    r"(?:licen[cs]e|activation|online|DRM|serial)(?:\s+(?:checks?|verification|validation|keys?))?\b"
+    r"|\b(?:licen[cs]e|activation|online)\s+(?:checks?|verification|validation)\s+(?:bypass|crack|patch)\w*"
+    r"|\bkeygens?\b|\balways[- ]online\b"
+)
+PROTECTION_PRODUCTS_RX = re.compile(_PROTECTION_PRODUCTS, re.IGNORECASE)
+PROTECTION_RX = re.compile(_PROTECTION_PRODUCTS + "|" + _LICENSE_BYPASS, re.IGNORECASE)
+
+# Report-only tier (validate_games.py --protection-report): broad words a human must look at.
+# Never fails validation and is never applied to hint text.
+PROTECTION_REVIEW_RX = re.compile(
+    r"\b(?:encrypt\w*|decrypt\w*|obfuscat\w*|metadata|licen[cs]\w*|keygens?|crack(?!ers?\b)\w*|bypass\w*"
+    r"|online|activation|servers?|private|integrity|checksums?|packers?|anti-?debug\w*"
+    r"|anti-?tamper\w*|anti-?cheats?|DRM|Denuvo|Arxan|SecuROM|SafeDisc|StarForce|BattlEye|Vanguard)\b"
+    r"|(?-i:\bEAC\b|\bVAC\b)",
     re.IGNORECASE,
 )
+# A title qualified as Offline / Solo / Bots / ... implies the game also has an online mode. The repo
+# does not state any protection for it, so this is listed for a human decision, never flagged.
+OFFLINE_QUALIFIER_RX = re.compile(r"\b(?:Offline|Solo|Bots|Sandbox|Story Mode|Singleplayer)\b", re.IGNORECASE)
 
 # Literals that must never be invented in hint text (validator checks provenance).
 HEX_RX = re.compile(
@@ -237,6 +270,92 @@ def literal_in(literal: str, corpus: str) -> bool:
     left = r"(?<![0-9A-Za-z_])" if re.match(r"\w", literal) else ""
     right = r"(?![0-9A-Za-z_])" if re.search(r"\w$", literal) else ""
     return re.search(left + body + right, corpus, re.IGNORECASE) is not None
+
+# ---------------------------------------------------------------------------
+# Engine string -> family + derivation status
+# ---------------------------------------------------------------------------
+_UNITY_RX = re.compile(r"\bUnity\b|IL2CPP")
+_MONO_RX = re.compile(r"\bMono\b(?!Game)")
+_IL2CPP_RX = re.compile(r"IL2CPP")
+_DOTNET_RUNTIME_RX = re.compile(r"XNA|MonoGame|\bFNA\b")
+_DOTNET_LANG_RX = re.compile(r"\.NET|\bC#")
+_WRAPPER_RX = re.compile(r"\b(?:Wrapper|Hybrid)\b", re.IGNORECASE)
+_CUSTOM_METADATA_RX = re.compile(r"\b(?:Custom|Modified)\b.*\b(?:Metadata|Encryption)\b", re.IGNORECASE)
+
+
+def split_engine(engine: str) -> list[str]:
+    """Split on ' & ' outside parentheses: 'UE4 & Unity IL2CPP' -> 2 parts, 'PAIN (C++ & Lua)' -> 1 part."""
+    parts, cur, depth, i = [], "", 0, 0
+    while i < len(engine):
+        if depth == 0 and engine.startswith(" & ", i):
+            parts.append(cur)
+            cur, i = "", i + 3
+            continue
+        ch = engine[i]
+        if ch == "(":
+            depth += 1
+        elif ch == ")" and depth:
+            depth -= 1
+        cur += ch
+        i += 1
+    parts.append(cur)
+    return [p.strip() for p in parts if p.strip()]
+
+
+def _part_families(part: str) -> tuple[list[str], list[str]]:
+    """Every family one engine part may be (not just the first match) + ambiguity reasons."""
+    fams: list[str] = []
+    reasons: list[str] = []
+    unity = bool(_UNITY_RX.search(part))
+    if unity:
+        if _IL2CPP_RX.search(part):
+            fams.append("unity_il2cpp")
+        if _MONO_RX.search(part):
+            fams.append("unity_mono")
+        if not fams:
+            fams = ["unity_mono", "unity_il2cpp"]
+            reasons.append("Unity without a stated scripting backend (Mono / IL2CPP)")
+    for rx, fam in ENGINE_FAMILY_RULES:
+        if fam in ("unity_mono", "unity_il2cpp") or fam in fams:
+            continue
+        if fam == "dotnet_xna":
+            if _DOTNET_RUNTIME_RX.search(part):
+                fams.append(fam)
+            elif _DOTNET_LANG_RX.search(part) and not unity:  # C#/.NET inside a Unity part is just Unity
+                fams.append(fam)
+                if "C++" in part:
+                    reasons.append("mixed C++/C# engine without a named .NET runtime")
+        elif re.search(rx, part):
+            fams.append(fam)
+    return fams, reasons
+
+
+def derive_engine(engine: str) -> dict:
+    """
+    {"family", "candidates", "status", "reason"}. A part with no family match adds no candidate.
+    status 'unknown' (family 'ambiguous') when the engine string does not pin down ONE set of
+    engine-implied techniques; then nothing at all may be derived from the engine string.
+    'UE4 & UE5' stays 'known': both imply the same techniques.
+    """
+    parts = split_engine(engine)
+    cands: list[str] = []
+    reasons: list[str] = []
+    for part in parts:
+        fams, why = _part_families(part)
+        reasons += why
+        cands += [f for f in fams if f not in cands]
+    if _WRAPPER_RX.search(engine):
+        reasons.append("wrapper / hybrid engine")
+    if _CUSTOM_METADATA_RX.search(engine):
+        reasons.append("custom / modified metadata or encryption")
+    if len({tuple(ENGINE_DERIVED_TECHNIQUES.get(f, [])) for f in cands}) > 1:
+        reasons.append("candidates imply different techniques" + (" (several games in one entry)" if len(parts) > 1 else ""))
+    order = [fam for _, fam in ENGINE_FAMILY_RULES]
+    cands.sort(key=order.index)
+    if reasons:
+        return {"family": "ambiguous", "candidates": cands, "status": "unknown", "reason": "; ".join(dict.fromkeys(reasons))}
+    return {"family": cands[0] if cands else "custom", "candidates": cands, "status": "known", "reason": ""}
+
 
 TITLE_STAR = "⭐"   # in Steam library
 TITLE_CHECK = "✅"  # completed by author

@@ -141,6 +141,14 @@ check("hint count persisted", (await ev("document.getElementById('statHints').te
 await click('.tile[data-id="g199"]');
 const banner = await ev("[...document.querySelectorAll('#panelBody .banner')].map(b => b.textContent).join(' | ')");
 check("restricted banner on g199", banner.includes("Ограниченный уровень") && banner.includes("Lab 10"), banner.slice(0, 120));
+await click('.tile[data-id="g176"]');
+const b176 = await ev("[...document.querySelectorAll('#panelBody .banner')].map(b => b.textContent).join(' | ')");
+const tools176 = await ev("[...document.querySelectorAll('#panelBody span.chip')].map(c => c.textContent).join(' ')");
+check("g176 restricted, redirected to CM 03, no Il2CppDumper", b176.includes("Ограниченный уровень") && b176.includes("CM 03") && !tools176.includes("Il2CppDumper"), b176.slice(0, 120));
+await click('.tile[data-id="g002"]');
+const amb = await ev("(() => { const p = document.querySelector('#panelBody .engine-unknown'); return p ? p.textContent : ''; })()");
+const g002 = await ev("[...document.querySelectorAll('#panelBody span.chip')].map(c => c.textContent).join(' ')");
+check("ambiguous engine: 'unknown [нужна проверка]', no Mono Dissector", amb.includes("Техники движка: unknown") && amb.includes("[нужна проверка]") && !g002.includes("Mono Dissector"), amb.slice(0, 120));
 await click('.tile[data-id="q_ss_legacy_drm"]');
 check("restricted campaign quest present", (await ev("document.getElementById('pTitle').textContent")).includes("Legacy DRM"));
 
@@ -154,8 +162,10 @@ check("E-- games still locked", (await ev("document.querySelector('.tile[data-id
 
 // filters
 await ev(`(() => { const s = document.getElementById('fEngine'); s.value = 'unity_mono'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);
-check("engine filter unity_mono -> 31", (await ev("document.querySelectorAll('.tile').length")) === 31);
-check("counter under a game-only filter", (await ev("document.getElementById('shownCount').textContent")) === "Игры: 31 из 200 · Лабы и крякми: 0 из 18 · Квесты: 0 из 2");
+check("engine filter unity_mono -> 23", (await ev("document.querySelectorAll('.tile').length")) === 23);
+check("counter under a game-only filter", (await ev("document.getElementById('shownCount').textContent")) === "Игры: 23 из 200 · Лабы и крякми: 0 из 18 · Квесты: 0 из 2");
+await ev(`(() => { const s = document.getElementById('fEngine'); s.value = 'ambiguous'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+check("engine filter ambiguous -> 17", (await ev("document.querySelectorAll('.tile').length")) === 17);
 await ev(`(() => { document.getElementById('filters').reset(); const s = document.getElementById('fSearch'); s.value = 'isaac'; s.dispatchEvent(new Event('input', { bubbles: true })); })()`);
 await sleep(50);
 const isaac = await ev("[...document.querySelectorAll('.tile')].map(t => t.dataset.id)");

@@ -5,7 +5,8 @@ RE:DOJO map - regression test for Tools_and_Scripts/validate_games.py (stdlib on
 Builds games.json variants with test-stub hint batches in a temp dir (nothing is written to data/)
 and asserts that the validator accepts the positive cases and rejects every negative case with the
 expected message: invented hex / versions / AOB bytes / [reg+off], substring and laundered provenance,
-my_notes without own notes, protection mentions, restricted-node rules, structural mutations.
+my_notes without own notes, protection tiers, restricted-node rules, ambiguous-engine rules,
+structural mutations; plus a table-driven test of dojo_schema.derive_engine().
 
 Usage (from anywhere):  python Tools_and_Scripts/tests/test_validator_fixtures.py
 Exit code 0 = all expectations met. Output is ASCII-only.
@@ -30,6 +31,7 @@ def three(t1, src="needs_verification", refs=None):
 GH = "Game_Hacking/README.md"
 LAB02 = "Course_Solutions/Lab02_Data_Types_and_Bitmasks/lab02_datatypes_bitmasks.cpp"
 LAB10 = "Course_Solutions/Lab10_Integrity_and_AntiTamper_Boss/lab10_integrity_boss.cpp"
+CM03 = "Crackmes_and_CTF/03_XOR_and_Rol_Cipher/crackme03_xor_rol.cpp"
 G199_OK = {"status": "draft", "hints": [
     H(1, "What does an integrity check protect, conceptually?"),
     H(2, "Concept: hashing code pages and comparing to a reference.", "repo_catalog"),
@@ -76,6 +78,21 @@ cases = {
     "n32_lab_ref_earns_my_notes": ({"g001": three("See my lab.", "my_notes", ["Course_Solutions/Lab01_Static_Scalars/lab01_static_scalars.cpp"])}, False, "THIS node's own notes"),
     "n33_literal_borrowed_from_lab": ({"g009": three("Power-up flag is 0x80.", "needs_verification", [LAB02])}, False, "'0x80'"),
     "n31_unknown_node": ({"g999": three("a")}, False, "unknown node ids"),
+    # --- protection tiers (hard tier: named products, anti-cheat acronyms, license / online-check bypass)
+    "n34_license_bypass_in_game": ({"g001": three("Bypass the license check first.")}, False, "commercial protection"),
+    "n35_eac_acronym_in_game": ({"g001": three("Games with EAC are off-limits.")}, False, "commercial protection"),
+    "n36_product_in_crackme": ({"cm04": three("Unlike Denuvo, this file check is simple.")}, False, "commercial protection"),
+    "p07_keygen_in_own_crackme": ({"cm02": three("Write a keygen for your own crackme; patch the license check if stuck.")}, True, ""),
+    "p08_offline_sandbox_wording": ({"g006": three("Use the offline sandbox mode for practice.")}, True, ""),
+    # --- g176 / g177: restricted, conceptual only, practice redirected to own labs
+    "p09_g176_conceptual": ({"g176": {"status": "draft", "hints": [
+        H(1, "Why would a publisher encrypt IL2CPP metadata at all?"),
+        H(2, "Concept: the metadata file maps names to code; encrypting it hides that map.", "repo_catalog"),
+        H(3, "Practice string decryption on your own CM 03 cipher binary.", "needs_verification", [CM03])]}}, True, ""),
+    "n37_g176_hex": ({"g176": {"status": "draft", "hints": [
+        H(1, "The header key sits at 0x10."), H(2, "b"), H(3, "Use CM 03.", "needs_verification", [CM03])]}}, False, "no concrete addresses"),
+    "n38_g177_l3_not_own_lab": ({"g177": {"status": "draft", "hints": [
+        H(1, "a"), H(2, "b"), H(3, "Dump it with a public tool.")]}}, False, "level-3 hint must reference"),
 }
 
 def run(args):
@@ -105,6 +122,13 @@ muts = {
     "m15_missing_note_file": (lambda d: d["games"][18]["notes"].append({"path": "Game_Hacking/nope.CT", "kind": "cheat_table"}), "does not exist"),
     "m16_abs_path": (lambda d: d["games"][18]["notes"].append({"path": "C:/x/y.CT", "kind": "cheat_table"}), "repo-relative"),
     "m17_my_notes_claim_without_notes": (lambda d: d["games"][0]["techniques"].append({"id": "aob_injection", "source": "my_notes"}), "claims my_notes"),
+    # --- ambiguous engine: nothing may come from the engine string
+    "m18_ambiguous_derived_technique": (lambda d: d["games"][1]["techniques"].append({"id": "mono_dissect", "source": "derived"}), "must not be derived from the engine"),
+    "m19_ambiguous_engine_keyword": (lambda d: d["games"][5]["techniques"].append({"id": "il2cpp_dump", "source": "repo_catalog"}), "not backed by what_to_find"),
+    "m20_family_differs_from_rule": (lambda d: d["games"][1].update(engine_family="unity_mono"), "engine derivation differs"),
+    "m21_ambiguous_but_status_known": (lambda d: d["games"][1].update(engine_derivation={"status": "known"}), "'ambiguous' <=>"),
+    "m22_excluded_tool_present": (lambda d: d["games"][175]["tools"].append({"id": "il2cppdumper", "source": "derived"}), "excluded by safety.exclude_items"),
+    "m23_g176_not_restricted": (lambda d: d["games"][175].update(safety={"restricted": False}), "commercial protection"),
 }
 for name, (f, needle) in muts.items():
     d = copy.deepcopy(base); f(d); out = sp / f"{name}.games.json"
@@ -113,6 +137,41 @@ for name, (f, needle) in muts.items():
     ok = rc == 1 and needle in o
     bad += not ok
     print(f"{'PASS' if ok else 'FAIL'} {name}: rc={rc}")
-print(f"\n{len(cases) + len(muts) - bad}/{len(cases) + len(muts)} fixture expectations met")
+
+# --- engine classifier, table-driven (pure strings, independent of the catalog)
+sys.path.insert(0, str(ROOT / "Tools_and_Scripts"))
+import dojo_schema as S  # noqa: E402
+ENGINE_TABLE = [
+    # (engine string, expected family, expected status)
+    ("Unity / ActionScript Wrapper", "ambiguous", "unknown"),           # wrapper + Unity without backend
+    ("Unity / PopCap Hybrid", "ambiguous", "unknown"),
+    ("JS / Electron Wrapper (x64)", "ambiguous", "unknown"),
+    ("Unity IL2CPP / Mono", "ambiguous", "unknown"),                    # both backends named
+    ("Unity Engine (x86/x64)", "ambiguous", "unknown"),                 # no backend
+    ("Playdead Custom C++/C# Engine", "ambiguous", "unknown"),          # C++/C# without a named runtime
+    ("GameMaker Studio & Unity Engine", "ambiguous", "unknown"),        # two games, different engines
+    ("Unreal Engine 4 & Unity IL2CPP", "ambiguous", "unknown"),
+    ("Modified Unity IL2CPP (Custom Metadata)", "ambiguous", "unknown"),
+    ("Unity IL2CPP + Custom Metadata Encryption", "ambiguous", "unknown"),
+    ("Unreal Engine 4 & Unreal Engine 5 (x64)", "unreal_5", "known"),   # same techniques -> not ambiguous
+    ("PAIN Engine (x86 C++ & Lua)", "lua_hybrid", "known"),             # '&' inside parentheses
+    ("Diesel Engine 2.0 (C++ & LuaJIT)", "lua_hybrid", "known"),
+    ("Supergiant Custom C++ & Lua 5.2 Engine (x64)", "lua_hybrid", "known"),  # part without a family adds no candidate
+    ("Unity Engine Mono (C#)", "unity_mono", "known"),                  # C# inside Unity is just Unity
+    ("Unity IL2CPP (x64 Native Assembly)", "unity_il2cpp", "known"),
+    (".NET / MonoGame (x64 C#)", "dotnet_xna", "known"),
+    ("Modified Unreal Engine 2.5 (x64)", "unreal_2", "known"),          # bare 'Modified' does not fire
+    ("Unreal Engine 3 (Modified x64)", "unreal_3", "known"),
+    ("Custom 2D C++ Engines (x86)", "custom", "known"),                 # bare 'Custom' does not fire
+    ("Custom Win32 OpenGL C++ (x86)", "native_win32", "known"),
+]
+for eng, fam, status in ENGINE_TABLE:
+    r = S.derive_engine(eng)
+    ok = (r["family"], r["status"]) == (fam, status)
+    bad += not ok
+    print(f"{'PASS' if ok else 'FAIL'} engine '{eng}' -> {r['family']}/{r['status']} (expected {fam}/{status})".encode("ascii", "backslashreplace").decode())
+
+total = len(cases) + len(muts) + len(ENGINE_TABLE)
+print(f"\n{total - bad}/{total} fixture expectations met")
 _tmp.cleanup()
 sys.exit(1 if bad else 0)

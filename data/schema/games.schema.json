@@ -203,6 +203,25 @@
           "items": {
             "type": "string"
           }
+        },
+        "exclude_items": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Ids never shown for this node, whatever the catalog text says.",
+          "properties": {
+            "techniques": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tools": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
         }
       },
       "if": {
@@ -351,6 +370,8 @@
             "flags",
             "engine",
             "engine_family",
+            "engine_family_candidates",
+            "engine_derivation",
             "arch",
             "difficulty_raw",
             "difficulty",
@@ -408,8 +429,68 @@
                 "renderware_gamebryo",
                 "js_web",
                 "emulator",
-                "custom"
+                "custom",
+                "ambiguous"
               ]
+            },
+            "engine_family_candidates": {
+              "type": "array",
+              "description": "Every concrete family the engine string allows (parts split on ' & ' outside parentheses).",
+              "items": {
+                "enum": [
+                  "unity_mono",
+                  "unity_il2cpp",
+                  "unreal_1",
+                  "unreal_2",
+                  "unreal_3",
+                  "unreal_4",
+                  "unreal_5",
+                  "source",
+                  "goldsrc",
+                  "idtech",
+                  "native_win32",
+                  "dotnet_xna",
+                  "gamemaker",
+                  "godot",
+                  "lua_hybrid",
+                  "popcap",
+                  "renderware_gamebryo",
+                  "js_web",
+                  "emulator"
+                ]
+              }
+            },
+            "engine_derivation": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status"
+              ],
+              "description": "'unknown' <=> engine_family 'ambiguous': nothing is derived from the engine string.",
+              "properties": {
+                "status": {
+                  "enum": [
+                    "known",
+                    "unknown"
+                  ]
+                },
+                "reason": {
+                  "type": "string"
+                }
+              },
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "unknown"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "status",
+                  "reason"
+                ]
+              }
             },
             "arch": {
               "type": "array",
