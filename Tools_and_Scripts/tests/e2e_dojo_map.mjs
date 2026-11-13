@@ -260,8 +260,11 @@ await send("Emulation.clearDeviceMetricsOverride");
 
 // real (committed) page: no hints yet
 await ev("localStorage.clear()");
-await nav(pathToFileURL(REAL_PAGE).href + "#g019");
-check("real page: empty-hints message", (await ev("document.getElementById('panelBody').textContent")).includes("ещё не написаны"));
+await nav(pathToFileURL(REAL_PAGE).href + "#g020");
+check("real page: empty-hints message on a node without hints", (await ev("document.getElementById('panelBody').textContent")).includes("ещё не написаны"));
+// Hint batches are optional data: only assert what holds for any real page (no stage-5 content baked into the test).
+const realHinted = await ev("(() => { const d = JSON.parse(document.getElementById('dojo-data').textContent); return [...d.games, ...d.labs, ...d.quests].filter(n => n.hints.length).every(n => n.hints.length === 3 && n.hints_status !== 'pending'); })()");
+check("real page: every hinted node has 3 hints and a non-pending status", realHinted === true);
 await shot("desktop-real-overview", 1400, 900);
 await ev("window.scrollTo(0, 0)");
 

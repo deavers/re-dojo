@@ -1014,11 +1014,36 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Деньги здесь вырастают до огромных чисел, целому типу их не удержать. Подумай, в каком типе удобно хранить такие суммы, и выбери его в поиске сразу.",
+          "source": "needs_verification",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "По каталогу баланс — double, а множители дохода бизнесов — float. Экранное число округлено, поэтому ищи «неизвестное начальное значение» и отсеивай «увеличилось / уменьшилось».",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "Движок — Unity Mono, так что вместо охоты по числам можно открыть Mono Dissector и найти класс с балансом и счётчиком Angel Investor. Типы double и float разобраны в Lab 02.",
+          "source": "needs_verification",
+          "refs": [
+            "Course_Solutions/Lab02_Data_Types_and_Bitmasks/lab02_datatypes_bitmasks.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g004",
@@ -1082,11 +1107,36 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Очки ДНК — обычное 4-байтовое целое. Это самый простой вход: точный поиск, потрать очки, отсей.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Заразность, тяжесть и летальность — float. Прогресс лекарства тоже дробный: ищи его через «неизвестное начальное значение» и «увеличилось», пока лекарство разрабатывается.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "Каталог предлагает держать прогресс лекарства на 0.0f. Заморозь найденный float в нуле; если его перезаписывают каждый кадр, найди инструкцию, которая пишет в адрес.",
+          "source": "repo_catalog",
+          "refs": [
+            "Course_Solutions/Lab01_Static_Scalars/lab01_static_scalars.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g005",
@@ -1234,11 +1284,36 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Поле — статический массив байтов, его адрес не меняется между запусками. Ищи не «мины», а то, как поле выглядит в памяти: открой Memory View и сделай пару тестовых кликов.",
+          "source": "needs_verification",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "По каталогу массив поля лежит по 0x01005340, каждая клетка — байт: 0x8F — мина, 0x0F — безопасная. Сопоставь строки байтов в Memory View с рядами на экране.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "Таймер — счётчик секунд, его можно заморозить. Каталог упоминает и прямой вызов функции победы: ищи её в дизассемблере от кода, который срабатывает при выигрыше. Двумерные массивы в памяти — тема Lab 03.",
+          "source": "needs_verification",
+          "refs": [
+            "Course_Solutions/Lab03_2D_Arrays_and_Structures/lab03_grid_minesweeper.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g008",
@@ -1299,11 +1374,36 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Очки — 4-байтовое целое, мячи — отдельный счётчик. Начни с мячей: значение маленькое и меняется предсказуемо.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Сила пружины плунжера — float. Ищи «неизвестное значение» и отсеивай «увеличилось / уменьшилось», меняя натяжение перед запуском.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "Штраф Tilt — флаг, который ставит код при сильном толчке. Найди флаг, посмотри, какая инструкция в него пишет, и замени её NOP-ами, как в Lab 05.",
+          "source": "repo_catalog",
+          "refs": [
+            "Course_Solutions/Lab05_Code_Injection_and_NOP/lab05_code_injection.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g009",
@@ -1359,11 +1459,36 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Жизни — простой счётчик: точный поиск, потеряй мяч, отсей.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Ширина ракетки — float, скорость мяча — вектор из нескольких float. Найдя одну компоненту, посмотри соседние адреса: вторая часто лежит рядом.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "Выпадение бонусов задано битовыми флагами: каждый бит — отдельный бонус. Меняй по одному биту и смотри эффект; разбор масок есть в Lab 02.",
+          "source": "repo_catalog",
+          "refs": [
+            "Course_Solutions/Lab02_Data_Types_and_Bitmasks/lab02_datatypes_bitmasks.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g010",
@@ -1415,11 +1540,36 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Жизни, ракеты и уровень оружия — целые счётчики. Начни с ракет: их легко тратить по одной.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Перегрев оружия — float, который растёт при стрельбе и падает в паузе. Ищи «неизвестное значение», затем чередуй «увеличилось» при стрельбе и «уменьшилось» в паузе.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "Каталог предлагает держать перегрев на 0.0f. Заморозь найденный float в нуле; если его перезаписывают слишком часто, найди пишущую инструкцию и подставь ноль прямо в ней.",
+          "source": "repo_catalog",
+          "refs": [
+            "Course_Solutions/Lab05_Code_Injection_and_NOP/lab05_code_injection.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g011",
@@ -1469,11 +1619,36 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Найди HP своего игрока точным поиском и посмотри, что к нему обращается: регистр в инструкции укажет на начало структуры игрока.",
+          "source": "needs_verification",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "По каталогу указатель на локального игрока статический: LocalPlayer по 0x50F4F4. В его структуре лежат HP, броня и патроны, а EntityList хранит остальных игроков.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "Для отрисовки поверх игры нужны матрица 4x4 ViewMatrix и углы Pitch/Yaw. Сравни найденную матрицу с формулой WorldToScreen из Lab 08 — математика та же.",
+          "source": "repo_catalog",
+          "refs": [
+            "Course_Solutions/Lab08_3D_Math_and_WorldToScreen/lab08_3d_w2s_simulator.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g012",
@@ -1582,11 +1757,36 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Здоровье червей — массив: значения всех червей лежат рядом. Найди одного, остальных увидишь в Memory View.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Боезапас Banana Bomb и Holy Hand Grenade — счётчики, ищи их после броска. Ветер — float направления и силы, меняется каждый ход.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "Таймер хода — обратный отсчёт: заморозь его или найди пишущую инструкцию. Массив здоровья удобно разметить структурой в ReClass или Dissect Data, как в Lab 03.",
+          "source": "repo_catalog",
+          "refs": [
+            "Course_Solutions/Lab03_2D_Arrays_and_Structures/lab03_grid_minesweeper.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g014",
@@ -1698,11 +1898,36 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "ioquake3 — открытый код. Прежде чем сканировать память, прочитай в исходниках, как объявлены структуры сущностей: это сэкономит часы.",
+          "source": "needs_verification",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "По каталогу цели — массивы структур centity_t и clientInfo_t и векторы скорости. Зная поля из исходников, разметь структуру в ReClass и сверь значения в игре.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "Оверлей рисуется хуком wglSwapBuffers: перехвати функцию, нарисуй своё и верни управление оригиналу. Принцип детура и внутренней DLL — Lab 09.",
+          "source": "repo_catalog",
+          "refs": [
+            "Course_Solutions/Lab09_Internal_DLL_and_Hooks/lab09_internal_hook_target.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g016",
@@ -1752,11 +1977,34 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Здоровье и броня — отдельные значения. Начни с брони: она меняется реже, и её легче отсеять.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Скорость движения — float. Ищи «неизвестное значение» и сравнивай его в разных состояниях движения, отсеивая «изменилось / не изменилось».",
+          "source": "needs_verification",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "Каталог указывает, что модификаторы гравитации находятся в Engine.dll. Найди float гравитации и посмотри, какой код его читает: так видно, где движок применяет физику.",
+          "source": "repo_catalog",
+          "refs": []
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g017",
@@ -1815,11 +2063,36 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Запас нитро — float: ищи «неизвестное значение», отсеивай «уменьшилось» при ускорении и «увеличилось» при подборе нитро.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Масса и ускорение карта лежат в одной физической структуре. Найдя одно поле, разметь соседние в Dissect Data или ReClass: так видна вся структура.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "SuperTuxKart открыт, поэтому имена полей структуры карта можно сверить с исходниками, а не угадывать. Счётчик кругов и таймер гонки — простые значения для тренировки, структуры — тема Lab 03.",
+          "source": "needs_verification",
+          "refs": [
+            "Course_Solutions/Lab03_2D_Arrays_and_Structures/lab03_grid_minesweeper.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g018",
@@ -1871,11 +2144,34 @@
         "source": "derived"
       },
       "notes": [],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Очки — простой счётчик в обеих играх: точный поиск после каждого хода.",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Таймер уровня можно заморозить. Ищи его как убывающее значение через «уменьшилось».",
+          "source": "repo_catalog",
+          "refs": []
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В Feeding Frenzy 2 размер рыбки — float-масштаб Scale. Увеличь его, и рыбка сразу сможет есть крупных хищников (каталог упоминает акул). Движок тот же — PopCap, что и у PvZ.",
+          "source": "repo_catalog",
+          "refs": []
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g019",
@@ -1950,11 +2246,40 @@
           "kind": "writeup"
         }
       ],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Солнце хранится не в статической переменной, а внутри объекта поля боя. Найди его точным поиском (собрал — потратил — отсеял), затем спроси «что обращается к этому адресу»: регистр в инструкции укажет на базу объекта.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/README.md#1-plants-vs-zombies-goty-tier-e--21--10"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "По моим заметкам цепочка выглядит как LawnApp -> Board -> Sun. Таблица при этом опирается не на статический адрес, а на AOB-инъекцию в инструкцию, которая читает солнце: так скрипт находит нужный объект сам.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/README.md#1-plants-vs-zombies-goty-tier-e--21--10"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В PvZ.CT скрипт «Sun 999» ищет байты 8B 87 78 55 00 00 (mov eax,[edi+00005578]) через aobscanmodule и перед этой инструкцией пишет 999 в [edi+00005578]. Значение и смещение берутся ровно из рабочей таблицы PvZ.CT.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/PvZ.CT"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g020",
@@ -2977,11 +3302,40 @@
           "kind": "writeup"
         }
       ],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Урон игроку и ботам проходит через одну и ту же инструкцию движка. Найди HP своего Pawn, поставь «что пишет в этот адрес» и получи урон: та же инструкция сработает и при попадании по врагам.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/README.md#2-unreal-tournament-goty-1999-tier-d--29--10"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Это общий код: если просто обнулить урон, бессмертными станут и боты. Нужен фильтр «бьют игрока / бьют бота». В моих заметках база игрока идёт от Engine.dll+002EAC38 через иерархию UObject -> AActor -> APawn.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/README.md#2-unreal-tournament-goty-1999-tier-d--29--10"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В UnrealTournament_UT99.CT «One shoot kill» ставит хук на 29 06 8B 45 0C (sub [esi],eax) в Core.dll. Если [esi] — HP игрока (база, затем +30 и 31C), урон обнуляется. Иначе при cmp eax, 1 (урон больше 1) и проверках cmp dword ptr [esi], 1000 и cmp dword ptr [esi], 0 урон заменяется на #300.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/UnrealTournament_UT99.CT"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g039",
@@ -4886,11 +5240,41 @@
           "kind": "writeup"
         }
       ],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Сердца — это не одно число: красные, духовные и чёрные хранятся отдельно, и часть из них — битовая маска. Начни с монет, бомб и ключей (простые целые), а сердца разбирай потом.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/README.md#3-the-binding-of-isaac-repentance-tier-c---38--10"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "По моим заметкам урон, скорость и слёзы сбрасываются из кэша при переходе между комнатами. Поэтому в таблице это AOB Lock: перехватывается инструкция чтения стата и подставляется своё float-значение.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/README.md#3-the-binding-of-isaac-repentance-tier-c---38--10"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В isaac-ng.CT скрипт «DMG (AOB Lock)» ищет F3 0F 10 88 70 14 00 00 (movss xmm1,[eax+00001470]) и перед чтением пишет в [eax+00001470] значение символа MyDamage (float 100.0), которое можно менять в таблице.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/isaac-ng.CT",
+            "Game_Hacking/README.md#3-the-binding-of-isaac-repentance-tier-c---38--10"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g075",
@@ -5691,11 +6075,42 @@
           "kind": "writeup"
         }
       ],
-      "hints": [],
-      "hints_status": "pending",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Это Unity Mono: классы игры видны по именам. Включи Mono Dissector в Cheat Engine и найди классы Agent, InvDatabase и Stat — искать числа вслепую не придётся.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/README.md#4-streets-of-rogue-v98-tier-c--41--10"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Хуки в моей таблице — x64 JIT AOB: сигнатура ищется через aobscan по всей памяти процесса, а не через aobscanmodule в одном модуле. Причина — JIT-код Mono создаётся во время работы и лежит вне модулей игры.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/StreetsOfRogue_v98.CT",
+            "Game_Hacking/README.md#4-streets-of-rogue-v98-tier-c--41--10"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В StreetsOfRogue_v98.CT «Inf Money» ищет 48 63 80 F0 00 00 00 48 63 4E 58 через aobscan и выделяет память рядом с точкой инъекции. HP там не хук, а Lua-заморозка двух float-полей по цепочке от \"UnityPlayer.dll\"+019CFC98.",
+          "source": "my_notes",
+          "refs": [
+            "Game_Hacking/StreetsOfRogue_v98.CT",
+            "Game_Hacking/README.md#4-streets-of-rogue-v98-tier-c--41--10"
+          ]
+        }
+      ],
+      "hints_status": "draft",
       "safety": {
         "restricted": false
-      }
+      },
+      "hints_batch": "batch_01.json"
     },
     {
       "id": "g089",

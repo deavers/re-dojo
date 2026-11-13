@@ -57,6 +57,17 @@ Hints live here, **not** in `data/games.json`. `Tools_and_Scripts/build_games_js
   * still NOT detected: offsets without a prefix/suffix (`смещение 5560`, `1A4`) and versions glued to a word (`UE4.27`);
   * false alarms (fail closed, rephrase): decimals in prose (`999.0`), `+10 к урону`, `+100 EXP`, `C++20`, `Ctrl+F5`.
 
+## Известные расхождения в авторских заметках
+
+Источник истины для подсказок — рабочие таблицы `.CT`: подсказка описывает то, что скрипт буквально
+делает. Расхождения с `Game_Hacking/README.md` и с комментариями в скриптах не разрешаются в пользу
+догадки, и подсказки не утверждают, какое значение «правильное». Сами `.CT` и README не правятся.
+
+| Игра | Где | Расхождение | Статус |
+| :--- | :--- | :--- | :--- |
+| g019 Plants vs. Zombies GOTY | `Game_Hacking/README.md` ↔ `Game_Hacking/PvZ.CT` | README: счётчик солнца `+0x5560`; скрипт «Sun 999» в `.CT`: `[edi+00005578]` | автор считает опечаткой/ошибкой документации, таблица работала на своей версии |
+| g038 Unreal Tournament 99 | комментарий ↔ код в `Game_Hacking/UnrealTournament_UT99.CT` | комментарий «1 to 1000»; код `cmp dword ptr [esi], 1000` — число без префикса `#`, в Auto Assembler это hex | автор считает опечаткой/ошибкой документации, таблица работала на своей версии |
+
 ## Ambiguous engines
 
 `engine_family: "ambiguous"` + `engine_derivation.status: "unknown"` (see `derive_engine()` in
