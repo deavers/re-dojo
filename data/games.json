@@ -1102,6 +1102,73 @@
       }
     },
     {
+      "id": "cm10",
+      "kind": "crackme",
+      "label": "CM 10",
+      "title": "Checksum Serial",
+      "tier": "D-",
+      "difficulty_raw": 2.6,
+      "difficulty": 2,
+      "exp": 350,
+      "path": "Crackmes_and_CTF/10_Checksum_Serial/crackme10_checksum_serial.cpp",
+      "prerequisite_text": "Python keygen",
+      "concept": "Rule-based serial: Luhn check digit, digit-sum rule, derived block - write a keygen for any valid serial",
+      "prerequisites": {
+        "labs": [
+          "cm02"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Crackmes_and_CTF/10_Checksum_Serial/crackme10_checksum_serial.cpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Здесь нет одного правильного серийника, с которым сравнивают ввод. Найди все функции, которые получают разобранные цифры и возвращают bool, — каждая из них отдельное правило.",
+          "source": "my_notes",
+          "refs": [
+            "Crackmes_and_CTF/10_Checksum_Serial/crackme10_checksum_serial.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Одно правило проходит по цифрам справа налево и удваивает каждую вторую — это алгоритм Луна, контрольная цифра. Два других связывают блоки: сумма цифр первого блока и третий блок, вычисленный из первого.",
+          "source": "my_notes",
+          "refs": [
+            "Crackmes_and_CTF/10_Checksum_Serial/crackme10_checksum_serial.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В crackme10_checksum_serial.cpp: сумма цифр блока 1 равна 20, блок 3 = (блок1 * 7 + 1234) % 10000, последняя цифра — контрольная по Луну. Кейген: выбери блок 1, блок 2 любой, вычисли блок 3, добавь три цифры и контрольную.",
+          "source": "my_notes",
+          "refs": [
+            "Crackmes_and_CTF/10_Checksum_Serial/crackme10_checksum_serial.cpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
+      "safety": {
+        "restricted": false
+      },
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "hints_batch": "labs_01.json"
+    },
+    {
       "id": "lab06",
       "kind": "lab",
       "label": "Lab 06",

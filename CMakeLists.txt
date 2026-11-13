@@ -88,3 +88,5 @@ dojo_add_lab(ID lab18 TARGET lab18_lazy_singleton DIR Course_Solutions/Lab18_Laz
 dojo_add_lab(ID lab19 TARGET lab19_pointer_scan DIR Course_Solutions/Lab19_Pointer_Scan_Restarts
              SOURCE   Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_pointer_scan.cpp
              SELFTEST Course_Solutions/Lab19_Pointer_Scan_Restarts/check/lab19_selftest.cpp)
+dojo_add_lab(ID cm10 TARGET crackme10_checksum_serial DIR Crackmes_and_CTF/10_Checksum_Serial
+             SOURCE   Crackmes_and_CTF/10_Checksum_Serial/crackme10_checksum_serial.cpp)

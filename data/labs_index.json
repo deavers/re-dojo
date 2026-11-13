@@ -426,7 +426,7 @@
       "title": "Серийник с контрольной цифрой",
       "tier": "D-",
       "difficulty_raw": 2.6,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "cm02"
       ],
