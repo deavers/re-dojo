@@ -449,6 +449,77 @@
       }
     },
     {
+      "id": "lab13",
+      "kind": "lab",
+      "label": "Lab 13",
+      "title": "Strings in Memory",
+      "tier": "E--",
+      "difficulty_raw": 0.8,
+      "difficulty": 1,
+      "exp": 180,
+      "path": "Course_Solutions/Lab13_Strings_in_Memory/lab13_strings.cpp",
+      "prerequisite_text": "Fuzzy scans",
+      "concept": "Strings in memory: UTF-16 (`char16_t`) names, length-prefixed ASCII tags, fixed buffers",
+      "prerequisites": {
+        "labs": [
+          "lab12"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Course_Solutions/Lab13_Strings_in_Memory/lab13_strings.cpp",
+          "kind": "lab_source"
+        },
+        {
+          "path": "Course_Solutions/Lab13_Strings_in_Memory/lab13_core.hpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Имя героя хранится не однобайтовыми буквами. Если скан строки по видимому имени ничего не находит, подумай, какой кодировкой Windows-программы часто хранят текст, и включи её в поиске.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab13_Strings_in_Memory/lab13_strings.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Перед буквами тега лежит отдельный байт длины, и игра читает ровно столько букв, сколько в нём записано. Поменять только буквы мало: нужно поменять и длину, не затерев её самими буквами.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab13_Strings_in_Memory/lab13_strings.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab13_core.hpp: heroName — char16_t[16] на +0x00 (UTF-16LE, с нулём в конце), tagLength — байт на +0x20, guildTag — ASCII на +0x21. Имя целиком помещается в буфер, ограничение 8 букв есть только в меню.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab13_Strings_in_Memory/lab13_core.hpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
+      "safety": {
+        "restricted": false
+      },
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "hints_batch": "labs_01.json"
+    },
+    {
       "id": "lab03",
       "kind": "lab",
       "label": "Lab 03",

@@ -117,7 +117,7 @@
       "title": "Строки в памяти",
       "tier": "E--",
       "difficulty_raw": 0.8,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab12"
       ],

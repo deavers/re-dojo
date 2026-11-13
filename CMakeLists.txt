@@ -68,3 +68,6 @@ dojo_add_lab(ID lab11 TARGET lab11_integer_widths DIR Course_Solutions/Lab11_Int
 dojo_add_lab(ID lab12 TARGET lab12_double_fuzzy DIR Course_Solutions/Lab12_Double_and_Fuzzy_Scan
              SOURCE   Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_double_fuzzy.cpp
              SELFTEST Course_Solutions/Lab12_Double_and_Fuzzy_Scan/check/lab12_selftest.cpp)
+dojo_add_lab(ID lab13 TARGET lab13_strings DIR Course_Solutions/Lab13_Strings_in_Memory
+             SOURCE   Course_Solutions/Lab13_Strings_in_Memory/lab13_strings.cpp
+             SELFTEST Course_Solutions/Lab13_Strings_in_Memory/check/lab13_selftest.cpp)
