@@ -76,3 +76,6 @@ dojo_add_lab(ID cm09 TARGET crackme09_mirror DIR Crackmes_and_CTF/09_Mirror_Gate
 dojo_add_lab(ID lab15 TARGET lab15_fixed_point DIR Course_Solutions/Lab15_Fixed_Point
              SOURCE   Course_Solutions/Lab15_Fixed_Point/lab15_fixed_point.cpp
              SELFTEST Course_Solutions/Lab15_Fixed_Point/check/lab15_selftest.cpp)
+dojo_add_lab(ID lab16 TARGET lab16_array_of_structs DIR Course_Solutions/Lab16_Array_of_Structs
+             SOURCE   Course_Solutions/Lab16_Array_of_Structs/lab16_array_of_structs.cpp
+             SELFTEST Course_Solutions/Lab16_Array_of_Structs/check/lab16_selftest.cpp)

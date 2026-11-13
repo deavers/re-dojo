@@ -216,7 +216,7 @@
       "title": "Массив структур и шаг",
       "tier": "E-",
       "difficulty_raw": 1.4,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab03"
       ],

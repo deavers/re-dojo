@@ -160,6 +160,38 @@
           ]
         }
       ]
+    },
+    "lab16": {
+      "status": "draft",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Найди HP одного бойца точным сканом, а потом HP следующего. Разница между их адресами — размер одной структуры. Дальше все бойцы находятся арифметикой, без новых сканов.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab16_Array_of_Structs/lab16_array_of_structs.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "У каждого бойца одни и те же поля в одном порядке. Кроме HP, в структуре есть поле состояния: павший боец отличается от живого битом в нём, а не только нулевым HP.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab16_Array_of_Structs/lab16_array_of_structs.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab16_core.hpp: sizeof(Unit) == 0x18 — это шаг. HP — на +0x04 каждого элемента, flags — на +0x14, бит 0 — «жив». Павший боец — элемент 5: ему нужны и HP, и этот бит.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab16_Array_of_Structs/lab16_core.hpp"
+          ]
+        }
+      ]
     }
   }
 }

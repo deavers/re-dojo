@@ -696,6 +696,77 @@
       }
     },
     {
+      "id": "lab16",
+      "kind": "lab",
+      "label": "Lab 16",
+      "title": "Array of Structs",
+      "tier": "E-",
+      "difficulty_raw": 1.4,
+      "difficulty": 1,
+      "exp": 220,
+      "path": "Course_Solutions/Lab16_Array_of_Structs/lab16_array_of_structs.cpp",
+      "prerequisite_text": "Struct offsets",
+      "concept": "Array of structs: entity list, element stride, the same field in every element",
+      "prerequisites": {
+        "labs": [
+          "lab03"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Course_Solutions/Lab16_Array_of_Structs/lab16_array_of_structs.cpp",
+          "kind": "lab_source"
+        },
+        {
+          "path": "Course_Solutions/Lab16_Array_of_Structs/lab16_core.hpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Найди HP одного бойца точным сканом, а потом HP следующего. Разница между их адресами — размер одной структуры. Дальше все бойцы находятся арифметикой, без новых сканов.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab16_Array_of_Structs/lab16_array_of_structs.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "У каждого бойца одни и те же поля в одном порядке. Кроме HP, в структуре есть поле состояния: павший боец отличается от живого битом в нём, а не только нулевым HP.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab16_Array_of_Structs/lab16_array_of_structs.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab16_core.hpp: sizeof(Unit) == 0x18 — это шаг. HP — на +0x04 каждого элемента, flags — на +0x14, бит 0 — «жив». Павший боец — элемент 5: ему нужны и HP, и этот бит.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab16_Array_of_Structs/lab16_core.hpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
+      "safety": {
+        "restricted": false
+      },
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "hints_batch": "labs_01.json"
+    },
+    {
       "id": "lab04",
       "kind": "lab",
       "label": "Lab 04",
@@ -2393,7 +2464,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07",
+          "lab16",
           "lab09"
         ],
         "games": [],
@@ -2564,7 +2635,7 @@
           "lab02",
           "lab12",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -2839,7 +2910,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -2994,7 +3065,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -3250,7 +3321,7 @@
           "lab11",
           "lab02",
           "lab03",
-          "lab07",
+          "lab16",
           "lab04"
         ],
         "games": [],
@@ -3319,7 +3390,7 @@
           "lab02",
           "lab12",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -3529,7 +3600,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -3753,7 +3824,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -4095,7 +4166,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -4366,7 +4437,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -4426,7 +4497,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -4524,7 +4595,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -5260,7 +5331,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -5728,7 +5799,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -5797,7 +5868,7 @@
         "labs": [
           "lab02",
           "lab03",
-          "lab07",
+          "lab16",
           "lab05"
         ],
         "games": [],
@@ -5898,7 +5969,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -6644,7 +6715,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07",
+          "lab16",
           "lab05",
           "lab09"
         ],
@@ -6892,7 +6963,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -6960,7 +7031,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -7195,7 +7266,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -8244,7 +8315,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -8354,7 +8425,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -8850,7 +8921,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -8997,7 +9068,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -10458,7 +10529,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -10518,7 +10589,7 @@
           "lab02",
           "lab12",
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -11536,7 +11607,7 @@
           "lab01",
           "lab11",
           "lab03",
-          "lab07",
+          "lab16",
           "lab09"
         ],
         "games": [],
@@ -12298,7 +12369,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
@@ -12421,7 +12492,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07",
+          "lab16",
           "lab09"
         ],
         "games": [],
@@ -12473,7 +12544,7 @@
       "prerequisites": {
         "labs": [
           "lab03",
-          "lab07"
+          "lab16"
         ],
         "games": [],
         "source": "derived"
