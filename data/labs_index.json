@@ -1167,7 +1167,7 @@
       "title": "Мини-«UE»: пул имён",
       "tier": "B+",
       "difficulty_raw": 5.5,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab33",
         "lab35"

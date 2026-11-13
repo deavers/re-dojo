@@ -102,3 +102,6 @@ dojo_add_lab(ID cm17 TARGET crackme17_register_vm DIR Crackmes_and_CTF/17_Regist
 dojo_add_lab(ID lab54 TARGET lab54_emulator DIR Course_Solutions/Lab54_Emulator_Guest_RAM
              SOURCE   Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_emulator.cpp
              SELFTEST Course_Solutions/Lab54_Emulator_Guest_RAM/check/lab54_selftest.cpp)
+dojo_add_lab(ID lab45 TARGET lab45_name_pool DIR Course_Solutions/Lab45_MiniUE_Name_Pool
+             SOURCE   Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_name_pool.cpp
+             SELFTEST Course_Solutions/Lab45_MiniUE_Name_Pool/check/lab45_selftest.cpp)

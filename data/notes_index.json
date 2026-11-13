@@ -180,6 +180,12 @@
         "path": "Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_core.hpp",
         "kind": "lab_source"
       }
+    ],
+    "lab45": [
+      {
+        "path": "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_core.hpp",
+        "kind": "lab_source"
+      }
     ]
   }
 }

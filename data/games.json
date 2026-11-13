@@ -1472,6 +1472,79 @@
       }
     },
     {
+      "id": "lab45",
+      "kind": "lab",
+      "label": "Lab 45",
+      "title": "MiniUE Name Pool",
+      "tier": "B+",
+      "difficulty_raw": 5.5,
+      "difficulty": 3,
+      "exp": 960,
+      "path": "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_name_pool.cpp",
+      "prerequisite_text": "RTTI, hashed names",
+      "concept": "Own UE-style name pool: chunks, `len << 6` entry header, FName index = chunk << 16 | offset / 2; write a dumper",
+      "prerequisites": {
+        "labs": [],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_name_pool.cpp",
+          "kind": "lab_source"
+        },
+        {
+          "path": "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_core.hpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Имён в бинаре открытым текстом нет — они появляются в памяти только после старта. Найди одно знакомое имя строковым сканом в памяти и посмотри, что лежит прямо перед ним и рядом с ним: соседние записи устроены так же.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_name_pool.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Перед каждым именем два байта заголовка, а из них получается длина. Записи идут подряд внутри блока фиксированного размера, а блоки лежат в куче в разных местах. Найди глобальную переменную, которая хранит указатели на все блоки, и разберись, как индекс делится на номер блока и смещение.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_name_pool.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab45_core.hpp: g_NamePool.chunks — массив указателей на +0x08, размер чанка kChunkSize, заголовок = длина << 6 (little-endian), индекс = (chunk << 16) | (offset / 2). Дамп — строки «индекс имя» для каждой записи.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_core.hpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
+      "safety": {
+        "restricted": false
+      },
+      "prerequisites_planned": [
+        "lab33",
+        "lab35"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "hints_batch": "labs_01.json"
+    },
+    {
       "id": "lab09",
       "kind": "lab",
       "label": "Lab 09",
@@ -8752,7 +8825,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab45"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -9918,7 +9993,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab45"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -11189,7 +11266,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab45"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -11248,7 +11327,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab45"
         ],
         "games": [],
         "source": "derived"
@@ -11307,7 +11387,8 @@
       ],
       "prerequisites": {
         "labs": [
-          "lab09"
+          "lab09",
+          "lab45"
         ],
         "games": [],
         "source": "derived"
@@ -11357,7 +11438,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab45"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -11407,7 +11490,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab45"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -11457,7 +11542,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab45"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -11566,7 +11653,8 @@
       "prerequisites": {
         "labs": [
           "lab01",
-          "lab11"
+          "lab11",
+          "lab45"
         ],
         "games": [],
         "source": "derived"
@@ -11618,7 +11706,9 @@
         }
       ],
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab45"
+        ],
         "games": [],
         "source": "derived"
       },
