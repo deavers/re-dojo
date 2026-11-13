@@ -320,6 +320,38 @@
           ]
         }
       ]
+    },
+    "lab32": {
+      "status": "draft",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Все три стражника используют одну и ту же таблицу виртуальных методов. Сравни их vptr: если поменять слот в самой таблице, подкупными станут все, и Маршал это заметит.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab32_Shadow_VMT/lab32_shadow_vmt.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Сделай Капитану собственную копию таблицы: выдели память, скопируй туда все слоты и запиши адрес копии в его vptr. Потом меняй слот только в копии — нужная функция, которая отвечает true, уже есть у Торговца.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab32_Shadow_VMT/lab32_shadow_vmt.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab32_core.hpp: IsBribable — slot 2 (table +0x10), в таблице 4 слота. Капитан — g_Guards[2], объект +0x20 от начала массива, его vptr на +0x00 объекта. В копии таблицы запиши в +0x10 значение из таблицы g_Merchant по +0x10.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab32_Shadow_VMT/lab32_core.hpp"
+          ]
+        }
+      ]
     }
   }
 }

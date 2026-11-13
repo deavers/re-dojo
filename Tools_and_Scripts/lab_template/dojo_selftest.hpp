@@ -10,6 +10,13 @@
 //                                               start at the root object (obj) or at the
 //                                               static root pointer (ptr), follow a pointer
 //                                               at every offset but the last, write at the last
+//   vcopy <off> <nslots>                        VMT labs: copy the table that the pointer at
+//                                               object+off points to into a harness-owned buffer
+//                                               (a "shadow VMT") and point object+off at the copy
+//   vset <off> <slot> donor <dslot>             VMT labs: in the table referenced by object+off,
+//                                               replace slot <slot> with slot <dslot> of the donor
+//                                               object's table. Original tables are registered
+//                                               READ-ONLY, so patching a shared table is rejected.
 //
 // Types: i8 u8 i16 u16 i32 u32 i64 u64 f32 f64 str8 str16 (str16 = UTF-16LE, ASCII text only)
 // Every read and write is bounds-checked against registered regions: a wrong answer can
@@ -36,6 +43,7 @@ struct Region
 {
     const unsigned char* begin;
     std::size_t size;
+    bool readOnly = false;
 };
 
 struct Harness
@@ -45,13 +53,19 @@ struct Harness
     const void* pointerRoot = nullptr; // ADDRESS of a static pointer variable (read with memcpy)
     std::vector<Region> regions;
     std::function<bool(const std::string&)> act;
+    unsigned char* donor = nullptr;          // VMT labs: object whose table slots may be borrowed
+    std::vector<std::vector<void*>> shadows; // VMT labs: harness-owned table copies
 };
 
-inline bool InRegions(const Harness& h, const unsigned char* p, std::size_t len)
+inline bool InRegions(const Harness& h, const unsigned char* p, std::size_t len, bool write = false)
 {
     const auto addr = reinterpret_cast<std::uintptr_t>(p);
     for (const Region& r : h.regions)
     {
+        if (write && r.readOnly)
+        {
+            continue;
+        }
         const auto lo = reinterpret_cast<std::uintptr_t>(r.begin);
         if (addr >= lo && len <= r.size && addr - lo <= r.size - len)
         {
@@ -192,6 +206,72 @@ inline std::string RestOfLine(std::istringstream& in)
     return rest;
 }
 
+inline unsigned char* At(unsigned char* base, std::size_t off);
+
+inline bool ReadPtr(const Harness& h, unsigned char* at, unsigned char*& out)
+{
+    if (!InRegions(h, at, sizeof(void*)))
+    {
+        return false;
+    }
+    void* v = nullptr;
+    std::memcpy(&v, at, sizeof(void*));
+    out = static_cast<unsigned char*>(v);
+    return out != nullptr;
+}
+
+// vcopy / vset. Returns 0 ok, 2 malformed or not allowed (out of region / read-only table).
+inline int RunVmtCommand(Harness& h, const std::string& cmd, std::istringstream& in)
+{
+    std::string offText, a, b, c;
+    std::size_t off = 0;
+    if (!(in >> offText) || !ParseOffset(offText, off))
+    {
+        return 2;
+    }
+    unsigned char* slotOfVptr = At(h.object, off);
+    unsigned char* table = nullptr;
+    if (!InRegions(h, slotOfVptr, sizeof(void*), true) || !ReadPtr(h, slotOfVptr, table))
+    {
+        return 2;
+    }
+    if (cmd == "vcopy")
+    {
+        std::size_t nslots = 0;
+        if (!(in >> a) || !ParseOffset(a, nslots) || nslots == 0 || nslots > 64 ||
+            !InRegions(h, table, nslots * sizeof(void*)))
+        {
+            return 2;
+        }
+        h.shadows.emplace_back(nslots);
+        std::memcpy(h.shadows.back().data(), table, nslots * sizeof(void*));
+        unsigned char* copy = reinterpret_cast<unsigned char*>(h.shadows.back().data());
+        h.regions.push_back({copy, nslots * sizeof(void*)});
+        std::memcpy(slotOfVptr, &copy, sizeof(void*));
+        return 0;
+    }
+    std::size_t slot = 0, dslot = 0;
+    if (!(in >> a >> b >> c) || !ParseOffset(a, slot) || b != "donor" || !ParseOffset(c, dslot) ||
+        h.donor == nullptr)
+    {
+        return 2;
+    }
+    unsigned char* donorTable = nullptr;
+    unsigned char* target = At(table, slot * sizeof(void*));
+    unsigned char* source = nullptr;
+    if (!ReadPtr(h, h.donor, donorTable))
+    {
+        return 2;
+    }
+    source = At(donorTable, dslot * sizeof(void*));
+    if (!InRegions(h, source, sizeof(void*)) || !InRegions(h, target, sizeof(void*), true))
+    {
+        return 2; // reading outside the donor table, or writing into a read-only (shared) table
+    }
+    std::memcpy(target, source, sizeof(void*));
+    return 0;
+}
+
 // Address arithmetic goes through uintptr_t: a wrong offset must not be undefined behaviour.
 inline unsigned char* At(unsigned char* base, std::size_t off)
 {
@@ -221,6 +301,15 @@ inline int Run(Harness& h)
             if (!(in >> name) || !h.act || !h.act(name))
             {
                 return 2;
+            }
+            continue;
+        }
+        if (cmd == "vcopy" || cmd == "vset")
+        {
+            const int vr = RunVmtCommand(h, cmd, in);
+            if (vr != 0)
+            {
+                return vr;
             }
             continue;
         }
@@ -292,7 +381,7 @@ inline int Run(Harness& h)
             cur = static_cast<unsigned char*>(next);
         }
         unsigned char* target = At(cur, offsets.back());
-        if (!InRegions(h, target, bytes.size()))
+        if (!InRegions(h, target, bytes.size(), true))
         {
             return 2;
         }

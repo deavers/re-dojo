@@ -168,6 +168,12 @@
         "path": "Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_core.hpp",
         "kind": "lab_source"
       }
+    ],
+    "lab32": [
+      {
+        "path": "Course_Solutions/Lab32_Shadow_VMT/lab32_core.hpp",
+        "kind": "lab_source"
+      }
     ]
   }
 }

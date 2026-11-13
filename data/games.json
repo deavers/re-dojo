@@ -1287,6 +1287,77 @@
       }
     },
     {
+      "id": "lab32",
+      "kind": "lab",
+      "label": "Lab 32",
+      "title": "Shadow VMT",
+      "tier": "C",
+      "difficulty_raw": 3.9,
+      "difficulty": 2,
+      "exp": 600,
+      "path": "Course_Solutions/Lab32_Shadow_VMT/lab32_shadow_vmt.cpp",
+      "prerequisite_text": "VMT basics",
+      "concept": "Shadow VMT: copy the shared table, swap one slot in the copy, repoint one object's `vptr`",
+      "prerequisites": {
+        "labs": [
+          "lab07"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Course_Solutions/Lab32_Shadow_VMT/lab32_shadow_vmt.cpp",
+          "kind": "lab_source"
+        },
+        {
+          "path": "Course_Solutions/Lab32_Shadow_VMT/lab32_core.hpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Все три стражника используют одну и ту же таблицу виртуальных методов. Сравни их vptr: если поменять слот в самой таблице, подкупными станут все, и Маршал это заметит.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab32_Shadow_VMT/lab32_shadow_vmt.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Сделай Капитану собственную копию таблицы: выдели память, скопируй туда все слоты и запиши адрес копии в его vptr. Потом меняй слот только в копии — нужная функция, которая отвечает true, уже есть у Торговца.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab32_Shadow_VMT/lab32_shadow_vmt.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab32_core.hpp: IsBribable — slot 2 (table +0x10), в таблице 4 слота. Капитан — g_Guards[2], объект +0x20 от начала массива, его vptr на +0x00 объекта. В копии таблицы запиши в +0x10 значение из таблицы g_Merchant по +0x10.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab32_Shadow_VMT/lab32_core.hpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
+      "safety": {
+        "restricted": false
+      },
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "hints_batch": "labs_01.json"
+    },
+    {
       "id": "cm04",
       "kind": "crackme",
       "label": "CM 04",
@@ -8866,6 +8937,7 @@
           "lab01",
           "lab11",
           "lab07",
+          "lab32",
           "lab09"
         ],
         "games": [],
@@ -9464,6 +9536,7 @@
       "prerequisites": {
         "labs": [
           "lab07",
+          "lab32",
           "lab09"
         ],
         "games": [],
@@ -12891,6 +12964,7 @@
       "prerequisites": {
         "labs": [
           "lab07",
+          "lab32",
           "lab09",
           "cm05",
           "lab10"

@@ -716,7 +716,7 @@
       "title": "Shadow VMT",
       "tier": "C",
       "difficulty_raw": 3.9,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab07"
       ],
