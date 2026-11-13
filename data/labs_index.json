@@ -1413,7 +1413,7 @@
       "title": "Свой эмулятор: гостевая RAM",
       "tier": "A",
       "difficulty_raw": 6.5,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab18",
         "lab24"

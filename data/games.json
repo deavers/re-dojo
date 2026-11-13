@@ -1510,6 +1510,80 @@
       }
     },
     {
+      "id": "lab54",
+      "kind": "lab",
+      "label": "Lab 54",
+      "title": "Emulator Guest RAM",
+      "tier": "A",
+      "difficulty_raw": 6.5,
+      "difficulty": 4,
+      "exp": 1250,
+      "path": "Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_emulator.cpp",
+      "prerequisite_text": "Pointer chains",
+      "concept": "Own emulator: guest RAM in a host heap buffer, host address = RAM base + guest address",
+      "prerequisites": {
+        "labs": [
+          "lab18"
+        ],
+        "games": [],
+        "source": "derived"
+      },
+      "notes": [
+        {
+          "path": "Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_emulator.cpp",
+          "kind": "lab_source"
+        },
+        {
+          "path": "Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_core.hpp",
+          "kind": "lab_source"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Мануал консоли называет гостевые адреса, а Cheat Engine показывает адреса хоста. Найди счёт обычным сканом 2 Bytes, а потом подумай, как его адрес на хосте связан с гостевым адресом из мануала.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_emulator.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Вычти гостевой адрес счёта из его адреса на хосте — получишь базу гостевой RAM. База меняется при каждом запуске, но эмулятор хранит указатель на неё в своём статическом объекте: найди, кто хранит это значение.",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_emulator.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В lab54_core.hpp указатель на гостевую RAM — Machine::ram на +0x08 объекта g_Machine. Адрес на хосте = значение этого указателя + гостевой адрес: жизни — гостевой 0x0300 (u8), счёт — гостевой 0x0302 (u16, little-endian).",
+          "source": "my_notes",
+          "refs": [
+            "Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_core.hpp"
+          ]
+        }
+      ],
+      "hints_status": "draft",
+      "safety": {
+        "restricted": false
+      },
+      "prerequisites_planned": [
+        "lab24"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "hints_batch": "labs_01.json"
+    },
+    {
       "id": "cm06",
       "kind": "crackme",
       "label": "CM 06",
@@ -12858,7 +12932,8 @@
         "labs": [
           "lab02",
           "lab12",
-          "lab05"
+          "lab05",
+          "lab54"
         ],
         "games": [],
         "source": "derived"
