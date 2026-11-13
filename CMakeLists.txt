@@ -97,3 +97,5 @@ dojo_add_lab(ID cm10 TARGET crackme10_checksum_serial DIR Crackmes_and_CTF/10_Ch
 dojo_add_lab(ID lab32 TARGET lab32_shadow_vmt DIR Course_Solutions/Lab32_Shadow_VMT
              SOURCE   Course_Solutions/Lab32_Shadow_VMT/lab32_shadow_vmt.cpp
              SELFTEST Course_Solutions/Lab32_Shadow_VMT/check/lab32_selftest.cpp)
+dojo_add_lab(ID cm17 TARGET crackme17_register_vm DIR Crackmes_and_CTF/17_Register_VM
+             SOURCE   Crackmes_and_CTF/17_Register_VM/crackme17_register_vm.cpp)

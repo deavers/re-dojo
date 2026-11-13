@@ -1678,7 +1678,7 @@
       "title": "Регистровая VM",
       "tier": "S-",
       "difficulty_raw": 7.4,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "cm06"
       ],

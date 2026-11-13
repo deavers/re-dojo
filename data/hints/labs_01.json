@@ -352,6 +352,38 @@
           ]
         }
       ]
+    },
+    "cm17": {
+      "status": "draft",
+      "hints": [
+        {
+          "level": 1,
+          "kind": "nudge",
+          "text": "Ключ проверяет не C++-код, а байткод. Найди цикл, который читает байт программы и по нему выбирает действие: это диспетчер VM. Выпиши, какой опкод что делает и сколько байт занимают его операнды.",
+          "source": "my_notes",
+          "refs": [
+            "Crackmes_and_CTF/17_Register_VM/crackme17_register_vm.cpp"
+          ]
+        },
+        {
+          "level": 2,
+          "kind": "concept",
+          "text": "Напиши дизассемблер и посмотри на программу целиком: проверка повторяется для каждого символа. Обрати внимание на регистр, в который после каждого сравнения копируется результат: из-за него символы нельзя подбирать по одному независимо.",
+          "source": "my_notes",
+          "refs": [
+            "Crackmes_and_CTF/17_Register_VM/crackme17_register_vm.cpp"
+          ]
+        },
+        {
+          "level": 3,
+          "kind": "near_spoiler",
+          "text": "В crackme17_register_vm.cpp каждый блок делает: LDB r0, i; LDI r1, k; XOR r0, r1; ADD r0, r2; LDI r3, e; CMP r0, r3; JNE fail; MOV r2, r0. Обратно: символ = (e - r2) ^ k, затем r2 = e. Начальный r2 задаёт первая инструкция LDI.",
+          "source": "my_notes",
+          "refs": [
+            "Crackmes_and_CTF/17_Register_VM/crackme17_register_vm.cpp"
+          ]
+        }
+      ]
     }
   }
 }

@@ -179,6 +179,7 @@ Compile all 18 practice binaries into `build/bin/` with a single command (`.\bui
 | **Lab 09** | `B+` | `5.8` | [`lab09_internal_hook_target.cpp`](./Course_Solutions/Lab09_Internal_DLL_and_Hooks/lab09_internal_hook_target.cpp) | Engine structs | **Internal DLL Injection:** Calling internal engine functions by RVA pointer |
 | **CM 06** | `A` | `6.8` | [`crackme06_bytecode_vm.cpp`](./Crackmes_and_CTF/06_Custom_Stack_VM/crackme06_bytecode_vm.cpp) | Switch dispatchers | **Virtualization:** Reversing a custom 12-opcode Stack VM & writing a disassembler |
 | **Lab 10** | `A+` | `7.2` | [`lab10_integrity_boss.cpp`](./Course_Solutions/Lab10_Integrity_and_AntiTamper_Boss/lab10_integrity_boss.cpp) | VMT & assembly hooks | **Boss Fight:** Bypassing `.text` CRC32 Integrity Hashing + XOR-encrypted RAM |
+| **CM 17** | `S-` | `7.4` | [`crackme17_register_vm.cpp`](./Crackmes_and_CTF/17_Register_VM/crackme17_register_vm.cpp) | Stack VM disassembler | Register VM: 4 registers, compare flag, absolute jumps; disassemble the bytecode and invert chained checks |
 | **CM 07** | `S` | `7.8` | [`crackme07_cff_mba.cpp`](./Crackmes_and_CTF/07_Control_Flow_Maze_and_MBA/crackme07_cff_mba.cpp) | VM state loops | **O-LLVM Control-Flow Flattening** + simplifying **Mixed Boolean-Arithmetic (MBA)** |
 | **CM 08** | `SSS-` | `9.2` | [`crackme08_z3_symbolic.cpp`](./Crackmes_and_CTF/08_Symbolic_Execution_Vault/crackme08_z3_symbolic.cpp) | Algebraic systems | **Symbolic Execution:** Solving coupled SMT equations with **Z3 Theorem Prover** |
 
