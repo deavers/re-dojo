@@ -153,6 +153,7 @@ Compile all 18 practice binaries into `build/bin/` with a single command (`.\bui
 | ID | Tier | Diff | In-Repo Source & Binary | Prerequisite Used | 🆕 New Concept Unlocked & Practiced |
 | :-: | :-: | :-: | :--- | :--- | :--- |
 | **Lab 01** | `F-` | `0.1` | [`lab01_static_scalars.cpp`](./Course_Solutions/Lab01_Static_Scalars/lab01_static_scalars.cpp) | *Zero Experience* | Exact 4-Byte integer scanning (`HP`, `Gold`, `Arrows`) & freezing memory |
+| **Lab 11** | `F` | `0.3` | [`lab11_integer_widths.cpp`](./Course_Solutions/Lab11_Integer_Widths/lab11_integer_widths.cpp) | Exact value scans | Scan widths `1` / `2` / `8` Bytes, signed vs unsigned overflow (`int8` morale, `uint16` arrows, `int64` gold) |
 | **Lab 02** | `F` | `0.5` | [`lab02_datatypes_bitmasks.cpp`](./Course_Solutions/Lab02_Data_Types_and_Bitmasks/lab02_datatypes_bitmasks.cpp) | Exact value scans | IEEE-754 `Float` mana, `Int16` durability, & 8-bit status **Bitmask** (`0x80`) |
 | **CM 01** | `F+` | `0.7` | [`crackme01_strings.cpp`](./Crackmes_and_CTF/01_Apprentice_Gate/crackme01_strings.cpp) | Basic terminal I/O | `.rdata` plaintext strings vs runtime **Stack Strings** in Ghidra/x64dbg |
 | **Lab 03** | `E-` | `1.3` | [`lab03_grid_minesweeper.cpp`](./Course_Solutions/Lab03_2D_Arrays_and_Structures/lab03_grid_minesweeper.cpp) | Byte inspection | Contiguous C structs & revealing a hidden $6\times 6$ trap grid in Hex View |

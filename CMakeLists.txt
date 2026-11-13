@@ -62,3 +62,6 @@ add_test(NAME dojo_runner_selftest COMMAND ${Python3_EXECUTABLE} ${DOJO_LAB_RUNN
 set_tests_properties(dojo_runner_selftest PROPERTIES LABELS "lab")
 
 # New labs: one dojo_add_lab(...) per lab, in plan order.
+dojo_add_lab(ID lab11 TARGET lab11_integer_widths DIR Course_Solutions/Lab11_Integer_Widths
+             SOURCE   Course_Solutions/Lab11_Integer_Widths/lab11_integer_widths.cpp
+             SELFTEST Course_Solutions/Lab11_Integer_Widths/check/lab11_selftest.cpp)

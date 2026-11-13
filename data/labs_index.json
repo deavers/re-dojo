@@ -36,7 +36,7 @@
       "title": "Ширина и знак целых",
       "tier": "F",
       "difficulty_raw": 0.3,
-      "status": "planned",
+      "status": "built",
       "prereqs": [
         "lab01"
       ],
