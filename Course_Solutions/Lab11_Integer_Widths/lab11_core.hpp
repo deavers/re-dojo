@@ -29,16 +29,18 @@ static_assert(offsetof(Treasury, gold) == 0x08, "gold offset");
 static_assert(sizeof(Treasury) == 0x10, "Treasury size");
 
 // Cursed Vault requirements.
-// Gold goal 5000000000 does not fit in 4 bytes: a 4-Byte scan will never find the right value.
+// Gold goal 5000000000 does not fit in 4 bytes: a 4-Byte scan does find the current (small) gold,
+// but a 4-byte write can never store 5000000000.
 constexpr std::int64_t kGoldGoal = 5'000'000'000LL;
 constexpr std::uint16_t kArrowsGoal = 65535;
 constexpr std::int8_t kMoraleGoal = -100;
+constexpr std::uint8_t kMaxPotions = 3; // a too-wide write into morale must not slip through
 
 inline Treasury g_Treasury = {12, 3, 40, 1500};
 
 inline bool CheckWin(const Treasury& t)
 {
-    return t.gold >= kGoldGoal && t.arrows == kArrowsGoal && t.morale == kMoraleGoal;
+    return t.gold == kGoldGoal && t.arrows == kArrowsGoal && t.morale == kMoraleGoal && t.potions <= kMaxPotions;
 }
 
 inline std::uint64_t Fnv1a64(const std::string& text)
@@ -52,11 +54,11 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
-// The flag is derived from the requirements, so it is not stored anywhere as plain text.
-inline std::string MakeFlag()
+// The flag mixes a neutral tag with the values the solver actually wrote (read from the state).
+inline std::string MakeFlag(const Treasury& t)
 {
-    const std::string seal = "lab11|" + std::to_string(kGoldGoal) + "|" + std::to_string(kArrowsGoal) + "|" +
-                             std::to_string(static_cast<int>(kMoraleGoal));
+    const std::string seal = "lab11|" + std::to_string(static_cast<int>(t.morale)) + "|" + std::to_string(t.arrows) +
+                             "|" + std::to_string(t.gold);
     std::ostringstream out;
     out << "FLAG{LAB11_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();

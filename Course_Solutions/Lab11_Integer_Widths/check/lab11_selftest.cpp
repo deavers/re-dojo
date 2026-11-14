@@ -21,6 +21,6 @@ int main()
         std::cout << "FAILED: the vault stays shut\n";
         return 1;
     }
-    std::cout << lab11::MakeFlag() << "\n";
+    std::cout << lab11::MakeFlag(lab11::g_Treasury) << "\n";
     return 0;
 }

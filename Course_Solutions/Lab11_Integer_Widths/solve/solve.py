@@ -18,6 +18,11 @@ WRONG = [
     "poke 0x00 i8 100\npoke 0x02 u16 65535\npoke 0x08 i64 5000000000\n",
     # Arrows written as one byte: 255 is not 65535.
     "poke 0x00 i8 -100\npoke 0x02 u8 255\npoke 0x08 i64 5000000000\n",
+    # Morale written as 4 bytes: -100 as int32 is 9C FF FF FF, so potions become 255 and arrows 65535 by
+    # accident - the vault requires at most 3 potions, so a too-wide write must not win.
+    "poke 0x00 i32 -100\npoke 0x08 i64 5000000000\n",
+    # Gold above the goal: the vault wants exactly 5000000000.
+    "poke 0x00 i8 -100\npoke 0x02 u16 65535\npoke 0x08 i64 6000000000\n",
     # Out of bounds: must be rejected, never crash.
     "poke 0x40 i8 1\n",
 ]

@@ -243,7 +243,7 @@
       "exp": 100,
       "path": "Course_Solutions/Lab11_Integer_Widths/lab11_integer_widths.cpp",
       "prerequisite_text": "Exact value scans",
-      "concept": "Scan widths `1` / `2` / `8` Bytes, signed vs unsigned overflow (`int8` morale, `uint16` arrows, `int64` gold)",
+      "concept": "Choosing the scan and write width; signed and unsigned overflow",
       "prerequisites": {
         "labs": [
           "lab01"
@@ -265,7 +265,7 @@
         {
           "level": 1,
           "kind": "nudge",
-          "text": "Не все числа здесь 4-байтовые. Посмотри на каждое требование хранилища: какое значение не поместится в 4 байта, а какое выглядит как предел маленького типа? Под каждое выбирай свой тип скана.",
+          "text": "Не все числа здесь 4-байтовые. Посмотри на каждое требование хранилища: какое значение не поместится в 4 байта, а какое выглядит как предел маленького типа? Под каждое выбирай свою ширину скана и записи.",
           "source": "my_notes",
           "refs": [
             "Course_Solutions/Lab11_Integer_Widths/lab11_integer_widths.cpp"
@@ -274,16 +274,16 @@
         {
           "level": 2,
           "kind": "concept",
-          "text": "Две цели достижимы прямо в игре. Беззнаковое число при вычитании из нуля становится максимумом своего типа, а знаковый байт после 127 уходит в минус. Подумай, какие действия меню это делают и сколько раз их повторить.",
+          "text": "Беззнаковое число при вычитании из нуля становится максимумом своего типа, а знаковый байт после 127 уходит в минус — так две цели достижимы прямо в игре. Золото 4-байтовый скан найдёт (пока оно маленькое), но 5 млрд в 4 байта не запишешь.",
           "source": "my_notes",
           "refs": [
-            "Course_Solutions/Lab11_Integer_Widths/lab11_integer_widths.cpp"
+            "Course_Solutions/Lab11_Integer_Widths/lab11_core.hpp"
           ]
         },
         {
           "level": 3,
           "kind": "near_spoiler",
-          "text": "В lab11_core.hpp: morale — int8_t на +0x00, arrows — uint16_t на +0x02, gold — int64_t на +0x08, байты между ними — выравнивание. Золото ищи сканом 8 Bytes: цель 5000000000 не помещается в 4 байта.",
+          "text": "В lab11_core.hpp: morale — int8_t на +0x00, potions — uint8_t на +0x01, arrows — uint16_t на +0x02, gold — int64_t на +0x08. Пиши каждое поле своей шириной: 4-байтовая запись в morale заденет potions и arrows, а зелий должно остаться не больше 3.",
           "source": "my_notes",
           "refs": [
             "Course_Solutions/Lab11_Integer_Widths/lab11_core.hpp"

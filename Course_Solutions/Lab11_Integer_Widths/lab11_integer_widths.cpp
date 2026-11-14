@@ -8,8 +8,8 @@
 // QUEST OBJECTIVES (the Cursed Vault opens when ALL are true):
 //   1. Morale is exactly -100      (1-byte signed)
 //   2. Arrows are exactly 65535    (2-byte unsigned maximum)
-//   3. Gold is at least 5 billion  (8-byte value - a 4-Byte scan cannot find it)
-//   Two of them can be reached inside the game if you understand overflow.
+//   3. Gold is exactly 5,000,000,000
+//   4. At most 3 potions left
 //
 // Exit codes: 0 vault opened (flag printed), 3 quit / end of input.
 // ============================================================================
@@ -47,7 +47,7 @@ static void PrintState()
     std::cout << "\n   Gold    (8 bytes, signed)  : " << g_Treasury.gold;
     PrintAddress(&g_Treasury.gold);
     std::cout << "\n--------------------------------------------------------------------\n";
-    std::cout << "  Vault needs: Morale = -100, Arrows = 65535, Gold >= 5,000,000,000\n";
+    std::cout << "  Vault needs: Morale = -100, Arrows = 65535, Gold = 5,000,000,000, Potions <= 3\n";
 }
 
 int main()
@@ -105,7 +105,7 @@ int main()
         {
             std::cout << "\n********************************************************************\n";
             std::cout << "  [QUEST COMPLETE - TIER F CLEARED!] The Cursed Vault creaks open.\n";
-            std::cout << "  " << lab11::MakeFlag() << "\n";
+            std::cout << "  " << lab11::MakeFlag(g_Treasury) << "\n";
             std::cout << "********************************************************************\n";
             return 0;
         }
