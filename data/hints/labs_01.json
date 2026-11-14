@@ -505,7 +505,7 @@
         {
           "level": 3,
           "kind": "near_spoiler",
-          "text": "В Program.cs ForgePassphrase делает chars[i] = (Gears[i] ^ (0x2A + i * 5)) - i для каждого элемента Gears. Сравнение точное (Ordinal), регистр важен.",
+          "text": "В Program.cs ForgePassphrase делает chars[i] = (Gears[i] ^ (0x2A + i * 5)) - i для каждого элемента Gears. Сравнение точное (Ordinal), регистр важен. Необязательный второй путь — поправить IL-проверку в dnSpyEx и сохранить модуль; он не проверяется автоматически, а верный флаг всё равно даёт только настоящая фраза (она подмешана в флаг).",
           "source": "my_notes",
           "refs": [
             "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs"
