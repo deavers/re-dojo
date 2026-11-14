@@ -1949,7 +1949,7 @@
       "exp": 1600,
       "path": "Crackmes_and_CTF/17_Register_VM/crackme17_register_vm.cpp",
       "prerequisite_text": "Stack VM disassembler",
-      "concept": "Register VM: 4 registers, compare flag, absolute jumps; disassemble the bytecode and invert chained checks",
+      "concept": "A key check written as bytecode for a custom register machine",
       "prerequisites": {
         "labs": [
           "cm06"
