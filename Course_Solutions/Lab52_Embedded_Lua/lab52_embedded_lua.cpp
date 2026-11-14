@@ -9,7 +9,7 @@
 //   state pointer from the engine object, and execute a chunk.
 //
 // QUEST OBJECTIVE:
-//   The Archmage Guild admits a hero with at least 1,000,000 gold and the title
+//   The Archmage Guild admits a hero with exactly 1,000,000 gold and the title
 //   "Archmage". The script only ever adds 1 gold per turn and never changes the
 //   title - change them through the game's own Lua state.
 //
@@ -44,7 +44,7 @@ static void PrintState()
                   << reinterpret_cast<std::uintptr_t>(g_Engine.L) << std::dec << "\n";
     }
     std::cout << "--------------------------------------------------------------------\n";
-    std::cout << "  The Guild needs hero.gold >= 1000000 and hero.title == \"Archmage\".\n";
+    std::cout << "  The Guild needs hero.gold == 1000000 and hero.title == \"Archmage\".\n";
 }
 
 int main()

@@ -1659,7 +1659,7 @@
       "exp": 1100,
       "path": "Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp",
       "prerequisite_text": "Internal DLL",
-      "concept": "Embedded Lua 5.4: find the game's `lua_State`, run your own chunk through `lua54.dll` (`luaL_loadstring` + `lua_pcallk`)",
+      "concept": "Changing game logic through the game's own scripting VM",
       "prerequisites": {
         "labs": [
           "lab09",

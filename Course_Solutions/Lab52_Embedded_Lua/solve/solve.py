@@ -18,6 +18,8 @@ def answer() -> str:
 WRONG = [
     # +0x08 is flags/turn, not the lua_State pointer: rejected before anything is dereferenced.
     f"luado 0x08 {CODE}\n",
+    # Too much gold: the Guild wants exactly 1000000.
+    'luado 0x10 hero.gold = 2000000; hero.title = "Archmage"\n',
     # Not enough gold.
     'luado 0x10 hero.gold = 999999; hero.title = "Archmage"\n',
     # New globals instead of the hero table's fields.

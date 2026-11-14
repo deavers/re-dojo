@@ -34,7 +34,7 @@ static_assert(offsetof(Engine, L) == 0x10, "lua_State pointer offset");
 
 inline Engine g_Engine{};
 
-// The realm script. The win needs hero.gold >= 1000000 and hero.title == "Archmage";
+// The realm script. The win needs hero.gold == 1000000 and hero.title == "Archmage";
 // tick() only ever adds 1 gold and nothing in the script changes the title.
 constexpr char kScript[] = R"lua(
 hero = { name = "Wanderer", gold = 25, title = "Apprentice" }
@@ -103,7 +103,7 @@ inline bool CheckWin()
 {
     double gold = 0.0;
     std::string title;
-    return g_Engine.L != nullptr && ReadHero(gold, title) && gold >= 1000000.0 && title == "Archmage";
+    return g_Engine.L != nullptr && ReadHero(gold, title) && gold == 1000000.0 && title == "Archmage";
 }
 
 inline std::uint64_t Fnv1a64(const std::string& text)
@@ -117,9 +117,13 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
+// The flag mixes a neutral tag with the hero values the solver set through Lua.
 inline std::string MakeFlag()
 {
-    const std::string seal = "lab52|lua_State|hero.gold>=1000000|Archmage";
+    double gold = 0.0;
+    std::string title;
+    ReadHero(gold, title);
+    const std::string seal = "lab52|" + std::to_string(static_cast<long long>(gold)) + "|" + title;
     std::ostringstream out;
     out << "FLAG{LAB52_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();
