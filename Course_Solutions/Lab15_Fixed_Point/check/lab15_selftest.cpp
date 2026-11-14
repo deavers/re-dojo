@@ -21,6 +21,6 @@ int main()
         std::cout << "FAILED: the hyperjump does not engage\n";
         return 1;
     }
-    std::cout << lab15::MakeFlag() << "\n";
+    std::cout << lab15::MakeFlag(lab15::g_Ship) << "\n";
     return 0;
 }

@@ -114,7 +114,7 @@ int main()
         {
             std::cout << "\n********************************************************************\n";
             std::cout << "  [QUEST COMPLETE - TIER E- CLEARED!] Hyperjump engaged.\n";
-            std::cout << "  " << lab15::MakeFlag() << "\n";
+            std::cout << "  " << lab15::MakeFlag(g_Ship) << "\n";
             std::cout << "********************************************************************\n";
             return 0;
         }

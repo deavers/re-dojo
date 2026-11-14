@@ -59,9 +59,10 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
-inline std::string MakeFlag()
+// The flag mixes a neutral tag with the raw values the solver wrote.
+inline std::string MakeFlag(const Starship& s)
 {
-    const std::string seal = "lab15|fuel=1000.0|thrust=3.25";
+    const std::string seal = "lab15|" + std::to_string(s.fuel) + "|" + std::to_string(s.thrust);
     std::ostringstream out;
     out << "FLAG{LAB15_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();

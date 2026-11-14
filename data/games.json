@@ -597,7 +597,7 @@
       "exp": 180,
       "path": "Course_Solutions/Lab15_Fixed_Point/lab15_fixed_point.cpp",
       "prerequisite_text": "Fuzzy scans",
-      "concept": "16.16 fixed point: fractions stored as a 4-byte int (`raw / 65536`), Float scans find nothing",
+      "concept": "Fractions stored without floating point",
       "prerequisites": {
         "labs": [
           "lab12"
