@@ -1,5 +1,5 @@
 // ============================================================================
-// [Lab 45] Mini-"UE": Name Pool (Tier B+ | Difficulty: 5.5/10)
+// [Lab 45] Mini-"UE": Name Pool (Tier B+ | Difficulty: 5.6/10)
 // ============================================================================
 // PURPOSE:
 //   Builds on Lab 33 (RTTI) and Lab 35 (names through hashes). Engines like
@@ -11,7 +11,7 @@
 //
 // QUEST OBJECTIVE:
 //   Three sealed objects show only their FName indices. Name all three.
-//   Then write a full dumper for the pool (see README: the checker validates it).
+//   Then write a full dumper for the pool (the lab45 checker validates it; format in the map hints).
 //
 // Exit codes: 0 seals broken (flag printed), 1 wrong names, 2 wrong format, 3 end of input.
 // ============================================================================
@@ -68,7 +68,7 @@ int main()
     std::cout << "\n********************************************************************\n";
     std::cout << "  [QUEST COMPLETE - TIER B+ CLEARED!] All three seals break.\n";
     std::cout << "  " << lab45::MakeFlag(seed) << "\n";
-    std::cout << "  Next: dump the WHOLE pool and run the checker (see README).\n";
+    std::cout << "  Next: dump the WHOLE pool and run the checker (format: hints on the map).\n";
     std::cout << "********************************************************************\n";
     return 0;
 }
