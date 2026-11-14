@@ -999,7 +999,7 @@
       "exp": 300,
       "path": "Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_pointer_scan.cpp",
       "prerequisite_text": "Lazy singleton",
-      "concept": "Pointer scan + restart + rescan against a randomized heap; decoy pointers that only look right once",
+      "concept": "Pointer scan, restart and rescan until only a path that survives restarts is left",
       "prerequisites": {
         "labs": [
           "lab18"
@@ -1030,10 +1030,10 @@
         {
           "level": 2,
           "kind": "concept",
-          "text": "После первого запуска в списке будут пути, которые указывают на героя только случайно или на его копию. Такой путь даст правильное число на экране, но правка по нему ничего не изменит. Оставляй только пути, пережившие несколько перезапусков.",
+          "text": "Два пути выглядят правильными: у одного существа золото каждый ход копирует золото героя, а ещё есть свежая копия самого героя. Число на экране совпадёт, но это другие адреса — после перезапуска такие пути проверку не пройдут. Оставляй только пути, пережившие несколько перезапусков.",
           "source": "my_notes",
           "refs": [
-            "Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_pointer_scan.cpp"
+            "Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_core.hpp"
           ]
         },
         {
