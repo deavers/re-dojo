@@ -13,6 +13,7 @@
 //   vcopy <off> <nslots>                        VMT labs: copy the table that the pointer at
 //                                               object+off points to into a harness-owned buffer
 //                                               (a "shadow VMT") and point object+off at the copy
+//   vswap <off> donor                           VMT labs: point object+off at the donor's original table
 //   vset <off> <slot> donor <dslot>             VMT labs: in the table referenced by object+off,
 //                                               replace slot <slot> with slot <dslot> of the donor
 //                                               object's table. Original tables are registered
@@ -235,6 +236,17 @@ inline int RunVmtCommand(Harness& h, const std::string& cmd, std::istringstream&
     {
         return 2;
     }
+    if (cmd == "vswap")
+    {
+        // Point object+off at the donor's ORIGINAL table (a whole-vptr swap, no copy).
+        unsigned char* donorTable = nullptr;
+        if (!(in >> a) || a != "donor" || h.donor == nullptr || !ReadPtr(h, h.donor, donorTable))
+        {
+            return 2;
+        }
+        std::memcpy(slotOfVptr, &donorTable, sizeof(void*));
+        return 0;
+    }
     if (cmd == "vcopy")
     {
         std::size_t nslots = 0;
@@ -304,7 +316,7 @@ inline int Run(Harness& h)
             }
             continue;
         }
-        if (cmd == "vcopy" || cmd == "vset")
+        if (cmd == "vcopy" || cmd == "vset" || cmd == "vswap")
         {
             const int vr = RunVmtCommand(h, cmd, in);
             if (vr != 0)

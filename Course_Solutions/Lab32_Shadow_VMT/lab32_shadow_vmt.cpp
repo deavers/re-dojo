@@ -26,7 +26,7 @@ using lab32::g_Roster;
 
 static bool g_BlindMode = false;
 
-static std::uintptr_t VptrOf(const void* object)
+static std::uintptr_t VptrValue(const void* object)
 {
     std::uintptr_t v = 0;
     std::memcpy(&v, object, sizeof(v));
@@ -45,14 +45,14 @@ static void PrintState()
         if (!g_BlindMode)
         {
             std::cout << "   [obj 0x" << std::hex << std::uppercase << reinterpret_cast<std::uintptr_t>(p)
-                      << ", vptr 0x" << VptrOf(p) << std::dec << "]";
+                      << ", vptr 0x" << VptrValue(p) << std::dec << "]";
         }
         std::cout << "\n";
     }
     if (!g_BlindMode)
     {
         std::cout << "   Merchant: obj 0x" << std::hex << std::uppercase
-                  << reinterpret_cast<std::uintptr_t>(&lab32::g_Merchant) << ", vptr 0x" << VptrOf(&lab32::g_Merchant)
+                  << reinterpret_cast<std::uintptr_t>(&lab32::g_Merchant) << ", vptr 0x" << VptrValue(&lab32::g_Merchant)
                   << std::dec << "\n";
     }
     std::cout << "--------------------------------------------------------------------\n";

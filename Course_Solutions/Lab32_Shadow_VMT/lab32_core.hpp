@@ -9,6 +9,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <cstring>
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -89,10 +90,38 @@ inline Merchant g_Merchant;
 // the program must really read each object's vptr, exactly like a game would.
 inline IPerson* volatile g_Roster[3] = {&g_Guards[0], &g_Guards[1], &g_Guards[2]};
 
-// Win: ONLY the Captain takes the bribe. If any other guard does too, the Marshal notices.
+inline const void* VptrOf(const void* object)
+{
+    const void* v = nullptr;
+    std::memcpy(&v, object, sizeof(v));
+    return v;
+}
+
+// Index of the first slot where the Captain's table differs from the shared Guard table, or -1.
+inline int ChangedSlot()
+{
+    const void* const* own = static_cast<const void* const*>(VptrOf(&g_Guards[kCaptain]));
+    const void* const* shared = static_cast<const void* const*>(VptrOf(&g_Guards[0]));
+    for (std::size_t i = 0; i < kSlots; ++i)
+    {
+        if (own[i] != shared[i])
+        {
+            return static_cast<int>(i);
+        }
+    }
+    return -1;
+}
+
+// Win: ONLY the Captain takes the bribe, through HIS OWN copy of the table, and he is still a Captain:
+// Name / Greet / Strength unchanged. Pointing his vptr at the Merchant's table changes his name - no win.
 inline bool CheckWin()
 {
-    return g_Roster[kCaptain]->IsBribable() && !g_Roster[0]->IsBribable() && !g_Roster[1]->IsBribable();
+    IPerson* captain = g_Roster[kCaptain];
+    const bool ownTable = VptrOf(&g_Guards[kCaptain]) != VptrOf(&g_Guards[0]);
+    const bool stillCaptain = std::strcmp(captain->Name(), "Captain") == 0 && captain->Greet() == 13 &&
+                              captain->Strength() == 80;
+    return ownTable && stillCaptain && captain->IsBribable() && !g_Roster[0]->IsBribable() &&
+           !g_Roster[1]->IsBribable();
 }
 
 inline std::uint64_t Fnv1a64(const std::string& text)
@@ -106,9 +135,10 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
+// The flag mixes a neutral tag with the answer read from the state: which guard, which slot changed.
 inline std::string MakeFlag()
 {
-    const std::string seal = "lab32|captain-only|shadow-vmt";
+    const std::string seal = "lab32|" + std::to_string(kCaptain) + "|" + std::to_string(ChangedSlot());
     std::ostringstream out;
     out << "FLAG{LAB32_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();

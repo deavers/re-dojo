@@ -24,6 +24,10 @@ WRONG = [
     # Every guard bribed: the Marshal notices.
     "vcopy 0x00 4\nvset 0x00 2 donor 2\nvcopy 0x10 4\nvset 0x10 2 donor 2\n"
     f"vcopy {hex(CAPTAIN)} 4\nvset {hex(CAPTAIN)} 2 donor 2\n",
+    # Whole-vptr swap to the Merchant's table: he takes bribes, but he is no longer a Captain.
+    f"vswap {hex(CAPTAIN)} donor\n",
+    # A shadow table with only 3 of the 4 slots: the game would call past its end.
+    f"vcopy {hex(CAPTAIN)} 3\nvset {hex(CAPTAIN)} 2 donor 2\n",
     # Copying far past the end of the table: rejected, never a crash.
     f"vcopy {hex(CAPTAIN)} 64\n",
     # +0x24 is rank/gold, not a vptr: rejected.
