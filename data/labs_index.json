@@ -8,7 +8,9 @@
       "trains: technique ids from dojo_schema.TECHNIQUES. Game -> lab recommendations: per technique, the two lowest-difficulty BUILT labs that train it.",
       "check: quest (existing labs, manual), flag (prints FLAG{...}), checker (checker.py validates an artifact), selftest (CTest harness).",
       "platform.windows_only / needs_unity are shown on the map tile.",
-      "ci: 'full' = CMake/CTest build_ok/solve_ok/wrong_fails run in CI; 'sources_only' = CI cannot build the category (.NET SDK, Unity Editor): CI checks only the sources and the tests that run without that toolchain; the full autocheck runs locally."
+      "ci: 'full' = CMake/CTest build_ok/solve_ok/wrong_fails run in CI; 'sources_only' = CI cannot build the category (.NET SDK, Unity Editor): CI checks only the sources and the tests that run without that toolchain; the full autocheck runs locally.",
+      "tier of every lab added after the original 18 = rpg_manager.score_to_tier(difficulty_raw); the 18 original positions keep their hand-set tiers.",
+      "prereqs_plan (optional): the plan prerequisites while prereqs temporarily lists built labs only."
     ]
   },
   "labs": {
@@ -36,7 +38,7 @@
       "order": 2,
       "kind": "lab",
       "title": "Ширина и знак целых",
-      "tier": "F",
+      "tier": "F-",
       "difficulty_raw": 0.3,
       "status": "built",
       "prereqs": [
@@ -183,7 +185,7 @@
       "order": 9,
       "kind": "lab",
       "title": "Фиксированная точка 16.16",
-      "tier": "E-",
+      "tier": "E--",
       "difficulty_raw": 1.1,
       "status": "built",
       "prereqs": [
@@ -465,7 +467,7 @@
       "order": 22,
       "kind": "lab",
       "title": "Связный список сущностей",
-      "tier": "D",
+      "tier": "D-",
       "difficulty_raw": 2.7,
       "status": "planned",
       "prereqs": [
@@ -661,7 +663,7 @@
       "order": 31,
       "kind": "lab",
       "title": "Code cave с условием",
-      "tier": "C-",
+      "tier": "D+",
       "difficulty_raw": 3.5,
       "status": "planned",
       "prereqs": [
@@ -749,7 +751,7 @@
       "order": 35,
       "kind": "lab",
       "title": "Shadow VMT",
-      "tier": "C",
+      "tier": "C-",
       "difficulty_raw": 3.9,
       "status": "built",
       "prereqs": [
@@ -859,7 +861,7 @@
       "order": 40,
       "kind": "lab",
       "title": "Архив .pak: оглавление + XOR",
-      "tier": "C+",
+      "tier": "C",
       "difficulty_raw": 4.3,
       "status": "planned",
       "prereqs": [
@@ -968,7 +970,7 @@
       "order": 45,
       "kind": "lab",
       "title": ".NET: декомпиляция своей C#-игры",
-      "tier": "B-",
+      "tier": "C+",
       "difficulty_raw": 4.7,
       "status": "built",
       "prereqs": [
@@ -1056,7 +1058,7 @@
       "order": 49,
       "kind": "lab",
       "title": "ViewMatrix в памяти своего софт-рендера",
-      "tier": "B",
+      "tier": "B-",
       "difficulty_raw": 5.1,
       "status": "planned",
       "prereqs": [
@@ -1166,11 +1168,11 @@
       "kind": "lab",
       "title": "Мини-«UE»: пул имён",
       "tier": "B+",
-      "difficulty_raw": 5.5,
+      "difficulty_raw": 5.6,
       "status": "built",
       "prereqs": [
-        "lab33",
-        "lab35"
+        "lab17",
+        "cm03"
       ],
       "trains": [
         "sdk_dump"
@@ -1182,7 +1184,11 @@
         "needs_unity": false,
         "needs_dotnet": false
       },
-      "ci": "full"
+      "ci": "full",
+      "prereqs_plan": [
+        "lab33",
+        "lab35"
+      ]
     },
     "lab46": {
       "order": 55,
@@ -1255,7 +1261,7 @@
       "order": 58,
       "kind": "lab",
       "title": "x64 ABI: вызов с 6 аргументами",
-      "tier": "A-",
+      "tier": "B+",
       "difficulty_raw": 5.9,
       "status": "planned",
       "prereqs": [
@@ -1345,7 +1351,7 @@
       "order": 62,
       "kind": "lab",
       "title": "Встроенная Lua 5.4: lua_State",
-      "tier": "A",
+      "tier": "A-",
       "difficulty_raw": 6.3,
       "status": "built",
       "prereqs": [
@@ -1461,7 +1467,7 @@
       "status": "built",
       "prereqs": [
         "cm10",
-        "cm13"
+        "cm03"
       ],
       "trains": [],
       "check": "flag",
@@ -1471,13 +1477,17 @@
         "needs_unity": false,
         "needs_dotnet": false
       },
-      "ci": "full"
+      "ci": "full",
+      "prereqs_plan": [
+        "cm10",
+        "cm13"
+      ]
     },
     "lab56": {
       "order": 68,
       "kind": "lab",
       "title": "Мини-«UE»: вызов через функцию вроде ProcessEvent",
-      "tier": "A+",
+      "tier": "A",
       "difficulty_raw": 6.7,
       "status": "planned",
       "prereqs": [
@@ -1696,7 +1706,7 @@
       "order": 78,
       "kind": "lab",
       "title": "Unity IL2CPP, свой проект + Il2CppDumper",
-      "tier": "S",
+      "tier": "S-",
       "difficulty_raw": 7.5,
       "status": "planned",
       "prereqs": [
@@ -1844,7 +1854,7 @@
       "order": 85,
       "kind": "crackme",
       "title": "Самомодифицирующийся код",
-      "tier": "SS-",
+      "tier": "S+",
       "difficulty_raw": 8.1,
       "status": "planned",
       "prereqs": [
@@ -1907,7 +1917,7 @@
       "order": 88,
       "kind": "lab",
       "title": "Свои зашифрованные метаданные",
-      "tier": "SS",
+      "tier": "SS-",
       "difficulty_raw": 8.4,
       "status": "planned",
       "prereqs": [
@@ -1969,7 +1979,7 @@
       "order": 91,
       "kind": "lab",
       "title": "Мини-«UE» + Lua",
-      "tier": "SS+",
+      "tier": "SS",
       "difficulty_raw": 8.7,
       "status": "planned",
       "prereqs": [
@@ -2036,7 +2046,7 @@
       "order": 94,
       "kind": "crackme",
       "title": "Символьное исполнение по трассе VM",
-      "tier": "SSS-",
+      "tier": "SS+",
       "difficulty_raw": 9.0,
       "status": "planned",
       "prereqs": [
@@ -2077,7 +2087,7 @@
       "order": 96,
       "kind": "lab",
       "title": "Капстоун 1: сейв + архив + Lua + рефлексия",
-      "tier": "SSS",
+      "tier": "SSS-",
       "difficulty_raw": 9.3,
       "status": "planned",
       "prereqs": [
@@ -2124,7 +2134,7 @@
       "order": 98,
       "kind": "lab",
       "title": "Капстоун 2: guard + шифрованные метаданные + хуки",
-      "tier": "SSS+",
+      "tier": "SSS",
       "difficulty_raw": 9.6,
       "status": "planned",
       "prereqs": [

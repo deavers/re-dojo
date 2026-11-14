@@ -237,10 +237,10 @@
       "kind": "lab",
       "label": "Lab 11",
       "title": "Integer Widths",
-      "tier": "F",
+      "tier": "F-",
       "difficulty_raw": 0.3,
       "difficulty": 1,
-      "exp": 120,
+      "exp": 100,
       "path": "Course_Solutions/Lab11_Integer_Widths/lab11_integer_widths.cpp",
       "prerequisite_text": "Exact value scans",
       "concept": "Scan widths `1` / `2` / `8` Bytes, signed vs unsigned overflow (`int8` morale, `uint16` arrows, `int64` gold)",
@@ -591,10 +591,10 @@
       "kind": "lab",
       "label": "Lab 15",
       "title": "Fixed Point",
-      "tier": "E-",
+      "tier": "E--",
       "difficulty_raw": 1.1,
       "difficulty": 1,
-      "exp": 220,
+      "exp": 180,
       "path": "Course_Solutions/Lab15_Fixed_Point/lab15_fixed_point.cpp",
       "prerequisite_text": "Fuzzy scans",
       "concept": "16.16 fixed point: fractions stored as a 4-byte int (`raw / 65536`), Float scans find nothing",
@@ -1291,10 +1291,10 @@
       "kind": "lab",
       "label": "Lab 32",
       "title": "Shadow VMT",
-      "tier": "C",
+      "tier": "C-",
       "difficulty_raw": 3.9,
       "difficulty": 2,
-      "exp": 600,
+      "exp": 520,
       "path": "Course_Solutions/Lab32_Shadow_VMT/lab32_shadow_vmt.cpp",
       "prerequisite_text": "VMT basics",
       "concept": "Shadow VMT: copy the shared table, swap one slot in the copy, repoint one object's `vptr`",
@@ -1400,10 +1400,10 @@
       "kind": "lab",
       "label": "Lab 39",
       "title": "DotNet Decompile",
-      "tier": "B-",
+      "tier": "C+",
       "difficulty_raw": 4.7,
       "difficulty": 3,
-      "exp": 770,
+      "exp": 680,
       "path": "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs",
       "prerequisite_text": "Classes and method tables",
       "concept": "Own .NET 8 game: decompile with dnSpyEx / ILSpy, read how the passphrase is forged, reproduce it",
@@ -1544,14 +1544,17 @@
       "label": "Lab 45",
       "title": "MiniUE Name Pool",
       "tier": "B+",
-      "difficulty_raw": 5.5,
+      "difficulty_raw": 5.6,
       "difficulty": 3,
       "exp": 960,
       "path": "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_name_pool.cpp",
       "prerequisite_text": "RTTI, hashed names",
       "concept": "Own UE-style name pool: chunks, `len << 6` entry header, FName index = chunk << 16 | offset / 2; write a dumper",
       "prerequisites": {
-        "labs": [],
+        "labs": [
+          "lab17",
+          "cm03"
+        ],
         "games": [],
         "source": "derived"
       },
@@ -1598,10 +1601,6 @@
       "safety": {
         "restricted": false
       },
-      "prerequisites_planned": [
-        "lab33",
-        "lab35"
-      ],
       "check": "checker",
       "platform": {
         "windows_only": false,
@@ -1654,10 +1653,10 @@
       "kind": "lab",
       "label": "Lab 52",
       "title": "Embedded Lua",
-      "tier": "A",
+      "tier": "A-",
       "difficulty_raw": 6.3,
       "difficulty": 4,
-      "exp": 1250,
+      "exp": 1100,
       "path": "Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp",
       "prerequisite_text": "Internal DLL",
       "concept": "Embedded Lua 5.4: find the game's `lua_State`, run your own chunk through `lua54.dll` (`luaL_loadstring` + `lua_pcallk`)",
@@ -1809,7 +1808,8 @@
       "concept": "Four 32-bit unknowns, five coupled constraints (add, XOR, rotate, multiply mod 2^32, mask) - solve with Z3 bit-vectors",
       "prerequisites": {
         "labs": [
-          "cm10"
+          "cm10",
+          "cm03"
         ],
         "games": [],
         "source": "derived"
@@ -1853,9 +1853,6 @@
       "safety": {
         "restricted": false
       },
-      "prerequisites_planned": [
-        "cm13"
-      ],
       "check": "flag",
       "platform": {
         "windows_only": false,

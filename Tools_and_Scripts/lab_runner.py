@@ -10,6 +10,11 @@ Lab folder contract (docs/lab_plan.md, section 3):
   solve/solve.py        answer() -> str   stdin payload of the reference solution
                         WRONG: list[str]  stdin payloads that must NOT pass
   check/expected.json   {"flag_sha256": "<hex>", "runs": 1}   runs > 1 = fresh process each time
+Interactive labs (the binary prints "CHALLENGE: <value>" and then reads the answer, e.g. a per-run block):
+  solve/solve.py        answer_for(challenge) -> str             answer for this run
+                        expected_flag(challenge, answer) -> str  independent re-implementation of the flag
+                        WRONG entries may be callables challenge -> str
+  check/expected.json   {"flag": "computed", "runs": N}
 Exit-code contract of every new lab binary: 0 solved (prints FLAG{...}), 1 wrong, 2 usage, 3 quit.
 'wrong' accepts only exit 1 or 2 for a wrong payload: a crash, a timeout or any other code is a FAIL
 (a lab that crashes on bad input is broken, not "rejecting"). With --real-exe it also starts the real
@@ -24,9 +29,12 @@ import hashlib
 import importlib.util
 import json
 import re
+import queue
 import subprocess
 import sys
 import tempfile
+import threading
+import time
 from pathlib import Path
 
 # No bytecode cache: solve.py must always be read fresh (a .pyc keyed on mtime-seconds + size can go stale),
@@ -34,6 +42,7 @@ from pathlib import Path
 sys.dont_write_bytecode = True
 
 FLAG_RX = re.compile(r"FLAG\{[^}\r\n]*\}")
+CHALLENGE_RX = re.compile(r"CHALLENGE:\s*(\S+)")
 TIMEOUT_S = 20
 
 
@@ -49,8 +58,9 @@ def load_solve(lab_dir: Path):
     mod = importlib.util.module_from_spec(spec)
     code = compile(path.read_text(encoding="utf-8"), str(path), "exec")
     exec(code, mod.__dict__)
-    if not callable(getattr(mod, "answer", None)) or not isinstance(getattr(mod, "WRONG", None), list):
-        raise SystemExit("[RUNNER] solve.py must define answer() and WRONG = [...]")
+    interactive = callable(getattr(mod, "answer_for", None)) and callable(getattr(mod, "expected_flag", None))
+    if not (callable(getattr(mod, "answer", None)) or interactive) or not isinstance(getattr(mod, "WRONG", None), list):
+        raise SystemExit("[RUNNER] solve.py must define answer() (or answer_for + expected_flag) and WRONG = [...]")
     return mod
 
 
@@ -64,6 +74,52 @@ def run(exe: str, payload: str) -> tuple[int, str]:
     return r.returncode, r.stdout
 
 
+def run_interactive(exe: str, respond) -> tuple[int, str, str | None, str]:
+    """Start the binary, wait for 'CHALLENGE: <value>', send respond(value), collect the rest."""
+    cmd = [sys.executable, exe] if exe.endswith(".py") else [exe]
+    p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+                         text=True, encoding="utf-8", errors="replace")
+    lines: queue.Queue = queue.Queue()
+
+    def reader() -> None:
+        for line in p.stdout:
+            lines.put(line)
+        lines.put(None)
+
+    threading.Thread(target=reader, daemon=True).start()
+    deadline = time.monotonic() + TIMEOUT_S
+    out, challenge, payload = [], None, ""
+    while challenge is None:
+        try:
+            line = lines.get(timeout=max(0.1, deadline - time.monotonic()))
+        except queue.Empty:
+            p.kill()
+            return 124, "".join(out), None, ""
+        if line is None:
+            break
+        out.append(line)
+        m = CHALLENGE_RX.search(line)
+        if m:
+            challenge = m.group(1)
+    if challenge is not None:
+        payload = respond(challenge)
+        try:
+            p.stdin.write(payload)
+            p.stdin.close()
+        except OSError:
+            pass
+    while True:
+        try:
+            line = lines.get(timeout=max(0.1, deadline - time.monotonic()))
+        except queue.Empty:
+            p.kill()
+            return 124, "".join(out), challenge, payload
+        if line is None:
+            break
+        out.append(line)
+    return p.wait(timeout=TIMEOUT_S), "".join(out), challenge, payload
+
+
 def sha(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
@@ -72,7 +128,17 @@ def mode_ok(lab_dir: Path, exe: str) -> int:
     solve = load_solve(lab_dir)
     exp = json.loads((lab_dir / "check" / "expected.json").read_text(encoding="utf-8"))
     runs = int(exp.get("runs", 1))
+    interactive = callable(getattr(solve, "answer_for", None))
     for i in range(runs):
+        if interactive:
+            rc, out, challenge, payload = run_interactive(exe, solve.answer_for)
+            flags = FLAG_RX.findall(out)
+            want = solve.expected_flag(challenge, payload) if challenge is not None else None
+            if rc != 0 or len(flags) != 1 or flags[0] != want:
+                say(f"[FAIL] run {i + 1}/{runs}: exit={rc}, challenge seen={challenge is not None}, "
+                    f"flags found={len(flags)}, matches independent flag={bool(flags) and flags[0] == want}")
+                return 1
+            continue
         rc, out = run(exe, solve.answer())
         flags = FLAG_RX.findall(out)
         if rc != 0 or len(flags) != 1 or sha(flags[0]) != exp["flag_sha256"]:
@@ -92,7 +158,7 @@ def mode_wrong(lab_dir: Path, exe: str, real_exe: str | None = None) -> int:
     runs = int(json.loads(exp_path.read_text(encoding="utf-8")).get("runs", 1)) if exp_path.exists() else 1
     for i, payload in enumerate(solve.WRONG, 1):
         for r in range(runs):  # a wrong answer must fail in EVERY fresh run, not just usually
-            rc, out = run(exe, payload)
+            rc, out = run_interactive(exe, payload)[:2] if callable(payload) else run(exe, payload)
             if rc not in (1, 2) or FLAG_RX.search(out):
                 say(f"[FAIL] wrong input #{i}, run {r + 1}/{runs}: exit={rc} (expected 1 or 2), "
                     f"flag printed={bool(FLAG_RX.search(out))}")
@@ -147,6 +213,18 @@ def mode_selftest() -> int:
         ok &= mode_ok(lab, str(exe)) == 1
         exe.write_text('print("FLAG{RUNNER_SELFTEST}")\n', encoding="utf-8")
         ok &= mode_wrong(lab, str(exe)) == 1
+        # Interactive lab: challenge read from the binary, flag checked against an independent computation.
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import lab_runner_fakes as fakes
+        ilab = Path(tmp) / "LabYY_Interactive"
+        (ilab / "solve").mkdir(parents=True)
+        (ilab / "check").mkdir()
+        (ilab / "solve" / "solve.py").write_text(fakes.INTERACTIVE_SOLVE, encoding="utf-8")
+        (ilab / "check" / "expected.json").write_text(json.dumps({"flag": "computed", "runs": 2}), encoding="utf-8")
+        iexe = Path(tmp) / "fake_interactive.py"
+        iexe.write_text(fakes.INTERACTIVE_EXE, encoding="utf-8")
+        say("-- interactive checks (no FAIL expected below) --")
+        ok &= mode_ok(ilab, str(iexe)) == 0 and mode_wrong(ilab, str(iexe)) == 0
     say("[OK] runner selftest passed" if ok else "[FAIL] runner selftest failed")
     return 0 if ok else 1
 
