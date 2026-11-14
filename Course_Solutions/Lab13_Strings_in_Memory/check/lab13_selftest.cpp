@@ -21,6 +21,6 @@ int main()
         std::cout << "FAILED: the Hall stays closed\n";
         return 1;
     }
-    std::cout << lab13::MakeFlag() << "\n";
+    std::cout << lab13::MakeFlag(lab13::g_Card) << "\n";
     return 0;
 }

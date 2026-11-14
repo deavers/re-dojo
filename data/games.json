@@ -459,7 +459,7 @@
       "exp": 180,
       "path": "Course_Solutions/Lab13_Strings_in_Memory/lab13_strings.cpp",
       "prerequisite_text": "Fuzzy scans",
-      "concept": "Strings in memory: UTF-16 (`char16_t`) names, length-prefixed ASCII tags, fixed buffers",
+      "concept": "Text in memory in more than one encoding and layout",
       "prerequisites": {
         "labs": [
           "lab12"

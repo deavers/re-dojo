@@ -17,6 +17,8 @@ WRONG = [
     "poke 0x00 str16 DRAGONSLAYER\npoke 0x21 str8 DOJO\n",
     # Tag written over the length byte: the length becomes 'D' (68).
     "poke 0x00 str16 DRAGONSLAYER\npoke 0x20 str8 DOJO\n",
+    # Name written over the full buffer without its terminator: the game reads past it.
+    "poke 0x00 str16 DRAGONSLAYERXXX\npoke 0x20 u8 4\npoke 0x21 str8 DOJO\n",
     # Wrong case.
     "poke 0x00 str16 dragonslayer\npoke 0x20 u8 4\npoke 0x21 str8 DOJO\n",
     # 20 UTF-16 letters + terminator do not fit: must be rejected, never crash.

@@ -116,7 +116,7 @@ int main()
         {
             std::cout << "\n********************************************************************\n";
             std::cout << "  [QUEST COMPLETE - TIER E-- CLEARED!] The Hall of Legends opens.\n";
-            std::cout << "  " << lab13::MakeFlag() << "\n";
+            std::cout << "  " << lab13::MakeFlag(g_Card) << "\n";
             std::cout << "********************************************************************\n";
             return 0;
         }

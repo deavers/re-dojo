@@ -87,9 +87,10 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
-inline std::string MakeFlag()
+// The flag mixes a neutral tag with the texts the solver wrote.
+inline std::string MakeFlag(const NameCard& c)
 {
-    const std::string seal = "lab13|DRAGONSLAYER|DOJO";
+    const std::string seal = "lab13|" + NameAscii(c) + "|" + TagAscii(c);
     std::ostringstream out;
     out << "FLAG{LAB13_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();
