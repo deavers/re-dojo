@@ -15,7 +15,6 @@
 #include <cstdint>
 #include <cstring>
 #include <iomanip>
-#include <random>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -99,10 +98,23 @@ const EncodedName kEncodedNames[] = {
 constexpr std::size_t kNameCount = sizeof(kEncodedNames) / sizeof(kEncodedNames[0]);
 
 inline NamePool g_NamePool{};
-inline std::vector<std::uint32_t> g_Index; // FName index of name i, in insertion order
+inline std::vector<std::uint32_t> g_Index; // FName index of table entry i (insertion order depends on the seed)
 inline std::vector<void*> g_Junk;
 
-inline std::uint32_t AddName(const char* text, std::uint32_t len, std::mt19937& rng)
+// Small own PRNG (xorshift32): reproducible on every compiler and in Python, unlike std:: distributions.
+struct Rng
+{
+    std::uint32_t s;
+    std::uint32_t Next()
+    {
+        s ^= s << 13;
+        s ^= s >> 17;
+        s ^= s << 5;
+        return s;
+    }
+};
+
+inline std::uint32_t AddName(const char* text, std::uint32_t len, Rng& junkRng)
 {
     const std::uint32_t size = (2 + len + 1) & ~1u;
     if (g_NamePool.chunks[g_NamePool.currentChunk] != nullptr && g_NamePool.currentOffset + size > kChunkSize)
@@ -113,7 +125,7 @@ inline std::uint32_t AddName(const char* text, std::uint32_t len, std::mt19937& 
     std::uint8_t*& chunk = g_NamePool.chunks[g_NamePool.currentChunk];
     if (chunk == nullptr)
     {
-        g_Junk.push_back(::operator new(32 + rng() % 2048)); // chunks land at different addresses
+        g_Junk.push_back(::operator new(32 + junkRng.Next() % 2048)); // chunks land at different addresses
         chunk = new std::uint8_t[kChunkSize]();
     }
     std::uint8_t* entry = chunk + g_NamePool.currentOffset;
@@ -126,10 +138,26 @@ inline std::uint32_t AddName(const char* text, std::uint32_t len, std::mt19937& 
     return index;
 }
 
+// The names are inserted in a seed-dependent order (Fisher-Yates driven by xorshift32), so every
+// seed gives a different pool layout and a different set of FName indices.
 inline void BuildPool(std::uint32_t seed)
 {
-    std::mt19937 rng(seed);
+    Rng order{seed | 1u};
+    Rng junk{(seed ^ 0xA5A5A5A5u) | 1u};
+    std::vector<std::size_t> pos(kNameCount);
     for (std::size_t i = 0; i < kNameCount; ++i)
+    {
+        pos[i] = i;
+    }
+    for (std::size_t i = kNameCount - 1; i > 0; --i)
+    {
+        const std::size_t j = order.Next() % (i + 1);
+        const std::size_t t = pos[i];
+        pos[i] = pos[j];
+        pos[j] = t;
+    }
+    g_Index.assign(kNameCount, 0);
+    for (const std::size_t i : pos)
     {
         char text[16] = {};
         const EncodedName& e = kEncodedNames[i];
@@ -137,7 +165,7 @@ inline void BuildPool(std::uint32_t seed)
         {
             text[j] = static_cast<char>(e.bytes[j] ^ ((kNameKey + i * 7 + j * 3) & 0xFF));
         }
-        g_Index.push_back(AddName(text, e.len, rng));
+        g_Index[i] = AddName(text, e.len, junk);
     }
 }
 
@@ -173,9 +201,10 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
-inline std::string MakeFlag()
+// The flag mixes a neutral tag with the seed of the pool that was dumped.
+inline std::string MakeFlag(std::uint32_t seed)
 {
-    const std::string seal = "lab45|name-pool|chunk<<16|offset/2";
+    const std::string seal = "lab45|" + std::to_string(seed);
     std::ostringstream out;
     out << "FLAG{LAB45_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();

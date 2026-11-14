@@ -1548,8 +1548,8 @@
       "difficulty": 3,
       "exp": 960,
       "path": "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_name_pool.cpp",
-      "prerequisite_text": "RTTI, hashed names",
-      "concept": "Own UE-style name pool: chunks, `len << 6` entry header, FName index = chunk << 16 | offset / 2; write a dumper",
+      "prerequisite_text": "Struct layout, XOR",
+      "concept": "Engine-style name pool: find it, decode a name index, dump every name | | offset / 2; write a dumper",
       "prerequisites": {
         "labs": [
           "lab17",
@@ -1581,16 +1581,16 @@
         {
           "level": 2,
           "kind": "concept",
-          "text": "Перед каждым именем два байта заголовка, а из них получается длина. Записи идут подряд внутри блока фиксированного размера, а блоки лежат в куче в разных местах. Найди глобальную переменную, которая хранит указатели на все блоки, и разберись, как индекс делится на номер блока и смещение.",
+          "text": "Перед каждым именем два байта заголовка, из них получается длина; записи идут подряд внутри блоков фиксированного размера, блоки лежат в куче. Найди глобальную переменную с указателями на все блоки и пойми, как индекс делится на номер блока и смещение. Порядок имён зависит от seed — дамп делай из того же запуска, seed которого отдаёшь чекеру.",
           "source": "my_notes",
           "refs": [
-            "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_name_pool.cpp"
+            "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_core.hpp"
           ]
         },
         {
           "level": 3,
           "kind": "near_spoiler",
-          "text": "В lab45_core.hpp: g_NamePool.chunks — массив указателей на +0x08, размер чанка kChunkSize, заголовок = длина << 6 (little-endian), индекс = (chunk << 16) | (offset / 2). Дамп — строки «индекс имя» для каждой записи.",
+          "text": "В lab45_core.hpp: g_NamePool.chunks — массив указателей на +0x08, размер чанка kChunkSize, заголовок = длина << 6 (little-endian), индекс = (chunk << 16) | (offset / 2). Дамп — строка «seed N», затем «индекс имя» для каждой записи.",
           "source": "my_notes",
           "refs": [
             "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_core.hpp"

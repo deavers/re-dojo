@@ -1,10 +1,9 @@
-// [Lab 45] Dump checker: builds the name pool (random chunk placement), reads a learner's dump from stdin
-// and compares it with the pool in its own memory.
-// Dump format: one entry per line, "<FName index in hex> <name>", e.g. "0x00010004 Health"; any order.
-// Exit: 0 dump complete and correct (flag), 1 wrong / incomplete dump, 2 malformed line.
+// [Lab 45] Dump checker: reads "seed <N>" (printed by the game) and a learner's dump from stdin, builds the
+// pool for that seed in its own memory and compares.
+// Input: first non-empty line "seed <N>" (decimal), then one entry per line "<FName index in hex> <name>",
+// any order. Exit: 0 dump complete and correct (flag), 1 wrong / incomplete dump, 2 malformed input.
 #include <algorithm>
 #include <iostream>
-#include <random>
 #include <sstream>
 #include <string>
 #include <utility>
@@ -12,10 +11,50 @@
 
 #include "lab45_core.hpp"
 
+static bool NextLine(std::string& line)
+{
+    while (std::getline(std::cin, line))
+    {
+        if (!line.empty() && line.back() == '\r')
+        {
+            line.pop_back();
+        }
+        if (!line.empty())
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 int main()
 {
-    std::random_device rd;
-    lab45::BuildPool(rd());
+    std::string line;
+    std::uint32_t seed = 0;
+    {
+        if (!NextLine(line))
+        {
+            std::cout << "FAILED: no seed line\n";
+            return 2;
+        }
+        std::istringstream in(line);
+        std::string word, num, extra;
+        if (!(in >> word >> num) || word != "seed" || (in >> extra))
+        {
+            std::cout << "FAILED: the first line must be 'seed <N>'\n";
+            return 2;
+        }
+        try
+        {
+            seed = static_cast<std::uint32_t>(std::stoul(num, nullptr, 10));
+        }
+        catch (const std::exception&)
+        {
+            std::cout << "FAILED: bad seed\n";
+            return 2;
+        }
+    }
+    lab45::BuildPool(seed);
 
     // Truth: walk every chunk from the start, entry by entry, until an empty header.
     std::vector<std::pair<std::uint32_t, std::string>> truth;
@@ -36,17 +75,8 @@ int main()
     }
 
     std::vector<std::pair<std::uint32_t, std::string>> dump;
-    std::string line;
-    while (std::getline(std::cin, line))
+    while (NextLine(line))
     {
-        if (!line.empty() && line.back() == '\r')
-        {
-            line.pop_back();
-        }
-        if (line.empty())
-        {
-            continue;
-        }
         std::istringstream in(line);
         std::string idx, name, extra;
         if (!(in >> idx >> name) || (in >> extra))
@@ -68,10 +98,10 @@ int main()
     std::sort(truth.begin(), truth.end());
     if (dump != truth)
     {
-        std::cout << "FAILED: the dump does not match the pool (" << dump.size() << " vs " << truth.size()
-                  << " entries)\n";
+        std::cout << "FAILED: the dump does not match the pool of seed " << seed << " (" << dump.size() << " vs "
+                  << truth.size() << " entries)\n";
         return 1;
     }
-    std::cout << lab45::MakeFlag() << "\n";
+    std::cout << lab45::MakeFlag(seed) << "\n";
     return 0;
 }

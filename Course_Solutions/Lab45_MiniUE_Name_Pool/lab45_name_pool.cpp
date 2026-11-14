@@ -27,7 +27,8 @@
 int main()
 {
     std::random_device rd;
-    lab45::BuildPool(rd());
+    const std::uint32_t seed = rd();
+    lab45::BuildPool(seed);
 
     std::cout << "====================================================================\n";
     std::cout << "  [LAB 45 | TIER B+] THE NAMELESS VAULT (Mini-UE: Name Pool)\n";
@@ -35,6 +36,7 @@ int main()
     std::cout << "   Name pool global at 0x" << std::hex << std::uppercase
               << reinterpret_cast<std::uintptr_t>(&lab45::g_NamePool) << std::dec << "  (" << lab45::kNameCount
               << " names, " << (lab45::g_NamePool.currentChunk + 1) << " chunks)\n";
+    std::cout << "   Pool seed: " << seed << "  (give it to the checker together with your dump)\n";
     std::cout << "   Sealed objects reference these FName indices:\n";
     for (const std::size_t i : lab45::kSealed)
     {
@@ -65,7 +67,7 @@ int main()
     }
     std::cout << "\n********************************************************************\n";
     std::cout << "  [QUEST COMPLETE - TIER B+ CLEARED!] All three seals break.\n";
-    std::cout << "  " << lab45::MakeFlag() << "\n";
+    std::cout << "  " << lab45::MakeFlag(seed) << "\n";
     std::cout << "  Next: dump the WHOLE pool and run the checker (see README).\n";
     std::cout << "********************************************************************\n";
     return 0;
