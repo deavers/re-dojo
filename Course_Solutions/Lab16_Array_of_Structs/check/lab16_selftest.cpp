@@ -21,6 +21,6 @@ int main()
         std::cout << "FAILED: the squad is not ready\n";
         return 1;
     }
-    std::cout << lab16::MakeFlag() << "\n";
+    std::cout << lab16::MakeFlag(lab16::g_Squad) << "\n";
     return 0;
 }

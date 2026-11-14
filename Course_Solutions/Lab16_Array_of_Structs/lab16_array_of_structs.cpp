@@ -7,7 +7,7 @@
 //   Find one unit's HP, work out the stride, and edit the whole squad.
 //
 // QUEST OBJECTIVE:
-//   The squad marches when ALL 8 units have at least 500 HP and are alive.
+//   The squad marches when ALL 8 units have exactly 500 HP and are alive.
 //   Healing stops at each unit's max HP, and the fallen unit cannot be revived
 //   from the menu.
 //
@@ -43,7 +43,7 @@ static void PrintState()
                   << "\n";
     }
     std::cout << "--------------------------------------------------------------------\n";
-    std::cout << "  The squad marches when every unit has >= 500 HP and is alive.\n";
+    std::cout << "  The squad marches when every unit has exactly 500 HP and is alive.\n";
 }
 
 int main()
@@ -98,7 +98,7 @@ int main()
         {
             std::cout << "\n********************************************************************\n";
             std::cout << "  [QUEST COMPLETE - TIER E- CLEARED!] The Iron Squad marches out.\n";
-            std::cout << "  " << lab16::MakeFlag() << "\n";
+            std::cout << "  " << lab16::MakeFlag(g_Squad) << "\n";
             std::cout << "********************************************************************\n";
             return 0;
         }

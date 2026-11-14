@@ -39,7 +39,7 @@ static_assert(offsetof(Unit, flags) == 0x14, "flags offset");
 static_assert(sizeof(Unit) == 0x18, "Unit stride");
 static_assert(sizeof(Squad) == 0xC0, "Squad size");
 
-// March requirements: every one of the 8 units has hp >= 500 and is alive.
+// March requirements: every one of the 8 units has exactly 500 hp and is alive.
 // In game, healing stops at maxHp (at most 120) and a fallen unit cannot be revived.
 constexpr std::int32_t kHpGoal = 500;
 
@@ -58,7 +58,7 @@ inline bool CheckWin(const Squad& s)
 {
     for (const Unit& u : s.units)
     {
-        if (u.hp < kHpGoal || (u.flags & kAlive) == 0)
+        if (u.hp != kHpGoal || (u.flags & kAlive) == 0)
         {
             return false;
         }
@@ -77,9 +77,14 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
-inline std::string MakeFlag()
+// The flag mixes a neutral tag with every unit's hp and alive bit.
+inline std::string MakeFlag(const Squad& s)
 {
-    const std::string seal = "lab16|squad=8|hp>=500|alive";
+    std::string seal = "lab16";
+    for (const Unit& u : s.units)
+    {
+        seal += "|" + std::to_string(u.hp) + ":" + std::to_string(u.flags & kAlive);
+    }
     std::ostringstream out;
     out << "FLAG{LAB16_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();

@@ -706,7 +706,7 @@
       "exp": 220,
       "path": "Course_Solutions/Lab16_Array_of_Structs/lab16_array_of_structs.cpp",
       "prerequisite_text": "Struct offsets",
-      "concept": "Array of structs: entity list, element stride, the same field in every element",
+      "concept": "The same field in every element of an entity array",
       "prerequisites": {
         "labs": [
           "lab03"

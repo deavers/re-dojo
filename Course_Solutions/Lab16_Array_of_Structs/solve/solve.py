@@ -25,6 +25,8 @@ WRONG = [
     _all_hp(STRIDE),
     # Max HP edited instead of HP.
     _all_hp(STRIDE, field=0x08) + f"poke {hex(FLAGS + 5 * STRIDE)} u32 1\n",
+    # More than 500 HP: the squad wants exactly 500.
+    "".join(f"poke {hex(HP + i * STRIDE)} i32 600\n" for i in range(8)) + f"poke {hex(FLAGS + 5 * STRIDE)} u32 1\n",
     # Past the end of the array: must be rejected, never crash.
     "poke 0xC0 i32 500\n",
 ]
