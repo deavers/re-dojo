@@ -9,7 +9,7 @@
 //   emulator's pointer to it, and translate guest addresses to host addresses.
 //
 // QUEST OBJECTIVE:
-//   Inside the console: lives exactly 99 and score at least 50000.
+//   Inside the console: lives exactly 99 and score exactly 50000.
 //   Manual: lives at guest 0x0300 (u8), score at guest 0x0302 (u16, little-endian).
 //
 // Exit codes: 0 high score accepted (flag printed), 3 quit / end of input.
@@ -41,7 +41,7 @@ static void PrintState()
                   << "  (changes on every start)\n";
     }
     std::cout << "--------------------------------------------------------------------\n";
-    std::cout << "  High score table needs: lives = 99 and score >= 50000.\n";
+    std::cout << "  High score table needs: lives = 99 and score = 50000.\n";
 }
 
 int main()

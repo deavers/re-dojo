@@ -110,13 +110,13 @@ inline void PowerOn(std::uint32_t seed)
     g_Machine.ram[kLevel] = 1;
 }
 
-// Win: lives exactly 99 and score at least 50000 (guest values).
+// Win: lives exactly 99 and score exactly 50000 (guest values).
 constexpr std::uint8_t kLivesGoal = 99;
 constexpr std::uint16_t kScoreGoal = 50000;
 
 inline bool CheckWin()
 {
-    return g_Machine.ram != nullptr && g_Machine.ram[kLives] == kLivesGoal && ReadGuest16(kScore) >= kScoreGoal;
+    return g_Machine.ram != nullptr && g_Machine.ram[kLives] == kLivesGoal && ReadGuest16(kScore) == kScoreGoal;
 }
 
 inline std::uint64_t Fnv1a64(const std::string& text)
@@ -130,9 +130,10 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
+// The flag mixes a neutral tag with the guest values the solver wrote.
 inline std::string MakeFlag()
 {
-    const std::string seal = "lab54|lives=99|score>=50000";
+    const std::string seal = "lab54|" + std::to_string(g_Machine.ram[kLives]) + "|" + std::to_string(ReadGuest16(kScore));
     std::ostringstream out;
     out << "FLAG{LAB54_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();

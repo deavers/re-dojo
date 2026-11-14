@@ -1731,7 +1731,7 @@
       "exp": 1250,
       "path": "Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_emulator.cpp",
       "prerequisite_text": "Pointer chains",
-      "concept": "Own emulator: guest RAM in a host heap buffer, host address = RAM base + guest address",
+      "concept": "Guest addresses versus host addresses in an emulator",
       "prerequisites": {
         "labs": [
           "lab18"

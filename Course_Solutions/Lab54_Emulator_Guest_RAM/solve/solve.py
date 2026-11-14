@@ -20,6 +20,8 @@ WRONG = [
     "chain obj 0x08 0x0300 u8 99\nchain obj 0x08 0x0302 u16 0x50C3\n",
     # ramSize (+0x10) taken for the RAM pointer: not an address, rejected.
     "chain obj 0x10 0x0300 u8 99\n",
+    # Score above the goal: the table wants exactly 50000.
+    "chain obj 0x08 0x0300 u8 99\nchain obj 0x08 0x0302 u16 60000\n",
     # One life too many.
     "chain obj 0x08 0x0300 u8 100\nchain obj 0x08 0x0302 u16 50000\n",
 ]
