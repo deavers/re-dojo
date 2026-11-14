@@ -519,7 +519,7 @@
         {
           "level": 1,
           "kind": "nudge",
-          "text": "Все пять проверок — арифметика над 32-битными числами с переполнением. Выпиши их как уравнения: каждая связывает две-три части ключа.",
+          "text": "Все пять проверок — арифметика над 64-битными числами с переполнением. Выпиши их как уравнения: каждая связывает две-три части ключа.",
           "source": "my_notes",
           "refs": [
             "Crackmes_and_CTF/16_Z3_Constraint_Lock/crackme16_z3_lock.cpp"
@@ -528,7 +528,7 @@
         {
           "level": 2,
           "kind": "concept",
-          "text": "Вручную обращать умножение по модулю 2^32 и сдвиги долго. Опиши систему решателю Z3: четыре BitVec ширины 32, сдвиг — RotateLeft, сдвиг вправо — LShR. Решение одно.",
+          "text": "Одна часть ключа определяет остальные, но перебирать её — 2^64 вариантов, это нереально. Опиши систему решателю Z3: четыре BitVec ширины 64, сдвиг по кругу — RotateLeft, сдвиг вправо — LShR. Решение одно, Z3 находит его за доли секунды.",
           "source": "my_notes",
           "refs": [
             "Crackmes_and_CTF/16_Z3_Constraint_Lock/crackme16_z3_lock.cpp"
@@ -537,7 +537,7 @@
         {
           "level": 3,
           "kind": "near_spoiler",
-          "text": "В crackme16_z3_lock.cpp: a + b == kC1, (a ^ c) == kC2, Rotl(b, 7) + d == kC3, ((c * kGolden) ^ d) == kC4, (a & 0xFFFFU) * 3U + (d >> 16) == kC5. Ответ — a-b-c-d в hex по 8 цифр.",
+          "text": "В crackme16_z3_lock.cpp: a + b == kK1, (a ^ c) == kK2, Rotl(b, 23) + d == kK3, ((c * kGolden) ^ d) == kK4, (a & 0xFFFFFFFFULL) * 3ULL + (d >> 32) == kK5. Ответ — a-b-c-d в hex по 16 цифр.",
           "source": "my_notes",
           "refs": [
             "Crackmes_and_CTF/16_Z3_Constraint_Lock/crackme16_z3_lock.cpp"
