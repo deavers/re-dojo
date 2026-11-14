@@ -7,8 +7,8 @@
 //   scans, and the difference between an 8-byte double and a 4-byte float.
 //
 // QUEST OBJECTIVES (the Philosopher's Stone forms when BOTH are true):
-//   1. Essence is at least 1,000,000   (double)
-//   2. Catalyst purity is at least 99.9 %  (float; filtering stops at 95 %)
+//   1. Essence is exactly 1,000,000
+//   2. Catalyst purity is exactly 100 %
 //
 // Exit codes: 0 stone formed (flag printed), 3 quit / end of input.
 // ============================================================================
@@ -47,7 +47,7 @@ static void PrintState()
     PrintAddress(&g_Alchemy.brews);
     std::cout << std::defaultfloat << std::setprecision(6);
     std::cout << "\n--------------------------------------------------------------------\n";
-    std::cout << "  Stone needs: Essence >= 1,000,000 and Purity >= 99.9 % (values on screen are rounded)\n";
+    std::cout << "  Stone needs: Essence = 1,000,000 and Purity = 100 % (values on screen are rounded)\n";
 }
 
 int main()
@@ -100,7 +100,7 @@ int main()
         {
             std::cout << "\n********************************************************************\n";
             std::cout << "  [QUEST COMPLETE - TIER F+ CLEARED!] The Philosopher's Stone glows.\n";
-            std::cout << "  " << lab12::MakeFlag() << "\n";
+            std::cout << "  " << lab12::MakeFlag(g_Alchemy) << "\n";
             std::cout << "********************************************************************\n";
             return 0;
         }

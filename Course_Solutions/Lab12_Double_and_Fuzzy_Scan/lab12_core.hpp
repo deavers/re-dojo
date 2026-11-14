@@ -26,7 +26,7 @@ static_assert(offsetof(Alchemy, catalystPurity) == 0x08, "catalystPurity offset"
 static_assert(offsetof(Alchemy, brews) == 0x0C, "brews offset");
 static_assert(sizeof(Alchemy) == 0x10, "Alchemy size");
 
-// Philosopher's Stone requirements: essence >= 1 million, purity >= 0.999 (99.9 %).
+// Philosopher's Stone requirements: essence exactly 1 million, purity exactly 1.0 (100 %), above 0.999 (99.9 %).
 // In-game filtering stops at 95 % purity, so purity needs a memory edit.
 constexpr double kEssenceGoal = 1000000.0;
 constexpr float kPurityGoal = 0.999f;
@@ -36,7 +36,7 @@ inline Alchemy g_Alchemy = {12.7531, 0.4137f, 0};
 
 inline bool CheckWin(const Alchemy& a)
 {
-    return a.essence >= kEssenceGoal && a.catalystPurity >= kPurityGoal;
+    return a.essence == kEssenceGoal && a.catalystPurity == 1.0f && a.catalystPurity >= kPurityGoal;
 }
 
 inline std::uint64_t Fnv1a64(const std::string& text)
@@ -50,9 +50,11 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
-inline std::string MakeFlag()
+// The flag mixes a neutral tag with the values the solver wrote.
+inline std::string MakeFlag(const Alchemy& a)
 {
-    const std::string seal = "lab12|essence>=1000000|purity>=0.999";
+    const std::string seal = "lab12|" + std::to_string(static_cast<long long>(a.essence)) + "|" +
+                             std::to_string(static_cast<int>(a.catalystPurity * 1000.0f + 0.5f));
     std::ostringstream out;
     out << "FLAG{LAB12_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();

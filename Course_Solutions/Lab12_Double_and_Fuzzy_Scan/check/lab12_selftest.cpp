@@ -21,6 +21,6 @@ int main()
         std::cout << "FAILED: the stone does not form\n";
         return 1;
     }
-    std::cout << lab12::MakeFlag() << "\n";
+    std::cout << lab12::MakeFlag(lab12::g_Alchemy) << "\n";
     return 0;
 }

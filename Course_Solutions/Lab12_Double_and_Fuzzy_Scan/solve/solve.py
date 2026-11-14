@@ -18,6 +18,8 @@ WRONG = [
     "poke 0x00 f64 1000000\npoke 0x08 i32 1\n",
     # Essence just below the goal.
     "poke 0x00 f64 999999.9\npoke 0x08 f32 1.0\n",
+    # Essence above the goal: the stone wants exactly 1000000.
+    "poke 0x00 f64 2000000\npoke 0x08 f32 1.0\n",
     # Out of bounds: must be rejected, never crash.
     "poke 0x10 f32 1.0\n",
 ]

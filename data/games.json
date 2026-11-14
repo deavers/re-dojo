@@ -352,7 +352,7 @@
       "exp": 150,
       "path": "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_double_fuzzy.cpp",
       "prerequisite_text": "Float & Int16 scans",
-      "concept": "Rounded display defeats exact scans: `Unknown initial value` + Increased / Decreased, `double` vs `float`",
+      "concept": "Values you cannot scan exactly because the screen rounds them; 8-byte and 4-byte floating point",
       "prerequisites": {
         "labs": [
           "lab02"
@@ -383,16 +383,16 @@
         {
           "level": 2,
           "kind": "concept",
-          "text": "Эссенция и чистота — разные типы с плавающей точкой: одна занимает 8 байт, другая 4. Сканируй каждую своим типом. Записанное не тем типом значение испортит соседние байты или окажется крошечным числом.",
+          "text": "Эссенция и чистота — разные типы с плавающей точкой: одна занимает 8 байт, другая 4. Сканируй и пиши каждую своим типом. Значение, записанное не тем типом, испортит соседние байты или окажется крошечным числом.",
           "source": "my_notes",
           "refs": [
-            "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_double_fuzzy.cpp"
+            "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_core.hpp"
           ]
         },
         {
           "level": 3,
           "kind": "near_spoiler",
-          "text": "В lab12_core.hpp: essence — double на +0x00, catalystPurity — float на +0x08. Фильтр в игре упирается в kPurityCap, а камню нужно purity >= 0.999 (99.9 %), так что чистоту поднимай правкой памяти.",
+          "text": "В lab12_core.hpp: essence — double на +0x00, catalystPurity — float на +0x08. Фильтр в игре упирается в kPurityCap, а камню нужны ровно 1000000 эссенции и чистота ровно 1.0 (100 %), так что обе величины ставь правкой памяти.",
           "source": "my_notes",
           "refs": [
             "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_core.hpp"
