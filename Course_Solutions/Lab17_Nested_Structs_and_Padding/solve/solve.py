@@ -25,6 +25,8 @@ WRONG = [
     _edits(dur=0x21),
     # Crit written as a 4-byte float.
     _edits(crit_type="f32"),
+    # Crit above the goal: the legend wants exactly 1.0.
+    "poke 0x18 f64 2.0\npoke 0x22 u16 9999\npoke 0x29 u32 1000000\n",
     # Past the end of the hero: must be rejected, never crash.
     "poke 0x30 u8 1\n",
 ]

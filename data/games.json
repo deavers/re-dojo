@@ -777,7 +777,7 @@
       "exp": 260,
       "path": "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_nested_padding.cpp",
       "prerequisite_text": "Array stride",
-      "concept": "Nested structs, alignment padding before `double` / `uint16`, `#pragma pack(1)` unaligned fields",
+      "concept": "The real field offsets of nested objects",
       "prerequisites": {
         "labs": [
           "lab16"

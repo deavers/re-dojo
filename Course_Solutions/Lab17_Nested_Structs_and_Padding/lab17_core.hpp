@@ -59,7 +59,7 @@ static_assert(offsetof(Hero, loot) == 0x28, "Hero.loot offset");
 static_assert(sizeof(Hero) == 0x30, "Hero size");
 // Absolute offsets inside g_Hero: crit +0x18, durability +0x22, loot gold +0x29.
 
-// Legend requirements: crit >= 1.0 (training stops at 0.5), armor durability exactly 9999 (repairs stop
+// Legend requirements: crit exactly 1.0 (training stops at 0.5), armor durability exactly 9999 (repairs stop
 // at 2000), loot gold value exactly 1000000 (the appraiser never changes it).
 constexpr double kCritGoal = 1.0;
 constexpr std::uint16_t kDurabilityGoal = 9999;
@@ -72,7 +72,7 @@ inline Hero g_Hero = {7, {3, 14, 9, 0.05}, {2, 640, 0}, {1, 120, 2}};
 inline bool CheckWin(const Hero& h)
 {
     const std::uint32_t lootGold = h.loot.goldValue; // read through the packed member, never by pointer
-    return h.stats.crit >= kCritGoal && h.armor.durability == kDurabilityGoal && lootGold == kLootGoal;
+    return h.stats.crit == kCritGoal && h.armor.durability == kDurabilityGoal && lootGold == kLootGoal;
 }
 
 inline std::uint64_t Fnv1a64(const std::string& text)
@@ -86,9 +86,12 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
-inline std::string MakeFlag()
+// The flag mixes a neutral tag with the values the solver wrote.
+inline std::string MakeFlag(const Hero& h)
 {
-    const std::string seal = "lab17|crit>=1.0|durability=9999|loot=1000000";
+    const std::uint32_t lootGold = h.loot.goldValue;
+    const std::string seal = "lab17|" + std::to_string(static_cast<long long>(h.stats.crit * 100.0)) + "|" +
+                             std::to_string(h.armor.durability) + "|" + std::to_string(lootGold);
     std::ostringstream out;
     out << "FLAG{LAB17_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();

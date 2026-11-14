@@ -21,6 +21,6 @@ int main()
         std::cout << "FAILED: no legend yet\n";
         return 1;
     }
-    std::cout << lab17::MakeFlag() << "\n";
+    std::cout << lab17::MakeFlag(lab17::g_Hero) << "\n";
     return 0;
 }

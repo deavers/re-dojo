@@ -8,9 +8,9 @@
 //   Engine's Structure Dissect / ReClass.NET and find each field's real offset.
 //
 // QUEST OBJECTIVES (you become a Legend when ALL are true):
-//   1. Crit chance >= 1.0          (double inside Stats; training stops at 0.5)
-//   2. Armor durability = 9999     (uint16 inside Armor; repairs stop at 2000)
-//   3. Loot gold value = 1000000   (uint32 inside a PACKED struct)
+//   1. Crit chance = 1.0
+//   2. Armor durability = 9999
+//   3. Loot gold value = 1000000
 //
 // Exit codes: 0 legend (flag printed), 3 quit / end of input.
 // ============================================================================
@@ -45,7 +45,7 @@ static void PrintState()
               << "\n";
     std::cout << "   Loot rarity " << static_cast<int>(g_Hero.loot.rarity) << ", gold value " << lootGold << "\n";
     std::cout << "--------------------------------------------------------------------\n";
-    std::cout << "  Legend needs: Crit >= 1.00, Durability = 9999, Loot gold = 1000000\n";
+    std::cout << "  Legend needs: Crit = 1.00, Durability = 9999, Loot gold = 1000000\n";
 }
 
 int main()
@@ -97,7 +97,7 @@ int main()
         {
             std::cout << "\n********************************************************************\n";
             std::cout << "  [QUEST COMPLETE - TIER E CLEARED!] The bards sing of a new Legend.\n";
-            std::cout << "  " << lab17::MakeFlag() << "\n";
+            std::cout << "  " << lab17::MakeFlag(g_Hero) << "\n";
             std::cout << "********************************************************************\n";
             return 0;
         }
