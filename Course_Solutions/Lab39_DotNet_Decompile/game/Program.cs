@@ -1,5 +1,5 @@
 // ============================================================================
-// [Lab 39] .NET: Decompile Your Own C# Game (Tier B- | Difficulty: 4.7/10)
+// [Lab 39] .NET: Decompile Your Own C# Game (Tier C+ | Difficulty: 4.7/10)
 // ============================================================================
 // PURPOSE:
 //   Builds on Lab 07. Managed code keeps almost everything a native binary loses:
@@ -32,9 +32,10 @@ namespace ReDojo.Lab39
             return new string(chars);
         }
 
-        private static string MakeFlag()
+        // The flag mixes a neutral tag with the accepted passphrase.
+        private static string MakeFlag(string passphrase)
         {
-            const string seal = "lab39|bazaar|forge-passphrase";
+            string seal = "lab39|" + passphrase;
             ulong h = 0xCBF29CE484222325UL;
             foreach (byte b in Encoding.ASCII.GetBytes(seal))
             {
@@ -47,7 +48,7 @@ namespace ReDojo.Lab39
         private static int Main()
         {
             Console.WriteLine("====================================================================");
-            Console.WriteLine("  [LAB 39 | TIER B-] THE CLOCKWORK BAZAAR (.NET Decompilation)");
+            Console.WriteLine("  [LAB 39 | TIER C+] THE CLOCKWORK BAZAAR (.NET Decompilation)");
             Console.WriteLine("====================================================================");
             Console.Write("The clockwork merchant waits for the passphrase: ");
 
@@ -71,8 +72,8 @@ namespace ReDojo.Lab39
             }
             Console.WriteLine();
             Console.WriteLine("********************************************************************");
-            Console.WriteLine("  [QUEST COMPLETE - TIER B- CLEARED!] The merchant opens his vault.");
-            Console.WriteLine("  " + MakeFlag());
+            Console.WriteLine("  [QUEST COMPLETE - TIER C+ CLEARED!] The merchant opens his vault.");
+            Console.WriteLine("  " + MakeFlag(input));
             Console.WriteLine("********************************************************************");
             return 0;
         }

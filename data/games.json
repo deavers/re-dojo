@@ -1406,7 +1406,7 @@
       "exp": 680,
       "path": "Course_Solutions/Lab39_DotNet_Decompile/game/Program.cs",
       "prerequisite_text": "Classes and method tables",
-      "concept": "Own .NET 8 game: decompile with dnSpyEx / ILSpy, read how the passphrase is forged, reproduce it",
+      "concept": "Reading a managed game's code to recover a secret",
       "prerequisites": {
         "labs": [
           "lab07"
