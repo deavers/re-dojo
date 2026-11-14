@@ -1,5 +1,5 @@
 // ============================================================================
-// [Lab 11] Integer Widths & Signedness (Tier F | Difficulty: 0.3/10)
+// [Lab 11] Integer Widths & Signedness (Tier F- | Difficulty: 0.3/10)
 // ============================================================================
 // PURPOSE:
 //   Builds on Lab 01. Not every number is a 4-byte int. Learn to pick the scan
@@ -36,7 +36,7 @@ static void PrintAddress(const void* p)
 static void PrintState()
 {
     std::cout << "\n====================================================================\n";
-    std::cout << "  [LAB 11 | TIER F] THE CURSED VAULT (Integer Widths & Signedness)\n";
+    std::cout << "  [LAB 11 | TIER F-] THE CURSED VAULT (Integer Widths & Signedness)\n";
     std::cout << "====================================================================\n";
     std::cout << "   Morale  (1 byte, signed)   : " << static_cast<int>(g_Treasury.morale);
     PrintAddress(&g_Treasury.morale);
@@ -104,7 +104,7 @@ int main()
         if (lab11::CheckWin(g_Treasury))
         {
             std::cout << "\n********************************************************************\n";
-            std::cout << "  [QUEST COMPLETE - TIER F CLEARED!] The Cursed Vault creaks open.\n";
+            std::cout << "  [QUEST COMPLETE - TIER F- CLEARED!] The Cursed Vault creaks open.\n";
             std::cout << "  " << lab11::MakeFlag(g_Treasury) << "\n";
             std::cout << "********************************************************************\n";
             return 0;

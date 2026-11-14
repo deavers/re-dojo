@@ -1,5 +1,5 @@
 // ============================================================================
-// [Lab 52] Embedded Lua 5.4: lua_State (Tier A | Difficulty: 6.3/10)
+// [Lab 52] Embedded Lua 5.4: lua_State (Tier A- | Difficulty: 6.3/10)
 // ============================================================================
 // PURPOSE:
 //   Builds on Lab 09 (internal DLL) and Lab 17 (struct layout). Many games run
@@ -32,7 +32,7 @@ static void PrintState()
     std::string title;
     lab52::ReadHero(gold, title);
     std::cout << "\n====================================================================\n";
-    std::cout << "  [LAB 52 | TIER A] THE ARCHMAGE GUILD (Embedded Lua 5.4)\n";
+    std::cout << "  [LAB 52 | TIER A-] THE ARCHMAGE GUILD (Embedded Lua 5.4)\n";
     std::cout << "====================================================================\n";
     std::cout << "   Script " << g_Engine.scriptName << ", turn " << g_Engine.turn << "\n";
     std::cout << "   hero.gold  = " << static_cast<std::int64_t>(gold) << "\n";
@@ -84,7 +84,7 @@ int main()
         if (lab52::CheckWin())
         {
             std::cout << "\n********************************************************************\n";
-            std::cout << "  [QUEST COMPLETE - TIER A CLEARED!] The Archmage Guild opens its doors.\n";
+            std::cout << "  [QUEST COMPLETE - TIER A- CLEARED!] The Archmage Guild opens its doors.\n";
             std::cout << "  " << lab52::MakeFlag() << "\n";
             std::cout << "********************************************************************\n";
             return 0;

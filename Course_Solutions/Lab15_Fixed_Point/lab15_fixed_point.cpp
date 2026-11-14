@@ -1,5 +1,5 @@
 // ============================================================================
-// [Lab 15] Fixed-Point 16.16 (Tier E- | Difficulty: 1.1/10)
+// [Lab 15] Fixed-Point 16.16 (Tier E-- | Difficulty: 1.1/10)
 // ============================================================================
 // PURPOSE:
 //   Builds on Lab 12. Fractional values are not always floats. Older engines,
@@ -36,7 +36,7 @@ static void PrintAddress(const void* p)
 static void PrintState()
 {
     std::cout << "\n====================================================================\n";
-    std::cout << "  [LAB 15 | TIER E-] THE FIXED-POINT STARSHIP (16.16 Fixed Point)\n";
+    std::cout << "  [LAB 15 | TIER E--] THE FIXED-POINT STARSHIP (16.16 Fixed Point)\n";
     std::cout << "====================================================================\n";
     std::cout << std::fixed << std::setprecision(2);
     std::cout << "   Fuel   : " << lab15::ToReal(g_Ship.fuel);
@@ -113,7 +113,7 @@ int main()
         if (lab15::CheckWin(g_Ship))
         {
             std::cout << "\n********************************************************************\n";
-            std::cout << "  [QUEST COMPLETE - TIER E- CLEARED!] Hyperjump engaged.\n";
+            std::cout << "  [QUEST COMPLETE - TIER E-- CLEARED!] Hyperjump engaged.\n";
             std::cout << "  " << lab15::MakeFlag(g_Ship) << "\n";
             std::cout << "********************************************************************\n";
             return 0;

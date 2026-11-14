@@ -1,5 +1,5 @@
 // ============================================================================
-// [Lab 32] Shadow VMT (Tier C | Difficulty: 3.9/10)
+// [Lab 32] Shadow VMT (Tier C- | Difficulty: 3.9/10)
 // ============================================================================
 // PURPOSE:
 //   Builds on Lab 07. Every object of a class shares ONE virtual method table.
@@ -36,7 +36,7 @@ static std::uintptr_t VptrValue(const void* object)
 static void PrintState()
 {
     std::cout << "\n====================================================================\n";
-    std::cout << "  [LAB 32 | TIER C] THE CAPTAIN'S PRICE (Shadow VMT)\n";
+    std::cout << "  [LAB 32 | TIER C-] THE CAPTAIN'S PRICE (Shadow VMT)\n";
     std::cout << "====================================================================\n";
     for (int i = 0; i < 3; ++i)
     {
@@ -94,7 +94,7 @@ int main()
         if (lab32::CheckWin())
         {
             std::cout << "\n********************************************************************\n";
-            std::cout << "  [QUEST COMPLETE - TIER C CLEARED!] The Captain pockets the gold.\n";
+            std::cout << "  [QUEST COMPLETE - TIER C- CLEARED!] The Captain pockets the gold.\n";
             std::cout << "  " << lab32::MakeFlag() << "\n";
             std::cout << "********************************************************************\n";
             return 0;
