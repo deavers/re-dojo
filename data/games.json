@@ -1691,7 +1691,7 @@
         {
           "level": 2,
           "kind": "concept",
-          "text": "Функции Lua экспортирует lua54.dll, поэтому внедрённая DLL может взять luaL_loadstring и lua_pcallk через GetProcAddress. Загрузи кусок кода и вызови его в состоянии игры. Окружение урезано: os и io нет.",
+          "text": "Функции Lua экспортирует lua54.dll, поэтому внедрённая DLL может взять luaL_loadstring и lua_pcallk через GetProcAddress (каркас DLL — Tools_and_Scripts/03_Internal_DLL_Skeleton). Загрузи кусок кода и вызови его в состоянии игры. Окружение урезано: только base, table, string и math — os, io, dofile и loadfile нет.",
           "source": "my_notes",
           "refs": [
             "Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp"
