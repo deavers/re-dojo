@@ -35,9 +35,9 @@ if %ERRORLEVEL% EQU 0 (
     cl !CFLAGS! "Course_Solutions\Lab01_Static_Scalars\lab01_static_scalars.cpp" /Fe:build\bin\lab01_static_scalars.exe !LFLAGS!
     cl !CFLAGS! "Course_Solutions\Lab02_Data_Types_and_Bitmasks\lab02_datatypes_bitmasks.cpp" /Fe:build\bin\lab02_datatypes_bitmasks.exe !LFLAGS!
     cl !CFLAGS! "Course_Solutions\Lab03_2D_Arrays_and_Structures\lab03_grid_minesweeper.cpp" /Fe:build\bin\lab03_grid_minesweeper.exe !LFLAGS!
-    cl !CFLAGS! "Course_Solutions\Lab04_MultiLevel_Pointers\lab04_pointer_chains.cpp" /Fe:build\bin\lab04_pointer_chains.exe !LFLAGS!
+    cl !CFLAGS! "Course_Solutions\Lab04_MultiLevel_Pointers\lab04_pointer_chains.cpp" /Fe:build\bin\lab04_multilevel_pointers.exe !LFLAGS!
     cl !CFLAGS! "Course_Solutions\Lab05_Code_Injection_and_NOP\lab05_code_injection.cpp" /Fe:build\bin\lab05_code_injection.exe !LFLAGS!
-    cl !CFLAGS! "Course_Solutions\Lab06_Shared_Code_Disambiguation\lab06_shared_code.cpp" /Fe:build\bin\lab06_shared_code.exe !LFLAGS!
+    cl !CFLAGS! "Course_Solutions\Lab06_Shared_Code_Disambiguation\lab06_shared_code.cpp" /Fe:build\bin\lab06_shared_code_filter.exe !LFLAGS!
     cl !CFLAGS! "Course_Solutions\Lab07_ReClass_and_VMT_Hooking\lab07_vtable_reclass.cpp" /Fe:build\bin\lab07_vtable_reclass.exe !LFLAGS!
     cl !CFLAGS! "Course_Solutions\Lab08_3D_Math_and_WorldToScreen\lab08_3d_w2s_simulator.cpp" /Fe:build\bin\lab08_3d_w2s_simulator.exe !LFLAGS!
     cl !CFLAGS! "Course_Solutions\Lab09_Internal_DLL_and_Hooks\lab09_internal_hook_target.cpp" /Fe:build\bin\lab09_internal_hook_target.exe !LFLAGS!
@@ -67,9 +67,9 @@ if %ERRORLEVEL% EQU 0 (
     g++ !GFLAGS! "Course_Solutions/Lab01_Static_Scalars/lab01_static_scalars.cpp" -o "build/bin/lab01_static_scalars.exe"
     g++ !GFLAGS! "Course_Solutions/Lab02_Data_Types_and_Bitmasks/lab02_datatypes_bitmasks.cpp" -o "build/bin/lab02_datatypes_bitmasks.exe"
     g++ !GFLAGS! "Course_Solutions/Lab03_2D_Arrays_and_Structures/lab03_grid_minesweeper.cpp" -o "build/bin/lab03_grid_minesweeper.exe"
-    g++ !GFLAGS! "Course_Solutions/Lab04_MultiLevel_Pointers/lab04_pointer_chains.cpp" -o "build/bin/lab04_pointer_chains.exe"
+    g++ !GFLAGS! "Course_Solutions/Lab04_MultiLevel_Pointers/lab04_pointer_chains.cpp" -o "build/bin/lab04_multilevel_pointers.exe"
     g++ !GFLAGS! "Course_Solutions/Lab05_Code_Injection_and_NOP/lab05_code_injection.cpp" -o "build/bin/lab05_code_injection.exe"
-    g++ !GFLAGS! "Course_Solutions/Lab06_Shared_Code_Disambiguation/lab06_shared_code.cpp" -o "build/bin/lab06_shared_code.exe"
+    g++ !GFLAGS! "Course_Solutions/Lab06_Shared_Code_Disambiguation/lab06_shared_code.cpp" -o "build/bin/lab06_shared_code_filter.exe"
     g++ !GFLAGS! "Course_Solutions/Lab07_ReClass_and_VMT_Hooking/lab07_vtable_reclass.cpp" -o "build/bin/lab07_vtable_reclass.exe"
     g++ !GFLAGS! "Course_Solutions/Lab08_3D_Math_and_WorldToScreen/lab08_3d_w2s_simulator.cpp" -o "build/bin/lab08_3d_w2s_simulator.exe"
     g++ !GFLAGS! "Course_Solutions/Lab09_Internal_DLL_and_Hooks/lab09_internal_hook_target.cpp" -o "build/bin/lab09_internal_hook_target.exe"

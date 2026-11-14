@@ -32,6 +32,10 @@ add_executable(lab08_3d_w2s_simulator     Course_Solutions/Lab08_3D_Math_and_Wor
 add_executable(lab09_internal_hook_target Course_Solutions/Lab09_Internal_DLL_and_Hooks/lab09_internal_hook_target.cpp)
 add_executable(lab10_integrity_boss       Course_Solutions/Lab10_Integrity_and_AntiTamper_Boss/lab10_integrity_boss.cpp)
 
+# Output names expected by Game_Hacking/Dojo_Labs_Reference.CT (aobscanmodule / module+offset).
+set_target_properties(lab04_pointer_chains PROPERTIES OUTPUT_NAME lab04_multilevel_pointers)
+set_target_properties(lab06_shared_code    PROPERTIES OUTPUT_NAME lab06_shared_code_filter)
+
 # Crackmes and CTF (8 Progressive Keygenning & De-Obfuscation Targets)
 add_executable(crackme01_strings          Crackmes_and_CTF/01_Apprentice_Gate/crackme01_strings.cpp)
 add_executable(crackme02_serial_math      Crackmes_and_CTF/02_Mathematical_Lock/crackme02_serial_math.cpp)
@@ -47,3 +51,70 @@ if(WIN32)
     add_executable(external_memory_trainer Tools_and_Scripts/01_External_Trainer_Template/external_memory_trainer.cpp)
     add_library(internal_hook_lab09 SHARED Tools_and_Scripts/03_Internal_DLL_Skeleton/dllmain_internal_hook.cpp)
 endif()
+
+# ============================================================================
+# Autocheck for new labs (docs/lab_plan.md, section 3):
+#   build -> reference solution passes -> wrong input fails
+#   cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+#   cmake --build build --config Release --parallel
+#   ctest --test-dir build -C Release --output-on-failure
+# Code style of new labs: Allman braces, Tools_and_Scripts/lab_template/.clang-format
+# ============================================================================
+enable_testing()
+include(cmake/DojoLab.cmake)
+include(cmake/DojoDotnet.cmake)
+add_test(NAME dojo_runner_selftest COMMAND ${Python3_EXECUTABLE} -I ${DOJO_LAB_RUNNER} selftest)
+set_tests_properties(dojo_runner_selftest PROPERTIES LABELS "lab")
+
+# Third-party: Lua 5.4.9 (unmodified, MIT) for the Lua labs - third_party/lua/README.md
+add_subdirectory(third_party/lua)
+
+# New labs: one dojo_add_lab(...) per lab, in plan order.
+dojo_add_lab(ID lab11 TARGET lab11_integer_widths DIR Course_Solutions/Lab11_Integer_Widths
+             SOURCE   Course_Solutions/Lab11_Integer_Widths/lab11_integer_widths.cpp
+             SELFTEST Course_Solutions/Lab11_Integer_Widths/check/lab11_selftest.cpp)
+dojo_add_lab(ID lab12 TARGET lab12_double_fuzzy DIR Course_Solutions/Lab12_Double_and_Fuzzy_Scan
+             SOURCE   Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_double_fuzzy.cpp
+             SELFTEST Course_Solutions/Lab12_Double_and_Fuzzy_Scan/check/lab12_selftest.cpp)
+dojo_add_lab(ID lab13 TARGET lab13_strings DIR Course_Solutions/Lab13_Strings_in_Memory
+             SOURCE   Course_Solutions/Lab13_Strings_in_Memory/lab13_strings.cpp
+             SELFTEST Course_Solutions/Lab13_Strings_in_Memory/check/lab13_selftest.cpp)
+dojo_add_lab(ID cm09 TARGET crackme09_mirror DIR Crackmes_and_CTF/09_Mirror_Gate
+             SOURCE   Crackmes_and_CTF/09_Mirror_Gate/crackme09_mirror.cpp)
+dojo_add_lab(ID lab15 TARGET lab15_fixed_point DIR Course_Solutions/Lab15_Fixed_Point
+             SOURCE   Course_Solutions/Lab15_Fixed_Point/lab15_fixed_point.cpp
+             SELFTEST Course_Solutions/Lab15_Fixed_Point/check/lab15_selftest.cpp)
+dojo_add_lab(ID lab16 TARGET lab16_array_of_structs DIR Course_Solutions/Lab16_Array_of_Structs
+             SOURCE   Course_Solutions/Lab16_Array_of_Structs/lab16_array_of_structs.cpp
+             SELFTEST Course_Solutions/Lab16_Array_of_Structs/check/lab16_selftest.cpp)
+dojo_add_lab(ID lab17 TARGET lab17_nested_padding DIR Course_Solutions/Lab17_Nested_Structs_and_Padding
+             SOURCE   Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_nested_padding.cpp
+             SELFTEST Course_Solutions/Lab17_Nested_Structs_and_Padding/check/lab17_selftest.cpp)
+dojo_add_lab(ID lab18 TARGET lab18_lazy_singleton DIR Course_Solutions/Lab18_Lazy_Singleton
+             SOURCE   Course_Solutions/Lab18_Lazy_Singleton/lab18_lazy_singleton.cpp
+             SELFTEST Course_Solutions/Lab18_Lazy_Singleton/check/lab18_selftest.cpp)
+dojo_add_lab(ID lab19 TARGET lab19_pointer_scan DIR Course_Solutions/Lab19_Pointer_Scan_Restarts
+             SOURCE   Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_pointer_scan.cpp)
+dojo_add_lab(ID cm10 TARGET crackme10_checksum_serial DIR Crackmes_and_CTF/10_Checksum_Serial
+             SOURCE   Crackmes_and_CTF/10_Checksum_Serial/crackme10_checksum_serial.cpp)
+dojo_add_lab(ID lab32 TARGET lab32_shadow_vmt DIR Course_Solutions/Lab32_Shadow_VMT
+             SOURCE   Course_Solutions/Lab32_Shadow_VMT/lab32_shadow_vmt.cpp
+             SELFTEST Course_Solutions/Lab32_Shadow_VMT/check/lab32_selftest.cpp)
+dojo_add_lab(ID cm17 TARGET crackme17_register_vm DIR Crackmes_and_CTF/17_Register_VM
+             SOURCE   Crackmes_and_CTF/17_Register_VM/crackme17_register_vm.cpp)
+dojo_add_lab(ID lab54 TARGET lab54_emulator DIR Course_Solutions/Lab54_Emulator_Guest_RAM
+             SOURCE   Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_emulator.cpp
+             SELFTEST Course_Solutions/Lab54_Emulator_Guest_RAM/check/lab54_selftest.cpp)
+dojo_add_lab(ID lab45 TARGET lab45_name_pool DIR Course_Solutions/Lab45_MiniUE_Name_Pool
+             SOURCE   Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_name_pool.cpp
+             SELFTEST Course_Solutions/Lab45_MiniUE_Name_Pool/check/lab45_selftest.cpp)
+dojo_add_lab(ID lab52 TARGET lab52_embedded_lua DIR Course_Solutions/Lab52_Embedded_Lua
+             SOURCE   Course_Solutions/Lab52_Embedded_Lua/lab52_embedded_lua.cpp
+             SELFTEST Course_Solutions/Lab52_Embedded_Lua/check/lab52_selftest.cpp
+             LIBS lua54
+             LABELS windows)
+dojo_add_dotnet_lab(ID lab39 DIR Course_Solutions/Lab39_DotNet_Decompile PROJECT game/Lab39.csproj
+                    ASSEMBLY Lab39)
+dojo_add_lab(ID cm16 TARGET crackme16_z3_lock DIR Crackmes_and_CTF/16_Z3_Constraint_Lock
+             SOURCE   Crackmes_and_CTF/16_Z3_Constraint_Lock/crackme16_z3_lock.cpp
+             LABELS z3)

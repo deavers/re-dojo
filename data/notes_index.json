@@ -1,0 +1,197 @@
+{
+  "_documentation": {
+    "purpose": "Hand-curated links from RE:DOJO map nodes to the author's REAL notes in this repo. Only entries listed here may carry source 'my_notes'. Every technique/tool listed below must be backed by the referenced files.",
+    "used_by": "Tools_and_Scripts/build_games_json.py",
+    "rules": [
+      "Keys are node ids from data/games.json (gNNN = Top 200 rank, labNN / cmNN = in-repo labs and crackmes).",
+      "Paths are repo-relative and must exist (checked by validate_games.py).",
+      "Do not add a game here unless a .CT table or writeup for it is committed to the repo."
+    ]
+  },
+  "games": {
+    "g019": {
+      "notes": [
+        {
+          "path": "Game_Hacking/PvZ.CT",
+          "kind": "cheat_table"
+        },
+        {
+          "path": "Game_Hacking/README.md",
+          "anchor": "1-plants-vs-zombies-goty-tier-e--21--10",
+          "kind": "writeup"
+        }
+      ],
+      "techniques": [
+        "pointer_chain",
+        "aob_injection",
+        "ce_lua_script",
+        "speedhack"
+      ],
+      "tools": [
+        "cheat_engine"
+      ]
+    },
+    "g038": {
+      "notes": [
+        {
+          "path": "Game_Hacking/UnrealTournament_UT99.CT",
+          "kind": "cheat_table"
+        },
+        {
+          "path": "Game_Hacking/README.md",
+          "anchor": "2-unreal-tournament-goty-1999-tier-d--29--10",
+          "kind": "writeup"
+        }
+      ],
+      "techniques": [
+        "pointer_chain",
+        "aob_injection",
+        "shared_code_filter",
+        "ce_lua_script"
+      ],
+      "tools": [
+        "cheat_engine"
+      ]
+    },
+    "g074": {
+      "notes": [
+        {
+          "path": "Game_Hacking/isaac-ng.CT",
+          "kind": "cheat_table"
+        },
+        {
+          "path": "Game_Hacking/README.md",
+          "anchor": "3-the-binding-of-isaac-repentance-tier-c---38--10",
+          "kind": "writeup"
+        }
+      ],
+      "techniques": [
+        "aob_injection",
+        "struct_dissect",
+        "bitmask_flags"
+      ],
+      "tools": [
+        "cheat_engine"
+      ]
+    },
+    "g088": {
+      "notes": [
+        {
+          "path": "Game_Hacking/StreetsOfRogue_v98.CT",
+          "kind": "cheat_table"
+        },
+        {
+          "path": "Game_Hacking/README.md",
+          "anchor": "4-streets-of-rogue-v98-tier-c--41--10",
+          "kind": "writeup"
+        }
+      ],
+      "techniques": [
+        "mono_dissect",
+        "aob_injection",
+        "ce_lua_script"
+      ],
+      "tools": [
+        "cheat_engine"
+      ]
+    }
+  },
+  "labs": {
+    "lab01": [
+      {
+        "path": "Game_Hacking/Dojo_Labs_Reference.CT",
+        "kind": "cheat_table"
+      }
+    ],
+    "lab04": [
+      {
+        "path": "Game_Hacking/Dojo_Labs_Reference.CT",
+        "kind": "cheat_table"
+      }
+    ],
+    "lab05": [
+      {
+        "path": "Game_Hacking/Dojo_Labs_Reference.CT",
+        "kind": "cheat_table"
+      }
+    ],
+    "lab06": [
+      {
+        "path": "Game_Hacking/Dojo_Labs_Reference.CT",
+        "kind": "cheat_table"
+      }
+    ],
+    "lab11": [
+      {
+        "path": "Course_Solutions/Lab11_Integer_Widths/lab11_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab12": [
+      {
+        "path": "Course_Solutions/Lab12_Double_and_Fuzzy_Scan/lab12_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab13": [
+      {
+        "path": "Course_Solutions/Lab13_Strings_in_Memory/lab13_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab15": [
+      {
+        "path": "Course_Solutions/Lab15_Fixed_Point/lab15_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab16": [
+      {
+        "path": "Course_Solutions/Lab16_Array_of_Structs/lab16_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab17": [
+      {
+        "path": "Course_Solutions/Lab17_Nested_Structs_and_Padding/lab17_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab18": [
+      {
+        "path": "Course_Solutions/Lab18_Lazy_Singleton/lab18_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab19": [
+      {
+        "path": "Course_Solutions/Lab19_Pointer_Scan_Restarts/lab19_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab32": [
+      {
+        "path": "Course_Solutions/Lab32_Shadow_VMT/lab32_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab54": [
+      {
+        "path": "Course_Solutions/Lab54_Emulator_Guest_RAM/lab54_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab45": [
+      {
+        "path": "Course_Solutions/Lab45_MiniUE_Name_Pool/lab45_core.hpp",
+        "kind": "lab_source"
+      }
+    ],
+    "lab52": [
+      {
+        "path": "Course_Solutions/Lab52_Embedded_Lua/lab52_core.hpp",
+        "kind": "lab_source"
+      }
+    ]
+  }
+}

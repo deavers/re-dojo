@@ -2,7 +2,7 @@ name: OPSEC Sanitizer & Dojo Build CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, 'dojo-*' ]
   pull_request:
     branches: [ main, master ]
   workflow_dispatch:
@@ -18,11 +18,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # On pull_request the default ref is GitHub's synthetic merge commit (refs/pull/N/merge). Its author is
+          # the PR creator's profile display name and it never exists in the repository history. Scan and build
+          # the PR's real head commit instead (every real commit is still checked); pushes keep github.sha.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Install z3-solver (Z3 crackme reference solvers)
+        run: python -m pip install z3-solver==5.4.1.0
 
       - name: Run OPSEC, Privacy & PII Sanitizer
         run: python Tools_and_Scripts/opsec_sanitizer.py --ci
@@ -30,12 +37,54 @@ jobs:
       - name: Verify 5-Axis Rubric & Custom Target Database
         run: python Tools_and_Scripts/rpg_manager.py --verify-db
 
+      - name: Verify RE:DOJO Map Data (games.json fresh + schema, provenance & safety rules)
+        run: |
+          python Tools_and_Scripts/build_games_json.py --check
+          python Tools_and_Scripts/validate_games.py
+          python Tools_and_Scripts/build_dojo_map.py --check
+
       - name: Run Automated Artifact Grader Self-Test
         run: python Tools_and_Scripts/auto_artifact_grader.py Game_Hacking/
 
-      - name: Verify C++20 Dojo Labs & Crackmes Compile Cleanly (GCC)
+      - name: Verify C++20 Dojo Labs & Crackmes Compile Cleanly (GCC, -Wall -Wextra -Werror)
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-Wall -Wextra -Werror" -DDOJO_DOTNET_TESTS=OFF
           cmake --build . --parallel
+
+      - name: Lab Autocheck (CTest - build, reference solution passes, wrong input fails)
+        run: ctest --test-dir build --output-on-failure -LE "windows|unity"
+
+  windows-labs:
+    # MSVC build + all lab tests incl. Windows-only labs. Only on PRs and on main (not on every dojo-* push).
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install z3-solver (Z3 crackme reference solvers)
+        run: python -m pip install z3-solver==5.4.1.0
+
+      - name: Show installed Visual Studio instances (vswhere) and CMake version
+        run: |
+          & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -all -products * -format text |
+            Select-String -Pattern '^(displayName|installationVersion|installationPath):'
+          cmake --version
+
+      - name: Build Labs with MSVC (newest Visual Studio on the runner, x64)
+        run: |
+          # No -G: CMake picks the newest Visual Studio it finds, so a runner image update cannot break the job.
+          cmake -S . -B build -A x64 -DDOJO_DOTNET_TESTS=OFF
+          cmake --build build --config Release --parallel
+
+      - name: Lab Autocheck (CTest, all labels except unity)
+        run: ctest --test-dir build -C Release --output-on-failure -LE unity

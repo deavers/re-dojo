@@ -1,0 +1,85 @@
+# data/hints/ — hint batches for the RE:DOJO map
+
+Hints live here, **not** in `data/games.json`. `Tools_and_Scripts/build_games_json.py` merges every
+`*.json` file in this folder by node id, so rebuilding `games.json` never wipes hint work.
+
+## File format (`batch_01.json`, … for games; `labs_01.json`, … for labs and crackmes)
+
+```json
+{
+  "batch": 1,
+  "entries": {
+    "g019": {
+      "status": "draft",
+      "hints": [
+        { "level": 1, "kind": "nudge",        "text": "…", "source": "my_notes",           "refs": ["Game_Hacking/README.md#1-plants-vs-zombies-goty-tier-e--21--10"] },
+        { "level": 2, "kind": "concept",      "text": "…", "source": "repo_catalog",       "refs": [] },
+        { "level": 3, "kind": "near_spoiler", "text": "…", "source": "needs_verification", "refs": [] }
+      ]
+    }
+  }
+}
+```
+
+| Field | Rule |
+| :--- | :--- |
+| node id | `gNNN` (Top 200 rank), `labNN` / `cmNN`, or a campaign quest id from `data/safety_overrides.json`. Each id may appear in only one batch file. |
+| `status` | `draft` → `reviewed` once you checked it against the game yourself. |
+| `hints` | Exactly 3, in order: `nudge` (намёк) → `concept` (концепт) → `near_spoiler` (почти спойлер). |
+| `text` | Plain text, ≤ 400 chars, no HTML. |
+| `source` | `my_notes` = **[из моих заметок]**: needs at least one ref to **this node's own notes** (`data/notes_index.json`; for a lab: its source). A lab source alone never makes a game hint "my notes". `repo_catalog` / `needs_verification` = **[нужна проверка]**. |
+
+## Hard rules (enforced by `Tools_and_Scripts/validate_games.py`)
+
+* **No invented literals.** Every concrete literal in `text` must appear (whole token, not a substring:
+  `0x55` is not backed by `0x5560`) in this node's own text (title, engine, catalog / README / lab text)
+  or in one of **this node's own notes** listed in `refs` (lab sources may be cited, but do not back literals). Checked literals:
+  hex (`0x5560`, `+5560`, `+08`, `5560h`, `01005340`), `module.exe+offset`, `[rcx+08]`,
+  AOB byte strings (`8B 45 08 ?? ??`), versions and builds (`v98`, `7.5`, `1.05`, `2019.4`, `build 98`).
+  Citing `README.md` or the Top 200 catalog does **not** count as provenance for another game's literal.
+* Plain numbers in prose (`8 байт`, `+20%`, `шаг 3`) are fine.
+* Commercial protections may only be mentioned in hints of restricted nodes (`PROTECTION_RX` in
+  `Tools_and_Scripts/dojo_schema.py`): product names (Arxan, Denuvo, SecuROM, SafeDisc, VMProtect, DRM …),
+  anti-cheat (`anti-cheat`, BattlEye, Vanguard, upper-case `EAC` / `VAC`), encrypted / custom metadata,
+  private / local servers and sandboxes, bypassing license or online checks (`keygen`, `bypass the license check`).
+  Exception: hints of labs and crackmes (your own binaries) may talk about keygens and license files,
+  product names stay forbidden there too.
+* A game whose catalog text (title + engine + what_to_find) matches `PROTECTION_RX` must be restricted in
+  `data/safety_overrides.json`. Broader wording is only listed for a human decision:
+  `python Tools_and_Scripts/validate_games.py --protection-report`.
+* Games with `safety.online_note = true` (listed in `online_note_games` in `data/safety_overrides.json`) also
+  have an online mode. Hints must stay offline / single-player: `online`, `multiplayer`, `ranked`, `server`
+  (and RU `онлайн`, `мультиплеер`, `сервер`, `ранкед`, `рейтинговый`) are an error there. `offline` is fine.
+* Restricted nodes (`safety.restricted = true`: `g176`, `g177`, `g199`, `q_ss_legacy_drm`, `q_ssp_integrity_guard`):
+  conceptual hints only, no concrete addresses / offsets / bytes at all, and the level-3 hint must reference
+  one of the node's `redirect_labs` sources (your own binaries).
+* **Known limits of the regex checks** (the `draft` → `reviewed` step is the real backstop):
+  * still NOT detected: offsets without a prefix/suffix (`смещение 5560`, `1A4`) and versions glued to a word (`UE4.27`);
+  * false alarms (fail closed, rephrase): decimals in prose (`999.0`), `+10 к урону`, `+100 EXP`, `C++20`, `Ctrl+F5`.
+
+## Известные расхождения в авторских заметках
+
+Источник истины для подсказок — рабочие таблицы `.CT`: подсказка описывает то, что скрипт буквально
+делает. Расхождения с `Game_Hacking/README.md` и с комментариями в скриптах не разрешаются в пользу
+догадки, и подсказки не утверждают, какое значение «правильное». Сами `.CT` и README не правятся.
+
+| Игра | Где | Расхождение | Статус |
+| :--- | :--- | :--- | :--- |
+| g019 Plants vs. Zombies GOTY | `Game_Hacking/README.md` ↔ `Game_Hacking/PvZ.CT` | README: счётчик солнца `+0x5560`; скрипт «Sun 999» в `.CT`: `[edi+00005578]` | автор считает опечаткой/ошибкой документации, таблица работала на своей версии |
+| g038 Unreal Tournament 99 | комментарий ↔ код в `Game_Hacking/UnrealTournament_UT99.CT` | комментарий «1 to 1000»; код `cmp dword ptr [esi], 1000` — число без префикса `#`, в Auto Assembler это hex | автор считает опечаткой/ошибкой документации, таблица работала на своей версии |
+
+## Ambiguous engines
+
+`engine_family: "ambiguous"` + `engine_derivation.status: "unknown"` (see `derive_engine()` in
+`Tools_and_Scripts/dojo_schema.py`): the engine string allows several families with different techniques
+(Wrapper / Hybrid, Unity without Mono / IL2CPP, mixed C++/C#, custom metadata / encryption, several games
+with different engines joined by ` & `). Nothing is derived from the engine string for such games, so a
+hint must not assume Mono, IL2CPP, .NET, etc. unless `what_to_find` or your notes say so.
+
+After editing (CI runs the same three checks with `--check`):
+
+```
+python Tools_and_Scripts/build_games_json.py
+python Tools_and_Scripts/validate_games.py
+python Tools_and_Scripts/build_dojo_map.py
+```

@@ -1,0 +1,80 @@
+{
+  "_documentation": {
+    "purpose": "Map nodes that touch protection of commercial software. Restricted nodes stay on the map, but hints are conceptual only and practice is redirected to the author's own lab binaries.",
+    "used_by": "Tools_and_Scripts/build_games_json.py",
+    "rules": [
+      "restricted=true requires a note and at least one redirect lab id (labNN / cmNN) that is built; planned ids from data/labs_index.json are allowed too and become safety.redirect_labs_planned (shown as text, no edge, no hint ref) until the lab is built.",
+      "Any Top 200 entry whose catalog text (title + engine + what_to_find) matches PROTECTION_RX in Tools_and_Scripts/dojo_schema.py MUST be listed here with restricted=true.",
+      "Optional exclude_items {techniques: [...], tools: [...]}: ids that are never shown for this node, whatever the catalog says.",
+      "Broader words (encryption, bypass, online, offline-qualified titles) are only reported: python Tools_and_Scripts/validate_games.py --protection-report",
+      "online_note_games: NOT restricted, but the game also has an online mode. The map shows an offline-only banner (anti-cheat off, never go online) and hints must stay offline: ONLINE_CONTEXT_RX in dojo_schema.py (online, multiplayer, ranked, server; RU: онлайн, мультиплеер, сервер, ранкед/рейтинговый) is an error there.",
+      "Campaign quests are keyed by a stable substring of their README.md line (readme_match), not by line number."
+    ]
+  },
+  "online_note_games": [
+    "g006",
+    "g014",
+    "g039",
+    "g048",
+    "g050",
+    "g068",
+    "g105",
+    "g106",
+    "g107",
+    "g108",
+    "g109",
+    "g128",
+    "g131",
+    "g132",
+    "g133",
+    "g147",
+    "g158",
+    "g165",
+    "g169",
+    "g171",
+    "g180",
+    "g193",
+    "g197",
+    "g198",
+    "g200"
+  ],
+  "games": {
+    "g176": {
+      "restricted": true,
+      "note": "Encrypted / obfuscated IL2CPP metadata of an online-service game (local private sandbox context). Conceptual hints only: what global-metadata is, why a publisher encrypts or obfuscates it, and what that protects. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05; planned: Lab 59 own IL2CPP-like binary, Lab 66 own encrypted metadata).",
+      "redirect_labs": ["cm03", "lab10", "cm05", "lab59", "lab66"],
+      "exclude_items": {"techniques": ["il2cpp_dump"], "tools": ["il2cppdumper"]}
+    },
+    "g177": {
+      "restricted": true,
+      "note": "Custom metadata encryption in an online-service game (offline local server context). Conceptual hints only: how metadata registration and its encryption are designed and why. No dumping or decryption steps; Il2CppDumper is not suggested. Hands-on practice happens only on your own binaries (CM 03 cipher, Lab 10 XOR-encrypted RAM + integrity, CM 05; planned: Lab 59 own IL2CPP-like binary, Lab 66 own encrypted metadata).",
+      "redirect_labs": ["cm03", "lab10", "cm05", "lab59", "lab66"],
+      "exclude_items": {"techniques": ["il2cpp_dump"], "tools": ["il2cppdumper"]}
+    },
+    "g199": {
+      "restricted": true,
+      "note": "Commercial integrity protection (Arxan). Conceptual hints only: what an integrity check is and how it is designed. Hands-on practice happens only on your own binaries (Lab 10, CM 05; planned: Lab 65 own guard thread).",
+      "redirect_labs": ["lab10", "cm05", "lab65"]
+    }
+  },
+  "quests": [
+    {
+      "id": "q_ss_legacy_drm",
+      "title": "Legacy DRM Study (SecuROM / SafeDisc)",
+      "tier": "SS",
+      "readme_match": "**[Legacy DRM Study]:**",
+      "restricted": true,
+      "note": "Commercial copy protection. Conceptual hints only (what a packer stub / OEP / import table is). Hands-on practice happens only on your own binaries (Lab 10, CM 05, CM 06).",
+      "redirect_labs": ["lab10", "cm05", "cm06"]
+    },
+    {
+      "id": "q_ssp_integrity_guard",
+      "title": "Integrity Guard Study (Arxan, offline)",
+      "tier": "SS+",
+      "readme_match": "**[Integrity Guard Study]:**",
+      "restricted": true,
+      "note": "Commercial integrity protection (Arxan). Conceptual hints only. Hands-on practice happens only on your own binaries (Lab 10, CM 05).",
+      "redirect_labs": ["lab10", "cm05"]
+    }
+  ]
+}

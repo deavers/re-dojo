@@ -1,0 +1,2201 @@
+{
+  "_documentation": {
+    "purpose": "Source of truth for in-repo labs and crackmes: plan order, prerequisites, techniques trained, check type and platform. Plan: docs/lab_plan.md.",
+    "used_by": "Tools_and_Scripts/build_games_json.py, Tools_and_Scripts/validate_games.py",
+    "rules": [
+      "status 'built' <=> the lab has a row in the README Dojo table and its source exists; tier / difficulty must match that row.",
+      "prereqs: plan prerequisites. A lab may be built before some of them; map edges go only to built ones, the rest are shown as text (prerequisites_planned) until they are built.",
+      "trains: technique ids from dojo_schema.TECHNIQUES. Game -> lab recommendations: per technique, the two lowest-difficulty BUILT labs that train it.",
+      "check: quest (existing labs, manual), flag (prints FLAG{...}), checker (checker.py validates an artifact), selftest (CTest harness).",
+      "platform.windows_only / needs_unity are shown on the map tile.",
+      "ci: 'full' = CMake/CTest build_ok/solve_ok/wrong_fails run in CI; 'sources_only' = CI cannot build the category (.NET SDK, Unity Editor): CI checks only the sources and the tests that run without that toolchain; the full autocheck runs locally.",
+      "tier of every lab added after the original 18 = rpg_manager.score_to_tier(difficulty_raw); the 18 original positions keep their hand-set tiers.",
+      "prereqs_plan (optional): the plan prerequisites while prereqs temporarily lists built labs only."
+    ]
+  },
+  "labs": {
+    "lab01": {
+      "order": 1,
+      "kind": "lab",
+      "title": "Static Scalars",
+      "tier": "F-",
+      "difficulty_raw": 0.1,
+      "status": "built",
+      "prereqs": [],
+      "trains": [
+        "exact_value_scan"
+      ],
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab11": {
+      "order": 2,
+      "kind": "lab",
+      "title": "Ширина и знак целых",
+      "tier": "F-",
+      "difficulty_raw": 0.3,
+      "status": "built",
+      "prereqs": [
+        "lab01"
+      ],
+      "trains": [
+        "exact_value_scan"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab02": {
+      "order": 3,
+      "kind": "lab",
+      "title": "Data Types and Bitmasks",
+      "tier": "F",
+      "difficulty_raw": 0.5,
+      "status": "built",
+      "prereqs": [
+        "lab01"
+      ],
+      "trains": [
+        "float_double_scan",
+        "bitmask_flags"
+      ],
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab12": {
+      "order": 4,
+      "kind": "lab",
+      "title": "Double и неточный скан",
+      "tier": "F+",
+      "difficulty_raw": 0.6,
+      "status": "built",
+      "prereqs": [
+        "lab02"
+      ],
+      "trains": [
+        "float_double_scan"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm01": {
+      "order": 5,
+      "kind": "crackme",
+      "title": "Apprentice Gate",
+      "tier": "F+",
+      "difficulty_raw": 0.7,
+      "status": "built",
+      "prereqs": [],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab13": {
+      "order": 6,
+      "kind": "lab",
+      "title": "Строки в памяти",
+      "tier": "E--",
+      "difficulty_raw": 0.8,
+      "status": "built",
+      "prereqs": [
+        "lab12"
+      ],
+      "trains": [],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm09": {
+      "order": 7,
+      "kind": "crackme",
+      "title": "Пароль после простой трансформации",
+      "tier": "E--",
+      "difficulty_raw": 0.9,
+      "status": "built",
+      "prereqs": [
+        "cm01"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab14": {
+      "order": 8,
+      "kind": "lab",
+      "title": "Игровое время и speedhack",
+      "tier": "E--",
+      "difficulty_raw": 1.0,
+      "status": "planned",
+      "prereqs": [
+        "lab01"
+      ],
+      "trains": [
+        "speedhack"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab15": {
+      "order": 9,
+      "kind": "lab",
+      "title": "Фиксированная точка 16.16",
+      "tier": "E--",
+      "difficulty_raw": 1.1,
+      "status": "built",
+      "prereqs": [
+        "lab12"
+      ],
+      "trains": [],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab03": {
+      "order": 10,
+      "kind": "lab",
+      "title": "2D Arrays and Structures",
+      "tier": "E-",
+      "difficulty_raw": 1.3,
+      "status": "built",
+      "prereqs": [
+        "lab02"
+      ],
+      "trains": [
+        "struct_dissect"
+      ],
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab16": {
+      "order": 11,
+      "kind": "lab",
+      "title": "Массив структур и шаг",
+      "tier": "E-",
+      "difficulty_raw": 1.4,
+      "status": "built",
+      "prereqs": [
+        "lab03"
+      ],
+      "trains": [
+        "struct_dissect"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab17": {
+      "order": 12,
+      "kind": "lab",
+      "title": "Вложенные структуры и выравнивание",
+      "tier": "E",
+      "difficulty_raw": 1.6,
+      "status": "built",
+      "prereqs": [
+        "lab16"
+      ],
+      "trains": [
+        "struct_dissect"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab04": {
+      "order": 13,
+      "kind": "lab",
+      "title": "MultiLevel Pointers",
+      "tier": "E",
+      "difficulty_raw": 1.8,
+      "status": "built",
+      "prereqs": [
+        "lab03"
+      ],
+      "trains": [
+        "pointer_chain"
+      ],
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm02": {
+      "order": 14,
+      "kind": "crackme",
+      "title": "Mathematical Lock",
+      "tier": "E",
+      "difficulty_raw": 1.9,
+      "status": "built",
+      "prereqs": [
+        "cm01"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab18": {
+      "order": 15,
+      "kind": "lab",
+      "title": "Синглтон с ленивой инициализацией",
+      "tier": "E+",
+      "difficulty_raw": 2.0,
+      "status": "built",
+      "prereqs": [
+        "lab04"
+      ],
+      "trains": [
+        "pointer_chain"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab19": {
+      "order": 16,
+      "kind": "lab",
+      "title": "Pointer scan через перезапуски",
+      "tier": "E+",
+      "difficulty_raw": 2.1,
+      "status": "built",
+      "prereqs": [
+        "lab18"
+      ],
+      "trains": [
+        "pointer_scan"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab20": {
+      "order": 17,
+      "kind": "lab",
+      "title": "STL в памяти",
+      "tier": "E+",
+      "difficulty_raw": 2.2,
+      "status": "planned",
+      "prereqs": [
+        "lab17"
+      ],
+      "trains": [
+        "struct_dissect"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": true,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab05": {
+      "order": 18,
+      "kind": "lab",
+      "title": "Code Injection and NOP",
+      "tier": "E+",
+      "difficulty_raw": 2.3,
+      "status": "built",
+      "prereqs": [
+        "lab04"
+      ],
+      "trains": [
+        "aob_injection",
+        "nop_patch",
+        "code_cave"
+      ],
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab21": {
+      "order": 19,
+      "kind": "lab",
+      "title": "Устойчивая AOB-сигнатура",
+      "tier": "D-",
+      "difficulty_raw": 2.4,
+      "status": "planned",
+      "prereqs": [
+        "lab05"
+      ],
+      "trains": [
+        "aob_injection"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab22": {
+      "order": 20,
+      "kind": "lab",
+      "title": "Lua-скрипт в CE",
+      "tier": "D-",
+      "difficulty_raw": 2.5,
+      "status": "planned",
+      "prereqs": [
+        "lab21"
+      ],
+      "trains": [
+        "ce_lua_script"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm10": {
+      "order": 21,
+      "kind": "crackme",
+      "title": "Серийник с контрольной цифрой",
+      "tier": "D-",
+      "difficulty_raw": 2.6,
+      "status": "built",
+      "prereqs": [
+        "cm02"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab23": {
+      "order": 22,
+      "kind": "lab",
+      "title": "Связный список сущностей",
+      "tier": "D-",
+      "difficulty_raw": 2.7,
+      "status": "planned",
+      "prereqs": [
+        "lab17"
+      ],
+      "trains": [
+        "struct_dissect"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab24": {
+      "order": 23,
+      "kind": "lab",
+      "title": "Битовые поля и наборы флагов",
+      "tier": "D",
+      "difficulty_raw": 2.8,
+      "status": "planned",
+      "prereqs": [
+        "lab02",
+        "lab17"
+      ],
+      "trains": [
+        "bitmask_flags"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab25": {
+      "order": 24,
+      "kind": "lab",
+      "title": "Физика: скорость и гравитация",
+      "tier": "D",
+      "difficulty_raw": 2.9,
+      "status": "planned",
+      "prereqs": [
+        "lab12",
+        "lab16"
+      ],
+      "trains": [
+        "float_double_scan"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab06": {
+      "order": 25,
+      "kind": "lab",
+      "title": "Shared Code Disambiguation",
+      "tier": "D",
+      "difficulty_raw": 3.0,
+      "status": "built",
+      "prereqs": [
+        "lab05"
+      ],
+      "trains": [
+        "shared_code_filter"
+      ],
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm03": {
+      "order": 26,
+      "kind": "crackme",
+      "title": "XOR and Rol Cipher",
+      "tier": "D",
+      "difficulty_raw": 3.1,
+      "status": "built",
+      "prereqs": [
+        "cm02"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab26": {
+      "order": 27,
+      "kind": "lab",
+      "title": "Сейв: заголовок, версия, CRC32",
+      "tier": "D+",
+      "difficulty_raw": 3.2,
+      "status": "planned",
+      "prereqs": [
+        "lab24",
+        "cm03"
+      ],
+      "trains": [
+        "save_format"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab27": {
+      "order": 28,
+      "kind": "lab",
+      "title": "Значение под XOR-маской со сторожем",
+      "tier": "D+",
+      "difficulty_raw": 3.3,
+      "status": "planned",
+      "prereqs": [
+        "lab06",
+        "cm03"
+      ],
+      "trains": [
+        "exact_value_scan"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm11": {
+      "order": 29,
+      "kind": "crackme",
+      "title": "TLV-сообщение на stdin",
+      "tier": "D+",
+      "difficulty_raw": 3.4,
+      "status": "planned",
+      "prereqs": [
+        "cm03"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab28": {
+      "order": 30,
+      "kind": "lab",
+      "title": "ГПСЧ (LCG): предсказать дроп",
+      "tier": "D+",
+      "difficulty_raw": 3.4,
+      "status": "planned",
+      "prereqs": [
+        "lab27"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab29": {
+      "order": 31,
+      "kind": "lab",
+      "title": "Code cave с условием",
+      "tier": "D+",
+      "difficulty_raw": 3.5,
+      "status": "planned",
+      "prereqs": [
+        "lab05",
+        "lab06"
+      ],
+      "trains": [
+        "code_cave"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab30": {
+      "order": 32,
+      "kind": "lab",
+      "title": "Запись из рабочего потока",
+      "tier": "C-",
+      "difficulty_raw": 3.6,
+      "status": "planned",
+      "prereqs": [
+        "lab29"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab31": {
+      "order": 33,
+      "kind": "lab",
+      "title": "Функция после инлайнинга /O2",
+      "tier": "C-",
+      "difficulty_raw": 3.7,
+      "status": "planned",
+      "prereqs": [
+        "lab21"
+      ],
+      "trains": [
+        "aob_injection"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab07": {
+      "order": 34,
+      "kind": "lab",
+      "title": "ReClass and VMT Hooking",
+      "tier": "C-",
+      "difficulty_raw": 3.8,
+      "status": "built",
+      "prereqs": [
+        "lab06"
+      ],
+      "trains": [
+        "vmt_hook",
+        "struct_dissect"
+      ],
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab32": {
+      "order": 35,
+      "kind": "lab",
+      "title": "Shadow VMT",
+      "tier": "C-",
+      "difficulty_raw": 3.9,
+      "status": "built",
+      "prereqs": [
+        "lab07"
+      ],
+      "trains": [
+        "vmt_hook"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab33": {
+      "order": 36,
+      "kind": "lab",
+      "title": "RTTI в MSVC",
+      "tier": "C",
+      "difficulty_raw": 4.0,
+      "status": "planned",
+      "prereqs": [
+        "lab07"
+      ],
+      "trains": [
+        "struct_dissect"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": true,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab34": {
+      "order": 37,
+      "kind": "lab",
+      "title": "Множественное наследование",
+      "tier": "C",
+      "difficulty_raw": 4.1,
+      "status": "planned",
+      "prereqs": [
+        "lab32",
+        "lab33"
+      ],
+      "trains": [
+        "vmt_hook"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab35": {
+      "order": 38,
+      "kind": "lab",
+      "title": "Имена через хэш (FNV)",
+      "tier": "C",
+      "difficulty_raw": 4.2,
+      "status": "planned",
+      "prereqs": [
+        "lab16",
+        "cm03"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm04": {
+      "order": 39,
+      "kind": "crackme",
+      "title": "Struct License File",
+      "tier": "C",
+      "difficulty_raw": 4.3,
+      "status": "built",
+      "prereqs": [
+        "cm03"
+      ],
+      "trains": [
+        "save_format"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab36": {
+      "order": 40,
+      "kind": "lab",
+      "title": "Архив .pak: оглавление + XOR",
+      "tier": "C",
+      "difficulty_raw": 4.3,
+      "status": "planned",
+      "prereqs": [
+        "lab26",
+        "cm04"
+      ],
+      "trains": [
+        "archive_format"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm12": {
+      "order": 41,
+      "kind": "crackme",
+      "title": "Лицензия с датой и битами функций",
+      "tier": "C+",
+      "difficulty_raw": 4.4,
+      "status": "planned",
+      "prereqs": [
+        "cm04",
+        "lab24"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab37": {
+      "order": 42,
+      "kind": "lab",
+      "title": "Сейв со своим XTEA",
+      "tier": "C+",
+      "difficulty_raw": 4.5,
+      "status": "planned",
+      "prereqs": [
+        "lab26",
+        "cm03"
+      ],
+      "trains": [
+        "save_format"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm13": {
+      "order": 43,
+      "kind": "crackme",
+      "title": "Строки из XOR-фрагментов",
+      "tier": "C+",
+      "difficulty_raw": 4.5,
+      "status": "planned",
+      "prereqs": [
+        "cm03"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab38": {
+      "order": 44,
+      "kind": "lab",
+      "title": "Архив со сжатием (свой LZ77)",
+      "tier": "C+",
+      "difficulty_raw": 4.6,
+      "status": "planned",
+      "prereqs": [
+        "lab36"
+      ],
+      "trains": [
+        "archive_format"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab39": {
+      "order": 45,
+      "kind": "lab",
+      "title": ".NET: декомпиляция своей C#-игры",
+      "tier": "C+",
+      "difficulty_raw": 4.7,
+      "status": "built",
+      "prereqs": [
+        "lab07"
+      ],
+      "trains": [
+        "dotnet_decompile"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": true
+      },
+      "ci": "sources_only"
+    },
+    "lab40": {
+      "order": 46,
+      "kind": "lab",
+      "title": ".NET: объекты в управляемой куче",
+      "tier": "B-",
+      "difficulty_raw": 4.8,
+      "status": "planned",
+      "prereqs": [
+        "lab39"
+      ],
+      "trains": [
+        "dotnet_decompile"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": true
+      },
+      "ci": "sources_only"
+    },
+    "lab41": {
+      "order": 47,
+      "kind": "lab",
+      "title": "Harmony-патч своей .NET-игры",
+      "tier": "B-",
+      "difficulty_raw": 4.9,
+      "status": "planned",
+      "prereqs": [
+        "lab39"
+      ],
+      "trains": [
+        "harmony_bepinex"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": true
+      },
+      "ci": "sources_only"
+    },
+    "lab08": {
+      "order": 48,
+      "kind": "lab",
+      "title": "3D Math and WorldToScreen",
+      "tier": "B-",
+      "difficulty_raw": 5.0,
+      "status": "built",
+      "prereqs": [
+        "lab07"
+      ],
+      "trains": [
+        "w2s_math"
+      ],
+      "check": "quest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab42": {
+      "order": 49,
+      "kind": "lab",
+      "title": "ViewMatrix в памяти своего софт-рендера",
+      "tier": "B-",
+      "difficulty_raw": 5.1,
+      "status": "planned",
+      "prereqs": [
+        "lab08"
+      ],
+      "trains": [
+        "w2s_math"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab43": {
+      "order": 50,
+      "kind": "lab",
+      "title": "Кости: bone matrices",
+      "tier": "B",
+      "difficulty_raw": 5.2,
+      "status": "planned",
+      "prereqs": [
+        "lab42"
+      ],
+      "trains": [
+        "w2s_math"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm14": {
+      "order": 51,
+      "kind": "crackme",
+      "title": "switch и таблица переходов",
+      "tier": "B",
+      "difficulty_raw": 5.3,
+      "status": "planned",
+      "prereqs": [
+        "cm11"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab44": {
+      "order": 52,
+      "kind": "lab",
+      "title": "Мини-ECS",
+      "tier": "B",
+      "difficulty_raw": 5.4,
+      "status": "planned",
+      "prereqs": [
+        "lab20",
+        "lab23"
+      ],
+      "trains": [
+        "struct_dissect"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm05": {
+      "order": 53,
+      "kind": "crackme",
+      "title": "AntiDebug Sentinel",
+      "tier": "B",
+      "difficulty_raw": 5.5,
+      "status": "built",
+      "prereqs": [
+        "cm04"
+      ],
+      "trains": [
+        "integrity_concept"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab45": {
+      "order": 54,
+      "kind": "lab",
+      "title": "Мини-«UE»: пул имён",
+      "tier": "B+",
+      "difficulty_raw": 5.6,
+      "status": "built",
+      "prereqs": [
+        "lab17",
+        "cm03"
+      ],
+      "trains": [
+        "sdk_dump"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full",
+      "prereqs_plan": [
+        "lab33",
+        "lab35"
+      ]
+    },
+    "lab46": {
+      "order": 55,
+      "kind": "lab",
+      "title": "Мини-«UE»: GObjects, UClass/UProperty",
+      "tier": "B+",
+      "difficulty_raw": 5.6,
+      "status": "planned",
+      "prereqs": [
+        "lab45"
+      ],
+      "trains": [
+        "sdk_dump"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab47": {
+      "order": 56,
+      "kind": "lab",
+      "title": "Генератор SDK",
+      "tier": "B+",
+      "difficulty_raw": 5.7,
+      "status": "planned",
+      "prereqs": [
+        "lab46"
+      ],
+      "trains": [
+        "sdk_dump"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab09": {
+      "order": 57,
+      "kind": "lab",
+      "title": "Internal DLL and Hooks",
+      "tier": "B+",
+      "difficulty_raw": 5.8,
+      "status": "built",
+      "prereqs": [
+        "lab08"
+      ],
+      "trains": [
+        "dll_injection",
+        "detour_hook"
+      ],
+      "check": "quest",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab48": {
+      "order": 58,
+      "kind": "lab",
+      "title": "x64 ABI: вызов с 6 аргументами",
+      "tier": "B+",
+      "difficulty_raw": 5.9,
+      "status": "planned",
+      "prereqs": [
+        "lab09"
+      ],
+      "trains": [
+        "dll_injection"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab49": {
+      "order": 59,
+      "kind": "lab",
+      "title": "Detour-хук вручную",
+      "tier": "A-",
+      "difficulty_raw": 6.0,
+      "status": "planned",
+      "prereqs": [
+        "lab48"
+      ],
+      "trains": [
+        "detour_hook"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab50": {
+      "order": 60,
+      "kind": "lab",
+      "title": "MinHook: несколько хуков и снятие",
+      "tier": "A-",
+      "difficulty_raw": 6.1,
+      "status": "planned",
+      "prereqs": [
+        "lab49"
+      ],
+      "trains": [
+        "detour_hook"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab51": {
+      "order": 61,
+      "kind": "lab",
+      "title": "Оверлей: хук своего Present-подобного интерфейса",
+      "tier": "A-",
+      "difficulty_raw": 6.2,
+      "status": "planned",
+      "prereqs": [
+        "lab50",
+        "lab32"
+      ],
+      "trains": [
+        "vmt_hook",
+        "detour_hook"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab52": {
+      "order": 62,
+      "kind": "lab",
+      "title": "Встроенная Lua 5.4: lua_State",
+      "tier": "A-",
+      "difficulty_raw": 6.3,
+      "status": "built",
+      "prereqs": [
+        "lab09",
+        "lab17"
+      ],
+      "trains": [
+        "lua_vm_hook"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab53": {
+      "order": 63,
+      "kind": "lab",
+      "title": "Вызов Lua из DLL",
+      "tier": "A",
+      "difficulty_raw": 6.4,
+      "status": "planned",
+      "prereqs": [
+        "lab52",
+        "lab50"
+      ],
+      "trains": [
+        "lua_vm_hook"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm15": {
+      "order": 64,
+      "kind": "crackme",
+      "title": "Анти-отладка через TLS callback",
+      "tier": "A",
+      "difficulty_raw": 6.4,
+      "status": "planned",
+      "prereqs": [
+        "cm05"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab54": {
+      "order": 65,
+      "kind": "lab",
+      "title": "Свой эмулятор: гостевая RAM",
+      "tier": "A",
+      "difficulty_raw": 6.5,
+      "status": "built",
+      "prereqs": [
+        "lab18",
+        "lab24"
+      ],
+      "trains": [
+        "emulator_memory"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab55": {
+      "order": 66,
+      "kind": "lab",
+      "title": "Гость с big-endian",
+      "tier": "A",
+      "difficulty_raw": 6.6,
+      "status": "planned",
+      "prereqs": [
+        "lab54"
+      ],
+      "trains": [
+        "emulator_memory"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm16": {
+      "order": 67,
+      "kind": "crackme",
+      "title": "Z3: первая система ограничений",
+      "tier": "A",
+      "difficulty_raw": 6.6,
+      "status": "built",
+      "prereqs": [
+        "cm10",
+        "cm03"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full",
+      "prereqs_plan": [
+        "cm10",
+        "cm13"
+      ]
+    },
+    "lab56": {
+      "order": 68,
+      "kind": "lab",
+      "title": "Мини-«UE»: вызов через функцию вроде ProcessEvent",
+      "tier": "A",
+      "difficulty_raw": 6.7,
+      "status": "planned",
+      "prereqs": [
+        "lab47",
+        "lab48"
+      ],
+      "trains": [
+        "sdk_dump"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm06": {
+      "order": 69,
+      "kind": "crackme",
+      "title": "Custom Stack VM",
+      "tier": "A",
+      "difficulty_raw": 6.8,
+      "status": "built",
+      "prereqs": [
+        "cm05"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab57": {
+      "order": 70,
+      "kind": "lab",
+      "title": "Lua: метатаблицы и readonly-таблицы",
+      "tier": "A+",
+      "difficulty_raw": 6.9,
+      "status": "planned",
+      "prereqs": [
+        "lab53"
+      ],
+      "trains": [
+        "lua_vm_hook"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab58": {
+      "order": 71,
+      "kind": "lab",
+      "title": ".NET: своя обфускация переименованием",
+      "tier": "A+",
+      "difficulty_raw": 7.0,
+      "status": "planned",
+      "prereqs": [
+        "lab39"
+      ],
+      "trains": [
+        "dotnet_decompile"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": true
+      },
+      "ci": "sources_only"
+    },
+    "lab59": {
+      "order": 72,
+      "kind": "lab",
+      "title": "Свой IL2CPP-подобный бинарь",
+      "tier": "A+",
+      "difficulty_raw": 7.0,
+      "status": "planned",
+      "prereqs": [
+        "lab47"
+      ],
+      "trains": [
+        "il2cpp_dump"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab10": {
+      "order": 73,
+      "kind": "lab",
+      "title": "Integrity and AntiTamper Boss",
+      "tier": "A+",
+      "difficulty_raw": 7.2,
+      "status": "built",
+      "prereqs": [
+        "lab09"
+      ],
+      "trains": [
+        "integrity_concept"
+      ],
+      "check": "quest",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab60": {
+      "order": 74,
+      "kind": "lab",
+      "title": "Эмулятор: банки памяти и save-state",
+      "tier": "S-",
+      "difficulty_raw": 7.2,
+      "status": "planned",
+      "prereqs": [
+        "lab55",
+        "lab26"
+      ],
+      "trains": [
+        "emulator_memory"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab61": {
+      "order": 75,
+      "kind": "lab",
+      "title": "Lua: свой luac-байткод",
+      "tier": "S-",
+      "difficulty_raw": 7.3,
+      "status": "planned",
+      "prereqs": [
+        "lab57",
+        "cm06"
+      ],
+      "trains": [
+        "lua_vm_hook"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab62": {
+      "order": 76,
+      "kind": "lab",
+      "title": "Unity Mono, свой проект",
+      "tier": "S-",
+      "difficulty_raw": 7.3,
+      "status": "planned",
+      "prereqs": [
+        "lab40"
+      ],
+      "trains": [
+        "mono_dissect"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": true,
+        "needs_dotnet": false
+      },
+      "ci": "sources_only"
+    },
+    "cm17": {
+      "order": 77,
+      "kind": "crackme",
+      "title": "Регистровая VM",
+      "tier": "S-",
+      "difficulty_raw": 7.4,
+      "status": "built",
+      "prereqs": [
+        "cm06"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab63": {
+      "order": 78,
+      "kind": "lab",
+      "title": "Unity IL2CPP, свой проект + Il2CppDumper",
+      "tier": "S-",
+      "difficulty_raw": 7.5,
+      "status": "planned",
+      "prereqs": [
+        "lab59",
+        "lab62"
+      ],
+      "trains": [
+        "il2cpp_dump"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": true,
+        "needs_dotnet": false
+      },
+      "ci": "sources_only"
+    },
+    "lab64": {
+      "order": 79,
+      "kind": "lab",
+      "title": "Плагин BepInEx/Harmony к своей Unity-игре",
+      "tier": "S",
+      "difficulty_raw": 7.6,
+      "status": "planned",
+      "prereqs": [
+        "lab41",
+        "lab62"
+      ],
+      "trains": [
+        "harmony_bepinex"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": true,
+        "needs_dotnet": false
+      },
+      "ci": "sources_only"
+    },
+    "cm18": {
+      "order": 80,
+      "kind": "crackme",
+      "title": "Свой упаковщик: OEP, дамп, импорт",
+      "tier": "S",
+      "difficulty_raw": 7.6,
+      "status": "planned",
+      "prereqs": [
+        "cm15",
+        "lab10"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm19": {
+      "order": 81,
+      "kind": "crackme",
+      "title": "Анти-дизассемблер",
+      "tier": "S",
+      "difficulty_raw": 7.7,
+      "status": "planned",
+      "prereqs": [
+        "cm14"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm07": {
+      "order": 82,
+      "kind": "crackme",
+      "title": "Control Flow Maze and MBA",
+      "tier": "S",
+      "difficulty_raw": 7.8,
+      "status": "built",
+      "prereqs": [
+        "cm06"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm20": {
+      "order": 83,
+      "kind": "crackme",
+      "title": "Непрозрачные предикаты + шифрованные строки",
+      "tier": "S+",
+      "difficulty_raw": 7.9,
+      "status": "planned",
+      "prereqs": [
+        "cm07",
+        "cm13"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm21": {
+      "order": 84,
+      "kind": "crackme",
+      "title": "VM с переставленными опкодами",
+      "tier": "S+",
+      "difficulty_raw": 8.0,
+      "status": "planned",
+      "prereqs": [
+        "cm17"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm22": {
+      "order": 85,
+      "kind": "crackme",
+      "title": "Самомодифицирующийся код",
+      "tier": "S+",
+      "difficulty_raw": 8.1,
+      "status": "planned",
+      "prereqs": [
+        "cm19"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab65": {
+      "order": 86,
+      "kind": "lab",
+      "title": "Guard-поток: integrity + анти-отладка",
+      "tier": "SS-",
+      "difficulty_raw": 8.2,
+      "status": "planned",
+      "prereqs": [
+        "lab10",
+        "cm15"
+      ],
+      "trains": [
+        "integrity_concept"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm23": {
+      "order": 87,
+      "kind": "crackme",
+      "title": "Слабый хэш: найти прообраз",
+      "tier": "SS-",
+      "difficulty_raw": 8.3,
+      "status": "planned",
+      "prereqs": [
+        "cm16"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab66": {
+      "order": 88,
+      "kind": "lab",
+      "title": "Свои зашифрованные метаданные",
+      "tier": "SS-",
+      "difficulty_raw": 8.4,
+      "status": "planned",
+      "prereqs": [
+        "lab59",
+        "cm13"
+      ],
+      "trains": [],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm24": {
+      "order": 89,
+      "kind": "crackme",
+      "title": "Лицензия на малой модульной арифметике",
+      "tier": "SS",
+      "difficulty_raw": 8.5,
+      "status": "planned",
+      "prereqs": [
+        "cm12",
+        "cm23"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm25": {
+      "order": 90,
+      "kind": "crackme",
+      "title": "VM внутри VM",
+      "tier": "SS",
+      "difficulty_raw": 8.6,
+      "status": "planned",
+      "prereqs": [
+        "cm21"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab67": {
+      "order": 91,
+      "kind": "lab",
+      "title": "Мини-«UE» + Lua",
+      "tier": "SS",
+      "difficulty_raw": 8.7,
+      "status": "planned",
+      "prereqs": [
+        "lab56",
+        "lab57"
+      ],
+      "trains": [
+        "sdk_dump",
+        "lua_vm_hook"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm26": {
+      "order": 92,
+      "kind": "crackme",
+      "title": "CFF + MBA + VM вместе",
+      "tier": "SS+",
+      "difficulty_raw": 8.8,
+      "status": "planned",
+      "prereqs": [
+        "cm07",
+        "cm25"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab68": {
+      "order": 93,
+      "kind": "lab",
+      "title": "Эмулятор с кэшем блоков",
+      "tier": "SS+",
+      "difficulty_raw": 8.9,
+      "status": "planned",
+      "prereqs": [
+        "lab60"
+      ],
+      "trains": [
+        "emulator_memory"
+      ],
+      "check": "selftest",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm27": {
+      "order": 94,
+      "kind": "crackme",
+      "title": "Символьное исполнение по трассе VM",
+      "tier": "SS+",
+      "difficulty_raw": 9.0,
+      "status": "planned",
+      "prereqs": [
+        "cm16",
+        "cm25"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm08": {
+      "order": 95,
+      "kind": "crackme",
+      "title": "Symbolic Execution Vault",
+      "tier": "SSS-",
+      "difficulty_raw": 9.2,
+      "status": "built",
+      "prereqs": [
+        "cm07"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab69": {
+      "order": 96,
+      "kind": "lab",
+      "title": "Капстоун 1: сейв + архив + Lua + рефлексия",
+      "tier": "SSS-",
+      "difficulty_raw": 9.3,
+      "status": "planned",
+      "prereqs": [
+        "lab38",
+        "lab47",
+        "lab57"
+      ],
+      "trains": [
+        "save_format",
+        "archive_format"
+      ],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm28": {
+      "order": 97,
+      "kind": "crackme",
+      "title": "Капстоун-крякми: упаковщик + VM + анти-отладка",
+      "tier": "SSS",
+      "difficulty_raw": 9.4,
+      "status": "planned",
+      "prereqs": [
+        "cm18",
+        "cm21",
+        "lab65"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab70": {
+      "order": 98,
+      "kind": "lab",
+      "title": "Капстоун 2: guard + шифрованные метаданные + хуки",
+      "tier": "SSS",
+      "difficulty_raw": 9.6,
+      "status": "planned",
+      "prereqs": [
+        "lab65",
+        "lab66",
+        "lab51"
+      ],
+      "trains": [
+        "integrity_concept",
+        "detour_hook"
+      ],
+      "check": "flag",
+      "platform": {
+        "windows_only": true,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "cm29": {
+      "order": 99,
+      "kind": "crackme",
+      "title": "Финальный vault: Z3 + VM + integrity",
+      "tier": "SSS+",
+      "difficulty_raw": 9.8,
+      "status": "planned",
+      "prereqs": [
+        "cm27",
+        "cm08"
+      ],
+      "trains": [],
+      "check": "flag",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    },
+    "lab71": {
+      "order": 100,
+      "kind": "lab",
+      "title": "Гранд-капстоун: мини-движок и райтап",
+      "tier": "SSS++",
+      "difficulty_raw": 10.0,
+      "status": "planned",
+      "prereqs": [
+        "lab69",
+        "lab70"
+      ],
+      "trains": [],
+      "check": "checker",
+      "platform": {
+        "windows_only": false,
+        "msvc_only": false,
+        "needs_unity": false,
+        "needs_dotnet": false
+      },
+      "ci": "full"
+    }
+  }
+}

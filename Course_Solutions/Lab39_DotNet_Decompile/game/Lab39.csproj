@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- RE:DOJO Lab 39: own .NET 8 console game. No NuGet packages, so it builds offline. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>Lab39</AssemblyName>
+    <RootNamespace>ReDojo.Lab39</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <Deterministic>true</Deterministic>
+    <PathMap>$(MSBuildProjectDirectory)=.</PathMap>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- No PDBs: they would embed local build paths (opsec), and a decompiler does not need them. -->
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+</Project>
