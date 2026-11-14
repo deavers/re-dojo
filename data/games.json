@@ -928,7 +928,7 @@
       "exp": 300,
       "path": "Course_Solutions/Lab18_Lazy_Singleton/lab18_lazy_singleton.cpp",
       "prerequisite_text": "Pointer chains",
-      "concept": "Lazy singleton: static pointer stays `NULL` until first use, then a 3-level chain to the inventory",
+      "concept": "A manager pointer that stays empty until first use",
       "prerequisites": {
         "labs": [
           "lab04"

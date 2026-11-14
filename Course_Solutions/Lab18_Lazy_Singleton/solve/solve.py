@@ -18,6 +18,8 @@ WRONG = [
     "act enter\nchain ptr 0x00 0x08 0x10 i32 99999\n",
     # Right chain, last offset off by 4 (weight instead of gems).
     "act enter\nchain ptr 0x08 0x08 0x0C i32 99999\n",
+    # Too many gems: the room wants exactly 99999.
+    "act enter\nchain ptr 0x08 0x08 0x10 i32 100000\n",
     # Not enough gems.
     "act enter\nchain ptr 0x08 0x08 0x10 i32 9999\n",
     # A plain poke has no static object to write into here: rejected, never a crash.

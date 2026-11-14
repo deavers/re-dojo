@@ -45,7 +45,7 @@ static_assert(offsetof(GameManager, player) == 0x08, "player pointer offset");
 // Chain: [g_pGameManager] +0x08 -> Player, Player +0x08 -> Inventory, Inventory +0x10 = gems.
 inline GameManager* g_pGameManager = nullptr;
 
-// Treasure requirement: at least 99999 gems (one gem per dungeon visit in game).
+// Treasure requirement: exactly 99999 gems (one gem per dungeon visit in game).
 constexpr std::int32_t kGemGoal = 99999;
 
 // Lazy initialisation: the whole object graph is created on the first visit only.
@@ -65,7 +65,7 @@ inline bool CheckWin()
 {
     const GameManager* gm = g_pGameManager;
     return gm != nullptr && gm->player != nullptr && gm->player->inventory != nullptr &&
-           gm->player->inventory->gems >= kGemGoal;
+           gm->player->inventory->gems == kGemGoal;
 }
 
 inline std::uint64_t Fnv1a64(const std::string& text)
@@ -79,9 +79,10 @@ inline std::uint64_t Fnv1a64(const std::string& text)
     return h;
 }
 
+// The flag mixes a neutral tag with the gem count the solver wrote.
 inline std::string MakeFlag()
 {
-    const std::string seal = "lab18|gems>=99999";
+    const std::string seal = "lab18|" + std::to_string(g_pGameManager->player->inventory->gems);
     std::ostringstream out;
     out << "FLAG{LAB18_" << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << Fnv1a64(seal) << "}";
     return out.str();

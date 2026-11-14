@@ -8,7 +8,7 @@
 //   Find the static pointer, wait for the lazy init, then walk the chain.
 //
 // QUEST OBJECTIVE:
-//   Open the Treasure Room with at least 99999 gems.
+//   Open the Treasure Room with exactly 99999 gems.
 //   Each dungeon visit gives one gem.
 //
 // Exit codes: 0 treasure opened (flag printed), 3 quit / end of input.
@@ -44,7 +44,7 @@ static void PrintState()
         std::cout << "   HP " << p->hp << ", level " << p->level << ", gems " << p->inventory->gems << "\n";
     }
     std::cout << "--------------------------------------------------------------------\n";
-    std::cout << "  The Treasure Room needs at least 99999 gems.\n";
+    std::cout << "  The Treasure Room needs exactly 99999 gems.\n";
 }
 
 int main()
